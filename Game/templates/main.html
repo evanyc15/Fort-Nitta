@@ -2,127 +2,176 @@
 {% load staticfiles %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'foundation/css/foundation.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'foundation/icons/font-awesome/css/font-awesome.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'foundation/css/dataTables.foundation.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'foundation/css/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'foundation/css/custom.css' %}">
 <script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
 <script src="{% static 'foundation/js/foundation.min.js' %}"></script>
 <script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
+<script src="{% static 'foundation/js/vendor/dataTables.foundation.min.js' %}"></script>
+<script src="{% static 'foundation/js/custom/main.js' %}"></script>
 
-<!-- Nav Bar -->
+<nav class="top-bar" data-topbar>
+<ul class="title-area">
+  <!-- Title Area -->
+  <li class="name">
+    <h1>
+      <a href="#">
+        <img id="topBarLogo" src="{% static 'foundation/img/ECS160_CastleWarsLogoWhite.png' %}" />
+      </a>
+    </h1>
+  </li>
+  <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+</ul>
 
-<div class="row">
-  <div class="large-12 columns">
-    <div class="nav-bar right">
-     <ul class="button-group">
-       <li><a href="{% url 'home_view' %}" class="button">Home</a></li>
+<section class="top-bar-section">
+  <!-- Left Nav Section -->
+  <ul class="left">
+    <li class="has-dropdown">
+      <a href="#">Windows Statistics</a>
+      <ul class="dropdown">
+        <li><a href="#">OSX Statistics</a></li>
+        <li><a href="#">Linux Statistics</a></li>
+        <li><a href="#">iOS Statistics</a></li>
+        <li><a href="#">Android Statistics</a></li>
       </ul>
+    </li>
+    <li class="has-dropdown">
+      <a href="#">Profile</a>
+    </li>
+    <li class="has-dropdown">
+      <a href="#">Leaderboard</a>
+    </li>
+    <li class="has-dropdown">
+      <a href="#">Wiki</a>
+    </li>
+    <li class="has-dropdown">
+      <a href="#">Announcement Updates</a>
+    </li>
+  </ul>
+  <!-- Right Nav Section -->
+  <ul class="right">
+    <li class="divider"></li>
+    <li class="has-dropdown">
+      <a href="#">Download Here</a>
+      <ul class="dropdown">
+        <li><a href="#">Windows .exe</a></li>
+        <li><a href="#">Linux .deb</a></li>
+        <li><a href="#">OSX .dmg</a></li>
+        <li><a href="#">iOS .ipa</a></li>
+        <li><a href="#">Android .apk</a></li>
+      </ul>
+    </li>
+    <li class="divider"></li>
+    <li class="has-dropdown">
+      <a href="#">Professor Nitta</a>
+      <ul class="dropdown">
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Feedback & Support</a></li>
+        <li class="divider"></li>
+        <li><a href="{% url 'home_view' %}">Log Out</a></li> <!-- NOT WORKING, HAS TO DO W/ URL ROUTING -->
+      </ul>
+    </li>
+    <li class="divider"></li>
+    <li class="has-dropdown">
+      <a id="chatDropdown" href="#">Friends</a>
+    </li>
+  </ul>
+</section>
+</nav>
+
+<!-- End Top Bar -->
+<div class="row" id="chatBox">
+<div class="large-12 columns">
+  <div class="row chatHeader">
+      <div class="large-12 columns">
+        2 PLAYERS ONLINE
+      </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns" id="playerList">
+      <div class="row playerTile">
+        <div class="large-2 columns">
+          <i class="fa fa-circle playerTileStatus"></i>
+        </div>
+        <div class="large-10 columns">
+          John Doe
+        </div>
+      </div>
+       <div class="row playerTile">
+        <div class="large-2 columns">
+          <i class="fa fa-circle playerTileStatus"></i>
+        </div>
+        <div class="large-10 columns">
+          Mary Jane
+        </div>
+      </div>
     </div>
-    <h1>Blog <small>This is my blog. It's awesome.</small></h1>
-    <hr />
   </div>
 </div>
-
-<!-- End Nav -->
+</div>
 
 
 <!-- Main Page Content and Sidebar -->
-
-<div class="row">
-
-  <!-- Main Blog Content -->
-  <div class="large-9 columns" role="content">
-
-    <article>
-
-      <h3><a href="#">Blog Post Title</a></h3>
-      <h6>Written by <a href="#">John Smith</a> on August 12, 2012.</h6>
-
-      <div class="row">
-        <div class="large-6 columns">
-          <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa.</p>
-          <p>Boudin aliqua adipisicing rump corned beef. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
-        </div>
-        <div class="large-6 columns">
-          <img src="http://placehold.it/400x240&text=[img]" />
-        </div>
-      </div>
-
-      <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
-
-      <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
-
-    </article>
-
-    <hr />
-
-    <article>
-
-      <h3><a href="#">Blog Post Title</a></h3>
-      <h6>Written by <a href="#">John Smith</a> on August 12, 2012.</h6>
-
-      <div class="row">
-        <div class="large-6 columns">
-          <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa.</p>
-          <p>Boudin aliqua adipisicing rump corned beef. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
-        </div>
-        <div class="large-6 columns">
-          <img src="http://placehold.it/400x240&text=[img]" />
-        </div>
-      </div>
-
-      <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
-
-      <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
-
-    </article>
-
-  </div>
-
-  <!-- End Main Content -->
-
-
-  <!-- Sidebar -->
-
-  <aside class="large-3 columns">
-
-    <h5>Categories</h5>
-    <ul class="side-nav">
-      <li><a href="#">News</a></li>
-      <li><a href="#">Code</a></li>
-      <li><a href="#">Design</a></li>
-      <li><a href="#">Fun</a></li>
-      <li><a href="#">Weasels</a></li>
-    </ul>
-
-    <div class="panel">
-      <h5>Featured</h5>
-      <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow.</p>
-      <a href="#">Read More →</a>
+<div class="row content">
+  <div class="large-3 columns profileInfo">
+    <img class="profile-image" src="{% static 'foundation/img/placeholder-user.png' %}" />
+    <span>Username</span>
+    <br>
+    <span>Level Progress</span>
+    <div class="achievementAccolades">
+      Accolades and Achievements
     </div>
+  </div>
+  <div class="large-9 columns">
+    <table id="profileTable" class="display">
+      <thead>
+          <tr>
+              <th colspan="2">Statistics</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>Hours Played</td>
+              <td>15</td>
+          </tr>
+          <tr>
+              <td>Wins</td>
+              <td>10</td>
+          </tr>
+           <tr>
+              <td>Loses</td>
+              <td>15</td>
+          </tr>
+      </tbody>
+  </table>
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+<!-- Footer -->
+<footer class="row">
+<div class="large-12 columns">
+  <hr />
+  <div class="row">
+    <div class="large-12 columns">
+      <p>© Copyright UC Davis 2015 ECS160 Server Group with Professor Nitta</p>
+    </div>
+  </div>
+</div>
+</footer>
 
-  </aside>
+<!-- End Footer -->
 
-  <!-- End Sidebar -->
+
+
+<!-- Map Modal -->
+
+<div class="reveal-modal" id="mapModal">
+<h4>Where We Are</h4>
+<p><img src="http://placehold.it/800x600" /></p>
+
+<!-- Any anchor with this class will close the modal. This also inherits certain styles, which can be overriden. -->
+<a href="#" class="close-reveal-modal">×</a>
 </div>
 
-<!-- End Main Content and Sidebar -->
-
-
-<!-- Footer -->
-
-<footer class="row">
-  <div class="large-12 columns">
-    <hr />
-    <div class="row">
-      <div class="large-6 columns">
-        <p>© Copyright no one at all. Go to town.</p>
-      </div>
-      <div class="large-6 columns">
-        <ul class="inline-list right">
-          <li><a href="#">Link 1</a></li>
-          <li><a href="#">Link 2</a></li>
-          <li><a href="#">Link 3</a></li>
-          <li><a href="#">Link 4</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</footer>
