@@ -1,4 +1,4 @@
-<!-- Including Foundation CSS and JavaScript Files -->
+<!-- Including CSS Files -->
 {% load staticfiles %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'foundation/css/foundation.min.css' %}">
@@ -6,11 +6,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'foundation/css/dataTables.foundation.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'foundation/css/main.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'foundation/css/custom.css' %}">
-<script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
-<script src="{% static 'foundation/js/foundation.min.js' %}"></script>
-<script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
-<script src="{% static 'foundation/js/vendor/dataTables.foundation.min.js' %}"></script>
-<script src="{% static 'foundation/js/custom/main.js' %}"></script>
 
 <nav class="top-bar" data-topbar>
 <ul class="title-area">
@@ -174,4 +169,15 @@
 <!-- Any anchor with this class will close the modal. This also inherits certain styles, which can be overriden. -->
 <a href="#" class="close-reveal-modal">×</a>
 </div>
+
+<!-- Including JS Files -->
+<script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
+<script src="{% static 'foundation/js/foundation.min.js' %}"></script>
+<script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
+<script src="{% static 'foundation/js/vendor/dataTables.foundation.min.js' %}"></script>
+<script src="{% static 'foundation/js/custom/main.js' %}"></script>
+
+<script>
+  $(document).foundation();
+</script>
 

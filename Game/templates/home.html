@@ -5,11 +5,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'foundation/css/custom.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'foundation/css/home.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'foundation/icons/font-awesome/css/font-awesome.min.css' %}">
-<script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
-<script src="{% static 'foundation/js/foundation.min.js' %}"></script>
-<script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
-<script src="{% static 'foundation/js/vendor/jquery-photo-resize.js' %}"></script>
-<script src="{% static 'foundation/js/custom/home.js' %}"></script>
 
 <header>
 <div class="row fullWidth collapse">
@@ -132,3 +127,13 @@
 </div>
 </div>
 
+<!-- Including JS Files -->
+<script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
+<script src="{% static 'foundation/js/foundation.min.js' %}"></script>
+<script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
+<script src="{% static 'foundation/js/vendor/jquery-photo-resize.js' %}"></script>
+<script src="{% static 'foundation/js/custom/home.js' %}"></script>
+
+<script>
+	$(document).foundation();
+</script>
