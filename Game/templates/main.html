@@ -1,183 +1,194 @@
-<!-- Including CSS Files -->
-{% load staticfiles %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'foundation/css/foundation.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'foundation/icons/font-awesome/css/font-awesome.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'foundation/css/dataTables.foundation.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'foundation/css/main.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'foundation/css/custom.css' %}">
-
-<nav class="top-bar" data-topbar>
-<ul class="title-area">
-  <!-- Title Area -->
-  <li class="name">
-    <h1>
-      <a href="#">
-        <img id="topBarLogo" src="{% static 'foundation/img/ECS160_CastleWarsLogoWhite.png' %}" />
-      </a>
-    </h1>
-  </li>
-  <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-</ul>
-
-<section class="top-bar-section">
-  <!-- Left Nav Section -->
-  <ul class="left">
-    <li class="has-dropdown">
-      <a href="#">Windows Statistics</a>
-      <ul class="dropdown">
-        <li><a href="#">OSX Statistics</a></li>
-        <li><a href="#">Linux Statistics</a></li>
-        <li><a href="#">iOS Statistics</a></li>
-        <li><a href="#">Android Statistics</a></li>
+<!DOCTYPE html>
+<html>
+<head>
+  {% load staticfiles %}
+  <!-- Including CSS Files -->
+  <!-- Foundation CSS Files -->
+  <link rel="stylesheet" type="text/css" href="{% static 'foundation/css/foundation.min.css' %}">
+  <!-- Module and Add-on CSS Files -->
+  <link rel="stylesheet" type="text/css" href="{% static 'icons/font-awesome/css/font-awesome.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/dataTables.foundation.css' %}">
+  <!-- User Defined CSS Files -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+</head>
+<body>
+  <!-- Begin Top Bar -->
+  <div class="sticky">
+    <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1>
+          <a href="#">
+            <img id="topBarLogo" src="{% static 'img/ECS160_CastleWarsLogoWhite.png' %}" />
+          </a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <li class="has-dropdown">
+          <a href="#">Windows Statistics</a>
+          <ul class="dropdown">
+            <li><a href="#">OSX Statistics</a></li>
+            <li><a href="#">Linux Statistics</a></li>
+            <li><a href="#">iOS Statistics</a></li>
+            <li><a href="#">Android Statistics</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">Profile</a>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">Leaderboard</a>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">Wiki</a>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">Announcement Updates</a>
+        </li>
       </ul>
-    </li>
-    <li class="has-dropdown">
-      <a href="#">Profile</a>
-    </li>
-    <li class="has-dropdown">
-      <a href="#">Leaderboard</a>
-    </li>
-    <li class="has-dropdown">
-      <a href="#">Wiki</a>
-    </li>
-    <li class="has-dropdown">
-      <a href="#">Announcement Updates</a>
-    </li>
-  </ul>
-  <!-- Right Nav Section -->
-  <ul class="right">
-    <li class="divider"></li>
-    <li class="has-dropdown">
-      <a href="#">Download Here</a>
-      <ul class="dropdown">
-        <li><a href="#">Windows .exe</a></li>
-        <li><a href="#">Linux .deb</a></li>
-        <li><a href="#">OSX .dmg</a></li>
-        <li><a href="#">iOS .ipa</a></li>
-        <li><a href="#">Android .apk</a></li>
-      </ul>
-    </li>
-    <li class="divider"></li>
-    <li class="has-dropdown">
-      <a href="#">Professor Nitta</a>
-      <ul class="dropdown">
-        <li><a href="#">Settings</a></li>
-        <li><a href="#">Feedback & Support</a></li>
+      <!-- Right Nav Section -->
+      <ul class="right">
         <li class="divider"></li>
-        <li><a href="{% url 'home_view' %}">Log Out</a></li> <!-- NOT WORKING, HAS TO DO W/ URL ROUTING -->
+        <li class="has-dropdown">
+          <a href="#">Download Here</a>
+          <ul class="dropdown">
+            <li><a href="#">Windows .exe</a></li>
+            <li><a href="#">Linux .deb</a></li>
+            <li><a href="#">OSX .dmg</a></li>
+            <li><a href="#">iOS .ipa</a></li>
+            <li><a href="#">Android .apk</a></li>
+          </ul>
+        </li>
+        <li class="divider"></li>
+        <li class="has-dropdown">
+          <a href="#">Professor Nitta</a>
+          <ul class="dropdown">
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Feedback & Support</a></li>
+            <li class="divider"></li>
+            <li><a href="{% url 'home_view' %}">Log Out</a></li> <!-- NOT WORKING, HAS TO DO W/ URL ROUTING -->
+          </ul>
+        </li>
+        <li class="divider"></li>
+        <li class="has-dropdown">
+          <a id="chatDropdown" href="#">Friends</a>
+        </li>
       </ul>
-    </li>
-    <li class="divider"></li>
-    <li class="has-dropdown">
-      <a id="chatDropdown" href="#">Friends</a>
-    </li>
-  </ul>
-</section>
-</nav>
-
-<!-- End Top Bar -->
-<div class="row" id="chatBox">
-<div class="large-12 columns">
-  <div class="row chatHeader">
-      <div class="large-12 columns">
-        2 PLAYERS ONLINE
-      </div>
+    </section>
+    </nav>
   </div>
-  <div class="row">
-    <div class="large-12 columns" id="playerList">
-      <div class="row playerTile">
-        <div class="large-2 columns">
-          <i class="fa fa-circle playerTileStatus"></i>
-        </div>
-        <div class="large-10 columns">
-          John Doe
-        </div>
-      </div>
-       <div class="row playerTile">
-        <div class="large-2 columns">
-          <i class="fa fa-circle playerTileStatus"></i>
-        </div>
-        <div class="large-10 columns">
-          Mary Jane
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-
-<!-- Main Page Content and Sidebar -->
-<div class="row content">
-  <div class="large-3 columns profileInfo">
-    <img class="profile-image" src="{% static 'foundation/img/placeholder-user.png' %}" />
-    <span>Username</span>
-    <br>
-    <span>Level Progress</span>
-    <div class="achievementAccolades">
-      Accolades and Achievements
-    </div>
-  </div>
-  <div class="large-9 columns">
-    <table id="profileTable" class="display">
-      <thead>
-          <tr>
-              <th colspan="2">Statistics</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr>
-              <td>Hours Played</td>
-              <td>15</td>
-          </tr>
-          <tr>
-              <td>Wins</td>
-              <td>10</td>
-          </tr>
-           <tr>
-              <td>Loses</td>
-              <td>15</td>
-          </tr>
-      </tbody>
-  </table>
-  </div>
-</div>
-<!-- End Main Content and Sidebar -->
-<!-- Footer -->
-<footer class="row">
-<div class="large-12 columns">
-  <hr />
-  <div class="row">
+  <!-- End Top Bar -->
+  <!-- Begin Chat Box -->
+  <div class="row" id="chatBox">
     <div class="large-12 columns">
-      <p>© Copyright UC Davis 2015 ECS160 Server Group with Professor Nitta</p>
+      <div class="row chatHeader">
+          <div class="large-12 columns">
+            2 PLAYERS ONLINE
+          </div>
+      </div>
+      <div class="row">
+        <div class="large-12 columns" id="playerList">
+          <div class="row playerTile">
+            <div class="large-2 columns">
+              <i class="fa fa-circle playerTileStatus"></i>
+            </div>
+            <div class="large-10 columns">
+              John Doe
+            </div>
+          </div>
+           <div class="row playerTile">
+            <div class="large-2 columns">
+              <i class="fa fa-circle playerTileStatus"></i>
+            </div>
+            <div class="large-10 columns">
+              Mary Jane
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</footer>
+  <!-- End Chat Box -->
+  <!-- Main Page Content and Sidebar -->
+  <div class="row content">
+    <div class="large-3 columns profileInfo">
+      <img class="profile-image" src="{% static 'img/placeholder-user.png' %}" />
+      <span>Username</span>
+      <br>
+      <span>Level Progress</span>
+      <div class="achievementAccolades">
+        Accolades and Achievements
+      </div>
+    </div>
+    <div class="large-9 columns">
+      <table id="profileTable" class="display">
+        <thead>
+            <tr>
+                <th colspan="2">Statistics</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Hours Played</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td>Wins</td>
+                <td>10</td>
+            </tr>
+             <tr>
+                <td>Loses</td>
+                <td>15</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+  </div>
+  <!-- End Main Content and Sidebar -->
+  <!-- Footer -->
+  <footer class="row">
+  <div class="large-12 columns">
+    <hr />
+    <div class="row">
+      <div class="large-12 columns">
+        <p>© Copyright UC Davis 2015 ECS160 Server Group with Professor Nitta</p>
+      </div>
+    </div>
+  </div>
+  </footer>
 
-<!-- End Footer -->
+  <!-- End Footer -->
 
+  <!-- Map Modal -->
 
+  <div class="reveal-modal" id="mapModal">
+  <h4>Where We Are</h4>
+  <p><img src="http://placehold.it/800x600" /></p>
 
-<!-- Map Modal -->
+  <!-- Any anchor with this class will close the modal. This also inherits certain styles, which can be overriden. -->
+  <a href="#" class="close-reveal-modal">×</a>
+  </div>
 
-<div class="reveal-modal" id="mapModal">
-<h4>Where We Are</h4>
-<p><img src="http://placehold.it/800x600" /></p>
+  <!-- Including JS Files -->
+  <!-- Foundation JS Files -->
+  <script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
+  <script src="{% static 'foundation/js/foundation.min.js' %}"></script>
+  <script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
+  <script src="{% static 'foundation/js/foundation/foundation.topbar.js' %}"></script>
+  <!-- Module and Addon JS Files -->
+  <script src="{% static 'js/dataTables.foundation.min.js' %}"></script>
+  <!-- User Defined JS Files -->
+  <script src="{% static 'js/main.js' %}"></script>
 
-<!-- Any anchor with this class will close the modal. This also inherits certain styles, which can be overriden. -->
-<a href="#" class="close-reveal-modal">×</a>
-</div>
-
-<!-- Including JS Files -->
-<script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
-<script src="{% static 'foundation/js/foundation.min.js' %}"></script>
-<script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
-<script src="{% static 'foundation/js/vendor/dataTables.foundation.min.js' %}"></script>
-<script src="{% static 'foundation/js/custom/main.js' %}"></script>
-
-<script>
-  $(document).foundation();
-</script>
+  <script>
+    $(document).foundation();
+  </script>
+</body>
+</html>
 
