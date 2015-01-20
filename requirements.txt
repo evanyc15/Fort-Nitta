@@ -2,4 +2,4 @@ Django==1.7.3
 gunicorn==19.1.1
 static==0.4
 wsgiref==0.1.2
-WhiteNoise==1.06
+WhiteNoise==1.0.6
