@@ -1,0 +1,44 @@
+#topBarLogo {
+	margin-top: 5px;
+	width: 110px;
+	height: 45px;
+}
+#chatBox {
+	position: fixed;
+	width: 225px;
+	top: 45px;
+	right: 0;
+	padding-top: 10px;
+	border-left: 1px dotted gray;
+	background-color: rgba(0, 0, 0, 0.8);
+	display: none;
+	z-index: 99;
+}
+.chatHeader {
+	color: white;
+	padding: 5px;
+	font-size: 1em;
+	margin-bottom: 10px !important;
+}
+.playerTile {
+	color: white;
+	padding: 5px;
+	border-top: 1px dotted rgb(64,64,64);
+	border-bottom: 1px dotted rgb(64,64,64); 
+}
+.playerTileStatus{
+	margin-top: 5px;
+	color: green;
+}
+.content {
+	padding-top: 20px;
+}
+.profileInfo {
+	border: 1px dotted gray;
+}
+.profile-image {
+
+}
+#profileTable {
+	width: 100%;
+}
