@@ -13,12 +13,13 @@ define([
 
 		initialize: function(options){
 			this.options = options;
+		},
+		events: {
+			"click #backLoginButton": "loginShow"
+		},
+		loginShow: function(){
+			this.trigger("click:login:show");
 		}
-
-		// events: {
-		// 	"click #signupButton": "signUpShow",
-		// 	"click #backLoginButton": "loginShow"
-		// },
 
 		
 	});
