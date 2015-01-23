@@ -26,7 +26,6 @@ define([
 			this.signupView.on("click:login:show", this.signupViewTriggers.bind(this));
 			
 		},
-
 		regions: {
 			loginRegion: "#loginRegion",
 			aboutRegion: "#aboutRegion"
@@ -48,14 +47,11 @@ define([
 			self.signupView.on("click:login:show", self.signupViewTriggers.bind(this));
 		},
 		onRender: function() {
-
 			this.loginRegion.show(this.loginView);
 			this.aboutRegion.show(this.aboutView);
 
 		},
 		onShow: function() {
-
-
 			$(document).foundation();
 		}
 	});
