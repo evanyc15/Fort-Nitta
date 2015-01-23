@@ -13,11 +13,8 @@
 }
 #playersRegion{
 	position: fixed;
-	padding-top: 45px;
-	
-	top: 0;
+	top: 45px;
 	right: 0;
-	z-index; 99;
 }
 #playersRegion.playersShow {
 	transition: all 0.5s ease;
