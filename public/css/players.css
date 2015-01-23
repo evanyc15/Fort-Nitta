@@ -1,0 +1,54 @@
+#chatBox {
+	width: 100%;
+	border-top: 1px dotted gray;
+	border-left: 1px dotted gray;
+	height:100vh;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 99;
+}
+.chatHeader {
+	color: white;
+	padding: 5px;
+	font-size: 1em;
+	margin-bottom: 10px !important;
+}
+.playerTile {
+	color: white;
+	padding: 5px;
+	border-top: 1px dotted rgb(64,64,64);
+	border-bottom: 1px dotted rgb(64,64,64); 
+}
+.playerTileStatus{
+	margin-top: 5px;
+	color: green;
+}
+.content {
+	padding-top: 20px;
+}
+.profileInfo {
+	border: 1px dotted gray;
+}
+#playersDisplayButton {
+	position: absolute;
+	top: 75px;
+	left: -30px;
+	height: 30px;
+	width: 30px;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+	border-left: 2px solid black;
+	border-right: 1px solid gray;
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	background: white;
+	z-index: 99;
+	cursor: pointer;
+}
+#playersDisplayButton i {
+	margin-top: 5px;
+	margin-left: 5px;
+}

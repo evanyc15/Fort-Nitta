@@ -1,0 +1,29 @@
+#topBarLogo {
+	margin-top: 5px;
+	width: 110px;
+	height: 45px;
+}
+#contentArea.contentShow{
+	transition: all 0.5s ease;
+	padding-right: 0px;
+}
+#contentArea.contentHide{
+	transition: all 0.5s ease;
+	padding-right: 225px;
+}
+#playersRegion{
+	position: fixed;
+	padding-top: 45px;
+	
+	top: 0;
+	right: 0;
+	z-index; 99;
+}
+#playersRegion.playersShow {
+	transition: all 0.5s ease;
+	width: 225px;
+}
+#playersRegion.playersHide {
+	transition: all 0.5s ease;
+	width: 0px;
+}
