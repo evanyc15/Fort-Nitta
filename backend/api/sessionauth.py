@@ -25,7 +25,7 @@ class SessionAuthAPI(MethodView):
 
         if ('username' in request_data) and ('password' in request_data):
             user = User.query.filter_by(username=request_data['username']).first()
-            if request_data['password'] == user.password:
+            if user and (request_data['password'] == user.password):
                 login_user(user)
 
                 return jsonify(**{'success': True})
