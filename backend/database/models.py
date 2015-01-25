@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     email =         db.Column(db.String(60), unique=True)
     first_name =    db.Column(db.String(40))
     last_name =     db.Column(db.String(40))
-    avatar_url =    db.Column(db.String(100))
+    avatar_path =   db.Column(db.String(100))
 
     # One-to-one relationship with a Presence model
     activity =      db.relationship('Presence', backref='user', uselist=False)
@@ -42,12 +42,21 @@ class User(db.Model, UserMixin):
         """
         return '<User: {0}>'.format(self.username)
 
-    def set_avatar_url(self, url):
+    def set_avatar_local_path(self, path):
         """
-        Change the URL of a User's avatar.
+        Change the path of a User's avatar.
         Arguments should be validated elsewhere prior to instantiation.
+        Base path is defined in app.config['AVATAR_UPLOADS'].
         """
-        self.avatar_url = url
+        self.avatar_path = path
+
+    def get_avatar_local_path(self):
+        """
+        Get the path of a User's avatar.
+        Arguments should be validated elsewhere prior to instantiation.
+        Base path is defined in app.config['AVATAR_UPLOADS'].
+        """
+        return self.avatar_path
 
 @login_manager.user_loader
 def load_user(userid):

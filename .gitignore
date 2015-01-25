@@ -3,4 +3,5 @@ venv
 staticfiles
 env
 *.db
+avatar_uploads
 secret.py
