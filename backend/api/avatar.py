@@ -18,7 +18,7 @@ class AvatarAPI(MethodView):
         ext = (file.filename.rsplit('.', 1)[1]) if ('.' in file.filename) else None
 
         if ext not in ['jpg', 'jpeg', 'png', 'gif']:
-            return jsonify(**{'success': False})
+            return jsonify(**{'success': False}), 422
 
         # In case for whatever reason a username is made of Unix relative directory markers
         filename = secure_filename(current_user.username) + '.' + ext

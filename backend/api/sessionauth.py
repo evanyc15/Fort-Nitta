@@ -10,7 +10,7 @@ from backend.database.models import User
 def session_auth_required(func):
     def decorated(*args, **kwargs):
         if not current_user.is_authenticated():
-            return jsonify(**{'authenticated': False})
+            return jsonify(**{'authenticated': False}), 401
         return func(*args, **kwargs)
 
     return decorated
@@ -21,7 +21,7 @@ class SessionAuthAPI(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
-            return jsonify(**{'success': False})
+            return jsonify(**{'success': False}), 401
 
         if ('username' in request_data) and ('password' in request_data):
             user = User.query.filter_by(username=request_data['username']).first()
@@ -30,7 +30,7 @@ class SessionAuthAPI(MethodView):
 
                 return jsonify(**{'success': True})
 
-        return jsonify(**{'success': False})
+        return jsonify(**{'success': False}), 401
 
     @session_auth_required
     def get(self):

@@ -16,7 +16,7 @@ class RegisterAPI(MethodView):
         errors, cleaned_data = self.validate_data(request_data)
 
         if errors:
-            return jsonify(**{'success': False, 'errors': errors})
+            return jsonify(**{'success': False, 'errors': errors}), 422
 
         new_user = User(username = cleaned_data['username'],
             password =      cleaned_data['password'],
