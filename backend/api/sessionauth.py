@@ -7,6 +7,16 @@ from backend.database.models import User
 
 
 
+def session_auth_required(func):
+    def decorated(*args, **kwargs):
+        if not current_user.is_authenticated():
+            return jsonify(**{'authenticated': False})
+        return func(*args, **kwargs)
+
+    return decorated
+
+
+
 class SessionAuthAPI(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)
@@ -22,16 +32,13 @@ class SessionAuthAPI(MethodView):
 
         return jsonify(**{'success': False})
 
+    @session_auth_required
     def get(self):
-        if current_user.is_authenticated():
-            return jsonify(**{'authenticated': True, 'username': current_user.username})
-        return jsonify(**{'authenticated': False})
+        return jsonify(**{'authenticated': True, 'username': current_user.username})
 
     def delete(self):
         logout_user()
         return jsonify(**{'success': True})
-
-
 
 session_auth_view = SessionAuthAPI.as_view('session_auth_api')
 app.add_url_rule('/api/session_auth/', view_func=session_auth_view, methods=['GET', 'POST', 'DELETE'])
