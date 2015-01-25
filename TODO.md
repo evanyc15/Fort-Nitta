@@ -10,7 +10,5 @@ Backend
 * Consider CSRF protection for API
 
 ### Short-term
-* Finish user registration/creation
-* Set up file uploading API for user avatars
-* Get session-based authentication up
+* Flesh out more API functionality for models
 
