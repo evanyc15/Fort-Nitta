@@ -16,12 +16,18 @@ class User(db.Model):
     last_name =     db.Column(db.String(40))
     avatar_url =    db.Column(db.String(100))
 
-    # 
+    # One-to-one relationship with a Presence model
     activity =      db.relationship('Presence', backref='user', lazy='dynamic', uselist=False)
+    # One-to-one relationship with a UserStatistics model
     stats =         db.relationship('UserStatistics', backref='user', lazy='dynamic', uselist=False)
+    # One-to-many relationship with many GameStatistics models
     wins =          db.relationship('GameStatistics', backref='user', lazy='dynamic')
 
     def __init__(self, username, password, email, first_name, last_name):
+        """
+        Create a new User. Represents an account registration.
+        Arguments should be validated elsewhere prior to instantiation.
+        """
         self.username =     username
         self.password =     password
         self.email =        email
@@ -29,9 +35,16 @@ class User(db.Model):
         self.last_name =    last_name
 
     def __str__(self):
-        return self.username
+        """
+        String representation in console.
+        """
+        return '<User: ' + self.username + '>'
 
     def set_avatar_url(self, url):
+        """
+        Change the URL of a User's avatar.
+        Arguments should be validated elsewhere prior to instantiation.
+        """
         self.avatar_url = url
 
 
@@ -45,15 +58,25 @@ class Presence(db.Model):
     online =    db.Column(db.Boolean)
     last_seen = db.Column(db.DateTime)
 
+    # Foreign Key: One-to-one relationship with a User model
     user_id =   db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __str__(self):
-        return self.user + ': ' + ('online' if self.online else 'offline') + ' (last seen ' + self.last_seen + ')'
+        """
+        String representation in console.
+        """
+        return '<Presence: ' + self.user + ' is ' + ('online' if self.online else 'offline') + ' (last seen ' + self.last_seen + ')>'
 
     def set_online(self):
+        """
+        Mark the Presence model as online.        
+        """
         self.online =   True 
 
     def set_offline(self):
+        """
+        Mark the Presence model as offline. Records the last-seen time at the time of the call.
+        """
         self.online =   False 
         self.datetime = datetime.datetime.now()
 
@@ -74,7 +97,14 @@ class Game(db.Model):
     id =            db.Column(db.Integer, primary_key=True)
     time_played =   db.Column(db.DateTime)
 
+    # One-to-one relationship with a GameStatistics model
     stats =         db.relationship('GameStatistics', backref='game', lazy='dynamic', uselist=False)
+
+    def __str__(self):
+        """
+        String representation in console.
+        """
+        return '<Game: ' + self.id + ' played ' + self.time_played + '>'
 
 
 
@@ -85,8 +115,16 @@ class GameStatistics(db.Model):
     """
     id =                db.Column(db.Integer, primary_key=True)
 
+    # Foreign Key: One-to-one relationship with a User model
     winner_user_id =    db.Column(db.Integer, db.ForeignKey('user.id'))
+    # Foreign Key: One-to-one relationship with a Game model
     game_id =           db.Column(db.Integer, db.ForeignKey('game.id'))
+
+    def __str__(self):
+        """
+        String representation in console.
+        """
+        return '<GameStatistics: ' + self.game + '>'
 
 
 
@@ -100,4 +138,11 @@ class UserStatistics(db.Model):
     wins =              db.Column(db.Integer)
     win_loss_ratio =    db.Column(db.Float)
 
+    # Foreign Key: One-to-one relationship with a User model
     user_id =   db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __str__(self):
+        """
+        String representation in console.
+        """
+        return '<UserStatistics: ' + self.user + '>'
