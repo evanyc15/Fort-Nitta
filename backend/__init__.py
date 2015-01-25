@@ -5,7 +5,8 @@ app = Flask(__name__)
 app.config.from_object('settingsbackend')
 db = SQLAlchemy(app)
 
-from backend.database import models
+from backend.database import *
+from backend.api import *
 
 try:
     db.create_all()
