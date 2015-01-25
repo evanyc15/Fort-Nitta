@@ -17,9 +17,9 @@ class User(db.Model):
     avatar_url =    db.Column(db.String(100))
 
     # One-to-one relationship with a Presence model
-    activity =      db.relationship('Presence', backref='user', lazy='dynamic', uselist=False)
+    activity =      db.relationship('Presence', backref='user', uselist=False)
     # One-to-one relationship with a UserStatistics model
-    stats =         db.relationship('UserStatistics', backref='user', lazy='dynamic', uselist=False)
+    stats =         db.relationship('UserStatistics', backref='user', uselist=False)
     # One-to-many relationship with many GameStatistics models
     wins =          db.relationship('GameStatistics', backref='user', lazy='dynamic')
 
@@ -34,11 +34,11 @@ class User(db.Model):
         self.first_name =   first_name
         self.last_name =    last_name
 
-    def __str__(self):
+    def __repr__(self):
         """
         String representation in console.
         """
-        return '<User: ' + self.username + '>'
+        return '<User: {0}>'.format(self.username)
 
     def set_avatar_url(self, url):
         """
@@ -61,11 +61,11 @@ class Presence(db.Model):
     # Foreign Key: One-to-one relationship with a User model
     user_id =   db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __str__(self):
+    def __repr__(self):
         """
         String representation in console.
         """
-        return '<Presence: ' + self.user + ' is ' + ('online' if self.online else 'offline') + ' (last seen ' + self.last_seen + ')>'
+        return '<Presence: {0} is {1} (last seen {2})>'.format(self.user, ('online' if self.online else 'offline'), self.last_seen)
 
     def set_online(self):
         """
@@ -97,14 +97,16 @@ class Game(db.Model):
     id =            db.Column(db.Integer, primary_key=True)
     time_played =   db.Column(db.DateTime)
 
+    # Many-to-many relationship with many User models
+    users =         db.relationship('User', secondary=games, backref=db.backref('games', lazy='dynamic'))
     # One-to-one relationship with a GameStatistics model
-    stats =         db.relationship('GameStatistics', backref='game', lazy='dynamic', uselist=False)
+    stats =         db.relationship('GameStatistics', backref='game', uselist=False)
 
-    def __str__(self):
+    def __repr__(self):
         """
         String representation in console.
         """
-        return '<Game: ' + self.id + ' played ' + self.time_played + '>'
+        return '<Game: {0} played {1}>'.format(self.id, self.time_played)
 
 
 
@@ -120,11 +122,11 @@ class GameStatistics(db.Model):
     # Foreign Key: One-to-one relationship with a Game model
     game_id =           db.Column(db.Integer, db.ForeignKey('game.id'))
 
-    def __str__(self):
+    def __repr__(self):
         """
         String representation in console.
         """
-        return '<GameStatistics: ' + self.game + '>'
+        return '<GameStatistics: {0}>'.format(self.id)
 
 
 
@@ -141,8 +143,8 @@ class UserStatistics(db.Model):
     # Foreign Key: One-to-one relationship with a User model
     user_id =   db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __str__(self):
+    def __repr__(self):
         """
         String representation in console.
         """
-        return '<UserStatistics: ' + self.user + '>'
+        return '<UserStatistics: {0}>'.format(self.user)
