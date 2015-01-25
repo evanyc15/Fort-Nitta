@@ -2,8 +2,8 @@ from flask import request, jsonify
 from flask.views import MethodView
 
 from backend import db, app
+from backend.database.models import User
 import validation
-import datetime
 
 
 
@@ -17,6 +17,16 @@ class RegisterAPI(MethodView):
 
         if errors:
             return jsonify(**{'success': False, 'errors': errors})
+
+        new_user = User(username = cleaned_data['username'],
+            password =      cleaned_data['password'],
+            email =         cleaned_data['email'],
+            first_name =    cleaned_data['first_name'],
+            last_name =     cleaned_data['last_name'],
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
 
         return jsonify(**{'success': True})
 
@@ -55,7 +65,15 @@ class RegisterAPI(MethodView):
         if ('password' in request_data) and (not validation.valid_password(request_data['password'])):
             errors['weak_password'] = 'password did not meet minimum strength requirements'
 
-        cleaned_data = {prop: request_data[prop] for prop in props if prop in request_data}
+        # Check uniqueness
+        if User.query.filter_by(username=request_data['username']).first():
+            errors['username_taken'] = request_data['username']
+
+        if User.query.filter_by(email=request_data['email']).first():
+            errors['email_taken'] = request_data['email']
+
+        # Quick and easy dict comprehension to convert all data to strings
+        cleaned_data = {prop: str(request_data[prop]) for prop in props if prop in request_data}
 
         return errors, cleaned_data
 

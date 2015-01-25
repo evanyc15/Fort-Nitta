@@ -28,7 +28,7 @@ def bad_lengths(prop_lengths, obj):
     bad_lengths = []
     for prop, length_tuple in prop_lengths.iteritems():
         if prop in obj:
-            l = len(obj[prop])
+            l = len(str(obj[prop]))
             if ((length_tuple[0] is None) or (l < length_tuple[0])) and ((length_tuple[1]) is (None or l > length_tuple[1])):
                 bad_lengths.append(prop)
 
