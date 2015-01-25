@@ -1,9 +1,11 @@
-from backend import db, app
+from flask.ext.login import UserMixin
+
+from backend import db, app, login_manager
 import datetime
 
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     """
     Represents a player and their account information. 
     Instantiation of a User object should reflect an account registration.
@@ -46,6 +48,10 @@ class User(db.Model):
         Arguments should be validated elsewhere prior to instantiation.
         """
         self.avatar_url = url
+
+@login_manager.user_loader
+def load_user(userid):
+    return User.query.get(userid)
 
 
 
