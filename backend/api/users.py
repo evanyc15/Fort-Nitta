@@ -66,10 +66,10 @@ class RegisterAPI(MethodView):
             errors['weak_password'] = 'password did not meet minimum strength requirements'
 
         # Check uniqueness
-        if User.query.filter_by(username=request_data['username']).first():
+        if ('username' in request_data) and User.query.filter_by(username=request_data['username']).first():
             errors['username_taken'] = request_data['username']
 
-        if User.query.filter_by(email=request_data['email']).first():
+        if ('email' in request_data) and User.query.filter_by(email=request_data['email']).first():
             errors['email_taken'] = request_data['email']
 
         # Quick and easy dict comprehension to convert all data to strings
