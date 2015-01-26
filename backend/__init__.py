@@ -1,6 +1,7 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
+from flask.ext.cors import CORS
 
 from secrets import SECRET_KEY
 
@@ -13,6 +14,8 @@ app.secret_key = SECRET_KEY
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 from backend.database import *
 from backend.api import *
