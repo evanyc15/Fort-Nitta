@@ -13,7 +13,20 @@ define([
 
 		initialize: function(options){
 			this.options = options;
+		},
+		events: {
+			"mouseenter #profilePicture,#profilePictureChange": "changeProfilePictureShow",
+			"mouseleave #profilePicture,#profilePictureChange": "changeProfilePictureHide",
+			"click #profilePictureChange": "changeProfilePicture"
+		},
+		changeProfilePictureShow: function() {
+			$("#profilePictureChange").show();
+		},
+		changeProfilePictureHide: function() {
+			$("#profilePictureChange").hide();
+		},
+		changeProfilePicture: function() {
+			$("#profilePictureChangeInput").click();
 		}
-		
 	});
 });

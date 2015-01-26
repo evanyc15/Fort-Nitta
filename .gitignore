@@ -4,4 +4,4 @@ staticfiles
 env
 *.db
 avatar_uploads
-secret.py
+secrets.py

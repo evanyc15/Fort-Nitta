@@ -15,9 +15,12 @@ define([
 			this.options = options;
 		},
 		events: {
-			// "click #signupButton": "signUpShow",
-			// "click #backLoginButton": "loginShow",
+			"click #signupButton": "signUpShow",
 			"click #loginButton": "login"
+		},
+		signUpShow: function(){
+			console.log("hello");
+			this.trigger("click:signup:show");
 		},
 		login: function(){
 			Backbone.history.navigate('main', {trigger: true});

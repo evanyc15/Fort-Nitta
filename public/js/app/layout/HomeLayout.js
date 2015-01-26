@@ -20,16 +20,36 @@ define([
 			this.options = options;
 			this.loginView = new LoginView();
 			this.signupView = new SignupView();
-			this.aboutView = new AboutView();
-		},
+			this.aboutView = new AboutView();	
 
+			this.loginView.on("click:signup:show", this.loginViewTriggers.bind(this));
+			this.signupView.on("click:login:show", this.signupViewTriggers.bind(this));
+			
+		},
 		regions: {
 			loginRegion: "#loginRegion",
 			aboutRegion: "#aboutRegion"
 		},
+		loginViewTriggers: function(){
+			var self = this;
+
+			self.loginRegion.show(self.signupView);
+
+			self.loginView = new LoginView();
+			self.loginView.on("click:signup:show", self.loginViewTriggers.bind(this));
+		},
+		signupViewTriggers: function() {
+			var self = this;
+
+			self.loginRegion.show(self.loginView);
+
+			self.signupView = new SignupView();
+			self.signupView.on("click:login:show", self.signupViewTriggers.bind(this));
+		},
 		onRender: function() {
 			this.loginRegion.show(this.loginView);
 			this.aboutRegion.show(this.aboutView);
+
 		},
 		onShow: function() {
 			$(document).foundation();
