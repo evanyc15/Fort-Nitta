@@ -1,5 +1,11 @@
-define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
-    function ($, Backbone, Marionette, _, Handlebars) {
+define([
+    'jquery', 
+    'backbone', 
+    'marionette', 
+    'underscore', 
+    'handlebars',
+    'models/SessionModel'
+    ], function ($, Backbone, Marionette, _, Handlebars, SessionModel) {
         var App = new Backbone.Marionette.Application();
 
         //Organize Application into regions corresponding to DOM elements
@@ -15,9 +21,11 @@ define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
 
         App.mobile = isMobile();
 
-        App.addInitializer(function (options) {
-            Backbone.history.start();
-        });
+        // App.addInitializer(function (options) {
+        //     Backbone.history.start();
+        // });
+
+        $.ajaxSetup({ cache: false }); 
 
         return App;
     });

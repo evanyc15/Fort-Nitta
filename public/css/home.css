@@ -16,3 +16,10 @@
 	opacity: 0.8;
 	margin-top:6px;
 }
+.error {
+	margin: -16px 0px 16px 0px !important;
+	display: none !important;
+}
+#loginInput {
+	display: none;
+}

@@ -1,5 +1,5 @@
 define([
-	'app',
+	'App',
 	'marionette',
 	'handlebars',
 	'text!templates/home_loginBox.html'
@@ -19,13 +19,28 @@ define([
 			"click #loginButton": "login"
 		},
 		signUpShow: function(){
-			console.log("hello");
 			this.trigger("click:signup:show");
 		},
-		login: function(){
-			Backbone.history.navigate('main', {trigger: true});
-		}
+		login:function (event) {
+			console.log("Login clicked");
+	        // $("loginInput").click();
+	        event.stopPropagation();
+      		event.preventDefault();
 
-		
+      		App.session.login({
+                username: this.$("#usernameInput").val(),
+                password: this.$("#passwordInput").val()
+            }, {
+                success: function(mod, res){
+                    console.log("SUCCESS", mod, res);
+                    App.session.trigger("change:logged_in");
+                },
+                error: function(err){
+                    console.log("ERROR", err);
+                }
+            });
+
+      		
+	    }
 	});
 });

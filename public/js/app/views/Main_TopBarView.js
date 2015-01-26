@@ -1,5 +1,5 @@
 define([
-	'app',
+	'App',
 	'marionette',
 	'handlebars',
 	'text!templates/main_topbar.html'
@@ -13,13 +13,13 @@ define([
 
 		initialize: function(options){
 			this.options = options;
+		},
+		events: {
+			"click #signupButton": "logout",
+		},
+		logout: function() {
+			App.session.trigger("change:logged_out");
 		}
-
-		// events: {
-		// 	"click #signupButton": "signUpShow",
-		// 	"click #backLoginButton": "loginShow"
-		// },
-
 		
 	});
 });
