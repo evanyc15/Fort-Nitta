@@ -15,7 +15,18 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+app.config['CORS_HEADERS'] = ['Content-Type','X-CSRF-Token','Authentication','Accept']
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+
+# @app.after_request
+# def after_request(data):
+#     response = make_response(data)
+#     response.headers['Content-Type'] = 'application/json'
+#     response.headers['Access-Control-Allow-Origin'] = 'http://localhost'
+#     response.headers['Access-Control-Allow-Headers'] = "Origin, X-Requested-With,Content-Type, Accept"
+#     response.headers['Access-Control-Allow-Methods'] = "GET,PUT,POST,DELETE,OPTIONS"
+#     return response
 
 from backend.database import *
 from backend.api import *

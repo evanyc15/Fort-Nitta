@@ -70,10 +70,11 @@ define([
             var postData = _.omit(opts, 'method');
             console.log(postData);
             $.ajax({
-                url: this.url() + '/' + opts.method,
+                url: this.url() + '/' + opts.method+'/',
                 contentType: 'application/json',
                 dataType: 'json',
                 type: 'POST',
+                crossDomain: true,
                 beforeSend: function(xhr) {
                     // Set the CSRF Token in the header for security
                     var token = $('meta[name="csrf-token"]').attr('content');
@@ -83,16 +84,16 @@ define([
                 success: function(res){
 
                     if( !res.error ){
-                        if(_.indexOf(['login', 'signup'], opts.method) !== -1){
-
+                        if(_.indexOf(['login', 'register'], opts.method) !== -1){
                             self.updateSessionUser( res.user || {} );
                             self.set({ user_id: res.user.id, logged_in: true });
+                            App.session.trigger("change:logged_in");
                         } else {
                             self.set({ logged_in: false });
                         }
 
                         if(callback && 'success' in callback) callback.success(res);
-                    } else {
+                    } else { 
                         if(callback && 'error' in callback) callback.error(res);
                     }
                 },

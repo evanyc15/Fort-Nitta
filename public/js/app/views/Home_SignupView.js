@@ -23,11 +23,11 @@ define([
 		},
 		signup: function() {
 			App.session.signup({
-                firstname: this.$("#firstnameInput").val(),
-                lastname: this.$("#lastnameInput").val(),
-                username: this.$("#usernameInput").val(),
-                email: this.$("#emailInput").val(),
-                password: this.$("#passwordInput").val(),
+				username: this.$("#usernameInput").val(),
+				password: this.$("#passwordInput").val(),
+				email: this.$("#emailInput").val(),
+                first_name: this.$("#firstnameInput").val(),
+                last_name: this.$("#lastnameInput").val(),
             }, {
                 success: function(mod, res){
                     console.log("SUCCESS", mod, res);
