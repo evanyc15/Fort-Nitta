@@ -27,7 +27,7 @@ class RegisterAPI(MethodView):
         db.session.add(new_user)
         db.session.commit()
 
-        return jsonify(**{'success': True})
+        return jsonify(**{'success': True, 'user': {'username': new_user.username, 'uid': new_user.id}})
 
     def validate_data(self, request_data):
         errors = {}

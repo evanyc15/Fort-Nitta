@@ -27,18 +27,18 @@ class SessionAuthAPI(MethodView):
             user = User.query.filter_by(username=request_data['username']).first()
             if user and (request_data['password'] == user.password):
                 login_user(user)
+                # Leave property authenticated to be calculated by current_user.is_authenticated()
+                return jsonify(**{'success': True, 'authenticated': current_user.is_authenticated(), 'user': {'username': current_user.username, 'uid': current_user.id}})
 
-                return jsonify(**{'success': True})
-
-        return jsonify(**{'success': False}), 401
+        return jsonify(**{'success': False, 'authenticated': current_user.is_authenticated()}), 401
 
     @session_auth_required
     def get(self):
-        return jsonify(**{'authenticated': True, 'username': current_user.username})
+        return jsonify(**{'authenticated': True, 'user': {'username': current_user.username, 'uid': current_user.id}})
 
     def delete(self):
         logout_user()
-        return jsonify(**{'success': True})
+        return jsonify(**{'success': True, 'authenticated': current_user.is_authenticated()})
 
 session_auth_view = SessionAuthAPI.as_view('session_auth_api')
 app.add_url_rule('/api/session_auth/', view_func=session_auth_view, methods=['GET', 'POST', 'DELETE'])
