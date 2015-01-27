@@ -15,7 +15,6 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-app.config['CORS_HEADERS'] = ['Content-Type','X-CSRF-Token','Authentication','Accept']
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
