@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from flask.views import MethodView
+from flask.ext.login import current_user, login_user
 
 from backend import db, app
 from backend.database.models import User
@@ -27,7 +28,9 @@ class RegisterAPI(MethodView):
         db.session.add(new_user)
         db.session.commit()
 
-        return jsonify(**{'success': True, 'user': {'username': new_user.username, 'uid': new_user.id}})
+        login_user(new_user)
+
+        return jsonify(**{'success': True, 'authenticated': current_user.is_authenticated(), 'user': {'username': current_user.username, 'uid': current_user.id}})
 
     def validate_data(self, request_data):
         errors = {}
