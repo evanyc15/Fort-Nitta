@@ -1,11 +1,13 @@
 define([
-  'jquery',
-  'marionette',
-  'backbone',
-  'underscore'
+    'jquery',
+    'marionette',
+    'backbone',
+    'underscore'
 ], function($, Marionette, Backbone, _) {
+    'use strict';
+    
     return Backbone.Model.extend({
-       initialize: function(){
+        initialize: function(){
             _.bindAll(this);
         },
 

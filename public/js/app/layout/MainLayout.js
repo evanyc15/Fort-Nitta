@@ -9,7 +9,8 @@ define([
 	'text!templates/main_layout.html',
 	'views/Main_TopBarView',
 	'views/Main_PlayersView',
-	'views/Main_ProfileView'
+	'views/Main_ProfileView',
+	'cookie'
 ],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, ProfileView) {
 
 	"use strict";
@@ -32,7 +33,6 @@ define([
 				$("#contentArea").removeClass("contentHide").addClass("contentShow");
 				$("#playersRegion").removeClass("playersShow").addClass("playersHide");
 			});
-			console.log(App.session);
 		},
 		regions: {
 			topbarRegion: "#topbarRegion",

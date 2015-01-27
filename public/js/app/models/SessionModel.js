@@ -4,8 +4,11 @@ define([
     'marionette',
     'backbone',
     'underscore',
-    'models/UserModel'
+    'models/UserModel',
+    'cookie'
 ], function(App, $, Marionette, Backbone, _, UserModel) {
+    'use strict';
+
     return Backbone.Model.extend({
          // Initialize with negative/empty defaults
         // These will be overriden after the initial checkAuth
@@ -41,22 +44,27 @@ define([
         checkAuth: function(callback, args) {
             var self = this;
 
-            this.fetch({ 
+            $.ajax({ 
                 url: this.url() + '/session_auth/',
                 type: 'GET',
                 contentType: 'application/json',
+                dataType: 'json',
+                crossDomain: true,
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function(mod, res){
-                    if(res.success && res.user){
-                        self.updateSessionUser(res.user);
-                        self.set({ logged_in : true });
-                        if('success' in callback) callback.success(mod, res);    
+                    if(mod.authenticated && mod.user){
+                        self.updateSessionUser(mod.user);
+                        self.set({ logged_in : true , user_id: mod.user.uid });
+                        if('success' in callback) callback.success(mod, res);  
                     } else {
-                        self.set({ logged_in : false });
-                        if('error' in callback) callback.error(mod, res);    
+                        self.set({ logged_in : false , user_id: ''  });
+                        if('error' in callback) callback.error(mod, res);  
                     }
                 }, error:function(mod, res){
-                    self.set({ logged_in : false });
-                    if('error' in callback) callback.error(mod, res);    
+                    self.set({ logged_in : false , user_id: ''});
+                    if('error' in callback) callback.error(mod, res);  
                 }
             }).complete( function(){
                 if('complete' in callback) callback.complete();
@@ -79,10 +87,13 @@ define([
                 dataType: 'json',
                 type: 'POST',
                 crossDomain: true,
-                beforeSend: function(xhr) {
-                    // Set the CSRF Token in the header for security
-                    var token = $('meta[name="csrf-token"]').attr('content');
-                    if (token) xhr.setRequestHeader('X-CSRF-Token', token);
+                // beforeSend: function(xhr) {
+                //     // Set the CSRF Token in the header for security
+                //     var token = $('meta[name="csrf-token"]').attr('content');
+                //     if (token) xhr.setRequestHeader('X-CSRF-Token', token);
+                // },
+                xhrFields: {
+                    withCredentials: true
                 },
                 data:  JSON.stringify( _.omit(opts, 'method') ),
                 success: function(res){
@@ -92,17 +103,54 @@ define([
                             self.updateSessionUser( res.user || {} );
                             self.set({ user_id: res.user.uid, logged_in: true });
                         } else {
-                            self.set({ logged_in: false });
+                            self.set({ logged_in: false , user_id: '' });
                         }
 
-                        // if(callback && 'success' in callback) callback.success(res);
+                        if(callback && 'success' in callback) callback.success(res);
                     } else { 
                         if(callback && 'error' in callback) callback.error(res);
                     }
                 },
                 error: function(mod, res){
                     if(callback && 'error' in callback) callback.error(res);
-                    self.set({ logged_in: false });
+                    self.set({ logged_in: false , user_id: '' });
+                }
+            }).complete( function(){
+                    if(callback && 'complete' in callback) callback.complete(res);
+            });
+        },
+        deleteAuth: function(opts, callback, args){
+            var self = this;
+            var postData = _.omit(opts, 'method');
+            // console.log(postData);
+            $.ajax({
+                url: this.url() + '/' + opts.method,
+                contentType: 'application/json',
+                type: 'DELETE',
+                crossDomain: true,
+                // beforeSend: function(xhr) {
+                //     // Set the CSRF Token in the header for security
+                //     var token = $('meta[name="csrf-token"]').attr('content');
+                //     if (token) xhr.setRequestHeader('X-CSRF-Token', token);
+                // },
+                xhrFields: {
+                    withCredentials: true
+                },
+                data:  JSON.stringify( _.omit(opts, 'method') ),
+                success: function(res){
+
+                    if( res.success ){
+                        if(_.indexOf(['session_auth/'], opts.method) !== -1){
+                            self.set({ logged_in: false , user_id: '' });
+                        }
+                        if(callback && 'success' in callback) callback.success(res);
+                    } else { 
+                        if(callback && 'error' in callback) callback.error(res);
+                    }
+                },
+                error: function(mod, res){
+                    if(callback && 'error' in callback) callback.error(res);
+                    self.set({ logged_in: false , user_id: ''});
                 }
             }).complete( function(){
                     if(callback && 'complete' in callback) callback.complete(res);
@@ -115,7 +163,7 @@ define([
         },
 
         logout: function(opts, callback, args){
-            this.postAuth(_.extend(opts, { method: 'logout' }), callback);
+            this.deleteAuth(_.extend(opts, { method: 'session_auth/' }), callback);
         },
 
         signup: function(opts, callback, args){

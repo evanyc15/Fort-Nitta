@@ -1,9 +1,10 @@
 define([
 	'App',
+	'jquery',
 	'marionette',
 	'handlebars',
 	'text!templates/main_topbar.html'
-], function (App, Marionette, Handlebars, template){
+], function (App, $, Marionette, Handlebars, template){
 
 	"use strict";
 
@@ -15,10 +16,22 @@ define([
 			this.options = options;
 		},
 		events: {
-			"click #signupButton": "logout",
+			"click #logoutButton": "logout"
 		},
-		logout: function() {
-			App.session.logout();
+		logout: function(event) {
+			event.stopPropagation();
+      		event.preventDefault();
+
+			App.session.logout({
+			},{
+				success: function(){
+					console.log("Logged out");
+					App.session.trigger("change:logged_out");
+				},
+				error: function() {
+					console.log("Logged out failed");
+				}
+			});
 		}
 		
 	});

@@ -6,6 +6,8 @@ define([
     'handlebars',
     'models/SessionModel'
     ], function ($, Backbone, Marionette, _, Handlebars, SessionModel) {
+        'use strict';
+        
         var App = new Backbone.Marionette.Application();
 
         //Organize Application into regions corresponding to DOM elements
@@ -20,12 +22,10 @@ define([
         }
 
         App.mobile = isMobile();
-
+        $.ajaxSetup({ cache: false });          // force ajax call on all browser
         // App.addInitializer(function (options) {
         //     Backbone.history.start();
         // });
-
-        $.ajaxSetup({ cache: false }); 
 
         return App;
     });
