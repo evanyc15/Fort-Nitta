@@ -12,8 +12,6 @@ import os
 
 
 class AvatarAPI(MethodView):
-    app.config['AVATAR_UPLOADS'] = './backend/img/avatar/'
-
     @session_auth_required
     def post(self):
         file = request.files['file']
