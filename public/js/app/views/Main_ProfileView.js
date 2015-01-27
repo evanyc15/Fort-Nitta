@@ -4,7 +4,6 @@ define([
 	'handlebars',
 	'text!templates/main_profile.html'
 ], function (App, Marionette, Handlebars, template){
-
 	"use strict";
 
 	return Marionette.ItemView.extend({
