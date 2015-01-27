@@ -19,7 +19,8 @@ def current_user_props():
     return {'username': current_user.username, 
         'uid': current_user.id, 
         'firstname': current_user.first_name, 
-        'lastname': current_user.last_name
+        'lastname': current_user.last_name,
+        'avatar_path': current_user.avatar_path
     } if current_user.is_authenticated() else {}
 
 
