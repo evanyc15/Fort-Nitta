@@ -1,3 +1,9 @@
+.fullWidth {
+   width: 100%;
+   margin-left: 30px;
+   margin-right: 30px;
+   max-width: initial;
+}
 #topBarLogo {
 	margin-top: 5px;
 	width: 110px;
