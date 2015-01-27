@@ -20,6 +20,18 @@ app.config['CORS_SUPPORTS_CREDENTIALS'] = ['True']
 app.config['CORS_RESOURCES'] = {r"/api/*": {"origins": "http://localhost"}}
 cors = CORS(app)
 
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+
+# @app.after_request
+# def after_request(data):
+#     response = make_response(data)
+#     response.headers['Content-Type'] = 'application/json'
+#     response.headers['Access-Control-Allow-Origin'] = 'http://localhost'
+#     response.headers['Access-Control-Allow-Headers'] = "Origin, X-Requested-With,Content-Type, Accept"
+#     response.headers['Access-Control-Allow-Methods'] = "GET,PUT,POST,DELETE,OPTIONS"
+#     return response
+
 from backend.database import *
 from backend.api import *
 
