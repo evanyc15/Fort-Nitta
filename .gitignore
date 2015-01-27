@@ -4,6 +4,5 @@ venv
 staticfiles
 env
 *.db
-avatar_uploads
 secrets.py
 img

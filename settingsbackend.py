@@ -5,6 +5,6 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 
 CORS_HEADERS = ['Content-Type', 'X-CSRF-Token', 'Authentication', 'Accept']
 
-AVATAR_UPLOADS = os.path.join(basedir, 'avatar_uploads/')
+AVATAR_UPLOADS = os.path.join(basedir, 'backend/img/avatar/')
 
 MAX_CONTENT_LENGTH = 256 * 1024
