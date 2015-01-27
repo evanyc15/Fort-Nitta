@@ -7,13 +7,15 @@ from secrets import SECRET_KEY
 
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder ='img')
 app.config.from_object('settingsbackend')
 app.secret_key = SECRET_KEY
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 app.config['CORS_HEADERS'] = ['Content-Type','X-CSRF-Token','Authentication','Accept']
 app.config['CORS_SUPPORTS_CREDENTIALS'] = ['True']

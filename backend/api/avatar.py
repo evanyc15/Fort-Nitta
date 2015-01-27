@@ -12,6 +12,8 @@ import os
 
 
 class AvatarAPI(MethodView):
+    app.config['AVATAR_UPLOADS'] = './backend/img/avatar/'
+
     @session_auth_required
     def post(self):
         file = request.files['file']
@@ -28,7 +30,8 @@ class AvatarAPI(MethodView):
         db.session.add(current_user)
         db.session.commit()
 
-        return jsonify(**{'success': True})
+        # return send_from_directory(app.static_folder+'/avatar/', filename)
+        return jsonify(**{'success': True, 'username': current_user.username})
 
     def get(self, username):
         user = User.query.filter_by(username=username).first()
@@ -39,7 +42,7 @@ class AvatarAPI(MethodView):
         if not filename:
             abort(404)
             
-        return send_from_directory(app.config['AVATAR_UPLOADS'], filename)
+        return send_from_directory(app.static_folder+'/avatar/', filename)
 
 avatar_view = AvatarAPI.as_view('avatar_api')
 app.add_url_rule('/api/avatar/', view_func=avatar_view, methods=['POST'])
