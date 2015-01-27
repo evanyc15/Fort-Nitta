@@ -18,7 +18,7 @@ define([
 			"click #signupButton": "logout",
 		},
 		logout: function() {
-			App.session.trigger("change:logged_out");
+			App.session.logout();
 		}
 		
 	});

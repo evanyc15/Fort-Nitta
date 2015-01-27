@@ -30,7 +30,7 @@ class RegisterAPI(MethodView):
 
         login_user(new_user)
 
-        return jsonify(**{'success': True, 'authenticated': current_user.is_authenticated(), 'user': {'username': current_user.username, 'uid': current_user.id}})
+        return jsonify(**{'success': True, 'authenticated': current_user.is_authenticated(), 'user': {'username': current_user.username, 'uid': current_user.id, 'firstname': current_user.first_name, 'lastname': current_user.last_name}})
 
     def validate_data(self, request_data):
         errors = {}

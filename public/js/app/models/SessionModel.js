@@ -24,7 +24,7 @@ define([
 
 
         url: function(){
-            return 'http://localhost:5000/api/users';
+            return 'http://localhost:5000/api';
             // return '/api/users';
         },
 
@@ -40,9 +40,13 @@ define([
          */
         checkAuth: function(callback, args) {
             var self = this;
+
             this.fetch({ 
+                url: this.url() + '/session_auth/',
+                type: 'GET',
+                contentType: 'application/json',
                 success: function(mod, res){
-                    if(!res.error && res.user){
+                    if(res.success && res.user){
                         self.updateSessionUser(res.user);
                         self.set({ logged_in : true });
                         if('success' in callback) callback.success(mod, res);    
@@ -68,9 +72,9 @@ define([
         postAuth: function(opts, callback, args){
             var self = this;
             var postData = _.omit(opts, 'method');
-            console.log(postData);
+            // console.log(postData);
             $.ajax({
-                url: this.url() + '/' + opts.method+'/',
+                url: this.url() + '/' + opts.method,
                 contentType: 'application/json',
                 dataType: 'json',
                 type: 'POST',
@@ -83,31 +87,31 @@ define([
                 data:  JSON.stringify( _.omit(opts, 'method') ),
                 success: function(res){
 
-                    if( !res.error ){
-                        if(_.indexOf(['login', 'register'], opts.method) !== -1){
+                    if( res.success ){
+                        if(_.indexOf(['session_auth/', 'users/register/'], opts.method) !== -1){
                             self.updateSessionUser( res.user || {} );
-                            self.set({ user_id: res.user.id, logged_in: true });
-                            App.session.trigger("change:logged_in");
+                            self.set({ user_id: res.user.uid, logged_in: true });
                         } else {
                             self.set({ logged_in: false });
                         }
 
-                        if(callback && 'success' in callback) callback.success(res);
+                        // if(callback && 'success' in callback) callback.success(res);
                     } else { 
                         if(callback && 'error' in callback) callback.error(res);
                     }
                 },
                 error: function(mod, res){
                     if(callback && 'error' in callback) callback.error(res);
+                    self.set({ logged_in: false });
                 }
             }).complete( function(){
-                if(callback && 'complete' in callback) callback.complete(res);
+                    if(callback && 'complete' in callback) callback.complete(res);
             });
         },
 
 
         login: function(opts, callback, args){
-            this.postAuth(_.extend(opts, { method: 'login' }), callback);
+            this.postAuth(_.extend(opts, { method: 'session_auth/' }), callback);
         },
 
         logout: function(opts, callback, args){
@@ -115,7 +119,7 @@ define([
         },
 
         signup: function(opts, callback, args){
-            this.postAuth(_.extend(opts, { method: 'register' }), callback);
+            this.postAuth(_.extend(opts, { method: 'users/register/' }), callback);
         },
 
         removeAccount: function(opts, callback, args){

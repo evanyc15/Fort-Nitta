@@ -1,9 +1,10 @@
 define([
 	'App',
+	'jquery',
 	'marionette',
 	'handlebars',
 	'text!templates/home_loginBox.html'
-], function (App, Marionette, Handlebars, template){
+], function (App, $, Marionette, Handlebars, template){
 
 	"use strict";
 
@@ -21,9 +22,7 @@ define([
 		signUpShow: function(){
 			this.trigger("click:signup:show");
 		},
-		login:function (event) {
-			console.log("Login clicked");
-	        // $("loginInput").click();
+		login:function (event){
 	        event.stopPropagation();
       		event.preventDefault();
 
@@ -36,6 +35,10 @@ define([
                 },
                 error: function(err){
                     console.log("ERROR", err);
+                    $("small.error").addClass("show");
+                    setTimeout(function() {
+					  $("small.error").removeClass("show");
+					}, 5000);
                 }
             });
 

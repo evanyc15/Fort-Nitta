@@ -43,7 +43,11 @@ define([
             
         },
         main:function () {
-            App.mainRegion.show(new MainLayout());
+            var hasPushState = !!(window.history && history.pushState);
+            if(!hasPushState) 
+                this.navigate(window.location.pathname.substring(1), {trigger: true, replace: true});
+            else 
+                App.mainRegion.show(new MainLayout());     
         }
 
     });
