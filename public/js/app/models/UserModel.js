@@ -10,17 +10,15 @@ define([
         },
 
         defaults: {
-            id: 0,
+            uid: 0,
             firstname: '',
             lastname: '',
-            username: '',
-            email: '',
-            password: '' 
+            username: ''
         },
 
-        url: function(){
-            return '/api/user';
-        }
+        // url: function(){
+        //     return '/api/user';
+        // }
 
 
     });

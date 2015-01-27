@@ -1,14 +1,16 @@
 define([
+	'App',
 	'jquery',
 	'backbone',
 	'marionette',
 	'underscore',
 	'handlebars',
+	'models/SessionModel',
 	'text!templates/main_layout.html',
 	'views/Main_TopBarView',
 	'views/Main_PlayersView',
 	'views/Main_ProfileView'
-],  function ($, Backbone, Marionette, _, Handlebars, template, TopBarView, PlayersView, ProfileView) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, ProfileView) {
 
 	"use strict";
 
@@ -30,6 +32,7 @@ define([
 				$("#contentArea").removeClass("contentHide").addClass("contentShow");
 				$("#playersRegion").removeClass("playersShow").addClass("playersHide");
 			});
+			console.log(App.session);
 		},
 		regions: {
 			topbarRegion: "#topbarRegion",
