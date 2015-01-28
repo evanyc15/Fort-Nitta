@@ -2,7 +2,8 @@ define([
 	'app',
 	'marionette',
 	'handlebars',
-	'text!templates/main_profile.html'
+	'text!templates/main_profile.html',
+	'dataTables'
 ], function (App, Marionette, Handlebars, template){
 	"use strict";
 

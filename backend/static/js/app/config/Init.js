@@ -14,6 +14,7 @@ require.config({
         // Plugins
         "backbone.validateAll":"../libs/plugins/Backbone.validateAll",
         "cookie":"../libs/jquery.cookie",
+        "dataTables":"../libs/foundation/vendor/dataTables.foundation.min",
         "foundation":"../libs/foundation/foundation.min",
         "foundation-topbar":"../libs/foundation/foundation/foundation.topbar",
         "modernizr":"../libs/foundation/vendor/modernizr",

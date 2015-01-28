@@ -34,7 +34,7 @@
     <meta name="selected-link" value="repo_source" data-pjax-transient>
       <meta name="google-analytics" content="UA-3769691-2">
 
-    <meta content="collector.githubapp.com" name="octolytics-host" /><meta content="collector-cdn.github.com" name="octolytics-script-host" /><meta content="github" name="octolytics-app-id" /><meta content="43A692CC:3E44:32E0619:54BA2C8E" name="octolytics-dimension-request_id" /><meta content="4530799" name="octolytics-actor-id" /><meta content="ghostsp15" name="octolytics-actor-login" /><meta content="221427e7d4a98b57bfc66259ba9588a70a02af77a6f3101921e690ff187fac5a" name="octolytics-actor-hash" />
+    <meta content="collector.githubapp.com" name="octolytics-host" /><meta content="collector-cdn.github.com" name="octolytics-script-host" /><meta content="github" name="octolytics-app-id" /><meta content="A8962B06:7F9E:571822:54C93C4C" name="octolytics-dimension-request_id" /><meta content="4530799" name="octolytics-actor-id" /><meta content="ghostsp15" name="octolytics-actor-login" /><meta content="221427e7d4a98b57bfc66259ba9588a70a02af77a6f3101921e690ff187fac5a" name="octolytics-actor-hash" />
     
     <meta content="Rails, view, blob#show" name="analytics-event" />
 
@@ -44,15 +44,15 @@
 
 
     <meta content="authenticity_token" name="csrf-param" />
-<meta content="8aj0HYjKz0DjPBk6wKiishmP0xqr83LeTRFx2ZiqOfxEs6qm5uiar97vcO3VYCeJHvdBPSNdO5Zbqs0OMR+YCg==" name="csrf-token" />
+<meta content="WmZVo098ez3xMadBUixYhn5jJrNKAY/BO2Q0F203A941O2dF5yZO1nXjOz3RM4+haUeFHBe+5osmGxSqZ8TVFg==" name="csrf-token" />
 
-    <link href="https://assets-cdn.github.com/assets/github-31ae56d54eb0503aae78baa852c9c421ee81d18414cd78e0b4b536cc46c24858.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="https://assets-cdn.github.com/assets/github2-e7924c378dad46ea63ea0dde73420a00d3d5ec266553156300933053ebebdfd3.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://assets-cdn.github.com/assets/github-f19e43be00c28904df28a1fd1fa3c117e5d2358dd3cf0f4216536f8737c2e033.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://assets-cdn.github.com/assets/github2-29c7da379589a0dc8a4aeee9d661ddbbc6726ded580d170ced239d72d1137908.css" media="all" rel="stylesheet" type="text/css" />
     
     
 
 
-    <meta http-equiv="x-pjax-version" content="c78c938c63d73d50641c2ec283bdcd5e">
+    <meta http-equiv="x-pjax-version" content="cc4c23c9b6918c2391ebd4277cf46c22">
 
       
   <meta name="description" content="Plugins - Plug-ins for DataTables">
@@ -164,7 +164,7 @@
   </li>
 
   <li class="header-nav-item">
-    <form accept-charset="UTF-8" action="/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="ZVD5qWWWmlGF9O+TFxtMBuJ3ClMNUSnMSounghuGbF+dJjf/QL+1KlxciII9LWkBtdh7+q+hmRCIaNxa8MAxCg==" /></div>
+    <form accept-charset="UTF-8" action="/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="rPuoX/NffzqyZtrDZiSYLuyHh19bzJAL+97ELaWlWkPl1sifaVFyPkleOUuhGzGFOTj2ehrNpcipoy1g1pzIOQ==" /></div>
       <button class="header-nav-link sign-out-button tooltipped tooltipped-s" aria-label="Sign out" data-ga-click="Header, sign out, icon:logout">
         <span class="octicon octicon-sign-out"></span>
       </button>
@@ -193,11 +193,11 @@
 <ul class="pagehead-actions">
 
     <li class="subscription">
-      <form accept-charset="UTF-8" action="/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="38XJ51f+C97gYEsInNRVt0k6ZKpkaJn6RpfHcfQpZBKy2oe4bEYtlq24cCtYMHwQmsZCaikimLQvB6DQZ4btNQ==" /></div>  <input id="repository_id" name="repository_id" type="hidden" value="4505588" />
+      <form accept-charset="UTF-8" action="/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="qD6C1VDTq+9upt4vrebGRxmjnYP/a8CWt9f3YkkkvGKAIEcqo0c75cVhqPhtyUsIgxqBmY6Q3obWs7bC57u9yQ==" /></div>  <input id="repository_id" name="repository_id" type="hidden" value="4505588" />
 
     <div class="select-menu js-menu-container js-select-menu">
       <a class="social-count js-social-count" href="/DataTables/Plugins/watchers">
-        58
+        57
       </a>
       <a href="/DataTables/Plugins/subscription"
         class="minibutton select-menu-button with-count js-menu-target" role="button" tabindex="0" aria-haspopup="true">
@@ -268,7 +268,7 @@
     
   <div class="js-toggler-container js-social-container starring-container ">
 
-    <form accept-charset="UTF-8" action="/DataTables/Plugins/unstar" class="js-toggler-form starred js-unstar-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="NghwlCpj1eR/ksW9wmmCQFn4CwX7f+iX9SxV8Pfd4dg6u+uJ15lJzw37zKhB5vjCTpshshkqKeMLESjdd9rV5A==" /></div>
+    <form accept-charset="UTF-8" action="/DataTables/Plugins/unstar" class="js-toggler-form starred js-unstar-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="zSdAzPoMZk6wpvJMwndNxE6Bb3CgiDhQFtDrv1TPSpkr0uU9b7A4inmHQ7YOAOb567m21SZNYE8u9ho4Z7iu/g==" /></div>
       <button
         class="minibutton with-count js-toggler-target star-button"
         aria-label="Unstar this repository" title="Unstar DataTables/Plugins">
@@ -276,10 +276,10 @@
         Unstar
       </button>
         <a class="social-count js-social-count" href="/DataTables/Plugins/stargazers">
-          352
+          362
         </a>
 </form>
-    <form accept-charset="UTF-8" action="/DataTables/Plugins/star" class="js-toggler-form unstarred js-star-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="vRL9r87I0QyCZ/SAwUrke9YxlPTwdUS2ZbZ4VpzOO34Ssld07mkyWlTCsYnMdbsk2FHKWaBtwstdu+FdKvqAGw==" /></div>
+    <form accept-charset="UTF-8" action="/DataTables/Plugins/star" class="js-toggler-form unstarred js-star-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="IK08fqwYnDeYAw8VzTab/Ll5YPY94azYxgaYjX+B6dzC7AebWQBOyLizRl7mJWQF1fzaNPQLbw5lSKX/DHf/cg==" /></div>
       <button
         class="minibutton with-count js-toggler-target star-button"
         aria-label="Star this repository" title="Star DataTables/Plugins">
@@ -287,7 +287,7 @@
         Star
       </button>
         <a class="social-count js-social-count" href="/DataTables/Plugins/stargazers">
-          352
+          362
         </a>
 </form>  </div>
 
@@ -299,7 +299,7 @@
             <span class="octicon octicon-repo-forked"></span>
             Fork
           </a>
-          <a href="/DataTables/Plugins/network" class="social-count">754</a>
+          <a href="/DataTables/Plugins/network" class="social-count">774</a>
         </li>
 
 </ul>
@@ -446,7 +446,7 @@
         <div id="js-repo-pjax-container" class="repository-content context-loader-container" data-pjax-container>
           
 
-<a href="/DataTables/Plugins/blob/fbf814d90b62466858fea45d42948c1c197fed2c/integration/foundation/dataTables.foundation.css" class="hidden js-permalink-shortcut" data-hotkey="y">Permalink</a>
+<a href="/DataTables/Plugins/blob/741147810b832dc2b0a22773e92a5dae766d3802/integration/foundation/dataTables.foundation.css" class="hidden js-permalink-shortcut" data-hotkey="y">Permalink</a>
 
 <!-- blob contrib key: blob_contributors:v21:79d8a110c602fe9fea053fd7a438105f -->
 
@@ -1588,7 +1588,7 @@ tables for Bootstrap and Foundation integration">- Scrolling tables incorrectly 
     </a>
 
     <ul class="site-footer-links">
-      <li>&copy; 2015 <span title="0.04623s from github-fe130-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+      <li>&copy; 2015 <span title="0.08629s from github-fe131-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
         <li><a href="/site/terms">Terms</a></li>
         <li><a href="/site/privacy">Privacy</a></li>
         <li><a href="/security">Security</a></li>
@@ -1627,8 +1627,8 @@ tables for Bootstrap and Foundation integration">- Scrolling tables incorrectly 
     </div>
 
 
-      <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-7e989cd35c6790acb51890a1e7abd63edb596bed83c3b99ac299180550d5b096.js" type="text/javascript"></script>
-      <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github-350c37c6a4c50cfbe8793e5edc796e187b61253f257e91c6c902159734308ffe.js" type="text/javascript"></script>
+      <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-af95b05cb14b7a29b0457c26b4a1d24151f4a47842c8e74bd556622f347b9d3d.js" type="text/javascript"></script>
+      <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github-68ae566937f90d22565074a5a73291bbb737f844c5ff776af2a2386929202baf.js" type="text/javascript"></script>
       
       
   </body>

@@ -10,7 +10,9 @@ define([
 	'views/Main_TopBarView',
 	'views/Main_PlayersView',
 	'views/Main_ProfileView',
-	'cookie'
+	'cookie',
+	'foundation',
+	'foundation-topbar'
 ],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, ProfileView) {
 
 	"use strict";
