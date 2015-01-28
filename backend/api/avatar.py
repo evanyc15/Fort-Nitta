@@ -31,17 +31,7 @@ class AvatarAPI(MethodView):
         # return send_from_directory(app.static_folder+'/avatar/', filename)
         return jsonify(**{'success': True, 'user': current_user_props()})
 
-    def get(self, username):
-        user = User.query.filter_by(username=username).first()
-        if not user:
-            abort(404)
 
-        filename = user.get_avatar_local_path()
-        if not filename:
-            abort(404)
-            
-        return send_from_directory(app.static_folder+'/avatar/', filename)
 
 avatar_view = AvatarAPI.as_view('avatar_api')
 app.add_url_rule('/api/avatar/', view_func=avatar_view, methods=['POST'])
-app.add_url_rule('/api/avatar/<username>', view_func=avatar_view, methods=['GET'])

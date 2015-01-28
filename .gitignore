@@ -5,6 +5,9 @@ env
 # Compiled python
 *.pyc
 
+# Node
+node_modules
+
 # Logfiles
 *.log
 
@@ -19,4 +22,4 @@ secrets.py
 
 # Misc. ???
 img
-staticfiles
+avatar

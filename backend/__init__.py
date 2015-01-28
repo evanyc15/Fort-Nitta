@@ -33,9 +33,7 @@ cors = CORS(app)
 from backend.database import *
 from backend.api import *
 
-@app.route('/')
-def root():
-    return send_from_directory(app.config['PUBLIC_ROOT'], 'index.html')
+from staticfiles import *
 
 try:
     db.create_all()
