@@ -33,7 +33,7 @@ define([
 			var data = new FormData();
 			data.append('file', picture);
 			$.ajax({
-				url: 'http://localhost:5000/api/avatar/',
+				url: '/api/avatar/',
 				type: 'POST',
 				data: data,
 				cache: false,
@@ -44,7 +44,7 @@ define([
 					withCredentials: true
 				},
 				success: function(data){
-					$("#profilePicture").attr('src','http://localhost:5000/api/avatar/'+ data.username)
+					$("#profilePicture").attr('src','/api/avatar/'+ data.username)
 				},
 				error: function(data){
 					alert('no upload');

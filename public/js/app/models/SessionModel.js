@@ -27,7 +27,7 @@ define([
 
 
         url: function(){
-            return 'http://localhost:5000/api';
+            return '/api';
             // return '/api/users';
         },
 
