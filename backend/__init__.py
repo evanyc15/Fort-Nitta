@@ -12,14 +12,10 @@ app.config.from_object('settingsbackend')
 app.secret_key = SECRET_KEY
 
 db = SQLAlchemy(app)
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-
-app.config['CORS_HEADERS'] = ['Content-Type','X-CSRF-Token','Authentication','Accept']
-app.config['CORS_SUPPORTS_CREDENTIALS'] = ['True']
-app.config['CORS_RESOURCES'] = {r"/api/*": {"origins": "http://localhost"}}
 cors = CORS(app)
 
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
