@@ -15,7 +15,8 @@ define([
             uid: 0,
             firstname: '',
             lastname: '',
-            username: ''
+            username: '',
+            avatar_path: ''
         },
 
         // url: function(){
