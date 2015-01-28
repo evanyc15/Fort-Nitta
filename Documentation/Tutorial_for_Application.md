@@ -27,7 +27,7 @@ Breakdown of Backbone/Marionette
 --------------------------------
 Folder Structure
 
--Public: Root folder
+-static: Folder is in backend folder now
 --CSS: Contains website's CSS files
 --Img: Contains website's IMG files
 --JS: Contains website's JS files
