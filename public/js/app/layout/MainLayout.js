@@ -47,7 +47,7 @@ define([
 		onShow: function() {
 			$(document).foundation();
 			if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
-				$("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.username);
+				$("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);
 			}
 			$("#username").html(App.session.user.attributes.username);
 		}

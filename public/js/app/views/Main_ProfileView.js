@@ -44,7 +44,7 @@ define([
 					withCredentials: true
 				},
 				success: function(data){
-					$("#profilePicture").attr('src','/api/avatar/'+ data.username)
+					$("#profilePicture").attr('src','/api/avatar/'+ data.user.avatar_path)
 				},
 				error: function(data){
 					alert('no upload');
