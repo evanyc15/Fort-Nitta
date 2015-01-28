@@ -2,8 +2,7 @@ define([
 	'app',
 	'marionette',
 	'handlebars',
-	'text!templates/main_profile.html',
-	'dataTables'
+	'text!templates/main_profile.html'
 ], function (App, Marionette, Handlebars, template){
 	"use strict";
 
@@ -53,5 +52,16 @@ define([
 				}
 	  		});
 		},
+		onShow: function() {
+			$("#profileTable").DataTable({
+				columnDefs: [ {
+		            targets: [ 0 ],
+		            orderData: [ 0, 1 ]
+		        }, {
+		            targets: [ 1 ],
+		            orderData: [ 1, 0 ]
+		        } ]
+			});
+		}
 	});
 });

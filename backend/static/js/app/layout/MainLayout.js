@@ -12,7 +12,8 @@ define([
 	'views/Main_ProfileView',
 	'cookie',
 	'foundation',
-	'foundation-topbar'
+	'foundation-topbar',
+	'datatables'
 ],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, ProfileView) {
 
 	"use strict";
