@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 # Ignore everything in this directory
 *
 # Except this file
 !.gitignore
+=======
+*.jpeg
+*.jpg
+*.gif
+*.png
+>>>>>>> 111b5b264fc2dd26c72bfe8da7bb0f61a405ae02

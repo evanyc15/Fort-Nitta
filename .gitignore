@@ -18,7 +18,11 @@ node_modules
 secrets.py
 
 # Macs
+<<<<<<< HEAD
 .DS_Store
 
 # Misc. ???
 # avatar
+=======
+.DS_Store
+>>>>>>> 111b5b264fc2dd26c72bfe8da7bb0f61a405ae02
