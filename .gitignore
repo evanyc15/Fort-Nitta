@@ -1,8 +1,22 @@
+# virtualenv
 venv
-*.pyc
-*.log
-staticfiles
 env
+
+# Compiled python
+*.pyc
+
+# Logfiles
+*.log
+
+# Database
 *.db
+
+# Secrets and keys
 secrets.py
+
+# Macs
+.DS_Store
+
+# Misc. ???
 img
+staticfiles

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.cors import CORS
@@ -7,7 +7,7 @@ from secrets import SECRET_KEY
 
 
 
-app = Flask(__name__, static_folder ='img')
+app = Flask(__name__)
 app.config.from_object('settingsbackend')
 app.secret_key = SECRET_KEY
 
@@ -32,6 +32,10 @@ cors = CORS(app)
 
 from backend.database import *
 from backend.api import *
+
+@app.route('/')
+def root():
+    return send_from_directory(app.config['PUBLIC_ROOT'], 'index.html')
 
 try:
     db.create_all()
