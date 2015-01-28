@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 
 from backend import db, app
 from backend.database.models import User
-from sessionauth import session_auth_required
+from sessionauth import session_auth_required, current_user_props
 
 import os
 
@@ -29,7 +29,7 @@ class AvatarAPI(MethodView):
         db.session.commit()
 
         # return send_from_directory(app.static_folder+'/avatar/', filename)
-        return jsonify(**{'success': True, 'username': current_user.username})
+        return jsonify(**{'success': True, 'user': current_user_props()})
 
     def get(self, username):
         user = User.query.filter_by(username=username).first()
