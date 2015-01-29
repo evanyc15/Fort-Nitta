@@ -52,5 +52,8 @@ define([
 				}
 	  		});
 		},
+		onShow: function() {
+			this.$el.find("#profileTable").DataTable();
+		}
 	});
 });

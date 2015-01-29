@@ -1,39 +1,71 @@
 <link rel="stylesheet" type="text/css" href="../../../css/profile.css">
 <!-- Main Page Content and Sidebar -->
 <div class="row content">
-  <div class="large-3 columns profileInfo">
-    <img id="profilePicture" class="profile-image" src="../../../img/placeholder-user.png" />
-    <a href="javascript:void(0)" class="button radius" id="profilePictureChange">Change Picture</a>
-    <input id="profilePictureChangeInput" type="file" accept="image/*" name="imageInput"/>
-    <span id="username" />
-    <br>
-    <span>Level Progress</span>
-    <div class="achievementAccolades">
-      Accolades and Achievements
+    <div class="large-3 columns profileInfo">
+        <img id="profilePicture" class="profile-image" src="../../../img/placeholder-user.png" />
+        <a href="javascript:void(0)" class="button radius" id="profilePictureChange">Change Picture</a>
+        <input id="profilePictureChangeInput" type="file" accept="image/*" name="imageInput"/>
+        <span id="username" />
+        <br>
+        <span>Level Progress</span>
+        <div class="achievementAccolades">
+            Accolades and Achievements
+        </div>
     </div>
-  </div>
-  <div class="large-9 columns">
-    <table id="profileTable" class="display">
-      <thead>
-          <tr>
-              <th colspan="2">Statistics</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr>
-              <td>Hours Played</td>
-              <td>15</td>
-          </tr>
-          <tr>
-              <td>Wins</td>
-              <td>10</td>
-          </tr>
-           <tr>
-              <td>Loses</td>
-              <td>15</td>
-          </tr>
-      </tbody>
-  </table>
-  </div>
+    <div class="large-9 columns">
+        <h1>Statistics</h1>
+        
+        <table cellpadding="0" cellspacing="0" border="0" id="profileTable">
+            <thead>
+                <tr>
+                    <th>Game Number</th>
+                    <th>Win or Loss</th>
+                    <th>Accuracy</th>
+                    <th>Damage Done</th>
+                    <th>Players in Game</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="odd">
+                    <td>1</td>
+                    <td>Win</td>
+                    <td>0.95</td>
+                    <td>231</td>
+                    <td>2</td>
+                </tr>
+                <tr class="even">
+                    <td>2</td>
+                    <td>Win</td>
+                    <td>0.99</td>
+                    <td>66</td>
+                    <td>10</td>
+                </tr>
+                <tr class="odd">
+                    <td>3</td>
+                    <td>Win</td>
+                    <td>0.64</td>
+                    <td>234</td>
+                    <td>4</td>
+                </tr>
+                <tr class="even">
+                    <td>4</td>
+                    <td>Loss</td>
+                    <td>0.74</td>
+                    <td>453</td>
+                    <td>4</td>
+                </tr>
+                <tr class="odd">
+                    <td>5</td>
+                    <td>Loss</td>
+                    <td>0.34</td>
+                    <td>63</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
 </div>
 <!-- End Main Content and Sidebar -->
