@@ -16,29 +16,75 @@ define([
 		},
 		events: {
 			"click #backLoginButton": "loginShow",
-			"click #signupSubmitButton": "signup"
+			"click #signupSubmitButton": "signup",
+            "keyup #repasswordInput": "rePasswordKeyup"
 		},
 		loginShow: function(){
 			this.trigger("click:login:show");
 		},
-		signup: function() {
-			App.session.signup({
-				username: this.$("#usernameInput").val(),
-				password: this.$("#passwordInput").val(),
-				email: this.$("#emailInput").val(),
-                first_name: this.$("#firstnameInput").val(),
-                last_name: this.$("#lastnameInput").val(),
-            }, {
-                success: function(mod, res){
-                    // console.log("SUCCESS", mod, res);
-                    console.log("SUCCESS");
-                },
-                error: function(err){
-                    console.log("ERROR", err);
-                }
-            });
-		}
+        rePasswordKeyup: function(event) {
+            var k = event.keyCode || event.which;
 
-		
+            if (k == 13 && $('#repasswordInput').val() === ''){
+                event.preventDefault();   // prevent enter-press submit when input is empty
+            } else if(k == 13){
+                event.preventDefault();
+                this.signup();
+                return false;
+            }
+        },
+		signup: function(event) {
+            var flag = true;
+            var reEmail = /\S+@\S+\.\S+/;
+
+            if(event){
+                event.stopPropagation();
+                event.preventDefault();
+            }   
+            if(this.$("#passwordInput").val() !== this.$("#repasswordInput").val()){
+                this.showError("small#repasswordError.error");
+                flag = false;
+            } 
+            if(this.$("#firstnameInput").val() === ""){
+                this.showError("small#firstnameError.error");
+                flag = false;
+            }
+            if(this.$("#lastnameInput").val() === ""){
+                this.showError("small#lastnameError.error");
+                flag = false;
+            }
+            if(this.$("#usernameInput").val() === ""){
+                this.showError("small#usernameError.error");
+            }
+            if(!reEmail.test(this.$("#emailInput").val())){
+                this.showError("small#emailError.error");
+                flag = false;
+            }
+            if(flag){
+                var self = this;
+                App.session.signup({
+                    username: this.$("#usernameInput").val(),
+                    password: this.$("#passwordInput").val(),
+                    email: this.$("#emailInput").val(),
+                    first_name: this.$("#firstnameInput").val(),
+                    last_name: this.$("#lastnameInput").val(),
+                }, {
+                    success: function(mod, res){
+                        // console.log("SUCCESS", mod, res);
+                        console.log("SUCCESS");
+                    },
+                    error: function(err){
+                        console.log("ERROR", err);
+                        self.showError("small#passwordError.error");
+                    }
+                });
+            }
+		},
+        showError: function(string){
+            $(string).addClass("show");
+            setTimeout(function() {
+                $(string).removeClass("show");
+            }, 5000);
+        }
 	});
 });

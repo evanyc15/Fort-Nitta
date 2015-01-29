@@ -1,39 +1,43 @@
 <!-- Sign Up Box -->
 <div class="row" id="signupBox">
-	<form>
-		<div class="large-12 columns" style="padding:0 !important;">
-			<div class="row collapse">
-				<div class="large-12 columns">
-					<input id="firstnameInput" type="text" placeholder="First Name" />
-				</div>
+	<div class="large-12 columns" style="padding:0 !important;">
+		<div class="row collapse">
+			<div class="large-12 columns">
+				<input id="firstnameInput" type="text" placeholder="First Name" />
+				<small id="firstnameError" class="error">Cannot be blank</small>
 			</div>
-			<div class="row collapse">
-				<div class="large-12 columns">
-					<input id="lastnameInput" type="text" placeholder="Last Name" />
-				</div>
-			</div>
-			<div class="row collapse">
-				<div class="large-12 columns">
-					<input id="usernameInput" type="text" placeholder="Username" />
-				</div>
-			</div>
-			<div class="row collapse">
-				<div class="large-12 columns">
-					<input id="emailInput" type="text" placeholder="Email" />
-				</div>
-			</div>
-			<div class="row collapse">
-				<div class="large-12 columns">
-					<input id="passwordInput" type="password" placeholder="Password" />
-				</div>
-			</div>
-			<div class="row collapse">
-				<div class="large-12 columns">
-					<input id="repasswordInput" type="password" placeholder="Password Again" />
-				</div>
-			</div>
-			<a href="javascript:void(0)" class="button left radius" id="backLoginButton">Back</a>
-			<a href="javascript:void(0)" class="button success right radius" id="signupSubmitButton">Submit</a>
 		</div>
-	</form>
+		<div class="row collapse">
+			<div class="large-12 columns">
+				<input id="lastnameInput" type="text" placeholder="Last Name" />
+				<small id="lastnameError" class="error">Cannot be blank</small>
+			</div>
+		</div>
+		<div class="row collapse">
+			<div class="large-12 columns">
+				<input id="usernameInput" type="text" placeholder="Username" />
+				<small id="usernameError" class="error">Cannot be blank</small>
+			</div>
+		</div>
+		<div class="row collapse">
+			<div class="large-12 columns">
+				<input id="emailInput" type="text" placeholder="Email" />
+				<small id="emailError" class="error">Invalid email</small>
+			</div>
+		</div>
+		<div class="row collapse">
+			<div class="large-12 columns">
+				<input id="passwordInput" type="password" placeholder="Password" />
+				<small id="passwordError" class="error">Invalid Password</small>
+			</div>
+		</div>
+		<div class="row collapse">
+			<div class="large-12 columns">
+				<input id="repasswordInput" type="password" placeholder="Password Again" />
+				<small id="repasswordError" class="error">Passwords don't match</small>
+			</div>
+		</div>
+		<a href="javascript:void(0)" class="button left radius" id="backLoginButton">Back</a>
+		<a href="javascript:void(0)" class="button success right radius" id="signupSubmitButton">Submit</a>
+	</div>
 </div>

@@ -17,15 +17,28 @@ define([
 		},
 		events: {
 			"click #signupButton": "signUpShow",
-			"click #loginButton": "login"
+			"click #loginButton": "login",
+            "keyup #passwordInput": "onPasswordKeyup"
 		},
 		signUpShow: function(){
 			this.trigger("click:signup:show");
 		},
-		login:function (event){
-	        event.stopPropagation();
-      		event.preventDefault();
+        onPasswordKeyup: function(event){
+            var k = event.keyCode || event.which;
 
+            if (k == 13 && $("#passwordInput").val() === ''){
+                event.preventDefault();    // prevent enter-press submit when input is empty
+            } else if(k == 13){
+                event.preventDefault();
+                this.login();
+                return false;
+            }
+        },
+		login:function (event){
+            if(event){
+                event.stopPropagation();
+                event.preventDefault();
+            }   
       		App.session.login({
                 username: this.$("#usernameInput").val(),
                 password: this.$("#passwordInput").val()
