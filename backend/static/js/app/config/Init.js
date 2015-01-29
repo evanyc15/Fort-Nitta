@@ -18,7 +18,8 @@ require.config({
         "foundation-topbar":"../libs/foundation/foundation/foundation.topbar",
         "modernizr":"../libs/foundation/vendor/modernizr",
         "text":"../libs/plugins/text",
-        "datatables":"../libs/plugins/jquery.dataTables.min"
+        "datatables":"../libs/plugins/jquery.dataTables/js/jquery.dataTables.min",
+        "foundation-datatables":"../libs/plugins/jquery.dataTables/foundation/dataTables.foundation.min"
     },
     // Sets the configuration for your third party scripts that are not AMD compatible
     shim:{
@@ -31,6 +32,7 @@ require.config({
         "cookie":["jquery"],
         "foundation":["jquery"],
         "foundation-topbar":["foundation"],
+        "foundation-datatables":["datatables"],
         "marionette":{
             "deps":["underscore", "backbone", "jquery"],
             // Exports the global window.Marionette object
