@@ -30,7 +30,8 @@ define([
                 last_name: this.$("#lastnameInput").val(),
             }, {
                 success: function(mod, res){
-                    console.log("SUCCESS", mod, res);
+                    // console.log("SUCCESS", mod, res);
+                    console.log("SUCCESS");
                 },
                 error: function(err){
                     console.log("ERROR", err);
