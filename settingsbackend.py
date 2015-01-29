@@ -1,7 +1,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
    
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
+SQLALCHEMY_DATABASE_URI = "postgresql://nitta_wars:nitta_wars@localhost/nitta_wars"
 
 CORS_HEADERS = ['Content-Type', 'X-CSRF-Token', 'Authentication', 'Accept']
 CORS_SUPPORTS_CREDENTIALS = ['True']

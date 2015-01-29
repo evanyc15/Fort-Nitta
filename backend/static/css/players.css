@@ -6,21 +6,24 @@
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 99;
 }
+#playerList {
+	overflow-y:scroll;
+}
 .chatHeader {
 	color: white;
 	padding: 5px;
 	font-size: 1em;
 	margin-bottom: 10px !important;
+	border-bottom: 1px dotted rgb(64,64,64); 
 }
 .playerTile {
 	color: white;
 	padding: 5px;
-	border-top: 1px dotted rgb(64,64,64);
 	border-bottom: 1px dotted rgb(64,64,64); 
 }
 .playerTileStatus{
 	margin-top: 5px;
-	color: green;
+	/*color: green;*/
 }
 .content {
 	padding-top: 20px;

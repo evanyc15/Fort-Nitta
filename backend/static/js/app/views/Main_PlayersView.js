@@ -25,6 +25,10 @@ define([
 				this.$el.find("#playersDisplayButton").removeClass("playersDisplayHidden").addClass("playersDisplayShown");
 				this.trigger("click:playersDisplay:show");
 			}
+		},
+		onShow: function(){
+			console.log(this.$el.find("#playerList").height(300));
+			console.log($("#playersRegion").height());
 		}
 		
 	});
