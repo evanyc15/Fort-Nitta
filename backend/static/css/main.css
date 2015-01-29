@@ -23,10 +23,16 @@
 	right: 0;
 }
 #playersRegion.playersShow {
-	transition: all 0.5s ease;
+	-webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
 	width: 225px;
 }
 #playersRegion.playersHide {
-	transition: all 0.5s ease;
+	-webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
 	width: 0px;
 }

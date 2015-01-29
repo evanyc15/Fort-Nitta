@@ -13,6 +13,22 @@ define([
 
 		initialize: function(options){
 			this.options = options;
+
+			var width = $(window).width();
+			var height = $(window).height();
+			var self = this;
+
+			$(window).on("resize", function(){
+
+				if($(window).width() != width){
+					width = $(window).width();
+					self.$el.find("#playersDisplayButton").removeClass("playersDisplayShown").addClass("playersDisplayHidden");
+					self.trigger("click:playersDisplay:hide");
+				} else if($(window).height() != height){
+					height = $(window).height();
+					$("#playerList").height(height-110);
+				}
+			});
 		},
 		events: {
 			"click #playersDisplayButton": "playersDisplay"
@@ -27,8 +43,7 @@ define([
 			}
 		},
 		onShow: function(){
-			console.log(this.$el.find("#playerList").height(300));
-			console.log($("#playersRegion").height());
+			this.$el.find("#playerList").height($(window).height()-110);
 		}
 		
 	});
