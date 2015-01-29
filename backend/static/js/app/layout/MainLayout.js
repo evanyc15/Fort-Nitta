@@ -48,7 +48,7 @@ define([
 			this.contentRegion.show(this.profileView);
 		},
 		onShow: function() {
-			// $(document).foundation();
+			$(document).foundation();
 			if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
 				$("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);
 			}
