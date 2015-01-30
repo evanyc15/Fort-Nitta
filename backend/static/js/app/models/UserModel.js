@@ -19,10 +19,5 @@ define([
             avatar_path: ''
         },
 
-        // url: function(){
-        //     return '/api/user';
-        // }
-
-
     });
 });

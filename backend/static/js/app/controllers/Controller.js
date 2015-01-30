@@ -23,43 +23,35 @@ define([
             App.session.on("change:logged_in", function(){
                 Backbone.history.navigate('main', {trigger: true});
             });
-            // Check the auth status upon initialization,
-            // before rendering anything or matching routes
-            App.session.checkAuth({
-                // Start the backbone routing once we have captured a user's auth status
-                complete: function(){
-                    // HTML5 pushState for URLs without hashbangs
-                    // var hasPushstate = !!(window.history && history.pushState);
-                    // if(hasPushstate) 
-                    //     Backbone.history.start({ pushState: true, root: '/' });
-                    // else 
-                    if(!Backbone.History.started) Backbone.history.start();
-                },
-                success: function(mod, res){
-                    if(!Backbone.History.started) Backbone.history.start();
-                    Backbone.history.navigate('main', {trigger: true});
-                }, 
-                error: function(mod, res) {
-                    if(!Backbone.History.started) Backbone.history.start();
-                    Backbone.history.navigate('home', {trigger: true});
-                }
-            });
+            this.index();
         },
         //gets mapped to in AppRouter's appRoutes
         index:function () {
-            // var hasPushState = !!(window.history && history.pushState);
-            // if(!hasPushState) 
-            //     this.navigate(window.location.pathname.substring(1), {trigger: true, replace: true});
-            // else 
-                App.mainRegion.show(new HomeLayout());
+            // Check the auth status upon initialization,
+            // if logged in, redirect to main page
+            App.session.checkAuth(function(loginStatus){
+                if(!Backbone.History.started) Backbone.history.start();
+                if(loginStatus){
+                    Backbone.history.navigate('home', {trigger: true});
+                } else {
+                    App.mainRegion.show(new HomeLayout());
+                }
+            });
+                
             
         },
         main:function () {
-            // var hasPushState = !!(window.history && history.pushState);
-            // if(!hasPushState) 
-            //     this.navigate(window.location.pathname.substring(1), {trigger: true, replace: true});
-            // else 
-                App.mainRegion.show(new MainLayout());
+            // Check the auth status upon initialization,
+            // if logged in, continue to main page
+            App.session.checkAuth(function(loginStatus){
+                if(!Backbone.History.started) Backbone.history.start();
+                if(loginStatus){
+                    App.mainRegion.show(new MainLayout());
+                } else {
+                    Backbone.history.navigate('home', {trigger: true});
+                }
+            });
+                
         }
 
     });

@@ -11,7 +11,6 @@ define([
 	return Marionette.ItemView.extend({
 		//Template HTML string
         template: Handlebars.compile(template),
-        // model: App.session.user,
 
 		initialize: function(options){
 			this.options = options;	

@@ -57,20 +57,18 @@ define([
                     if(mod.authenticated && mod.user){
                         self.updateSessionUser(mod.user);
                         self.set({ logged_in : true , user_id: mod.user.uid });
-                        if('success' in callback) callback.success(mod, res);  
+                        return callback(true); 
                     } else {
                         self.set({ logged_in : false , user_id: ''  });
                         if('error' in callback) callback.error(mod, res);  
+                        return callback(false);
                     }
                 }, error:function(mod, res){
                     self.set({ logged_in : false , user_id: ''});
-                    if('error' in callback) callback.error(mod, res);  
+                    return callback(false);
                 }
-            }).complete( function(){
-                if('complete' in callback) callback.complete();
             });
         },
-
 
         /*
          * Abstracted fxn to make a POST request to the auth endpoint
@@ -119,6 +117,11 @@ define([
                     if(callback && 'complete' in callback) callback.complete(res);
             });
         },
+
+        /*
+         * Abstracted fxn to make a DELETE request to the auth endpoint
+         * This is used to logout the user
+         */
         deleteAuth: function(opts, callback, args){
             var self = this;
             var postData = _.omit(opts, 'method');
@@ -141,7 +144,8 @@ define([
 
                     if( res.success ){
                         if(_.indexOf(['session_auth/'], opts.method) !== -1){
-                            self.set({ logged_in: false , user_id: '' });
+                            // self.set({ logged_in: false , user_id: '' });
+                            self.clear().set(self.defaults);
                         }
                         if(callback && 'success' in callback) callback.success(res);
                     } else { 
@@ -150,7 +154,8 @@ define([
                 },
                 error: function(mod, res){
                     if(callback && 'error' in callback) callback.error(res);
-                    self.set({ logged_in: false , user_id: ''});
+                    // self.set({ logged_in: false , user_id: ''});
+                    self.clear().set(self.defaults);
                 }
             }).complete( function(){
                     if(callback && 'complete' in callback) callback.complete(res);
