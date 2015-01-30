@@ -29,6 +29,24 @@
 .error.show {
 	display: block !important;
 }
+.error.success {
+	background-color: rgb(0,120,174) !important;
+}
 #loginInput {
 	display: none;
+}
+#forgotPasswordA {
+	position: absolute;
+	margin-top: -9px;
+	color: white;
+	font-size: 15px;
+}
+#forgotPasswordA:hover {
+	color: gray;
+}
+#signupButton {
+	margin-top: 25px;
+}
+#loginButton {
+	margin-top: 25px;
 }

@@ -18,6 +18,7 @@ define([
 		events: {
 			"click #signupButton": "signUpShow",
 			"click #loginButton": "login",
+            "click #forgotPasswordA": "forgotPassword",
             "keyup #passwordInput": "onPasswordKeyup"
 		},
 		signUpShow: function(){
@@ -54,8 +55,9 @@ define([
 					}, 5000);
                 }
             });
-
-      		
-	    }
+	    },
+        forgotPassword: function() {
+            this.trigger("click:forgotPassword:show");
+        }
 	});
 });

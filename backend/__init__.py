@@ -2,6 +2,7 @@ from flask import Flask, send_from_directory
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.cors import CORS
+from flask_mail import Mail, Message
 
 from secrets import SECRET_KEY
 
@@ -17,6 +18,18 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 cors = CORS(app)
+
+app.config.update(dict(
+    DEBUG = True,
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = 587,
+    MAIL_USE_TLS = True,
+    MAIL_USE_SSL = False,
+    MAIL_USERNAME = 'ecs160server.winter2015@gmail.com',
+    MAIL_PASSWORD = 'nitta_wars',
+))
+
+mail=Mail(app)
 
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 

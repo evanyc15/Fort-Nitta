@@ -32,13 +32,12 @@ define([
             App.session.checkAuth(function(loginStatus){
                 if(!Backbone.History.started) Backbone.history.start();
                 if(loginStatus){
-                    Backbone.history.navigate('home', {trigger: true});
+                    Backbone.history.navigate('main', {trigger: true});
                 } else {
+                    Backbone.history.navigate('home', {trigger: true});
                     App.mainRegion.show(new HomeLayout());
                 }
-            });
-                
-            
+            });          
         },
         main:function () {
             // Check the auth status upon initialization,
@@ -46,6 +45,7 @@ define([
             App.session.checkAuth(function(loginStatus){
                 if(!Backbone.History.started) Backbone.history.start();
                 if(loginStatus){
+                    Backbone.history.navigate('main', {trigger: true});
                     App.mainRegion.show(new MainLayout());
                 } else {
                     Backbone.history.navigate('home', {trigger: true});
