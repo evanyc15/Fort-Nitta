@@ -4,8 +4,24 @@ from flask.ext.login import current_user, login_user
 
 from backend import db, app
 from backend.database.models import User
-from backend.api.sessionauth import current_user_props
+from backend.api.sessionauth import current_user_props, hash_password
 import validation
+
+
+
+def create_new_user(username, password, email, first_name, last_name):
+    new_user = User(username = username,
+        password =      hash_password(password),
+        email =         email,
+        first_name =    first_name,
+        last_name =     last_name,
+    )
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return new_user
+
 
 
 class RegisterAPI(MethodView):
@@ -19,17 +35,9 @@ class RegisterAPI(MethodView):
         if errors:
             return jsonify(**{'success': False, 'errors': errors}), 422
 
-        new_user = User(username = cleaned_data['username'],
-            password =      cleaned_data['password'],
-            email =         cleaned_data['email'],
-            first_name =    cleaned_data['first_name'],
-            last_name =     cleaned_data['last_name'],
-        )
+        user = create_new_user(**cleaned_data)
 
-        db.session.add(new_user)
-        db.session.commit()
-
-        login_user(new_user)
+        login_user(user)
 
         return jsonify(**{'success': True, 'authenticated': current_user.is_authenticated(), 'user': current_user_props()})
 

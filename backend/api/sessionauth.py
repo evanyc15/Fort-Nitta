@@ -2,7 +2,7 @@ from flask import request, jsonify
 from flask.views import MethodView
 from flask.ext.login import current_user, login_user, logout_user
 
-from backend import db, app
+from backend import db, app, bcrypt
 from backend.database.models import User
 
 
@@ -23,6 +23,12 @@ def current_user_props():
         'avatar_path': current_user.avatar_path
     } if current_user.is_authenticated() else {}
 
+def hash_password(pw):
+    return bcrpyt.generate_password_hash(pw)
+
+def check_password(pw, hashed):
+    return bcrpyt.check_password_hash(hashed, pw)
+
 
 
 class SessionAuthAPI(MethodView):
@@ -33,7 +39,7 @@ class SessionAuthAPI(MethodView):
 
         if ('username' in request_data) and ('password' in request_data):
             user = User.query.filter_by(username=request_data['username']).first()
-            if user and (request_data['password'] == user.password):
+            if user and check_password(request_data['password'], user.password):
                 login_user(user)
                 # Leave property authenticated to be calculated by current_user.is_authenticated()
                 return jsonify(**{'success': True, 'authenticated': current_user.is_authenticated(), 'user': current_user_props()})
