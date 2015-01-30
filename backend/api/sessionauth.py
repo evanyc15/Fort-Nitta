@@ -24,10 +24,10 @@ def current_user_props():
     } if current_user.is_authenticated() else {}
 
 def hash_password(pw):
-    return bcrpyt.generate_password_hash(pw)
+    return bcrypt.generate_password_hash(pw)
 
 def check_password(pw, hashed):
-    return bcrpyt.check_password_hash(hashed, pw)
+    return bcrypt.check_password_hash(hashed, pw)
 
 
 
