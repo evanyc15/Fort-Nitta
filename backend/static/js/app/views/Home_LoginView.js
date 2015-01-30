@@ -46,6 +46,7 @@ define([
             }, {
                 success: function(mod, res){
                     console.log("SUCCESS");
+                    App.session.trigger("change:logged_in");
                 },
                 error: function(err){
                     console.log("ERROR", err);
