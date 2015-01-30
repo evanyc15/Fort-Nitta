@@ -10,11 +10,12 @@ define([
 	'views/Main_TopBarView',
 	'views/Main_PlayersView',
 	'views/Main_ProfileView',
+	'views/Main_SettingsView',
 	'cookie',
 	'foundation',
 	'foundation-topbar',
 	'foundation-datatables'
-],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, ProfileView) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsView) {
 
 	"use strict";
 
@@ -26,7 +27,7 @@ define([
 			this.options = options;
 			this.topbarView = new TopBarView();
 			this.playersView = new PlayersView();
-			this.profileView = new ProfileView();
+			var self = this;
 
 			this.playersView.on("click:playersDisplay:show", function(){
 				$("#contentArea").removeClass("contentShow").addClass("contentHide");
@@ -35,6 +36,14 @@ define([
 			this.playersView.on("click:playersDisplay:hide", function(){
 				$("#contentArea").removeClass("contentHide").addClass("contentShow");
 				$("#playersRegion").removeClass("playersShow").addClass("playersHide");
+			});
+			this.topbarView.on("click:settings:show", function(){
+				self.contentRegion.show(new SettingsView());
+				Backbone.history.navigate('main/settings');
+			});
+			this.topbarView.on("click:myprofile:show", function(){
+				self.contentRegion.show(new MyProfileView());
+				Backbone.history.navigate('main/myprofile');
 			});
 		},
 		regions: {
@@ -45,14 +54,15 @@ define([
 		onRender: function() {
 			this.topbarRegion.show(this.topbarView);
 			this.playersRegion.show(this.playersView);
-			this.contentRegion.show(this.profileView);
+			
+			if(this.options.action === "settings"){
+				this.contentRegion.show(new SettingsView());
+			} else{
+				this.contentRegion.show(new MyProfileView());
+			}
 		},
 		onShow: function() {
 			$(document).foundation();
-			if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
-				$("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);
-			}
-			$("#username").html(App.session.user.attributes.username);
 		}
 	});
 });

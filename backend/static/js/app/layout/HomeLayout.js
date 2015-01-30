@@ -41,7 +41,7 @@ define([
 			var self = this;
 
 			self.loginRegion.show(self.signupView);
-			Backbone.history.navigate('home/signup', {trigger: true});
+			Backbone.history.navigate('home/signup');
 
 			/* When signup view is shown, the login view has been destroyed
 			 * Thus, we re-instantiate login view rebind the signup show and forgot password show
@@ -54,7 +54,7 @@ define([
 			var self = this;
 
 			self.loginRegion.show(self.loginView);
-			Backbone.history.navigate('home', {trigger: true});
+			Backbone.history.navigate('home');
 
 			/* When login view is shown, the signup view has been destroyed
 			 * Thus, we re-instantiate signup view and rebind the login show
@@ -66,7 +66,7 @@ define([
 			var self = this;
 
 			self.loginRegion.show(self.forgotPasswordView);
-			Backbone.history.navigate('home/forgotpassword', {trigger: true});
+			Backbone.history.navigate('home/forgotpassword');
 
 			/* When forgot password view is shown, the login view has been destroyed
 			 * Thus, we re-instantiate login view and rebind the forgot password show and signup show
@@ -79,7 +79,7 @@ define([
 			var self = this;
 
 			self.loginRegion.show(self.loginView);
-			Backbone.history.navigate('home', {trigger: true});
+			Backbone.history.navigate('home');
 
 			/* When login view is shown, the forgot password view has been destroyed
 			 * Thus, we re-instantiate forgot password view and rebind the login show
@@ -91,7 +91,7 @@ define([
 			var self = this;
 
 			self.loginRegion.show(self.loginView);
-			Backbone.history.navigate('home', {trigger: true});
+			Backbone.history.navigate('home');
 
 			/* When login view is shown, the change password view has been destroyed
 			 * Thus, we re-instantiate change password view and rebind the login show
@@ -100,7 +100,7 @@ define([
 			this.changePasswordView.on("click:login:show", this.changePasswordtoLoginViewTriggers.bind(this));
 		},
 		onRender: function() {
-			if(this.options.action == null || this.options.action === "signup"){
+			if(this.options.action === "signup"){
 				this.loginRegion.show(this.signupView);
 			} else if(this.options.action === "forgotpassword"){
 				this.loginRegion.show(this.forgotPasswordView);

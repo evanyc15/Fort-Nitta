@@ -16,7 +16,15 @@ define([
 			this.options = options;	
 		},
 		events: {
-			"click #logoutButton": "logout"
+			"click #logoutButton": "logout",
+			"click #topbarSettings": "settings",
+			"click #topBarMyProfile": "myprofile"
+		},
+		settings: function(){
+			this.trigger("click:settings:show");
+		},
+		myprofile: function() {
+			this.trigger("click:myprofile:show");
 		},
 		logout: function(event) {
 			event.stopPropagation();

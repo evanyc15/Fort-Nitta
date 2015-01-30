@@ -26,38 +26,46 @@ define([
             this.index();
         },
         //gets mapped to in AppRouter's appRoutes
-        index:function (action) {
+        index:function (action, id) {
             // Check the auth status upon initialization,
             // if logged in, redirect to main page
 
             App.session.checkAuth(function(loginStatus){
                 if(!Backbone.History.started) Backbone.history.start();
                 if(loginStatus){
-                    Backbone.history.navigate('main', {trigger: true});
-                } else {
-                    if(typeof action != 'undefined' && action){
-                        Backbone.history.navigate('home/'+String(action), {trigger: true});
+                    if(typeof action != 'undefined' && action && typeof id === 'undefined' && !id){
+                        Backbone.history.navigate('main/'+String(action), {trigger: true});
+                    } else if(typeof action != 'undefined' && action && typeof id !== 'undefined' && id) {
+                        Backbone.history.navigate('main/'+String(action)+"/"+String(id), {trigger: true});
                     } else {
-                        Backbone.history.navigate('home', {trigger: true});
+                        Backbone.history.navigate('main', {trigger: true});
                     }
+                } else {
                     App.mainRegion.show(new HomeLayout({
-                        action: String(action).toLowerCase()
+                        action: String(action).toLowerCase(),
+                        id: String(id).toLowerCase()
                     }));
                 }
             });          
         },
-        main:function (action) {
+        main:function (action, id) {
             // Check the auth status upon initialization,
             // if logged in, continue to main page
             App.session.checkAuth(function(loginStatus){
                 if(!Backbone.History.started) Backbone.history.start();
                 if(loginStatus){
-                    Backbone.history.navigate('main', {trigger: true});
                     App.mainRegion.show(new MainLayout({
-                        action: String(action).toLowerCase()
+                        action: String(action).toLowerCase(),
+                        id: String(id).toLowerCase()
                     }));
                 } else {
-                    Backbone.history.navigate('home', {trigger: true});
+                    if(typeof action != 'undefined' && action && typeof id === 'undefined' && !id){
+                        Backbone.history.navigate('home/'+String(action), {trigger: true});
+                    } else if(typeof action != 'undefined' && action && typeof id !== 'undefined' && id) {
+                        Backbone.history.navigate('home/'+String(action)+"/"+String(id), {trigger: true});
+                    } else {
+                        Backbone.history.navigate('home', {trigger: true});
+                    }
                 }
             });
                 

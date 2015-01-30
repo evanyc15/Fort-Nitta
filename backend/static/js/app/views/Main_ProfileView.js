@@ -53,6 +53,10 @@ define([
 	  		});
 		},
 		onShow: function() {
+			if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
+				$("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);
+			}
+			$("#username").html(App.session.user.attributes.username);
 			this.$el.find("#profileTable").DataTable();
 		}
 	});

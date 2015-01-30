@@ -1,69 +1,71 @@
 <!-- Begin Top Bar -->
 <div class="sticky">
-  <nav class="top-bar" data-topbar>
-  <ul class="title-area">
+    <nav class="top-bar" data-topbar>
+    <ul class="title-area">
     <!-- Title Area -->
     <li class="name">
-      <h1>
-        <a href="javascript:void(0)">
-          <img id="topBarLogo" src="../../../img/ECS160_CastleWarsLogoWhite.png" />
-        </a>
-      </h1>
+        <h1>
+            <a href="javascript:void(0)">
+                <img id="topBarLogo" src="../../../img/ECS160_CastleWarsLogoWhite.png" />
+            </a>
+        </h1>
     </li>
     <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-  </ul>
-  <section class="top-bar-section">
-    <!-- Left Nav Section -->
-    <ul class="left">
-      <li class="has-dropdown">
-        <a href="javascript:void(0)">Windows Statistics</a>
-        <ul class="dropdown">
-          <li><a href="javascript:void(0)">OSX Statistics</a></li>
-          <li><a href="javascript:void(0)">Linux Statistics</a></li>
-          <li><a href="javascript:void(0)">iOS Statistics</a></li>
-          <li><a href="javascript:void(0)">Android Statistics</a></li>
-        </ul>
-      </li>
-      <li class="has-dropdown">
-        <a href="javascript:void(0)">Profile</a>
-      </li>
-      <li class="has-dropdown">
-        <a href="javascript:void(0)">Leaderboard</a>
-      </li>
-      <li class="has-dropdown">
-        <a href="javascript:void(0)">Wiki</a>
-      </li>
-      <li class="has-dropdown">
-        <a href="javascript:void(0)">Announcement Updates</a>
-      </li>
     </ul>
-    <!-- Right Nav Section -->
-    <ul class="right">
-      <li class="divider"></li>
-      <li class="has-dropdown">
-        <a href="javascript:void(0)">Download Here</a>
-        <ul class="dropdown">
-          <li><a href="javascript:void(0)">Windows .exe</a></li>
-          <li><a href="javascript:void(0)">Linux .deb</a></li>
-          <li><a href="javascript:void(0)">OSX .dmg</a></li>
-          <li><a href="javascript:void(0)">iOS .ipa</a></li>
-          <li><a href="javascript:void(0)">Android .apk</a></li>
-        </ul>
-      </li>
-      <li class="divider"></li>
-      <li class="has-dropdown">
-        <a href="javascript:void(0)">{{this.firstname}} {{this.lastname}}</a>
-        <ul class="dropdown">
-          <li><a href="javascript:void(0)">Settings</a></li>
-          <li><a href="javascript:void(0)">Feedback & Support</a></li>
-          <li class="divider"></li>
-          <li>
-            <a href="javascript:void(0)" id="logoutButton">Log Out</a>
-          </li> <!-- NOT WORKING, HAS TO DO W/ URL ROUTING -->
-        </ul>
-      </li>
-    </ul>
-  </section>
-  </nav>
+        <section class="top-bar-section">
+            <!-- Left Nav Section -->
+            <ul class="left">
+                <li class="has-dropdown">
+                    <a href="javascript:void(0)">Statistics</a>
+                    <ul class="dropdown">
+                        <li><a href="javascript:void(0)">Windows Statistics</a></li>
+                        <li><a href="javascript:void(0)">OSX Statistics</a></li>
+                        <li><a href="javascript:void(0)">Linux Statistics</a></li>
+                        <li><a href="javascript:void(0)">iOS Statistics</a></li>
+                        <li><a href="javascript:void(0)">Android Statistics</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="javascript:void(0)">Leaderboards</a>
+                    <ul class="dropdown">
+                        <li><a id="topBarMyProfile" href="javascript:void(0)">My Profile</a></li>
+                        <li><a href="javascript:void(0)">Global</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="javascript:void(0)">Wiki</a>
+                </li>
+                <li class="has-dropdown">
+                    <a href="javascript:void(0)">Announcement Updates</a>
+                </li>
+            </ul>
+            <!-- Right Nav Section -->
+            <ul class="right">
+                <li class="divider"></li>
+                <li class="has-dropdown">
+                    <a href="javascript:void(0)">Download Here</a>
+                    <ul class="dropdown">
+                        <li><a href="javascript:void(0)">Windows .exe</a></li>
+                        <li><a href="javascript:void(0)">Linux .deb</a></li>
+                        <li><a href="javascript:void(0)">OSX .dmg</a></li>
+                        <li><a href="javascript:void(0)">iOS .ipa</a></li>
+                        <li><a href="javascript:void(0)">Android .apk</a></li>
+                    </ul>
+                </li>
+                <li class="divider"></li>
+                <li class="has-dropdown">
+                    <a href="javascript:void(0)">{{this.firstname}} {{this.lastname}}</a>
+                    <ul class="dropdown">
+                        <li><a id="topbarSettings" href="javascript:void(0)">Settings</a></li>
+                        <li><a href="javascript:void(0)">Feedback & Support</a></li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="javascript:void(0)" id="logoutButton">Log Out</a>
+                        </li> <!-- NOT WORKING, HAS TO DO W/ URL ROUTING -->
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </nav>
 </div>
 <!-- End Top Bar -->

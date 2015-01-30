@@ -11,8 +11,10 @@ define([
    		   '': 'index',
          'home': 'index',
    		   'home/:action': 'index',
+         'home/:action/:id': 'index',
          'main':'main',
-   		   'main/:action': 'main'  
+   		   'main/:action': 'main',
+         'main/:action/:id': 'main'  
         }
     });
 });
