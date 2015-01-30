@@ -11,8 +11,12 @@ DEBUG = True
 
 
 
-# Database location
-SQLALCHEMY_DATABASE_URI = "postgresql://nitta_wars:nitta_wars@localhost/nitta_wars"
+# Database location, credentials
+DB_USERNAME = "nitta_wars"
+# DB_PASSWORD defined in secrets
+DB_HOST = "localhost"
+DB_NAME = "nitta_wars"
+SQLALCHEMY_DATABASE_URI = "postgresql://{0}:{1}@{2}/{3}".format(DB_USERNAME, DB_PASSWORD, DB_HOST, DB_NAME)
 
 
 
@@ -22,7 +26,7 @@ MAIL_PORT = 587
 MAIL_USE_TLS = True
 MAIL_USE_SSL = False
 MAIL_USERNAME = 'ecs160server.winter2015@gmail.com'
-
+# MAIL_PASSWORD defined in secrets
 
 
 
