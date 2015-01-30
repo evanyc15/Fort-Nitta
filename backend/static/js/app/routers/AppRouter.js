@@ -9,8 +9,8 @@ define([
         //"index" must be a method in AppRouter's controller
         appRoutes: {
    		   '': 'index',
-   		   'home': 'index',
-   		   'main': 'main'  
+   		   'home/:action': 'index',
+   		   'main/:action': 'main'  
         }
     });
 });

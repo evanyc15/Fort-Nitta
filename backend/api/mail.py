@@ -17,7 +17,7 @@ class PasswordRecApi(MethodView):
             email = User.query.filter_by(email=request_data['email']).first()
             if email:
                 msg = Message(
-                'Test email',
+                'Password Recovery for Fort Nitta',
                 sender='ecs160server.winter2015@gmail.com',
                 recipients= [request_data['email']])
                 msg.body = "Testing email"

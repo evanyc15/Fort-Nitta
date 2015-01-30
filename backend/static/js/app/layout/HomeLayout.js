@@ -7,9 +7,10 @@ define([
 	'views/Home_LoginView',
 	'views/Home_SignupView',
 	'views/Home_ForgotPasswordView',
+	'views/Home_ChangePasswordView',
 	'views/Home_AboutView',
 	'text!templates/home_layout.html'
-],  function ($, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, AboutView, template) {
+],  function ($, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, ChangePasswordView, AboutView, template) {
 
 	"use strict";
 
@@ -19,15 +20,18 @@ define([
 
 		initialize: function(options){
 			this.options = options;
+
 			this.loginView = new LoginView();
 			this.signupView = new SignupView();
 			this.forgotPasswordView = new ForgotPasswordView();
+			this.changePasswordView = new ChangePasswordView();
 			this.aboutView = new AboutView();	
 
 			this.loginView.on("click:signup:show", this.logintoSignupViewTriggers.bind(this));
 			this.signupView.on("click:login:show", this.signuptoLoginViewTriggers.bind(this));
 			this.loginView.on("click:forgotPassword:show", this.logintoForgotPasswordViewTriggers.bind(this));
 			this.forgotPasswordView.on("click:login:show", this.forgotPasswordtoLoginViewTriggers.bind(this));	
+			this.changePasswordView.on("click:login:show", this.changePasswordtoLoginViewTriggers.bind(this));
 		},
 		regions: {
 			loginRegion: "#loginRegion",
@@ -79,8 +83,28 @@ define([
 			self.forgotPasswordView = new ForgotPasswordView();
 			self.forgotPasswordView.on("click:login:show", this.forgotPasswordtoLoginViewTriggers.bind(this));
 		},
+		changePasswordtoLoginViewTriggers: function(){
+			var self = this;
+
+			self.loginRegion.show(self.loginView);
+			Backbone.history.navigate('home', {trigger: true});
+
+			/* When login view is shown, the change password view has been destroyed
+			 * Thus, we re-instantiate change password view and rebind the login show
+			 */
+			self.changePasswordView = new ChangePasswordView();
+			this.changePasswordView.on("click:login:show", this.changePasswordtoLoginViewTriggers.bind(this));
+		},
 		onRender: function() {
-			this.loginRegion.show(this.loginView);
+			if(this.options.action == null || this.options.action === "signup"){
+				this.loginRegion.show(this.signupView);
+			} else if(this.options.action === "forgotpassword"){
+				this.loginRegion.show(this.forgotPasswordView);
+			} else if(this.options.action === "newpassword") {
+				this.loginRegion.show(this.changePasswordView);
+			} else {
+				this.loginRegion.show(this.loginView);
+			}
 			this.aboutRegion.show(this.aboutView);
 
 		},

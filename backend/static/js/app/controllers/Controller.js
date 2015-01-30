@@ -26,7 +26,7 @@ define([
             this.index();
         },
         //gets mapped to in AppRouter's appRoutes
-        index:function () {
+        index:function (action) {
             // Check the auth status upon initialization,
             // if logged in, redirect to main page
             App.session.checkAuth(function(loginStatus){
@@ -34,19 +34,27 @@ define([
                 if(loginStatus){
                     Backbone.history.navigate('main', {trigger: true});
                 } else {
-                    Backbone.history.navigate('home', {trigger: true});
-                    App.mainRegion.show(new HomeLayout());
+                    if(action){
+                        Backbone.history.navigate('home/'+String(action), {trigger: true});
+                    } else {
+                        Backbone.history.navigate('home', {trigger: true});
+                    }
+                    App.mainRegion.show(new HomeLayout({
+                        action: String(action).toLowerCase()
+                    }));
                 }
             });          
         },
-        main:function () {
+        main:function (action) {
             // Check the auth status upon initialization,
             // if logged in, continue to main page
             App.session.checkAuth(function(loginStatus){
                 if(!Backbone.History.started) Backbone.history.start();
                 if(loginStatus){
                     Backbone.history.navigate('main', {trigger: true});
-                    App.mainRegion.show(new MainLayout());
+                    App.mainRegion.show(new MainLayout({
+                        action: String(action).toLowerCase()
+                    }));
                 } else {
                     Backbone.history.navigate('home', {trigger: true});
                 }
