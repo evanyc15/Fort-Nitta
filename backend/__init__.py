@@ -3,6 +3,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.cors import CORS
 from flask_mail import Mail, Message
+from flask.ext.bcrypt import Bcrypt
 
 from secrets import SECRET_KEY
 
@@ -30,6 +31,7 @@ app.config.update(dict(
 ))
 
 mail=Mail(app)
+bcrypt = Bcrypt(app)
 
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 

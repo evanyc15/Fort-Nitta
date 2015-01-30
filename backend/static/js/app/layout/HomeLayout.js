@@ -41,6 +41,7 @@ define([
 			var self = this;
 
 			self.loginRegion.show(self.signupView);
+			Backbone.history.navigate('home/signup', {trigger: true});
 
 			/* When signup view is shown, the login view has been destroyed
 			 * Thus, we re-instantiate login view rebind the signup show and forgot password show
@@ -53,6 +54,7 @@ define([
 			var self = this;
 
 			self.loginRegion.show(self.loginView);
+			Backbone.history.navigate('home', {trigger: true});
 
 			/* When login view is shown, the signup view has been destroyed
 			 * Thus, we re-instantiate signup view and rebind the login show
@@ -64,6 +66,7 @@ define([
 			var self = this;
 
 			self.loginRegion.show(self.forgotPasswordView);
+			Backbone.history.navigate('home/forgotpassword', {trigger: true});
 
 			/* When forgot password view is shown, the login view has been destroyed
 			 * Thus, we re-instantiate login view and rebind the forgot password show and signup show
@@ -76,6 +79,7 @@ define([
 			var self = this;
 
 			self.loginRegion.show(self.loginView);
+			Backbone.history.navigate('home', {trigger: true});
 
 			/* When login view is shown, the forgot password view has been destroyed
 			 * Thus, we re-instantiate forgot password view and rebind the login show

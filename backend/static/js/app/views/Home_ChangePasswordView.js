@@ -17,7 +17,7 @@ define([
         },
         events: {
            "click #backLoginButton": "loginShow",
-           "click #passwordRecButton": "changePassword"
+           "click #passwordButton": "changePassword"
         },
         loginShow: function() {
             this.trigger("click:login:show");

@@ -29,12 +29,13 @@ define([
         index:function (action) {
             // Check the auth status upon initialization,
             // if logged in, redirect to main page
+
             App.session.checkAuth(function(loginStatus){
                 if(!Backbone.History.started) Backbone.history.start();
                 if(loginStatus){
                     Backbone.history.navigate('main', {trigger: true});
                 } else {
-                    if(action){
+                    if(typeof action != 'undefined' && action){
                         Backbone.history.navigate('home/'+String(action), {trigger: true});
                     } else {
                         Backbone.history.navigate('home', {trigger: true});

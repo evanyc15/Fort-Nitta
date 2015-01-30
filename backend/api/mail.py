@@ -2,8 +2,9 @@ from flask import request, jsonify
 from flask.views import MethodView
 from flask_mail import Message
 
-from backend import db, app, mail
+from backend import db, app, mail, bcrypt
 from backend.database.models import User
+import datetime
 
 
 
@@ -20,7 +21,7 @@ class PasswordRecApi(MethodView):
                 'Password Recovery for Fort Nitta',
                 sender='ecs160server.winter2015@gmail.com',
                 recipients= [request_data['email']])
-                msg.body = "Testing email"
+                msg.body = "Testing email" + bcrypt.generate_password_hash(request_data['email'] + datetime.datetime.now().strftime('%m/%d/%Y'))
                 mail.send(msg)
                 return jsonify(**{'success': True})
 
