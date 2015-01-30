@@ -9,15 +9,18 @@
 	width: 110px;
 	height: 45px;
 }
-#contentArea.contentShow{
+#contentArea.contentShow {
 	transition: all 0.5s ease;
 	padding-right: 0px;
 }
-#contentArea.contentHide{
+#contentArea.contentHide {
 	transition: all 0.5s ease;
 	padding-right: 225px;
 }
-#playersRegion{
+#contentRegion {
+    padding-top: 25px;
+}
+#playersRegion {
 	position: fixed;
 	top: 45px;
 	right: 0;

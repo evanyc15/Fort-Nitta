@@ -12,15 +12,15 @@ def root():
 
 @app.route('/js/<path:path>')
 def static_js(path):
-    return app.send_static_file(os.path.join('js', path))
+    return app.send_static_file(os.path.join('js', path).replace('\\','/'))
 
 @app.route('/css/<path:path>')
 def static_css(path):
-    return app.send_static_file(os.path.join('css', path))
+    return app.send_static_file(os.path.join('css', path).replace('\\','/'))
 
 @app.route('/img/<path:path>')
 def static_img(path):
-    return app.send_static_file(os.path.join('img', path))
+    return app.send_static_file(os.path.join('img', path).replace('\\','/'))
 
 @app.route('/api/avatar/<path:path>')
 def avatar_proxy(path):

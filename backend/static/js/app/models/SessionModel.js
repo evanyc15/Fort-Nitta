@@ -156,8 +156,6 @@ define([
                     if(callback && 'complete' in callback) callback.complete(res);
             });
         },
-
-
         login: function(opts, callback, args){
             this.postAuth(_.extend(opts, { method: 'session_auth/' }), callback);
         },
