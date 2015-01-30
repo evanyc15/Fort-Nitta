@@ -9,47 +9,32 @@ from secrets import SECRET_KEY
 
 
 
+# Flask app
 app = Flask(__name__)
+
+# Load config and secrets
 app.config.from_object('settingsbackend')
-app.secret_key = SECRET_KEY
 
+
+
+# Flask extensions
 db = SQLAlchemy(app)
-
 login_manager = LoginManager()
 login_manager.init_app(app)
-
 cors = CORS(app)
-
-app.config.update(dict(
-    DEBUG = True,
-    MAIL_SERVER = 'smtp.gmail.com',
-    MAIL_PORT = 587,
-    MAIL_USE_TLS = True,
-    MAIL_USE_SSL = False,
-    MAIL_USERNAME = 'ecs160server.winter2015@gmail.com',
-    MAIL_PASSWORD = 'nitta_wars',
-))
-
-mail=Mail(app)
+mail = Mail(app)
 bcrypt = Bcrypt(app)
 
-# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
-# @app.after_request
-# def after_request(data):
-#     response = make_response(data)
-#     response.headers['Content-Type'] = 'application/json'
-#     response.headers['Access-Control-Allow-Origin'] = 'http://localhost'
-#     response.headers['Access-Control-Allow-Headers'] = "Origin, X-Requested-With,Content-Type, Accept"
-#     response.headers['Access-Control-Allow-Methods'] = "GET,PUT,POST,DELETE,OPTIONS"
-#     return response
-
+# Import app content
 from backend.database import *
 from backend.api import *
-
 from staticfiles import *
 
+
+
+# Create db
 try:
     db.create_all()
 except Exception:

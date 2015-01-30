@@ -28,10 +28,7 @@ class AvatarAPI(MethodView):
         db.session.add(current_user)
         db.session.commit()
 
-        # return send_from_directory(app.static_folder+'/avatar/', filename)
         return jsonify(**{'success': True, 'user': current_user_props()})
-
-
 
 avatar_view = AvatarAPI.as_view('avatar_api')
 app.add_url_rule('/api/avatar/', view_func=avatar_view, methods=['POST'])
