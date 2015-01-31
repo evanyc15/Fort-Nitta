@@ -33,13 +33,38 @@ define([
             App.session.checkAuth(function(loginStatus){
                 if(!Backbone.History.started) Backbone.history.start();
                 if(loginStatus){
-                    if(typeof action != 'undefined' && action && typeof id === 'undefined' && !id){
-                        Backbone.history.navigate('main/'+String(action), {trigger: true});
-                    } else if(typeof action != 'undefined' && action && typeof id !== 'undefined' && id) {
-                        Backbone.history.navigate('main/'+String(action)+"/"+String(id), {trigger: true});
-                    } else {
-                        Backbone.history.navigate('main', {trigger: true});
-                    }
+                    if(App.session.user.get('new_user') === 0){
+                        if(typeof action != 'undefined' && action && typeof id === 'undefined' && !id){
+                            Backbone.history.navigate('main/'+String(action), {trigger: true});
+                        } else if(typeof action != 'undefined' && action && typeof id !== 'undefined' && id) {
+                            Backbone.history.navigate('main/'+String(action)+"/"+String(id), {trigger: true});
+                        } else {
+                            Backbone.history.navigate('main', {trigger: true});
+                        }
+                    } else {    
+                        App.session.logout({
+                        },{
+                            success: function(){
+                                console.log("Logged out"); 
+                                App.mainRegion.show(new HomeLayout({
+                                    action: "verifyemail",
+                                    id: String(id).toLowerCase()
+                                }));   
+                                Backbone.history.navigate('home/verifyemail');
+                            },
+                            error: function(xhr, textStatus, errorThrown ) {
+                                if (textStatus == 'timeout') {
+                                    this.tryCount++;
+                                    if (this.tryCount <= this.retryLimit) {
+                                        //try again
+                                        $.ajax(this);
+                                        return;
+                                    }            
+                                    return;
+                                }
+                            }
+                        });
+                    }  
                 } else {
                     App.mainRegion.show(new HomeLayout({
                         action: String(action).toLowerCase(),
@@ -51,17 +76,40 @@ define([
         main:function (action, id) {
             // Check the auth status upon initialization,
             // if logged in, continue to main page
-        
-            // console.log('Query variable %s not found', variable);
-
 
             App.session.checkAuth(function(loginStatus){
                 if(!Backbone.History.started) Backbone.history.start();
                 if(loginStatus){
-                    App.mainRegion.show(new MainLayout({
-                        action: String(action).toLowerCase(),
-                        id: String(id).toLowerCase()
-                    }));
+                    if(App.session.user.get('new_user') === 0){
+                        App.mainRegion.show(new MainLayout({
+                            action: String(action).toLowerCase(),
+                            id: String(id).toLowerCase()
+                        }));
+                    } else {
+                        App.session.logout({
+                        },{
+                            success: function(){
+                                console.log("Logged out");     
+                                App.mainRegion.show(new HomeLayout({
+                                    action: "verifyemail",
+                                    id: String(id).toLowerCase()
+                                }));          
+                                Backbone.history.navigate('home/verifyemail');
+                            },
+                            error: function(xhr, textStatus, errorThrown ) {
+                                console.log("hello")
+                                 if (textStatus == 'timeout') {
+                                    this.tryCount++;
+                                    if (this.tryCount <= this.retryLimit) {
+                                        //try again
+                                        $.ajax(this);
+                                        return;
+                                    }            
+                                    return;
+                                }
+                            }
+                        });
+                    }   
                 } else {
                     if(typeof action != 'undefined' && action && typeof id === 'undefined' && !id){
                         Backbone.history.navigate('home/'+String(action), {trigger: true});

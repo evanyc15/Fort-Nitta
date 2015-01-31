@@ -109,7 +109,29 @@ class PasswordChangeApi(MethodView):
 
         return jsonify(**{'success': False}), 401
 
+class VerifyUserAPi(MethodView):
+    def post(self):
+        request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            return jsonify(**{'success': "none" }), 401
+        if('user' in request_data and 'tok' in request_data):
+            username = request_data['user']
+            verification = request_data['tok']
+            user = User.query.filter(username==username).filter(verification==verification).first()
+ 
+            if user is None:
+                return jsonify(**{'success': False}), 401
+            user.new_user = 0        
+            db.session.add(user)
+            db.session.commit()
+            return jsonify(**{'success': True})
+
+        return jsonify(**{'success': False}), 401
+
+
 register_view = RegisterAPI.as_view('register_api')
 password_change_view = PasswordChangeApi.as_view('password_change_api')
+verify_user_view = VerifyUserAPi.as_view('verify_user_api')
 app.add_url_rule('/api/users/register/', view_func=register_view, methods=['POST'])
 app.add_url_rule('/api/users/changepass/', view_func=password_change_view, methods=['POST'])
+app.add_url_rule('/api/users/verifyuser/', view_func=verify_user_view, methods=['POST'])

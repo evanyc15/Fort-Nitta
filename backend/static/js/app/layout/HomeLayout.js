@@ -8,9 +8,10 @@ define([
 	'views/Home_SignupView',
 	'views/Home_ForgotPasswordView',
 	'views/Home_ChangePasswordView',
+	'views/Home_VerifyEmailView',
 	'views/Home_AboutView',
 	'text!templates/home_layout.html'
-],  function ($, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, ChangePasswordView, AboutView, template) {
+],  function ($, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, ChangePasswordView, VerifyEmailView, AboutView, template) {
 
 	"use strict";
 
@@ -29,7 +30,18 @@ define([
 					id: this.options.id
 				});
 			} else {
-				this.changePasswordView = new ChangePasswordView();
+				this.changePasswordView = new ChangePasswordView({
+					id: ""
+				});
+			}
+			if(this.options.action === "verifyemail" && this.options.id && this.options.id !== "" ){
+				this.verifyEmailView = new VerifyEmailView({
+					id: this.options.id
+				});
+			} else{
+				this.verifyEmailView = new VerifyEmailView({
+					id: ""
+				});
 			}
 			this.aboutView = new AboutView();	
 
@@ -38,6 +50,7 @@ define([
 			this.loginView.on("click:forgotPassword:show", this.logintoForgotPasswordViewTriggers.bind(this));
 			this.forgotPasswordView.on("click:login:show", this.forgotPasswordtoLoginViewTriggers.bind(this));	
 			this.changePasswordView.on("click:login:show", this.changePasswordtoLoginViewTriggers.bind(this));
+			this.verifyEmailView.on("click:login:show", this.verifyEmailtoLoginViewTriggers.bind(this));
 		},
 		regions: {
 			loginRegion: "#loginRegion",
@@ -105,6 +118,18 @@ define([
 			self.changePasswordView = new ChangePasswordView();
 			this.changePasswordView.on("click:login:show", this.changePasswordtoLoginViewTriggers.bind(this));
 		},
+		verifyEmailtoLoginViewTriggers: function() {
+			var self = this;
+
+			self.loginRegion.show(self.loginView);
+			Backbone.history.navigate('home');
+
+			/* When login view is shown, the change verify email view has been destroyed
+			 * Thus, we re-instantiate verify email view and rebind the login show
+			 */
+			self.verifyEmailView = new VerifyEmailView();
+			this.verifyEmailView.on("click:login:show", this.verifyEmailtoLoginViewTriggers.bind(this));
+		},
 		onRender: function() {
 			if(this.options.action === "signup"){
 				this.loginRegion.show(this.signupView);
@@ -112,6 +137,8 @@ define([
 				this.loginRegion.show(this.forgotPasswordView);
 			} else if(this.options.action === "changepassword") {
 				this.loginRegion.show(this.changePasswordView);
+			} else if(this.options.action === "verifyemail"){
+				this.loginRegion.show(this.verifyEmailView);
 			} else {
 				this.loginRegion.show(this.loginView);
 			}

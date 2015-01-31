@@ -16,7 +16,8 @@ define([
             firstname: '',
             lastname: '',
             username: '',
-            avatar_path: ''
+            avatar_path: '',
+            new_user: 1
         },
 
     });

@@ -20,7 +20,8 @@ def current_user_props():
         'uid': current_user.id, 
         'firstname': current_user.first_name, 
         'lastname': current_user.last_name,
-        'avatar_path': current_user.avatar_path
+        'avatar_path': current_user.avatar_path,
+        'new_user': current_user.new_user
     } if current_user.is_authenticated() else {}
 
 def hash_password(pw):
