@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     first_name =    db.Column(db.String(40))
     last_name =     db.Column(db.String(40))
     avatar_path =   db.Column(db.String(100))
+    verification =  db.Column(db.String(255))
 
     # One-to-one relationship with a Presence model
     activity =      db.relationship('Presence', backref='user', uselist=False)

@@ -34,9 +34,8 @@ define([
                     $("#emailError").removeClass("show");
                 }, 5000);
             } else{
-                console.log(email);
                 $.ajax({
-                    url: '/api/mail/',
+                    url: '/api/recpassmail/',
                     type: 'POST',
                     contentType: 'application/json',
                     dataType: 'json',

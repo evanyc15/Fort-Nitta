@@ -30,7 +30,6 @@ require.config({
             "exports":"Backbone"
         },
         "cookie":["jquery"],
-        "queryparams":["jquery"],
         "foundation":["jquery"],
         "foundation-topbar":["foundation"],
         "foundation-datatables":["datatables"],

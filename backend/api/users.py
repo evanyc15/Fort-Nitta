@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from flask.views import MethodView
 from flask.ext.login import current_user, login_user
+from sqlalchemy import and_
 
 from backend import db, app
 from backend.database.models import User
@@ -88,5 +89,27 @@ class RegisterAPI(MethodView):
 
         return errors, cleaned_data
 
+class PasswordChangeApi(MethodView):
+    def post(self):
+        request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            return jsonify(**{'success': "none" }), 401
+        if('user' in request_data and 'password' in request_data and 'tok' in request_data):
+            username = request_data['user']
+            new_password = hash_password(request_data['password'])
+            verification = request_data['tok']
+            user = User.query.filter(username==username).filter(verification==verification).first()
+ 
+            if user is None:
+                return jsonify(**{'success': False}), 401
+            user.password = new_password        
+            db.session.add(user)
+            db.session.commit()
+            return jsonify(**{'success': True})
+
+        return jsonify(**{'success': False}), 401
+
 register_view = RegisterAPI.as_view('register_api')
+password_change_view = PasswordChangeApi.as_view('password_change_api')
 app.add_url_rule('/api/users/register/', view_func=register_view, methods=['POST'])
+app.add_url_rule('/api/users/changepass/', view_func=password_change_view, methods=['POST'])

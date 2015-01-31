@@ -4,6 +4,7 @@ from flask_mail import Message
 
 from backend import db, app, mail, bcrypt
 from backend.database.models import User
+from backend.api.sessionauth import hash_password
 import validation
 
 import datetime
@@ -12,6 +13,7 @@ import datetime
 
 class PasswordRecApi(MethodView):
     def post(self):
+        url = "http://localhost:5000/"
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
             return jsonify(**{'success': False }), 401
@@ -23,15 +25,26 @@ class PasswordRecApi(MethodView):
 
             user = User.query.filter_by(email=email).first()
             if user:
-                msg = Message('Password Recovery for Fort Nitta',
-                    sender='ecs160server.winter2015@gmail.com',
-                    recipients= [request_data['email']]
-                )
-                msg.body = "Testing email" + bcrypt.generate_password_hash(request_data['email'] + datetime.datetime.now().strftime('%m/%d/%Y'))
-                mail.send(msg)
-                return jsonify(**{'success': True})
-
+                hash_token = bcrypt.generate_password_hash(email + datetime.datetime.now().strftime('%m/%d/%Y')).replace("/",".")
+                current_user = User.query.filter_by(email=email).update(dict(verification=hash_token))
+                if current_user:
+                    db.session.commit()
+                    msg = Message('Password Recovery for Fort Nitta',
+                        sender='ecs160server.winter2015@gmail.com',
+                        recipients= [email]
+                    )
+                    msg.body = ("Hey Fort Nitta user,\n\n" +
+                    "   To reset your password, please visit the following link:\n   " + 
+                    url + "#home/changepassword/?" + "user=" + user.username + "&tok=" +
+                    hash_token +
+                    "\n\nAll the best,\n" + "Fort Nitta Team,\n"+url)
+                    mail.send(msg)
+                    return jsonify(**{'success': True})
+                return jsonify(**{'success': False}), 401
         return jsonify(**{'success': False}), 401
 
+
+
+
 password_rec_view = PasswordRecApi.as_view('password_rec_api')
-app.add_url_rule('/api/mail/', view_func=password_rec_view, methods=['POST'])
+app.add_url_rule('/api/recpassmail/', view_func=password_rec_view, methods=['POST'])

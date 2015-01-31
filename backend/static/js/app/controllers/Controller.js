@@ -51,6 +51,10 @@ define([
         main:function (action, id) {
             // Check the auth status upon initialization,
             // if logged in, continue to main page
+        
+            // console.log('Query variable %s not found', variable);
+
+
             App.session.checkAuth(function(loginStatus){
                 if(!Backbone.History.started) Backbone.history.start();
                 if(loginStatus){

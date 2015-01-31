@@ -24,7 +24,13 @@ define([
 			this.loginView = new LoginView();
 			this.signupView = new SignupView();
 			this.forgotPasswordView = new ForgotPasswordView();
-			this.changePasswordView = new ChangePasswordView();
+			if(this.options.action === "changepassword"){
+				this.changePasswordView = new ChangePasswordView({
+					id: this.options.id
+				});
+			} else {
+				this.changePasswordView = new ChangePasswordView();
+			}
 			this.aboutView = new AboutView();	
 
 			this.loginView.on("click:signup:show", this.logintoSignupViewTriggers.bind(this));
@@ -104,7 +110,7 @@ define([
 				this.loginRegion.show(this.signupView);
 			} else if(this.options.action === "forgotpassword"){
 				this.loginRegion.show(this.forgotPasswordView);
-			} else if(this.options.action === "newpassword") {
+			} else if(this.options.action === "changepassword") {
 				this.loginRegion.show(this.changePasswordView);
 			} else {
 				this.loginRegion.show(this.loginView);
