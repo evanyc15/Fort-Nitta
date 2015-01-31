@@ -33,6 +33,9 @@ define([
 		events: {
 			"click #playersDisplayButton": "playersDisplay"
 		},
+		onShow: function(){
+			this.$el.find("#playerList").height($(window).height()-110);
+		},
 		playersDisplay: function(){
 			if(this.$el.find("#playersDisplayButton").hasClass("playersDisplayShown")){
 				this.$el.find("#playersDisplayButton").removeClass("playersDisplayShown").addClass("playersDisplayHidden");
@@ -41,10 +44,8 @@ define([
 				this.$el.find("#playersDisplayButton").removeClass("playersDisplayHidden").addClass("playersDisplayShown");
 				this.trigger("click:playersDisplay:show");
 			}
-		},
-		onShow: function(){
-			this.$el.find("#playerList").height($(window).height()-110);
 		}
+		
 		
 	});
 });

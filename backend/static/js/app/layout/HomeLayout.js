@@ -56,6 +56,24 @@ define([
 			loginRegion: "#loginRegion",
 			aboutRegion: "#aboutRegion"
 		},
+		onRender: function() {
+			if(this.options.action === "signup"){
+				this.loginRegion.show(this.signupView);
+			} else if(this.options.action === "forgotpassword"){
+				this.loginRegion.show(this.forgotPasswordView);
+			} else if(this.options.action === "changepassword") {
+				this.loginRegion.show(this.changePasswordView);
+			} else if(this.options.action === "verifyemail"){
+				this.loginRegion.show(this.verifyEmailView);
+			} else {
+				this.loginRegion.show(this.loginView);
+			}
+			this.aboutRegion.show(this.aboutView);
+
+		},
+		onShow: function() {
+			$(document).foundation();
+		},
 		logintoSignupViewTriggers: function(){
 			var self = this;
 
@@ -129,24 +147,6 @@ define([
 			 */
 			self.verifyEmailView = new VerifyEmailView();
 			this.verifyEmailView.on("click:login:show", this.verifyEmailtoLoginViewTriggers.bind(this));
-		},
-		onRender: function() {
-			if(this.options.action === "signup"){
-				this.loginRegion.show(this.signupView);
-			} else if(this.options.action === "forgotpassword"){
-				this.loginRegion.show(this.forgotPasswordView);
-			} else if(this.options.action === "changepassword") {
-				this.loginRegion.show(this.changePasswordView);
-			} else if(this.options.action === "verifyemail"){
-				this.loginRegion.show(this.verifyEmailView);
-			} else {
-				this.loginRegion.show(this.loginView);
-			}
-			this.aboutRegion.show(this.aboutView);
-
-		},
-		onShow: function() {
-			$(document).foundation();
 		}
 	});
 });

@@ -20,6 +20,10 @@ define([
 			"click #topbarSettings": "settings",
 			"click #topBarMyProfile": "myprofile"
 		},
+		onRender: function(){
+			var html = this.template(App.session.user.toJSON());
+			this.$el.html(html);
+		},
 		settings: function(){
 			this.trigger("click:settings:show");
 		},
@@ -40,10 +44,6 @@ define([
 					console.log("Logged out failed");
 				}
 			});
-		},
-		onRender: function(){
-			var html = this.template(App.session.user.toJSON());
-			this.$el.html(html);
 		}
 		
 	});
