@@ -71,7 +71,7 @@ define([
         backtoLogin: function() {
             this.trigger("click:login:show");
         },
-        sendEmail: function(event) {
+        sendEmail: function() {
             var self = this;
 
             if(event){
