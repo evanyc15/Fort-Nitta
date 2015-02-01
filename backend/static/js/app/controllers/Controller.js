@@ -30,9 +30,6 @@ define([
             App.session.checkAuth(function(loginStatus){
                 if(loginStatus){
                     if(App.session.user.get('new_user') === 0){
-
-                        console.log("1");
-
                         if(action && action !== 'undefined' && id === 'undefined' && !id){
                             Backbone.history.navigate('main/'+String(action), {trigger: true});
                         } else if(action && action !== 'undefined' && id !== 'undefined' && id) {
@@ -41,9 +38,6 @@ define([
                             Backbone.history.navigate('main', {trigger: true});
                         }
                     } else {    
-
-                        console.log("2");
-
                         App.session.logout({
                         },{
                             success: function(){
@@ -82,17 +76,11 @@ define([
                 
                 if(loginStatus){
                     if(App.session.user.get('new_user') === 0){
-
-                        console.log("3", action, id);
-
                         App.mainRegion.show(new MainLayout({
                             action: String(action).toLowerCase(),
                             id: String(id).toLowerCase()
                         }));
                     } else {
-
-                        console.log("4");
-
                         App.session.logout({
                         },{
                             success: function(){
@@ -117,9 +105,6 @@ define([
                         });
                     }   
                 } else {
-
-                    console.log("5");
-
                     if(action && action !== 'undefined' && id === 'undefined' && !id){
                         this.navigate('home/'+String(action), {trigger: true});
                     } else if(action && action !== 'undefined' && id !== 'undefined' && id) {
