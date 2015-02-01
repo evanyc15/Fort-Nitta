@@ -29,28 +29,28 @@ define([
 					$("#playerList").height(height-110);
 				}
 			});
-			var sse = new EventSource('http://localhost:5000/stream');
-            sse.addEventListener('message', function(e) {
-            	var results = JSON.parse(e.data);
-					var i;
+			// var sse = new EventSource('http://localhost:5000/stream');
+   //          sse.addEventListener('message', function(e) {
+   //          	var results = JSON.parse(e.data);
+			// 		var i;
 
-					for(i = 0; i < results.length; i++){
-						var html = "<div class='row playerTile'>" +
-										"<div class='large-4 columns'>";
-						if(results[i].game_online){
-							html+= "<i class='fa fa-gamepad playerTileStatus'></i>";
-						}
-						if(results[i].web_online){
-							html+= "<i class='fa fa-globe playerTileStatus'></i>";
-						}
-						html+=	"</div>" + 
-								"<div class='large-8 columns playerName'>" +
-									results[i].first_name + " " + results[i].last_name +
-								"</div>" +
-							"</div>";
-						self.$el.find("#playerList").prepend(html);
-					}
-			}, false);
+			// 		for(i = 0; i < results.length; i++){
+			// 			var html = "<div class='row playerTile'>" +
+			// 							"<div class='large-4 columns'>";
+			// 			if(results[i].game_online){
+			// 				html+= "<i class='fa fa-gamepad playerTileStatus'></i>";
+			// 			}
+			// 			if(results[i].web_online){
+			// 				html+= "<i class='fa fa-globe playerTileStatus'></i>";
+			// 			}
+			// 			html+=	"</div>" + 
+			// 					"<div class='large-8 columns playerName'>" +
+			// 						results[i].first_name + " " + results[i].last_name +
+			// 					"</div>" +
+			// 				"</div>";
+			// 			self.$el.find("#playerList").prepend(html);
+			// 		}
+			// }, false);
 		},
 		events: {
 			"click #playersDisplayButton": "playersDisplay"

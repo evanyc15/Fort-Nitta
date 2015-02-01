@@ -1,18 +1,34 @@
 <link rel="stylesheet" type="text/css" href="../../../css/main_profile.css">
 <!-- Main Page Content and Sidebar -->
 <div class="row content">
-    <div class="large-3 columns profileInfo">
-        <img id="profilePicture" class="profile-image" src="../../../img/placeholder-user.png" />
-        <a href="javascript:void(0)" class="button radius" id="profilePictureChange">Change Picture</a>
-        <input id="profilePictureChangeInput" type="file" accept="image/*" name="imageInput"/>
-        <span id="username" />
-        <br>
-        <span>Level Progress</span>
-        <div class="achievementAccolades">
-            Accolades and Achievements
+    <div class="large-3 columns profileBox" id="profileInfo">
+        <div class="row">
+            <div class="large-12 columns profileInfo-inner">
+                <img id="profilePicture" class="profile-image" src="../../../img/placeholder-user.png" />
+                <a href="javascript:void(0)" class="button radius" id="profilePictureChange">Change Picture</a>
+                <input id="profilePictureChangeInput" type="file" accept="image/*" name="imageInput"/>
+            </div>
         </div>
+        <div class="row">
+            <div class="large-12 columns profileInfo-inner">
+                <span class="profileInfo-header">Information </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns profileInfo-inner">
+                <span class="profileInfo-header">Level Progress</span>
+            </div>
+        </div>  
+        <div class="row">
+            <div class="large-12 columns profileInfo-inner">
+                <span class="profileInfo-header">Accolades and Achievements</span>
+                <div class="achievementAccolades">
+                    
+                </div>
+            </div>
+        </div>   
     </div>
-    <div class="large-9 columns">
+    <div class="large-9 columns profileBox" id="profileContent">
         <h1>Statistics</h1>  
         <hr>   
         <table cellpadding="0" cellspacing="0" border="0" id="profileTable">
