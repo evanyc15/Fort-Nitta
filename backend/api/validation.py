@@ -6,8 +6,7 @@ REGEXP_EMAIL = re.compile(r"[^@]+@[^@]+\.[^@]+")
 REGEXP_UPPERALPHA = re.compile(r"[A-Z]")
 REGEXP_LOWERALPHA = re.compile(r"[a-z]")
 REGEXP_DIGIT = re.compile(r"[0-9]")
-
-
+REGEXP_RESTRICTEDSYMBOL = re.compile(r"[\;| \,| \\ | \/]+")
 
 
 def missing_props(props, obj):
@@ -39,3 +38,6 @@ def valid_email(email):
 
 def valid_password(password):
     return (len(password) >= 6) and (re.search(REGEXP_UPPERALPHA, password)) and  (re.search(REGEXP_LOWERALPHA, password)) and (re.search(REGEXP_DIGIT, password))
+
+def valid_username(username):
+    return False if re.search(REGEXP_RESTRICTEDSYMBOL, username) else True

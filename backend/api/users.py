@@ -84,9 +84,13 @@ class RegisterAPI(MethodView):
         # Check uniqueness
         if User.query.filter_by(username=request_data['username']).first():
             errors['username_taken'] = request_data['username']
-
+			
         if User.query.filter_by(email=request_data['email']).first():
             errors['email_taken'] = request_data['email']
+
+		#check if valid user name
+        if ('username' in request_data) and (not validation.valid_username(request_data['username'])):
+		    errors['invalid_username'] = 'username contained restricted symbol' 
 
         # Quick and easy dict comprehension to convert all data to strings
         cleaned_data = {prop: str(request_data[prop]) for prop in props if prop in request_data}

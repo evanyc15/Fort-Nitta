@@ -36,6 +36,7 @@ define([
 		signup: function(event) {
             var flag = true;
             var reEmail = /\S+@\S+\.\S+/;
+			var reUsername = /[;|,|\/|\\]+/;
 
             if(event){
                 event.stopPropagation();
@@ -53,9 +54,11 @@ define([
                 this.showError("small#lastnameError.error");
                 flag = false;
             }
-            if(this.$("#usernameInput").val() === ""){
+            if((this.$("#usernameInput").val() === "")|| (reUsername.test(this.$("#usernameInput").val()))){
                 this.showError("small#usernameError.error");
+                flag=false;
             }
+    
             if(!reEmail.test(this.$("#emailInput").val())){
                 this.showError("small#emailError.error");
                 flag = false;
