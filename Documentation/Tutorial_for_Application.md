@@ -57,7 +57,7 @@ Application Hierarchy
 
 5. Layouts establish the "structure" of the single page. The "sections" are defined as regions in layouts. The layout uses a template which is a html file that contains the shell of the website. It uses html ids to determine which parts of the template are the regions.
 
-6. In these layouts, we insert Backbone views into the regions. A layout can only have one view at a time A view is what handles user interactions with the page. Each view also has a template which is the html file that will be inserted into the "section"/region of the page which was defined in their respective Layout. (Templates are what the user actually "sees", it is the html itself which is rendered onto the website)
+6. In these layouts, we insert Backbone views into the regions. A region can only have one view at a time. A view is what handles user interactions with the page. Each view also has a template which is the html file that will be inserted into the "section"/region of the page which was defined in their respective Layout. (Templates are what the user actually "sees", it is the html itself which is rendered onto the website)
 
 7. An example of this is we currently have a HomeLayout.js which has regions for the login/signup area and about information. Our views are Home_LoginView.js, Home_SignupView.js, and Home_AboutView.js which have home_loginBox.html, home_signupBox.html, and home_about.html templates respectively. We can switch these views into the regions defined in the Layout. This is what gives the website its single page feel.
 
