@@ -91,11 +91,11 @@ define([
                     }   
                 } else {
                     if(action && action !== 'undefined' && id === 'undefined' && !id){
-                        this.navigate('home/'+String(action), {trigger: true});
+                        Backbone.history.navigate('home/'+String(action), {trigger: true});
                     } else if(action && action !== 'undefined' && id !== 'undefined' && id) {
-                        this.navigate('home/'+String(action)+"/"+String(id), {trigger: true});
+                        Backbone.history.navigate('home/'+String(action)+"/"+String(id), {trigger: true});
                     } else {
-                        this.navigate('home', {trigger: true});
+                        Backbone.history.navigate('home', {trigger: true});
                     }
                 }
             });
