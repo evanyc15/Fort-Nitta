@@ -31,12 +31,11 @@ define([
             // if logged in, redirect to main page
 
             App.session.checkAuth(function(loginStatus){
-                if(!Backbone.History.started) Backbone.history.start();
                 if(loginStatus){
                     if(App.session.user.get('new_user') === 0){
-                        if(typeof action != 'undefined' && action && typeof id === 'undefined' && !id){
+                        if(action && action !== 'undefined' && id === 'undefined' && !id){
                             Backbone.history.navigate('main/'+String(action), {trigger: true});
-                        } else if(typeof action != 'undefined' && action && typeof id !== 'undefined' && id) {
+                        } else if(action && action !== 'undefined' && id !== 'undefined' && id) {
                             Backbone.history.navigate('main/'+String(action)+"/"+String(id), {trigger: true});
                         } else {
                             Backbone.history.navigate('main', {trigger: true});
@@ -78,7 +77,7 @@ define([
             // if logged in, continue to main page
 
             App.session.checkAuth(function(loginStatus){
-                if(!Backbone.History.started) Backbone.history.start();
+                
                 if(loginStatus){
                     if(App.session.user.get('new_user') === 0){
                         App.mainRegion.show(new MainLayout({
@@ -111,12 +110,12 @@ define([
                         });
                     }   
                 } else {
-                    if(typeof action != 'undefined' && action && typeof id === 'undefined' && !id){
-                        Backbone.history.navigate('home/'+String(action), {trigger: true});
-                    } else if(typeof action != 'undefined' && action && typeof id !== 'undefined' && id) {
-                        Backbone.history.navigate('home/'+String(action)+"/"+String(id), {trigger: true});
+                    if(action && action !== 'undefined' && id === 'undefined' && !id){
+                        this.navigate('home/'+String(action), {trigger: true});
+                    } else if(action && action !== 'undefined' && id !== 'undefined' && id) {
+                        this.navigate('home/'+String(action)+"/"+String(id), {trigger: true});
                     } else {
-                        Backbone.history.navigate('home', {trigger: true});
+                        this.navigate('home', {trigger: true});
                     }
                 }
             });
