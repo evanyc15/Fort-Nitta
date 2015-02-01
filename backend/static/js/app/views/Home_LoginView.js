@@ -45,7 +45,6 @@ define([
                 password: this.$("#passwordInput").val()
             }, {
                 success: function(mod, res){
-                    App.session.trigger("change:logged_in");
                 },
                 error: function(err){
                     $("small.error").addClass("show");
