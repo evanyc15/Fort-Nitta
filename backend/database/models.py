@@ -88,11 +88,11 @@ class Presence(db.Model):
         """
         self.user_id = user_id
 
-    def __repr__(self):
-        """
-        String representation in console.
-        """
-        return '<Presence: {0} is {1} (last seen {2})>'.format(self.user, ('online' if self.online else 'offline'), self.last_seen)
+    # def __repr__(self):
+    #     """
+    #     String representation in console.
+    #     """
+    #     return '<Presence: {0} is {1} (last seen {2})>'.format(self.user, ('online' if self.web_online else 'offline'), self.web_last_seen)
 
     def set_game_online(self):
         """

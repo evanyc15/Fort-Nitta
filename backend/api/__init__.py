@@ -1,1 +1,1 @@
-__all__ = ['users', 'sessionauth', 'avatar', 'mail']
+__all__ = ['users', 'sessionauth', 'avatar', 'mail', 'presence']
