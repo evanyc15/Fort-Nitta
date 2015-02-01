@@ -4,7 +4,7 @@ from flask.ext.login import current_user, login_user
 from sqlalchemy import and_
 
 from backend import db, app
-from backend.database.models import User
+from backend.database.models import User, Presence
 from backend.api.sessionauth import current_user_props, hash_password
 import validation
 
@@ -37,6 +37,10 @@ class RegisterAPI(MethodView):
             return jsonify(**{'success': False, 'errors': errors}), 422
 
         user = create_new_user(**cleaned_data)
+
+        new_presence = Presence(user_id = user.id)
+        db.session.add(new_presence)
+        db.session.commit()
 
         login_user(user)
 

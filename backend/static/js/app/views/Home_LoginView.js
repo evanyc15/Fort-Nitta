@@ -45,6 +45,7 @@ define([
                 password: this.$("#passwordInput").val()
             }, {
                 success: function(mod, res){
+                    Backbone.history.navigate('main', {trigger: true});
                 },
                 error: function(err){
                     $("small.error").addClass("show");

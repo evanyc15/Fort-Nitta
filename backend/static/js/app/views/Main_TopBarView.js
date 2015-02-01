@@ -38,7 +38,7 @@ define([
 			},{
 				success: function(){
 					console.log("Logged out");
-					App.session.trigger("change:logged_out");
+					Backbone.history.navigate('home', {trigger: true});
 				},
 				error: function() {
 					console.log("Logged out failed");

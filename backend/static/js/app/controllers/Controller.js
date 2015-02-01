@@ -15,13 +15,6 @@ define([
             // Create a new session model and scope it to the app global
             // This will be a singleton, which other modules can access
             App.session = new SessionModel({});
-
-            App.session.on("change:logged_out", function(){
-                Backbone.history.navigate('home', {trigger: true});
-            });
-            App.session.on("change:logged_in", function(){
-                Backbone.history.navigate(Backbone.history.fragment, false);
-            });
         },
         //gets mapped to in AppRouter's appRoutes
         index:function (action, id) {
@@ -41,12 +34,8 @@ define([
                         App.session.logout({
                         },{
                             success: function(){
-                                console.log("Logged out"); 
-                                App.mainRegion.show(new HomeLayout({
-                                    action: "verifyemail",
-                                    id: String(id).toLowerCase()
-                                }));   
-                                Backbone.history.navigate('home/verifyemail');
+                                console.log("Logged out");    
+                                Backbone.history.navigate('home/verifyemail', {trigger: true});
                             },
                             error: function(xhr, textStatus, errorThrown ) {
                                 if (textStatus == 'timeout') {
@@ -84,12 +73,8 @@ define([
                         App.session.logout({
                         },{
                             success: function(){
-                                console.log("Logged out");     
-                                App.mainRegion.show(new HomeLayout({
-                                    action: "verifyemail",
-                                    id: String(id).toLowerCase()
-                                }));          
-                                Backbone.history.navigate('home/verifyemail');
+                                console.log("Logged out");          
+                                Backbone.history.navigate('home/verifyemail', {trigger: true});
                             },
                             error: function(xhr, textStatus, errorThrown ) {
                                  if (textStatus == 'timeout') {

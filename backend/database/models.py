@@ -73,11 +73,20 @@ class Presence(db.Model):
     Has a strong one-to-one mapping with a User.
     """
     id =        db.Column(db.Integer, primary_key=True)
-    online =    db.Column(db.Boolean)
-    last_seen = db.Column(db.DateTime)
+    game_online =    db.Column(db.Boolean)
+    web_online = db.Column(db.Boolean)
+    game_last_seen = db.Column(db.DateTime)
+    web_last_seen = db.Column(db.DateTime)
 
     # Foreign Key: One-to-one relationship with a User model
     user_id =   db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __init__(self, user_id):
+        """
+        Create a new User. Represents an account registration.
+        Arguments should be validated elsewhere prior to instantiation.
+        """
+        self.user_id = user_id
 
     def __repr__(self):
         """
@@ -85,18 +94,31 @@ class Presence(db.Model):
         """
         return '<Presence: {0} is {1} (last seen {2})>'.format(self.user, ('online' if self.online else 'offline'), self.last_seen)
 
-    def set_online(self):
+    def set_game_online(self):
         """
-        Mark the Presence model as online.        
+        Mark the Presence model's game as online.        
         """
-        self.online =   True 
+        self.game_online =   True 
 
-    def set_offline(self):
+    def set_game_offline(self):
         """
-        Mark the Presence model as offline. Records the last-seen time at the time of the call.
+        Mark the Presence model's game as offline. Records the last-seen time at the time of the call.
         """
-        self.online =   False 
-        self.datetime = datetime.datetime.now()
+        self.game_online =   False 
+        self.game_last_seen = datetime.datetime.now()
+
+    def set_web_online(self):
+        """
+        Mark the Presence model's web as online.
+        """
+        self.web_online =   True
+
+    def set_web_offline(self):
+        """
+        Mark the Presence model's web as offline. Records the last-seen time at the time of the call.
+        """
+        self.web_online =   False
+        self.web_last_seen = datetime.datetime.now()
 
 
 

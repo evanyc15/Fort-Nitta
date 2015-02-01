@@ -3,7 +3,7 @@ from flask.views import MethodView
 from flask.ext.login import current_user, login_user, logout_user
 
 from backend import db, app, bcrypt
-from backend.database.models import User
+from backend.database.models import User, Presence
 
 
 
@@ -42,7 +42,13 @@ class SessionAuthAPI(MethodView):
             user = User.query.filter_by(username=request_data['username']).first()
             if user and check_password(request_data['password'], user.password):
                 login_user(user)
-                # Leave property authenticated to be calculated by current_user.is_authenticated()
+                presence = Presence.query.filter(Presence.user_id==user.id).first()
+                if presence is None:
+                    return jsonify(**{'success': False}), 401
+                presence.web_online = True        
+                db.session.add(presence)
+                db.session.commit()
+                # Leave property authenticated to be calculated by current_user.is_authenticated()     
                 return jsonify(**{'success': True, 'authenticated': current_user.is_authenticated(), 'user': current_user_props()})
 
         return jsonify(**{'success': False, 'authenticated': current_user.is_authenticated()}), 401
@@ -52,6 +58,12 @@ class SessionAuthAPI(MethodView):
         return jsonify(**{'authenticated': True, 'user': current_user_props()})
 
     def delete(self):
+        presence = Presence.query.filter(Presence.user_id==current_user.id).first()
+        if presence is None:
+            return jsonify(**{'success': False}), 401
+        presence.web_online = False        
+        db.session.add(presence)
+        db.session.commit()
         logout_user()
         return jsonify(**{'success': True, 'authenticated': current_user.is_authenticated()})
 
