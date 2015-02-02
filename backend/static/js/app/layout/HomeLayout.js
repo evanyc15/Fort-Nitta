@@ -1,4 +1,5 @@
 define([
+	'App'
 	'jquery',
 	'backbone',
 	'marionette',
@@ -11,7 +12,7 @@ define([
 	'views/Home_VerifyEmailView',
 	'views/Home_AboutView',
 	'text!templates/home_layout.html'
-],  function ($, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, ChangePasswordView, VerifyEmailView, AboutView, template) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, ChangePasswordView, VerifyEmailView, AboutView, template) {
 
 	"use strict";
 

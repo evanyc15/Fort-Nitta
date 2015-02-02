@@ -1,5 +1,5 @@
 define([
-	'app',
+	'App',
 	'marionette',
 	'handlebars',
 	'text!templates/home_about.html'
