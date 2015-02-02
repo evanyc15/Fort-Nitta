@@ -17,7 +17,7 @@ define([
 			var width = $(window).width();
 			var height = $(window).height();
 			var self = this;
-			this.playersArray = null;
+			this.playersArray = [];
 
 			$(window).on("resize", function(){
 
@@ -32,28 +32,59 @@ define([
 			});
 			var sse = new EventSource('http://localhost:5000/stream');
             sse.addEventListener('message', function(e) {
-                this.playersArray = JSON.parse(e.data);
-                
-            	var temp = JSON.parse(e.data);
-					var i;
 
-					for(i = 0; i < results.length; i++){
-						var html = "<div class='row playerTile'>" +
-										"<div class='large-4 columns'>";
-						if(results[i].game_online){
-							html+= "<i class='fa fa-gamepad playerTileStatus'></i>";
-						}
-						if(results[i].web_online){
-							html+= "<i class='fa fa-globe playerTileStatus'></i>";
-						}
-						html+=	"</div>" + 
-								"<div class='large-8 columns playerName'>" +
-									results[i].first_name + " " + results[i].last_name +
-								"</div>" +
-							"</div>";
-						self.$el.find("#playerList").append(html);
-
-					}
+            	var results = JSON.parse(e.data);
+				var i, j;
+                if(self.playersArray === undefined || self.playersArray.length == 0){
+                    console.log("1");
+                    for(i = 0; i < results.length; i++){
+                        var html = "<div class='row playerTile'>" +
+                                    "<div class='large-4 columns'>";
+                        if(results[i].game_online){
+                            html+= "<i class='fa fa-gamepad playerTileStatus'></i>";
+                        }
+                        if(results[i].web_online){
+                            html+= "<i class='fa fa-globe playerTileStatus'></i>";
+                        }
+                        html+=  "</div>" + 
+                                "<div class='large-8 columns playerName'>" +
+                                    results[i].first_name + " " + results[i].last_name +
+                                "</div>" +
+                            "</div>";
+                        self.$el.find("#playerList").append(html);
+                        self.playersArray.push(results[i]);
+                        console.log(self.playersArray);
+                    }
+                } else{
+                    console.log("2");
+                    for(i = 0; i < results.length; i++){
+                        var holder = results[i];
+                        var flag = false;
+                        for(j = 0; j < self.playersArray.length; j++){
+                            if(self.playersArray[j].username == holder.username){
+                                flag = true;
+                            }
+                        }
+                        if(!flag){
+                            var html = "<div class='row playerTile'>" +
+                                        "<div class='large-4 columns'>";
+                            if(results[i].game_online){
+                                html+= "<i class='fa fa-gamepad playerTileStatus'></i>";
+                            }
+                            if(results[i].web_online){
+                                html+= "<i class='fa fa-globe playerTileStatus'></i>";
+                            }
+                            html+=  "</div>" + 
+                                    "<div class='large-8 columns playerName'>" +
+                                        results[i].first_name + " " + results[i].last_name +
+                                    "</div>" +
+                                "</div>";
+                            self.$el.find("#playerList").append(html);
+                            self.playersArray.push(results[i]);
+                            console.log(self.playersArray);
+                        }
+                    }
+                }
 			}, false);
 		},
 		events: {
