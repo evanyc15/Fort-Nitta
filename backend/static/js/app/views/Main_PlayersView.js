@@ -125,43 +125,7 @@ define([
 		},
 		onShow: function(){
 			this.$el.find("#playerList").height($(window).height()-110);
-			var self = this;
-
 			
-			// var self = this;
-
-			// $.ajax({
-			// 	url: '/api/presence/online/',
-			// 	type: 'GET',
-			// 	crossDomain: true,
-			// 	xhrFields: {
-			// 		withCredentials: true
-			// 	},
-			// 	success: function(data){
-			// 		var results = data.results;
-			// 		var i;
-
-			// 		for(i = 0; i < results.length; i++){
-			// 			var html = "<div class='row playerTile'>" +
-			// 							"<div class='large-4 columns'>";
-			// 			if(results[i].game_online){
-			// 				html+= "<i class='fa fa-gamepad playerTileStatus'></i>";
-			// 			}
-			// 			if(results[i].web_online){
-			// 				html+= "<i class='fa fa-globe playerTileStatus'></i>";
-			// 			}
-			// 			html+=	"</div>" + 
-			// 					"<div class='large-8 columns playerName'>" +
-			// 						results[i].first_name + " " + results[i].last_name +
-			// 					"</div>" +
-			// 				"</div>";
-			// 			self.$el.find("#playerList").prepend(html);
-			// 		}
-			// 	},
-			// 	error: function(data){
-			// 		console.log("error");
-			// 	}
-	  // 		});
 		},
         hashCode: function(s){
             return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
