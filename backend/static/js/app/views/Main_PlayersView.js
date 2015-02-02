@@ -53,7 +53,6 @@ define([
                             "</div>";
                         self.$el.find("#playerList").append(html);
                         self.playersArray.push(results[i]);
-                        console.log(self.playersArray);
                     }
                 } else{
                     console.log("2");
@@ -81,7 +80,6 @@ define([
                                 "</div>";
                             self.$el.find("#playerList").append(html);
                             self.playersArray.push(results[i]);
-                            console.log(self.playersArray);
                         }
                     }
                 }
