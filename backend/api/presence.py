@@ -12,17 +12,26 @@ presence_list = []
 def event_stream():
     count = 0
     while True:
-        gevent.sleep(15)
+        gevent.sleep(2)
         
         user_presences = Presence.query.join(Presence.user).filter(or_(Presence.game_online == True, Presence.web_online == True)).all()
         if user_presences is None:
             return jsonify(**{'success': False}), 401
 
         for new_data in user_presences:
+            jsonData = {'username': new_data.user.username,'first_name': new_data.user.first_name, 'last_name': new_data.user.last_name, 'web_online': new_data.web_online, 'game_online': new_data.game_online}
             if not any(init_data['username'] == new_data.user.username for init_data in presence_list):
-            # if new_data.user.username not in init_data:
-                jsonData = {'username': new_data.user.username,'first_name': new_data.user.first_name, 'last_name': new_data.user.last_name, 'web_online': new_data.web_online, 'game_online': new_data.game_online}
+            # if new_data.user.username not in init_data (presence_list):
                 presence_list.append(jsonData)
+            else:
+                for temp_data in presence_list:
+                    if(temp_data['username'] == new_data.user.username):
+                        temp_data['web_online'] = new_data.web_online
+                        temp_data['game_online'] = new_data.game_online                   
+
+        for it_data in presence_list:
+            if not any(init_data.user.username == it_data['username'] for init_data in user_presences):
+                presence_list.remove(it_data)
         # return jsonify(data = presence_list)
         return "data: %s\n\n" % json.dumps(presence_list)
 

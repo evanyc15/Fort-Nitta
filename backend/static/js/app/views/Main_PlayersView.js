@@ -36,9 +36,9 @@ define([
             	var results = JSON.parse(e.data);
 				var i, j;
                 if(self.playersArray === undefined || self.playersArray.length == 0){
-                    console.log("1");
                     for(i = 0; i < results.length; i++){
                         var html = "<div class='row playerTile'>" +
+                                    "<div class='hidTokPres' id='" + self.hashCode(results[i].last_name+results[i].username+results[i].first_name) + "'></div>" +
                                     "<div class='large-4 columns'>";
                         if(results[i].game_online){
                             html+= "<i class='fa fa-gamepad playerTileStatus'></i>";
@@ -54,18 +54,17 @@ define([
                         self.$el.find("#playerList").append(html);
                         self.playersArray.push(results[i]);
                     }
-                } else{
-                    console.log("2");
+                } else if (self.playersArray.length > 0 && results.length > self.playersArray.length){
                     for(i = 0; i < results.length; i++){
-                        var holder = results[i];
                         var flag = false;
                         for(j = 0; j < self.playersArray.length; j++){
-                            if(self.playersArray[j].username == holder.username){
+                            if(self.playersArray[j].username == results[i].username){
                                 flag = true;
                             }
                         }
                         if(!flag){
                             var html = "<div class='row playerTile'>" +
+                                        "<div class='hidTokPres' id='" + self.hashCode(results[i].last_name+results[i].username+results[i].first_name) + "'></div>" +
                                         "<div class='large-4 columns'>";
                             if(results[i].game_online){
                                 html+= "<i class='fa fa-gamepad playerTileStatus'></i>";
@@ -80,6 +79,42 @@ define([
                                 "</div>";
                             self.$el.find("#playerList").append(html);
                             self.playersArray.push(results[i]);
+                        }
+                    }
+                } else if (self.playersArray.length > 0 && results.length < self.playersArray.length){
+                    for(i = 0; i < self.playersArray.length; i++){
+                        var flag = false;
+                        for(j = 0; j < results.length; j++){
+                            if(self.playersArray[i].username == results[j].username){
+                                flag = true;
+                            }
+                        }
+                        if(!flag){
+                            var id = '#' + self.hashCode(self.playersArray[i].last_name+self.playersArray[i].username+self.playersArray[i].first_name);
+                            self.$el.find(id).closest(".playerTile").remove();
+                            self.playersArray.splice(i, 1);
+                        }
+                    }
+                } else {
+                    for(i = 0; i < self.playersArray.length; i++){
+                        for(j = 0; j < results.length; j++){
+                            if(self.playersArray[i].username === results[j].username){
+                                self.playersArray[i].game_online = results[j].game_online;
+                                self.playersArray[i].web_online = results[j].web_online;
+                            }
+                        }
+                        var id = '#' + self.hashCode(self.playersArray[i].last_name+self.playersArray[i].username+self.playersArray[i].first_name);
+                        var object = self.$el.find(id).closest(".playerTile");
+
+                        if(self.playersArray[i].game_online && object.find(".fa-gamepad").length === 0){
+                            object.find(".large-4").prepend("<i class='fa fa-gamepad playerTileStatus'></i>");
+                        } else if(!self.playersArray[i].game_online && object.find(".fa-gamepad").length === 1){
+                            object.find(".fa-gamepad").remove();
+                        }
+                        if(self.playersArray[i].web_online && object.find(".fa-globe").length === 0){
+                            object.find(".large-4").append("<i class='fa fa-globe playerTileStatus'></i>");
+                        } else if(!self.playersArray[i].web_online && object.find(".fa-globe").length === 1){
+                            object.find(".fa-globe").remove();
                         }
                     }
                 }
@@ -128,6 +163,9 @@ define([
 			// 	}
 	  // 		});
 		},
+        hashCode: function(s){
+            return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
+        },
 		playersDisplay: function(){
 			if(this.$el.find("#playersDisplayButton").hasClass("playersDisplayShown")){
 				this.$el.find("#playersDisplayButton").removeClass("playersDisplayShown").addClass("playersDisplayHidden");
