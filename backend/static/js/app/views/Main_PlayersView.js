@@ -30,7 +30,7 @@ define([
 					$("#playerList").height(height-110);
 				}
 			});
-			var sse = new EventSource('http://localhost:5000/stream');
+			var sse = new EventSource('/stream');
             sse.addEventListener('message', function(e) {
 
             	var results = JSON.parse(e.data);
