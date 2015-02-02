@@ -48,7 +48,7 @@ require.config({
 });
 
 // Includes Desktop Specific JavaScript files here (or inside of your Desktop router)
-require(["App", "routers/AppRouter", "controllers/Controller", "marionette", "jqueryui", "foundation", "modernizr"],
+require(["app", "routers/AppRouter", "controllers/Controller", "marionette", "jqueryui", "foundation", "modernizr"],
     function (App, AppRouter, Controller) {
         App.appRouter = new AppRouter({
             controller:new Controller()

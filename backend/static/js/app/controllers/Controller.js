@@ -1,5 +1,5 @@
 define([
-    'App', 
+    'app', 
     'backbone', 
     'marionette', 
     'models/SessionModel',

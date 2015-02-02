@@ -1,4 +1,4 @@
-define( [ 'App', 'marionette', 'handlebars', 'models/Model', 'text!templates/welcome.html'],
+define( [ 'app', 'marionette', 'handlebars', 'models/Model', 'text!templates/welcome.html'],
     function( App, Marionette, Handlebars, Model, template) {
         //ItemView provides some default rendering logic
         return Marionette.ItemView.extend( {
