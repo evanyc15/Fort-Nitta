@@ -21,7 +21,11 @@ define([
 			"change #profilePictureChangeInput": "saveFile"
 		},
 		onRender: function(){
-			var html = this.template(App.session.user.toJSON());
+			var html = this.template({
+				"username": App.session.user.get('username'),
+				"email": App.session.user.get('email'),
+				"date_joined": moment(App.session.user.get('date_joined')).format("ddd, YYYY MMM Do")
+			});
 			this.$el.html(html);
 		},
 		onShow: function() {
