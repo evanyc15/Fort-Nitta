@@ -19,7 +19,8 @@ require.config({
         "modernizr":"../libs/foundation/vendor/modernizr",
         "text":"../libs/plugins/text",
         "datatables":"../libs/plugins/jquery.dataTables/js/jquery.dataTables.min",
-        "foundation-datatables":"../libs/plugins/jquery.dataTables/foundation/dataTables.foundation.min"
+        "foundation-datatables":"../libs/plugins/jquery.dataTables/foundation/dataTables.foundation.min",
+        "moment":"../libs/plugins/moment"
     },
     // Sets the configuration for your third party scripts that are not AMD compatible
     shim:{

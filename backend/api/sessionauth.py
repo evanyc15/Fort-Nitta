@@ -4,6 +4,7 @@ from flask.ext.login import current_user, login_user, logout_user
 
 from backend import db, app, bcrypt
 from backend.database.models import User, Presence
+import datetime
 
 
 
@@ -20,6 +21,8 @@ def current_user_props():
         'uid': current_user.id, 
         'firstname': current_user.first_name, 
         'lastname': current_user.last_name,
+        'email': current_user.email,
+        'date_joined': current_user.date_joined,
         'avatar_path': current_user.avatar_path,
         'new_user': current_user.new_user
     } if current_user.is_authenticated() else {}
@@ -61,7 +64,8 @@ class SessionAuthAPI(MethodView):
         presence = Presence.query.filter(Presence.user_id==current_user.id).first()
         if presence is None:
             return jsonify(**{'success': False}), 401
-        presence.web_online = False        
+        presence.web_online = False 
+        presence.web_last_seen = datetime.datetime.now()       
         db.session.add(presence)
         db.session.commit()
         logout_user()

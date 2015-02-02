@@ -2,7 +2,8 @@ define([
 	'App',
 	'marionette',
 	'handlebars',
-	'text!templates/main_profile.html'
+	'text!templates/main_profile.html',
+	'moment'
 ], function (App, Marionette, Handlebars, template){
 	"use strict";
 
@@ -19,7 +20,12 @@ define([
 			"click #profilePictureChange": "changeProfilePicture",
 			"change #profilePictureChangeInput": "saveFile"
 		},
+		onRender: function(){
+			var html = this.template(App.session.user.toJSON());
+			this.$el.html(html);
+		},
 		onShow: function() {
+			//console.log(moment(App.session.user.date_joined).format("ddd, YYYY MMM Do")); 
 			if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
 				this.$el.find("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);
 			}

@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     last_name =     db.Column(db.String(40))
     avatar_path =   db.Column(db.String(100))
     verification =  db.Column(db.String(255))
+    date_joined =   db.Column(db.DateTime)
     new_user =      db.Column(db.Integer)
 
     # One-to-one relationship with a Presence model
@@ -37,6 +38,7 @@ class User(db.Model, UserMixin):
         self.email =        email
         self.first_name =   first_name
         self.last_name =    last_name
+        self.date_joined =  datetime.datetime.now()
         self.new_user =     1
 
     def __repr__(self):
