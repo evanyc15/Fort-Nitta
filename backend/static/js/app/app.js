@@ -23,9 +23,9 @@ define([
 
         App.mobile = isMobile();
         $.ajaxSetup({ cache: false });          // force ajax call on all browser
-        // App.addInitializer(function (options) {
-        //     Backbone.history.start();
-        // });
+        App.addInitializer(function (options) {
+            Backbone.history.start();
+        });
 
         return App;
     });

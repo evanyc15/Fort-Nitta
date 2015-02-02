@@ -1,5 +1,5 @@
 define([
-	'app'
+	'app',
 	'jquery',
 	'backbone',
 	'marionette',
