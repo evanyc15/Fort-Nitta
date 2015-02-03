@@ -10,7 +10,7 @@
 
 #profilePictureChangeInput{
     border: 1px solid #D2D2D2;
-    -webkit-box-shadow: inset 0px 0px 15px -9px rgba(0,0,0,1);
-    -moz-box-shadow: inset 0px 0px 15px -9px rgba(0,0,0,1);
+    -webkit-box-shadow: inset 0px 0px 15px -13px rgba(0,0,0,1);
+    -moz-box-shadow: inset 0px 0px 15px -13px rgba(0,0,0,1);
     box-shadow: inset 0px 0px 15px -13px rgba(0,0,0,1);
 }
