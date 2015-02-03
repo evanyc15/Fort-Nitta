@@ -16,6 +16,7 @@ require.config({
         "cookie":"../libs/jquery.cookie",
         "foundation":"../libs/foundation/foundation.min",
         "foundation-topbar":"../libs/foundation/foundation/foundation.topbar",
+        "foundation-reveal":"../libs/foundation/foundation/foundation.reveal",
         "modernizr":"../libs/foundation/vendor/modernizr",
         "text":"../libs/plugins/text",
         "datatables":"../libs/plugins/jquery.dataTables/js/jquery.dataTables.min",
@@ -33,6 +34,7 @@ require.config({
         "cookie":["jquery"],
         "foundation":["jquery"],
         "foundation-topbar":["foundation"],
+        "foundation-reveal":["foundation"],
         "foundation-datatables":["datatables"],
         "marionette":{
             "deps":["underscore", "backbone", "jquery"],
