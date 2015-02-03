@@ -175,7 +175,10 @@ define([
 
         removeAccount: function(opts, callback, args){
             this.postAuth(_.extend(opts, { method: 'remove_account' }), callback);
-        }
+        },
+		changeDetails: function(opts, callback, args){
+			this.postAuth(_.extend(opts, { method: 'users/change_details/'}), callback);
+		}
 
     });
 });

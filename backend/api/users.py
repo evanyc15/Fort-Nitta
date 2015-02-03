@@ -22,6 +22,51 @@ def create_new_user(username, password, email, first_name, last_name):
     db.session.commit()
 
     return new_user
+# changes the user data in the database, changing only the named parameters
+def change_user_data(username, password=None, email=None, first_name=None, last_name=None):
+    user = User.query.filter(username==username).first()
+ 
+    if user is None:
+        return jsonify(**{'success': False, 'error': 'no username specified'}), 401
+    
+    # update user obj with the data passed to the function
+    if first_name is not None:
+        user.first_name = first_name
+    if last_name is not None:
+        user.last_name = last_name
+
+    # add the current user to the data to be committed to the database
+    db.session.add(user)
+    db.session.commit()
+    return jsonify(**{'success': True})
+
+class ChangeDetailsAPI(MethodView):
+    def post(self):
+        request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            request_data = {}
+
+        if('username' in request_data and ('password' in request_data 
+                                    or 'first_name' in request_data 
+                                    or 'last_name' in request_data 
+                                    or 'email' in request_data)):
+            # at least one entry is changed
+            username = request_data['username']
+            password = None
+            first_name = None
+            last_name = None
+            email = None
+
+            if 'password' in request_data and len(request_data['password']) != 0:
+                password = request_data['password']
+            if 'first_name' in request_data and len(request_data['first_name']) != 0:
+                first_name = request_data['first_name']
+            if 'last_name' in request_data and len(request_data['last_name']) != 0:
+                last_name = request_data['last_name']
+            if 'email' in request_data and len(request_data['email']) != 0:
+                email = request_data['email']
+            # pass parsed parameters to the database method
+            return change_user_data(username, password, email, first_name, last_name);
 
 
 
@@ -136,10 +181,11 @@ class VerifyUserAPi(MethodView):
 
         return jsonify(**{'success': False}), 401
 
-
+change_details_view = ChangeDetailsAPI.as_view('change_details')
 register_view = RegisterAPI.as_view('register_api')
 password_change_view = PasswordChangeApi.as_view('password_change_api')
 verify_user_view = VerifyUserAPi.as_view('verify_user_api')
+app.add_url_rule('/api/users/change_details/', view_func=change_details_view, methods=['POST'])
 app.add_url_rule('/api/users/register/', view_func=register_view, methods=['POST'])
 app.add_url_rule('/api/users/changepass/', view_func=password_change_view, methods=['POST'])
 app.add_url_rule('/api/users/verifyuser/', view_func=verify_user_view, methods=['POST'])
