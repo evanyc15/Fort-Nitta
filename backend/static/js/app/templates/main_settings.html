@@ -34,11 +34,11 @@
 		    	<div class="row collapse">
 			    	<div class="large-10 columns">
 			     		<input type="text" id ="emailInput" placeholder="Enter e-mail">
-			     		<small id="emailError" class="error">Invalid email</small>
+						<!--<small id="emailError" class="error">Invalid email</small>-->
 			     	</div>
-			     	<div class="large-2 columns">
-			     		<a href="#" class="button tiny">Verify</a>
-			     	</div>
+			     	<!--<div class="large-2 columns">-->
+			     	<!--	<a href="#" class="button tiny">Verify</a>-->
+			     	<!-- </div> -->
 			    </div>
 		    </div>
 		</div>
@@ -51,7 +51,7 @@
 		    	<span class="prefix">Old Password</span>
 		    </div>
 		    <div class="large-9 columns">
-		     	<input type="password" id ="passwordInput" placeholder="Enter old password">
+		     	<input type="password" id ="passwordInputOld" placeholder="Enter old password">
 		    </div>	    
 		</div>
 
@@ -61,7 +61,6 @@
 		    </div>
 		    <div class="large-9 columns">
 		     	<input type="password" id ="passwordInput" placeholder="Enter new password">
-		     	<small id="passwordError" class="error">Invalid Password</small>
 		    </div>	    
 		</div>	
 
@@ -71,34 +70,15 @@
 		    </div>
 		    <div class="large-9 columns">
 		     	<input type="password" id ="repasswordInput" placeholder="Re-enter new password">
-		     	<small id="repasswordError" class="error">Passwords don't match</small>
+				<!--<small id="repasswordError" class="error">Passwords do not match</small>-->
 		    </div>	    
 		</div>
 
 
 		<!-- Avatar change -->
 		<h5>Change Avatar</h5>
-		<div class="large-2 columns">
-			<img style="width:100; height:100" src="../../../img/placeholder-user.png" />
-		</div>
-		<div class="large-10 columns">
-			<div class="row collapse prefix-radius">
-			    <div class="large-3 columns">
-			    	<span class="prefix">Source</span>
-			    </div>
-			    <div class="large-9 columns">
-			    	<div class="row collapse">
-				    	<div class="large-10 columns">
-				     		<input type="text" id ="image" placeholder="Browse for image">
-				     	</div>
-				     	<div class="large-2 columns">
-				     		<a href="javascript:void(0)" id="profilePictureChange" class="button tiny">Browse</a>
-				     		<input id="profilePictureChangeInput" type="file" accept="image/*" name="imageInput"/>
-				     	</div>
-				    </div>
-			    </div>
-			</div>
-		</div>
+            <img id="profilePicture" class="profile-image" src="../../../img/placeholder-user.png" />
+            <input id="profilePictureChangeInput" type="file" accept="image/*" name="imageInput"/>
 	</fieldset>
 <!-- End settings form -->
 

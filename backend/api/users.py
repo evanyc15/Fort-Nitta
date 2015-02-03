@@ -34,6 +34,8 @@ def change_user_data(username, password=None, email=None, first_name=None, last_
         user.first_name = first_name
     if last_name is not None:
         user.last_name = last_name
+    if email is not None:
+	    user.email= email
 
     # add the current user to the data to be committed to the database
     db.session.add(user)
