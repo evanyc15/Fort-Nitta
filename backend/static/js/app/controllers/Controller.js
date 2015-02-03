@@ -53,7 +53,7 @@ define([
                 } else {
                     App.mainRegion.show(new HomeLayout({
                         action: String(action).toLowerCase(),
-                        id: String(id).toLowerCase()
+                        id: String(id)
                     }));
                 }
             });          
@@ -67,7 +67,7 @@ define([
                     if(App.session.user.get('new_user') === 0){
                         App.mainRegion.show(new MainLayout({
                             action: String(action).toLowerCase(),
-                            id: String(id).toLowerCase()
+                            id: String(id)
                         }));
                     } else {
                         App.session.logout({

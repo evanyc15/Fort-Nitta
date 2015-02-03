@@ -26,8 +26,9 @@ class PasswordRecApi(MethodView):
             user = User.query.filter_by(email=email).first()
             if user:
                 hash_token = bcrypt.generate_password_hash(email + datetime.datetime.now().strftime('%m/%d/%Y')).replace("/",".")
-                current_user = User.query.filter_by(email=email).update(dict(verification=hash_token))
+                current_user = User.query.filter_by(email=email).first()
                 if current_user:
+                    current_user.verification = hash_token
                     db.session.commit()
                     msg = Message('Password Recovery for Fort Nitta',
                         sender='ecs160server.winter2015@gmail.com',
@@ -58,8 +59,9 @@ class VerifyEmailApi(MethodView):
             user = User.query.filter_by(email=email).first()
             if user:
                 hash_token = bcrypt.generate_password_hash(datetime.datetime.now().strftime('%m/%d/%Y') + "rand" + email +"rand").replace("/",".")
-                current_user = User.query.filter_by(email=email).update(dict(verification=hash_token))
+                current_user = User.query.filter_by(email=email).first()
                 if current_user:
+                    current_user.verification = hash_token
                     db.session.commit()
                     msg = Message('Email Verification for Fort Nitta Account',
                         sender='ecs160server.winter2015@gmail.com',

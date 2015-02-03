@@ -148,14 +148,12 @@ class PasswordChangeApi(MethodView):
         if request_data is None:
             return jsonify(**{'success': "none" }), 401
         if('user' in request_data and 'password' in request_data and 'tok' in request_data):
-            username = request_data['user']
-            new_password = hash_password(request_data['password'])
-            verification = request_data['tok']
-            user = User.query.filter(username==username).filter(verification==verification).first()
+            data = {'username': request_data['user'], 'verification': request_data['tok']}
+            user = User.query.filter_by(**data).first()
  
             if user is None:
                 return jsonify(**{'success': False}), 401
-            user.password = new_password        
+            user.password = hash_password(request_data['password'])   
             db.session.add(user)
             db.session.commit()
             return jsonify(**{'success': True})
@@ -168,12 +166,11 @@ class VerifyUserAPi(MethodView):
         if request_data is None:
             return jsonify(**{'success': "none" }), 401
         if('user' in request_data and 'tok' in request_data):
-            username = request_data['user']
-            verification = request_data['tok']
-            user = User.query.filter(username==username).filter(verification==verification).first()
+            data = {'username': request_data['user'], 'verification': request_data['tok']}
+            user = User.query.filter_by(**data).first()
  
             if user is None:
-                return jsonify(**{'success': False}), 401
+                return jsonify(**{'success': False, 'user': request_data['user'],'key': request_data['tok']}), 401
             user.new_user = 0        
             db.session.add(user)
             db.session.commit()
