@@ -29,6 +29,9 @@ def change_user_data(username, password=None, email=None, first_name=None, last_
     if user is None:
         return jsonify(**{'success': False, 'error': 'no username specified'}), 401
     
+    if password is not None and not validation.valid_password(password):
+        return jsonify(**{'success': False, 'error': 'Invalid password','offending_attribute': 'password'}), 401
+
     # update user obj with the data passed to the function
     if first_name is not None:
         user.first_name = first_name
@@ -49,6 +52,11 @@ class ChangeDetailsAPI(MethodView):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
             request_data = {}
+
+        if ('username' in request_data) and ('oldPassword' in request_data):
+            user = User.query.filter_by(username=request_data['username']).first()
+            if (not user) or (not check_password(request_data['oldPassword'],user.password)):
+                return jsonify(**{'success': False, 'error': 'Old password not valid', 'offending_attribute': 'old_password'}), 401
 
         if('username' in request_data and ('password' in request_data 
                                     or 'first_name' in request_data 

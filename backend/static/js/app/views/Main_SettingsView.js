@@ -62,61 +62,42 @@ define([
             });
         },
 		changeDetails: function(event){
-				var self = this;
-				if(self.$("#passwordInputOld").val() !== ""){
-					
-				    if(self.$("#passwordInput").val() === self.$("#repasswordInput").val()){					
-					App.session.login({ 
-						username: App.session.user.get("username"),
-						password: self.$("#passwordInputOld").val()
-					},				
-					{
-				        success: function(mod, res){
-						console.log("Old Password matched");
-						App.session.changeDetails({
-						username: App.session.user.get("username"),
-						password: self.$("#passwordInput").val(),
-						first_name: self.$("#firstnameInput").val(),
-						last_name: self.$("#lastnameInput").val(),
-						email: self.$("#emailInput").val()				
-					}, 
-					{
-						success: function(mod, res){
-						console.log("SUCCESS-changeDetails");
-						Backbone.history.navigate('main', {trigger: true});
-						}
- 
-					});
-						
-						},
-						error: function(err){
-							console.log("Old password does not match!");
-						}
-					});
-					}
-						else {
-							console.log("New passwords don't match!");
-							self.showError("small#repasswordError.error"); 
-						}
-				}
-				else if (self.$("#passwordInput").val() == ""){
-						App.session.changeDetails({
-						username: App.session.user.get("username"),
-						password: self.$("#passwordInput").val(),
-						first_name: self.$("#firstnameInput").val(),
-						last_name: self.$("#lastnameInput").val(),
-						email: self.$("#emailInput").val()				
-					}, 
-					{
-						success: function(mod, res){
-						console.log("SUCCESS-changeDetails");
-						Backbone.history.navigate('main', {trigger: true});
-						}
- 
-					});
-					}
-			
-	
+			var self = this;
+		    if(self.$("#passwordInput").val() === self.$("#repasswordInput").val()){					
+				App.session.changeDetails(
+                {
+    				username: App.session.user.get("username"),
+                    oldPassword: self.$("#passwordInputOld").val(),
+    				password: self.$("#passwordInput").val(),
+    				first_name: self.$("#firstnameInput").val(),
+    				last_name: self.$("#lastnameInput").val(),
+    				email: self.$("#emailInput").val()				
+			    }, 
+			    {
+    				success: function(mod, res){
+        				console.log("SUCCESS-changeDetails");
+        				Backbone.history.navigate('main', {trigger: true});
+			        },
+				
+				    error: function(data){
+					    console.log("Old password does not match!");
+                        //console.log(data);
+                        // if(res.offending_attribute && res.offending_attribute == 'old_password'){
+                        //     $("#oldPasswordError").html(res);
+                        //     $("#oldPasswordError").addClass('show');
+                        // }else if(res.offending_attribute && res.offending_attribute == 'password'){
+                        //     $("#repasswordError").html(res);
+                        //     $("#repasswordError").addClass('show');
+                        //}
+				    }
+			    });
+			}
+			else {
+				console.log("New passwords don't match!");
+                $("#repasswordError").html("Passwords don't match");
+				$("#repasswordError").addClass("show");
+			}
+				
 
 	},
 	showError: function(string){
