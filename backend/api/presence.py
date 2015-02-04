@@ -18,7 +18,7 @@ def event_stream():
         # Get users who are either online in the game or web
         user_presences = Presence.query.join(Presence.user).filter(or_(Presence.game_online == True, Presence.web_online == True)).all()
         if user_presences is None:
-            return jsonify(**{'success': False}), 401
+            yield "data: []\n\n"
 
         # Put all new presence users into the presence list
         for new_data in user_presences:
@@ -38,13 +38,11 @@ def event_stream():
             if not any(init_data.user.username == it_data['username'] for init_data in user_presences):
                 presence_list.remove(it_data)
         # return jsonify(data = presence_list)
-        return "data: %s\n\n" % json.dumps(presence_list)
+        yield "data: %s\n\n" % json.dumps(presence_list)
 
 @app.route('/stream')
 def stream():
-    response = make_response(event_stream())
-    response.headers['Content-Type'] = "text/event-stream"
-    return response
+    return Response(event_stream(), mimetype="text/event-stream")
 
 class PresenceOnlineApi(MethodView):
     def get(self):
