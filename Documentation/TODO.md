@@ -22,3 +22,8 @@ Frontend
 
 ### Urgent
 * (1) JS app should reference static files by a designated static/assets/public folder. This will make static file URL routing in Apache much easier and less hacked. For development, Flask may serve URLs pointing to this folder, giving the added bonus of eliminating the need for CORS and development using two servers.
+
+(2) Presence players on backbone side: Check by username rather than result list and make sure its all working since the Flask side is yielding rather than returning
+(3) Remove change profile picture on profile page
+(4) Better error checking on signup and login page
+(5) Allow "enter" key on all inputs
