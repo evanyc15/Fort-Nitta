@@ -26,7 +26,7 @@ define([
 			this.$el.html(html);
 		},
 		onShow: function() {
-			this.detectUserAgent();
+			// this.detectUserAgent();
 		},
 		detectUserAgent: function() {
 			var userAgent;

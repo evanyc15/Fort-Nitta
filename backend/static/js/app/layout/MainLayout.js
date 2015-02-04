@@ -10,12 +10,12 @@ define([
 	'views/Main_TopBarView',
 	'views/Main_PlayersView',
 	'views/Main_ProfileView',
-	'views/Main_SettingsView',
+	'layout/SettingsLayout',
 	'cookie',
 	'foundation',
 	'foundation-topbar',
 	'foundation-datatables'
-],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsView) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout) {
 
 	"use strict";
 
@@ -38,7 +38,7 @@ define([
 				$("#playersRegion").removeClass("playersShow").addClass("playersHide");
 			});
 			this.topbarView.on("click:settings:show", function(){
-				self.contentRegion.show(new SettingsView());
+				self.contentRegion.show(new SettingsLayout());
 				Backbone.history.navigate('main/settings');
 			});
 			this.topbarView.on("click:myprofile:show", function(){
@@ -56,7 +56,7 @@ define([
 			this.playersRegion.show(this.playersView);
 			
 			if(this.options.action === "settings"){
-				this.contentRegion.show(new SettingsView());
+				this.contentRegion.show(new SettingsLayout());
 			} else{
 				this.contentRegion.show(new MyProfileView());
 			}

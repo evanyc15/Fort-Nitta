@@ -2,7 +2,7 @@ define([
     'app',
     'marionette',
     'handlebars',
-    'text!templates/main_settings.html'
+    'text!templates/main_settingschange.html'
 ], function (App, Marionette, Handlebars, template){
     "use strict";
 
