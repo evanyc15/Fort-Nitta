@@ -5,7 +5,7 @@ from sqlalchemy import and_
 
 from backend import db, app
 from backend.database.models import User, Presence
-from backend.api.sessionauth import current_user_props, hash_password
+from backend.api.sessionauth import current_user_props, hash_password, check_password
 import validation
 
 
@@ -35,7 +35,9 @@ def change_user_data(username, password=None, email=None, first_name=None, last_
     if last_name is not None:
         user.last_name = last_name
     if email is not None:
-	    user.email= email
+	    user.email= email	
+    if password is not None:
+	   user.password = hash_password(password)
 
     # add the current user to the data to be committed to the database
     db.session.add(user)

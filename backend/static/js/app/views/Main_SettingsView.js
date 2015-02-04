@@ -62,27 +62,69 @@ define([
             });
         },
 		changeDetails: function(event){
-			var flag = true;
-            //do error checking here
-			if(flag){
 				var self = this;
-				App.session.changeDetails({
-				username: App.session.user.get("username"),
-				password: this.$("#passwordInput").val(),
-				first_name: this.$("#firstnameInput").val(),
-				last_name: this.$("#lastnameInput").val(),
-				email: this.$("#emailInput").val()				
-			}, 
-			 {
-                    success: function(mod, res){
-                        console.log("SUCCESS");
-                        Backbone.history.navigate('main', {trigger: true});
-                    }
+				if(self.$("#passwordInputOld").val() !== ""){
+					
+				    if(self.$("#passwordInput").val() === self.$("#repasswordInput").val()){					
+					App.session.login({ 
+						username: App.session.user.get("username"),
+						password: self.$("#passwordInputOld").val()
+					},				
+					{
+				        success: function(mod, res){
+						console.log("Old Password matched");
+						App.session.changeDetails({
+						username: App.session.user.get("username"),
+						password: self.$("#passwordInput").val(),
+						first_name: self.$("#firstnameInput").val(),
+						last_name: self.$("#lastnameInput").val(),
+						email: self.$("#emailInput").val()				
+					}, 
+					{
+						success: function(mod, res){
+						console.log("SUCCESS-changeDetails");
+						Backbone.history.navigate('main', {trigger: true});
+						}
  
-			});
-		}
+					});
+						
+						},
+						error: function(err){
+							console.log("Old password does not match!");
+						}
+					});
+					}
+						else {
+							console.log("New passwords don't match!");
+							self.showError("small#repasswordError.error"); 
+						}
+				}
+				else if (self.$("#passwordInput").val() == ""){
+						App.session.changeDetails({
+						username: App.session.user.get("username"),
+						password: self.$("#passwordInput").val(),
+						first_name: self.$("#firstnameInput").val(),
+						last_name: self.$("#lastnameInput").val(),
+						email: self.$("#emailInput").val()				
+					}, 
+					{
+						success: function(mod, res){
+						console.log("SUCCESS-changeDetails");
+						Backbone.history.navigate('main', {trigger: true});
+						}
+ 
+					});
+					}
 			
+	
+
 	},
+	showError: function(string){
+            $(string).addClass("show");
+            setTimeout(function() {
+                $(string).removeClass("show");
+            }, 5000);
+        },
 		
 		cancel: function(event){
 		    console.log("Cancel button invoked");
