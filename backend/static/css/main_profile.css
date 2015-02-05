@@ -1,12 +1,3 @@
-#profilePictureChange {
-	position: absolute;
-	top: 0;
-	right: 0;
-	display: none;
-}
-#profilePictureChangeInput {
-	display: none;
-}
 .profileBox {
     background-color: white;
     -webkit-border-radius: 3px;

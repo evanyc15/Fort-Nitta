@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="../../../css/main_settings.css">
 <!-- Settings page -->
+<fieldset id="settingsBox">
 <div class="row">
 	<div class="large-5 columns">
 		<!-- Avatar change -->
@@ -8,82 +9,82 @@
         <input id="profilePictureChangeInput" type="file" accept="image/*" name="imageInput"/>
 	</div>
 	<div class="large-7 columns">
-		<fieldset id="settingsBox">
-    	    <h3>Account Settings</h3>
-            <hr>
-    	    <!-- First name -->
-    	    <div class="row collapse prefix-radius">
-    		    <div class="large-3 columns">
-    		    	<span class="prefix">First name</span>
-    		    </div>
-    		    <div class="large-9 columns">
-    		     	<input type="text" id ="firstnameInput" placeholder="Enter first name">
-    		    </div>
-    		</div>
+		
+	    <h3>Account Settings</h3>
+        <hr>
+	    <!-- First name -->
+	    <div class="row collapse prefix-radius">
+		    <div class="large-3 columns">
+		    	<span class="prefix">First name</span>
+		    </div>
+		    <div class="large-9 columns">
+		     	<input type="text" id ="firstnameInput" placeholder="Enter first name">
+		    </div>
+		</div>
 
-    		<!-- Last name -->
-    		<div class="row collapse prefix-radius">
-    		    <div class="large-3 columns">
-    		    	<span class="prefix">Last name</span>
-    		    </div>
-    		    <div class="large-9 columns">
-    		     	<input type="text" id ="lastnameInput" placeholder="Enter last name">
-    		    </div>	    
-    		</div>
+		<!-- Last name -->
+		<div class="row collapse prefix-radius">
+		    <div class="large-3 columns">
+		    	<span class="prefix">Last name</span>
+		    </div>
+		    <div class="large-9 columns">
+		     	<input type="text" id ="lastnameInput" placeholder="Enter last name">
+		    </div>	    
+		</div>
 
-    		<!-- E-mail -->
-    		<!-- NTS: What to do with old email and new email id? -->
-    		<div class="row collapse prefix-radius">
-    		    <div class="large-3 columns">
-    		    	<span class="prefix">E-mail</span>
-    		    </div>
-    		    <div class="large-9 columns">
-    		    	<div class="row collapse">
-    			    	<div class="large-10 columns">
-    			     		<input type="text" id ="emailInput" placeholder="Enter e-mail">
-    						<!--<small id="emailError" class="error">Invalid email</small>-->
-    			     	</div>
-    			     	<!--<div class="large-2 columns">-->
-    			     	<!--	<a href="#" class="button tiny">Verify</a>-->
-    			     	<!-- </div> -->
-    			    </div>
-    		    </div>
-    		</div>
+		<!-- E-mail -->
+		<!-- NTS: What to do with old email and new email id? -->
+		<div class="row collapse prefix-radius">
+		    <div class="large-3 columns">
+		    	<span class="prefix">E-mail</span>
+		    </div>
+		    <div class="large-9 columns">
+		    	<div class="row collapse">
+			    	<div class="large-10 columns">
+			     		<input type="text" id ="emailInput" placeholder="Enter e-mail">
+						<!--<small id="emailError" class="error">Invalid email</small>-->
+			     	</div>
+			     	<!--<div class="large-2 columns">-->
+			     	<!--	<a href="#" class="button tiny">Verify</a>-->
+			     	<!-- </div> -->
+			    </div>
+		    </div>
+		</div>
 
-    		<!-- Password change-->
-    		<!-- NTS: what to do with id for old and new pw? -->
-    		<h5>Change Password</h5>
-    		<div class="row collapse prefix-radius">
-    		    <div class="large-3 columns">
-    		    	<span class="prefix">Old Password</span>
-    		    </div>
-    		    <div class="large-9 columns">
-    		     	<input type="password" id ="passwordInputOld" placeholder="Enter old password">
-    		     	<small id="oldPasswordError" class="error">Incorrect Password</small>
-    		    </div>	    
-    		</div>
+		<!-- Password change-->
+		<!-- NTS: what to do with id for old and new pw? -->
+		<h5>Change Password</h5>
+		<div class="row collapse prefix-radius">
+		    <div class="large-3 columns">
+		    	<span class="prefix">Old Password</span>
+		    </div>
+		    <div class="large-9 columns">
+		     	<input type="password" id ="passwordInputOld" placeholder="Enter old password">
+		     	<small id="oldPasswordError" class="error">Incorrect Password</small>
+		    </div>	    
+		</div>
 
-    		<div class="row collapse prefix-radius">
-    		    <div class="large-3 columns">
-    		    	<span class="prefix">New Password</span>
-    		    </div>
-    		    <div class="large-9 columns">
-    		     	<input type="password" id ="passwordInput" placeholder="Enter new password">
-    		    </div>	    
-    		</div>	
+		<div class="row collapse prefix-radius">
+		    <div class="large-3 columns">
+		    	<span class="prefix">New Password</span>
+		    </div>
+		    <div class="large-9 columns">
+		     	<input type="password" id ="passwordInput" placeholder="Enter new password">
+		    </div>	    
+		</div>	
 
-    		<div class="row collapse prefix-radius">
-    		    <div class="large-3 columns">
-    		    	<span class="prefix">Re-enter Password</span>
-    		    </div>
-    		    <div class="large-9 columns">
-    		     	<input type="password" id ="repasswordInput" placeholder="Re-enter new password">
-    					<small id="repasswordError" class="error"></small>
-    		    </div>	    
-    		</div>		
-		</fieldset>
+		<div class="row collapse prefix-radius">
+		    <div class="large-3 columns">
+		    	<span class="prefix">Re-enter Password</span>
+		    </div>
+		    <div class="large-9 columns">
+		     	<input type="password" id ="repasswordInput" placeholder="Re-enter new password">
+					<small id="repasswordError" class="error"></small>
+		    </div>	    
+		</div>	
 	</div>
 </div>
+</fieldset>
 <!-- Buttons -->
 <div class="row collapse">
 	<div class="large-12 columns">

@@ -42,7 +42,7 @@ def event_stream():
 
 @app.route('/stream')
 def stream():
-    return Response(next(event_stream()), mimetype="text/event-stream")
+    return Response(event_stream(), mimetype="text/event-stream")
 
 class PresenceOnlineApi(MethodView):
     def get(self):

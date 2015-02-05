@@ -27,9 +27,9 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1f000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
 }
 .custom_accordion li i {
-    font-size: 26px;
+    font-size: 22px;
 }
 .custom_accordion li span {
-    font-size: 18px;
+    font-size: 14px;
     margin-left: 15px;
 }
