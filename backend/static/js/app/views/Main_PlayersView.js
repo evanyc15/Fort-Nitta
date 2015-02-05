@@ -34,6 +34,7 @@ define([
             sse.addEventListener('message', function(e) {
 
             	var results = JSON.parse(e.data);
+                console.log(results);
 				var i, j;
                 if(self.playersArray === undefined || self.playersArray.length == 0){
                     for(i = 0; i < results.length; i++){
