@@ -19,7 +19,8 @@ define([
 		events: {
 			"click #logoutButton": "logout",
 			"click #topbarSettings": "settings",
-			"click #topBarMyProfile": "myprofile"
+			"click #topBarMyProfile": "myprofile",
+			"click #message-seeall": "messageSeeall"
 		},
 		onRender: function(){
 			var html = this.template(App.session.user.toJSON());
@@ -27,6 +28,9 @@ define([
 		},
 		onShow: function() {
 			// this.detectUserAgent();
+		},
+		messageSeeall: function(){
+			this.trigger("click:messages:show");
 		},
 		detectUserAgent: function() {
 			var userAgent;

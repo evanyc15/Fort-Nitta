@@ -11,11 +11,12 @@ define([
 	'views/Main_PlayersView',
 	'views/Main_ProfileView',
 	'layout/SettingsLayout',
+	'layout/MessagesLayout',
 	'cookie',
 	'foundation',
 	'foundation-topbar',
 	'foundation-datatables'
-],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout, MessagesLayout) {
 
 	"use strict";
 
@@ -45,6 +46,10 @@ define([
 				self.contentRegion.show(new MyProfileView());
 				Backbone.history.navigate('main/myprofile');
 			});
+			this.topbarView.on("click:messages:show", function(){
+				self.contentRegion.show(new MessagesLayout());
+				Backbone.history.navigate('main/messages');
+			});
 		},
 		regions: {
 			topbarRegion: "#topbarRegion",
@@ -57,6 +62,8 @@ define([
 			
 			if(this.options.action === "settings"){
 				this.contentRegion.show(new SettingsLayout());
+			} else if(this.options.action === "messages"){
+				this.contentRegion.show(new MessagesLayout());
 			} else{
 				this.contentRegion.show(new MyProfileView());
 			}
