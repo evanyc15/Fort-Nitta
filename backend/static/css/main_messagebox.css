@@ -21,10 +21,15 @@
     height: 60px;
     width: 60px;
 }
-.userMessageBox-name {
+.userMessageBox-username {
     display: inline-block;
     font-size: 14px;
     font-weight: bold;
+}
+.userMessageBox-name {
+    display: inline-block;
+    margin-left: 12px;
+    font-size: 14px;
 }
 .userMessageBox-datetime {
     display: inline-block;

@@ -230,9 +230,23 @@ class ChatMessages(db.Model):
     to_user =           db.Column(db.Integer, db.ForeignKey('user.id'))
     from_user =         db.Column(db.Integer, db.ForeignKey('user.id'))
     message =           db.Column(db.String(512))
+    date_created =      db.Column(db.DateTime)
+    read =              db.Column(db.Boolean)
 
-    def __repr__(self):
+    def __init__(self, to_user, from_user, message):
         """
-        String representation in console.
+        Create a new Message. Represents an chat message between two users.
+        Arguments should be validated elsewhere prior to instantiation.
         """
-        return '<CnatMessages: {0}>'.format(self.user)
+        self.to_user =          to_user
+        self.from_user =        from_user
+        self.message =          message
+        self.date_created =     datetime.datetime.now()
+        self.read =             False
+
+
+    # def __repr__(self):
+    #     """
+    #     String representation in console.
+    #     """
+    #     return '<ChatMessages: {0}>'.format(self.user)
