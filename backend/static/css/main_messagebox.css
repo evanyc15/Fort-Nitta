@@ -1,8 +1,10 @@
 #messageschatRegion {
-    max-height: 615px !important;
+    max-height: 590px !important;
     padding: 20px;
+    margin-top: 20px;
     margin-bottom: 20px;
     overflow-y: auto;
+    border-top: 1px solid #D8D8D8;
     border-bottom: 1px solid #D8D8D8;
 }
 .userMessageBox {
