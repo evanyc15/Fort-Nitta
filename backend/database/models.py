@@ -185,8 +185,18 @@ class UserStatistics(db.Model):
     # Foreign Key: One-to-one relationship with a User model
     user_id =   db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    def __init__(self, user_id):
+        """
+        Create a new User. Represents an account registration.
+        Arguments should be validated elsewhere prior to instantiation.
+        """
+        self.user_id = user_id
+        self.wins = 0
+        self.games_played = 0
+		
     def __repr__(self):
         """
         String representation in console.
         """
+		
         return '<UserStatistics: {0}>'.format(self.user)
