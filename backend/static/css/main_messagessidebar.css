@@ -43,10 +43,13 @@
 #main_messages-search-button {
     height: 30px;
 }
+#main_messages-new-message {
+    margin-right: 5px;
+}
 #main_messages-new-message i {
     position: absolute;
     left: 0;
-    right: 5px;
+    right: 0;
     font-size: 1.2em;
 }
 #main_messages-new-message {

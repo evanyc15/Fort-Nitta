@@ -13,13 +13,14 @@ define([
 
         initialize: function(options){
             this.options = options;
+        },
+        events: {
+         "click .main_messages-user": "switchMessenger"
+        },
+        switchMessenger: function(event) {
+            this.$(".custom_accordion li").removeClass("active");
+            $(event.currentTarget).addClass("active");
         }
-
-        // events: {
-        //  "click #signupButton": "signUpShow",
-        //  "click #backLoginButton": "loginShow"
-        // },
-
         
     });
 });

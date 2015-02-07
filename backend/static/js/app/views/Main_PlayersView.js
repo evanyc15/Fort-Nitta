@@ -34,7 +34,7 @@ define([
             sse.addEventListener('message', function(e) {
 
             	var results = JSON.parse(e.data);
-                console.log(results);
+                // console.log(results);
 				var i, j;
 
 
