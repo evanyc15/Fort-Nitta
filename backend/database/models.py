@@ -203,7 +203,7 @@ class UserStatistics(db.Model):
 
 
 
-class EmailSettings(db.model):
+class EmailSettings(db.Model):
     """
     Contains User's e-mail notification EmailSettings
     Has one-to-one mapping with user
@@ -222,7 +222,7 @@ class EmailSettings(db.model):
 
 
 
-class ChatMessages(db.model):
+class ChatMessages(db.Model):
     """
     Contains chat messages and users involved
     """
