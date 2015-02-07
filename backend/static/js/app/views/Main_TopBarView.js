@@ -1,3 +1,4 @@
+/* RequireJS Module Dependency Definitions */
 define([
 	'app',
 	'jquery',

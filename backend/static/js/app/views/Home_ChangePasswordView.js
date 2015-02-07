@@ -1,3 +1,4 @@
+/* RequireJS Module Dependency Definitions */
 define([
     'app',
     'jquery',
@@ -26,6 +27,7 @@ define([
         },
         changePassword: function(event) {
             var self = this;
+
             if(this.$("#passwordInput").val() !== this.$("#repasswordInput").val()){
                 $("#repasswordError").addClass("show");
                 setTimeout(function() {
