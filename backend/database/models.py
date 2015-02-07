@@ -200,3 +200,39 @@ class UserStatistics(db.Model):
         """
 		
         return '<UserStatistics: {0}>'.format(self.user)
+
+
+
+class EmailSettings(db.Model):
+    """
+    Contains User's e-mail notification EmailSettings
+    Has one-to-one mapping with user
+    """
+    id =                db.Column(db.Integer, primary_key=True)
+    n_hour =            db.Column(db.Integer)
+
+    # Foreign Key: One-to-one relationship with a User model
+    user_id =   db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        """
+        String representation in console.
+        """
+        return '<EmailSettings: {0}>'.format(self.user)
+
+
+
+class ChatMessages(db.Model):
+    """
+    Contains chat messages and users involved
+    """
+    id =                db.Column(db.Integer, primary_key=True)
+    to_user =           db.Column(db.Integer, db.ForeignKey('user.id'))
+    from_user =         db.Column(db.Integer, db.ForeignKey('user.id'))
+    message =           db.Column(db.String(512))
+
+    def __repr__(self):
+        """
+        String representation in console.
+        """
+        return '<CnatMessages: {0}>'.format(self.user)
