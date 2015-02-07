@@ -34,7 +34,7 @@ define([
         },
         regions: {
             sidebarRegion: "#sidebarRegion",
-            contentRegion: "#contentRegion"
+            contentRegion: "#settingsRegion"
         },
         onRender: function() {
             this.sidebarRegion.show(this.settingssidebarView);

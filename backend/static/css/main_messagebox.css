@@ -1,0 +1,41 @@
+#messageschatRegion {
+    height: 615px;
+    padding: 20px;
+}
+.userMessageBox {
+    min-height: 75px !important;
+    margin-bottom: 15px !important;
+    border-top: 1px dotted #F8F8F8;
+    border-bottom: 1px dotted #F8F8F8;
+}
+.userMessageBox .large-1.columns {
+    padding-left: 18px;
+    padding-right: 0;
+}
+.userMessageBox-img {
+    height: 60px;
+    width: 60px;
+}
+.userMessageBox-name {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+}
+.userMessageBox-datetime {
+    display: inline-block;
+    margin-left: 12px;
+    font-size: 10px;
+}
+.userMessageBox-comment {
+    font-size: 12px;
+}
+#messages-chatInput {
+    height: 50px;
+    resize: none;
+}
+#messages-chatSubmit {
+    height: 50px;
+}
+#messages-chatSubmit i {
+    font-size: 1.5em !important;
+}

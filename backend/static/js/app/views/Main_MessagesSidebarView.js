@@ -2,7 +2,8 @@ define([
     'app',
     'marionette',
     'handlebars',
-    'text!templates/main_messagessidebar.html'
+    'text!templates/main_messagessidebar.html',
+    'jqueryui'
 ], function (App, Marionette, Handlebars, template){
 
     "use strict";
@@ -20,6 +21,12 @@ define([
         switchMessenger: function(event) {
             this.$(".custom_accordion li").removeClass("active");
             $(event.currentTarget).addClass("active");
+        },
+        onShow: function() {
+            var tags = ["bob_doe123","ghostsp15","test123","ghost12","ghost1235","bob_miller234","bryanScott1235"];
+            this.$el.find("#main_messages-search-input").autocomplete({
+                source: tags
+            });
         }
         
     });

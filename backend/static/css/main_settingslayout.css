@@ -1,4 +1,4 @@
-.regionBox {
+.settingsregionBox {
     background-color: white;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -13,4 +13,20 @@
     padding-top: 15px;
     padding-left: 0px;
     padding-right: 0px;
+}
+#settingsBox{
+    background-color: white;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+   -webkit-box-shadow: 0px 0px 15px -9px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 15px -9px rgba(0,0,0,1);
+    box-shadow: 0px 0px 15px -9px rgba(0,0,0,1);
+}
+
+#profilePictureChangeInput{
+    border: 1px solid #D2D2D2;
+    -webkit-box-shadow: inset 0px 0px 15px -13px rgba(0,0,0,1);
+    -moz-box-shadow: inset 0px 0px 15px -13px rgba(0,0,0,1);
+    box-shadow: inset 0px 0px 15px -13px rgba(0,0,0,1);
 }

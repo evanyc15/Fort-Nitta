@@ -1,5 +1,5 @@
-.regionBox {
-    background-color: white;
+.messageregionBox {
+     background-color: white;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -8,5 +8,7 @@
     box-shadow: 0px 0px 15px -9px rgba(0,0,0,1);
     border: 1px solid #E8E8E8;
     height: 700px;
+}
+.large-3.messageregionBox {
     padding: 0;
 }

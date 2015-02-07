@@ -5,10 +5,9 @@ define([
     'marionette',
     'underscore',
     'handlebars',
-    'views/Main_MessagesSideBarView',
     'views/Main_MessagesUserView',
-    'text!templates/main_messageslayout.html'
-],  function (App, $, Backbone, Marionette, _, Handlebars, MessagesSideBarView, MessagesUserView, template) {
+    'text!templates/main_messagebox.html'
+],  function (App, $, Backbone, Marionette, _, Handlebars, MessagesUserView, template) {
 
     "use strict";
 
@@ -20,14 +19,12 @@ define([
 
         },
         regions: {
-            sidebarRegion: "#sidebarRegion",
-            contentRegion: "#contentRegion"
+            contentRegion: "#messageschatRegion"
         },
         events: {
 
         },
         onRender: function(){
-            this.sidebarRegion.show(new MessagesSideBarView());
             this.contentRegion.show(new MessagesUserView());
         }
     });
