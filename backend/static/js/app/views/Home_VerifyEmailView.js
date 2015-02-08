@@ -17,11 +17,12 @@ define([
             this.options = options;
             this.urlParams = {}
 
-            if(!this.options.id || this.options.id === 'undefined' || this.options.id === ""){
+            console.log(this.options);
+
+            if(!this.options.id || this.options.id === 'undefined' || this.options.id === "" || this.options.id === "null"){
                 this.template = Handlebars.compile(templateVerify);
             } else {
                 var self = this;
-                console.log('id');
                 this.template = Handlebars.compile(templateVerified);
                 if(this.options.id !== "" && this.options.id){
                     var vars = String(this.options.id).replace('?','').split('&');
