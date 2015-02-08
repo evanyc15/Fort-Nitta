@@ -25,6 +25,7 @@ define([
 		signUpShow: function(){
 			this.trigger("click:signup:show");
 		},
+        // Takes care of the enter key in submitting input fields for login
         onPasswordKeyup: function(event){
             var k = event.keyCode || event.which;
 

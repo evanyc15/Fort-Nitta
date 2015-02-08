@@ -17,8 +17,7 @@ define([
             this.options = options;
             this.urlParams = {}
 
-            console.log(this.options);
-
+            // Checks the url (passed in from controller), if there are GET parameters, then it sends the ajax call to verify user
             if(!this.options.id || this.options.id === 'undefined' || this.options.id === "" || this.options.id === "null"){
                 this.template = Handlebars.compile(templateVerify);
             } else {
@@ -73,6 +72,7 @@ define([
         backtoLogin: function() {
             this.trigger("click:login:show");
         },
+        // This sends the email to verify user
         sendEmail: function(event) {
             var self = this;
 

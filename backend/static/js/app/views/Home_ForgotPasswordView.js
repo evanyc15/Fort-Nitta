@@ -23,6 +23,7 @@ define([
         loginShow: function() {
             this.trigger("click:login:show");
         },
+        // This sends the email to the user for reset their password
         passwordRecovery: function(event) {
             if(event){
                 event.stopPropagation();

@@ -25,6 +25,7 @@ define([
         loginShow: function() {
             this.trigger("click:login:show");
         },
+        // This is for changing the password, this submits the new passwords for changing the user's password via ajax call
         changePassword: function(event) {
             var self = this;
 

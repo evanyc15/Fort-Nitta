@@ -23,6 +23,7 @@ define([
 		loginShow: function(){
 			this.trigger("click:login:show");
 		},
+        // Takes care of the enter key for signup
         rePasswordKeyup: function(event) {
             var k = event.keyCode || event.which;
 

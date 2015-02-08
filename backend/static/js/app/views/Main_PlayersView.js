@@ -20,6 +20,7 @@ define([
 			var self = this;
 			this.playersArray = [];
 
+            // Detects a windows change, if vertical, it resizes the player bar, if horizontal, it shrinks the player bar.
 			$(window).on("resize", function(){
 
 				if($(window).width() != width){
@@ -31,6 +32,7 @@ define([
 					$("#playerList").height(height-110);
 				}
 			});
+            // SSE Eventsource listener to get online players for players list
 			var sse = new EventSource('/stream');
             sse.addEventListener('message', function(e) {
 
