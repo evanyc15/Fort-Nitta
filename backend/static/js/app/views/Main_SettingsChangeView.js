@@ -39,10 +39,10 @@ define([
         },
 		changeDetails: function(event){
 			var self = this;
-            if(self.$("#profilePictureChange").val() !== "" && self.$("#profilePictureChange").val() !== null){
-                var picture = $('input[name="imageInput"]')[0].files[0]; 
-                var data = new FormData();
-                data.append('file', picture);
+            var picture = $('input[name="imageInput"]')[0].files[0]; 
+            var data = new FormData();
+               data.append('file', picture);
+            if(self.$("#profilePictureChange").val() !== "" && self.$("#profilePictureChange").val() !== null){    
                 $.ajax({
                     url: '/api/avatar/',
                     type: 'POST',
@@ -58,7 +58,7 @@ define([
                         $("#profilePicture").attr('src','/api/avatar/'+ data.user.avatar_path)
                     },
                     error: function(data){
-                        alert('no upload');
+                        //alert('no upload');
                         $('#loadingModal').modal('hide');
                     }
                 });            
