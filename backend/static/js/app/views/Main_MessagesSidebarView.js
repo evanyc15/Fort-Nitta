@@ -17,6 +17,8 @@ define([
             this.options = options;
 
             var self = this;
+
+            // This is to populate the autocomplete fields with all usernames
             this.tags = [];
             $.ajax({
                 url: '/api/messages/retrieveUsers/',
@@ -47,6 +49,7 @@ define([
             this.$el.find("#main_messages-search-input").autocomplete({
                 source: this.tags
             });
+            // This creates the side bar list of users that "this" user has chatted with.
             $.ajax({
                 url: '/api/messages/users/',
                 type: 'GET',
@@ -92,6 +95,7 @@ define([
         hashCode: function(s){
             return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
         },
+        // This is run after the new message (plus sign) is clicked. This is to establish a new chat with a user that "this" user has not chatted with.
         newMessage: function(){
             var self = this;
             var username = this.$el.find("#main_messages-search-input").val();
@@ -128,6 +132,7 @@ define([
                 });
             }
         },
+        // This is to display the chat box in respect to the user "this" user just clicked on to chat with.
         switchMessenger: function(event) {
             this.$(".custom_accordion li").removeClass("active");
             $(event.currentTarget).addClass("active");

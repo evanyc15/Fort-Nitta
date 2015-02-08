@@ -22,6 +22,7 @@ define([
         onRender: function(){
             var self = this;
             this.$el.find('.messages-loader').show();
+            // This is to get the messages in the current chat between two users (one which is "this" user)
             this.sse = new EventSource('/messageStream?from_username='+App.session.user.get('username')+'&to_username='+this.options.message.get('username'));
             this.sse.addEventListener('message', function(e) {
                 var results = JSON.parse(e.data);

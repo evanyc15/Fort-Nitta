@@ -33,10 +33,13 @@ def event_stream():
             messageList.append(jsonData)
         return "data: %s\n\n" % json.dumps(messageList)    
 
+# This does the same as ChatMessageApi's GET method but is used for SSE pushing for dynamic chatting
 @app.route('/messageStream')
 def messageStream():
     return Response(event_stream(), mimetype="text/event-stream")
 
+# For POST, it is used to verify if a user exists in the database
+# For GET, it is used to get all usernames from the database
 class ChatUserRetrieveApi(MethodView):
     def get(self):
         usersList = []
@@ -57,6 +60,8 @@ class ChatUserRetrieveApi(MethodView):
             return jsonify(**{'success': True, 'username':user.username,'firstname':user.first_name,'lastname':user.last_name})
         return jsonify(**{'success':False}), 401
 
+# For POST, this submits a new message to the database
+# For GET, this returns a conversation aka all messages between two users
 class ChatMessageApi(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)
@@ -94,6 +99,7 @@ class ChatMessageApi(MethodView):
             return json.dumps(messageList)
         return jsonify(**{'success': False, 'asdf': 'adf'}), 401
 
+# Get all the users that a "this" user has chatted with
 class ChatUserApi(MethodView):
     def get(self):
         userList = []

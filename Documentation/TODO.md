@@ -27,3 +27,5 @@ Frontend
 (3) Remove change profile picture on profile page
 (4) Better error checking on signup and login page
 (5) Allow "enter" key on all inputs
+(6) Error checking in all of messaging
+(7) Messaging Notification not up yet
