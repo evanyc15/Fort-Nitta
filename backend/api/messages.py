@@ -37,6 +37,17 @@ def event_stream():
 def messageStream():
     return Response(event_stream(), mimetype="text/event-stream")
 
+@app.route('/retrieveUsers')
+def retrieveUsers():
+    usersList = []
+    users = User.query.with_entities(User.username).all()
+    if users is None:
+        return jsonify(**{'success': False})
+    for holder in users:
+        jsonData = {'username': holder.username}
+        usersList.append(jsonData)
+    return json.dumps(usersList)
+
 class ChatMessageApi(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)

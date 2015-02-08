@@ -15,17 +15,37 @@ define([
 
         initialize: function(options){
             this.options = options;
+
+            var self = this;
+            this.tags = [];
+            $.ajax({
+                url: '/retrieveUsers',
+                type: 'GET',
+                contentType: 'application/json',
+                dataType: 'json',
+                crossDomain: true,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(data){
+                    var i;
+                    for(i = 0; i < data.length; i++){
+                        self.tags.push(data[i].username);
+                    }
+                },
+                error: function(){
+                
+                }
+            });
         },
         events: {
          "click .main_messages-user": "switchMessenger"
         },
         onShow: function() {
             var self = this;
-            var tags = ["bob_doe123","ghostsp15","test123","ghost12","ghost1235","bob_miller234","bryanScott1235"];
             this.$el.find("#main_messages-search-input").autocomplete({
-                source: tags
+                source: this.tags
             });
-
             $.ajax({
                 url: '/api/messages/users/',
                 type: 'GET',
