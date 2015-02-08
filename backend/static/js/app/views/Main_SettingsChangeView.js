@@ -16,7 +16,6 @@ define([
         },
         events: {
 		    "click #profilePictureChange": "changeProfilePicture",
-            "change #profilePictureChangeInput": "saveFile",
             "click #settingsSubmitButton": "changeDetails",
 		    "click #settingsCancelButton": "cancel"   
         },
@@ -38,32 +37,32 @@ define([
         changeProfilePicture: function() {
             $("#profilePictureChangeInput").click();
         },
-        saveFile: function() {
-            var picture = $('input[name="imageInput"]')[0].files[0]; 
-            var data = new FormData();
-            data.append('file', picture);
-            $.ajax({
-                url: '/api/avatar/',
-                type: 'POST',
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                crossDomain: true,
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(data){
-                    $("#profilePicture").attr('src','/api/avatar/'+ data.user.avatar_path)
-                },
-                error: function(data){
-                    alert('no upload');
-                    $('#loadingModal').modal('hide');
-                }
-            });
-        },
 		changeDetails: function(event){
 			var self = this;
+            if(self.$("#profilePictureChange").val() !== "" && self.$("#profilePictureChange").val() !== null){
+                var picture = $('input[name="imageInput"]')[0].files[0]; 
+                var data = new FormData();
+                data.append('file', picture);
+                $.ajax({
+                    url: '/api/avatar/',
+                    type: 'POST',
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    crossDomain: true,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function(data){
+                        $("#profilePicture").attr('src','/api/avatar/'+ data.user.avatar_path)
+                    },
+                    error: function(data){
+                        alert('no upload');
+                        $('#loadingModal').modal('hide');
+                    }
+                });            
+            }
 		    if(self.$("#passwordInput").val() === self.$("#repasswordInput").val()){					
 				App.session.changeDetails(
                 {
