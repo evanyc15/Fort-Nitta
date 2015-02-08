@@ -13,7 +13,7 @@ define([
 
     "use strict";
 
-    return Backbone.Marionette.Layout.extend({
+    return Backbone.Marionette.LayoutView.extend({
 
         template: Handlebars.compile(template),
 
@@ -25,7 +25,6 @@ define([
             this.messageSideBarView.on("click:Messenger:switch", function(data){
                 self.messages.set({
                     'username': data.username,
-                    'name': data.name,
                     'messaging': true
                 });
                 self.contentRegion.show(new MessageBox({

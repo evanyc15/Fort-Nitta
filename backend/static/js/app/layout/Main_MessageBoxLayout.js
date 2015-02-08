@@ -11,7 +11,7 @@ define([
 
     "use strict";
 
-    return Backbone.Marionette.Layout.extend({
+    return Backbone.Marionette.LayoutView.extend({
 
         template: Handlebars.compile(template),
 
@@ -31,6 +31,11 @@ define([
                 this.contentRegion.show(new MessagesUserView({
                     message: self.options.message
                 }));
+            }
+        },
+        onShow: function() {
+            if(this.options.message.get('messaging')){
+                this.$el.find('#messages-chatNameDisplay').text("From "+App.session.user.get('username')+ " to "+this.options.message.get('username'));
             }
         },
         chatKeyUp: function(event) {

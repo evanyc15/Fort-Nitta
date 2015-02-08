@@ -37,16 +37,25 @@ def event_stream():
 def messageStream():
     return Response(event_stream(), mimetype="text/event-stream")
 
-@app.route('/retrieveUsers')
-def retrieveUsers():
-    usersList = []
-    users = User.query.with_entities(User.username).all()
-    if users is None:
-        return jsonify(**{'success': False})
-    for holder in users:
-        jsonData = {'username': holder.username}
-        usersList.append(jsonData)
-    return json.dumps(usersList)
+class ChatUserRetrieveApi(MethodView):
+    def get(self):
+        usersList = []
+        users = User.query.with_entities(User.username).all()
+        if users is None:
+            return jsonify(**{'success': False})
+        for holder in users:
+            jsonData = {'username': holder.username}
+            usersList.append(jsonData)
+        return json.dumps(usersList)
+
+    def post(self):
+        request_data = request.get_json(force=True, silent=True)
+        if request_data['username'] is not None:
+            user = User.query.filter_by(username = request_data['username']).first()
+            if user is None:
+                return jsonify(**{'success': False}), 401
+            return jsonify(**{'success': True})
+        return jsonify(**{'success':False}), 401
 
 class ChatMessageApi(MethodView):
     def post(self):
@@ -93,18 +102,18 @@ class ChatUserApi(MethodView):
             user = request.args.get('user')
             users = ChatMessages.query.filter(or_(ChatMessages.to_user == user, ChatMessages.from_user == user)).all()
             for userHolder in users:
-                if userHolder.to_user != user:
-                    userInfo = User.query.filter_by(id = userHolder.to_user).first()
-                    jsonData = {'username':userInfo.username,'first_name':userInfo.first_name,'last_name':userInfo.last_name}
-                    userList.append(jsonData)
-                elif userHolder.from_user != user:
-                    userInfo = User.query.filter_by(id = userHolder.from_user).first()
-                    jsonData = {'username':userInfo.username,'first_name':userInfo.first_name,'last_name':userInfo.last_name}
-                    userList.append(jsonData)
+                to_user = User.query.filter_by(id = userHolder.to_user).first()
+                from_user = User.query.filter_by(id = userHolder.from_user).first()
+                if to_user is None or from_user is None:
+                    return jsonify(**{'success': False}), 401
+                jsonData = {'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name}
+                userList.append(jsonData)
             return json.dumps(userList)
         return jsonify(**{'success': False}), 401
 
 chat_user_view = ChatUserApi.as_view('chat_user_api')
 chat_message_view = ChatMessageApi.as_view('chat_message_api')
+chat_userRetrieve_view = ChatUserRetrieveApi.as_view('chat_userretrieve_api')
 app.add_url_rule('/api/messages/chat/', view_func=chat_message_view, methods=['POST','GET'])
 app.add_url_rule('/api/messages/users/', view_func=chat_user_view, methods=['GET'])
+app.add_url_rule('/api/messages/retrieveUsers/', view_func=chat_userRetrieve_view, methods=['GET','POST'])

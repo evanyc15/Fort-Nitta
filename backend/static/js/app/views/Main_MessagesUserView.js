@@ -14,13 +14,19 @@ define([
 
         initialize: function(options){
             this.options = options;
+            console.log(this.options.message.get('username'));
+        },
+        events: {
+         
+        },
+        onRender: function(){
             var self = this;
-
-            var sse = new EventSource('/messageStream?from_username='+App.session.user.get('username')+'&to_username='+this.options.message.get('username'));
-            sse.addEventListener('message', function(e) {
+            this.$el.find('.messages-loader').show();
+            this.sse = new EventSource('/messageStream?from_username='+App.session.user.get('username')+'&to_username='+this.options.message.get('username'));
+            this.sse.addEventListener('message', function(e) {
                 var results = JSON.parse(e.data);
                 var i;
-                console.log(results);
+                $('.messages-loader').hide();
                 for(i = 0; i < results.length; i++){
                     if(self.options.message.get('id') < results[i].message_id){
                         var html = "<div class='row userMessageBox'>"+
@@ -45,9 +51,8 @@ define([
                 }  
             },false);
         },
-        events: {
-         
+        onBeforeDestroy: function(){
+            this.sse.close();
         }
-        
     });
 });
