@@ -7,10 +7,40 @@ from backend.database.models import User, ChatMessages
 
 import gevent, json
 
+def event_stream():
+    message_id = 0
+    from_username = request.args.get('from_username')
+    to_username = request.args.get('to_username')
+
+    while True:
+        # Check database every n seconds (2 right now)
+        gevent.sleep(2)
+
+        messageList = []
+        to_user = User.query.filter_by(username = to_username).first()
+        from_user = User.query.filter_by(username = from_username).first()
+        if to_user is None or from_user is None:
+            return jsonify(**{'success': False})
+        messages = ChatMessages.query.filter(and_(or_(ChatMessages.to_user == to_user.id, ChatMessages.to_user == from_user.id), or_(ChatMessages.from_user == to_user.id, ChatMessages.from_user == from_user.id), ChatMessages.id > message_id)).order_by(ChatMessages.id.asc()).all()
+        if not messages or messages is None:
+            return jsonify(**{'success': False})
+        for messageHolder in messages:
+            if messageHolder.id > message_id:
+                message_id = messageHolder.id
+            to_user = User.query.filter_by(id = messageHolder.to_user).first()
+            from_user = User.query.filter_by(id = messageHolder.from_user).first()
+            jsonData = {'message_id':messageHolder.id,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name,'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
+            messageList.append(jsonData)
+        return "data: %s\n\n" % json.dumps(messageList)    
+
+@app.route('/messageStream')
+def messageStream():
+    return Response(event_stream(), mimetype="text/event-stream")
+
 class ChatMessageApi(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)
-        if('to_user' in request_data) and ('from_user' in request_data):
+        if request_data['to_user'] is not None and request_data['from_user'] is not None:
             to_user = User.query.filter_by(username = request_data['to_user']).first()
             if to_user is None:
                 return jsonify(**{'success': False, 'Body':'No to_user'}), 401
@@ -28,18 +58,21 @@ class ChatMessageApi(MethodView):
     def get(self):
         messageList = []
 
-        if request.args.get('user'):
-            user = request.args.get('user')
-            messages = ChatMessages.query.filter(or_(ChatMessages.to_user == user, ChatMessages.from_user == user)).all()
+        if request.args.get('from_username') and request.args.get('to_username') and request.args.get('message_id'):
+            to_username = request.args.get('to_username')
+            from_username = request.args.get('from_username')
+            to_user = User.query.filter_by(username = to_username).first()
+            from_user = User.query.filter_by(username = from_username).first()
+            messages = ChatMessages.query.filter(and_(or_(ChatMessages.to_user == to_user.id, ChatMessages.to_user == from_user.id), or_(ChatMessages.from_user == to_user.id, ChatMessages.from_user == from_user.id), ChatMessages.id > request.args.get('message_id'))).all()
             if not messages or messages is None:
                 return jsonify(**{'success': False}), 401
             for messageHolder in messages:
                 to_user = User.query.filter_by(id = messageHolder.to_user).first()
                 from_user = User.query.filter_by(id = messageHolder.from_user).first()
-                jsonData = {'to_username': to_user.username,'from_username': from_user.username,'to_firstName': to_user.first_name,'to_lastName': to_user.last_name,'from_firstName': from_user.first_name,'from_lastName': from_user.last_name,'message_time': messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S"),'message': messageHolder.message}
+                jsonData = {'message_id':messageHolder.id,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name,'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
                 messageList.append(jsonData)
             return json.dumps(messageList)
-        return jsonify(**{'success': False}), 401
+        return jsonify(**{'success': False, 'asdf': 'adf'}), 401
 
 class ChatUserApi(MethodView):
     def get(self):

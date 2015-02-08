@@ -7,8 +7,9 @@ define([
     'handlebars',
     'views/Main_MessagesSideBarView',
     'layout/Main_MessageBoxLayout',
+    'models/MessageModel',
     'text!templates/main_messageslayout.html'
-],  function (App, $, Backbone, Marionette, _, Handlebars, MessagesSideBarView, MessageBox, template) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, MessagesSideBarView, MessageBox, MessageModel, template) {
 
     "use strict";
 
@@ -17,7 +18,20 @@ define([
         template: Handlebars.compile(template),
 
         initialize: function(options){
+            var self = this;
+            this.messages = new MessageModel({});
 
+            this.messageSideBarView = new MessagesSideBarView();
+            this.messageSideBarView.on("click:Messenger:switch", function(data){
+                self.messages.set({
+                    'username': data.username,
+                    'name': data.name,
+                    'messaging': true
+                });
+                self.contentRegion.show(new MessageBox({
+                    message: self.messages
+                }));
+            });
         },
         regions: {
             sidebarRegion: "#messagessidebarRegion",
@@ -27,8 +41,11 @@ define([
 
         },
         onRender: function(){
-            this.sidebarRegion.show(new MessagesSideBarView());
-            this.contentRegion.show(new MessageBox());
+            var self = this;
+            this.sidebarRegion.show(this.messageSideBarView);
+            this.contentRegion.show(new MessageBox({
+                message: self.messages
+            }));
         }
     });
 });

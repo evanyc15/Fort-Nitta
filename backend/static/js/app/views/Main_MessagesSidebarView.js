@@ -37,11 +37,12 @@ define([
                     withCredentials: true
                 },
                 success: function(data){
-                    console.log(data);
+                    // console.log(data);
                     var i;
                     for(i = 0; i < data.length; i++){
-                        var id = '#' + self.hashCode(data[i].username);
-                        if(self.$el.find(id).length === 0){
+                        
+                        if(self.$el.find(id).length === 0 && data[i].username !== App.session.user.get('username')){
+                            var id = '#' + self.hashCode(data[i].username);
                             var html = "<li class='main_messages-user' id='"+self.hashCode(data[i].username)+"'>"+
                                             "<img class='main_messages-img' src='../../../img/placeholder-user.png'/>"+
                                             "<div class='main_messages-dataBox'>"+
@@ -64,6 +65,10 @@ define([
         switchMessenger: function(event) {
             this.$(".custom_accordion li").removeClass("active");
             $(event.currentTarget).addClass("active");
+            var username = $(event.currentTarget).find('.main_messages-username').text();
+            var name = $(event.currentTarget).find('.main_messages-name').text();
+
+            this.trigger("click:Messenger:switch", {'username': username,'name': name});
         }
         
     });

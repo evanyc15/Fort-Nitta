@@ -10,7 +10,6 @@ import gevent, json
 presence_list = []
 
 def event_stream():
-    count = 0
     while True:
         # Check database every n seconds (2 right now)
         gevent.sleep(2)
