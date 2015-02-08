@@ -12,7 +12,6 @@ define([
         },
 
         defaults: {
-            id: -1,
             username: '',
             name: '',
             messaging: false

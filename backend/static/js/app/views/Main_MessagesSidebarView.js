@@ -108,6 +108,17 @@ define([
                     },
                     success: function(data){
                         if(data.success){
+                            var id = '#' + self.hashCode(data.username);
+                            if(self.$el.find(id).length === 0){ 
+                                var html = "<li class='main_messages-user' id='"+self.hashCode(data.username)+"'>"+
+                                            "<img class='main_messages-img' src='../../../img/placeholder-user.png'/>"+
+                                            "<div class='main_messages-dataBox'>"+
+                                                "<div class='main_messages-username'>"+data.username+"</div>"+
+                                                "<div class='main_messages-name'>"+data.firstname+" "+data.lastname+"</div>"+
+                                            "</div>"+ 
+                                        "</li>";
+                                self.$el.find('.custom_accordion').append(html); 
+                            }
                             self.trigger("click:Messenger:switch", {'username':username});
                         }
                     },

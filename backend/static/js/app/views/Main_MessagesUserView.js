@@ -14,7 +14,7 @@ define([
 
         initialize: function(options){
             this.options = options;
-            console.log(this.options.message.get('username'));
+            this.message_id = 0;
         },
         events: {
          
@@ -28,7 +28,7 @@ define([
                 var i;
                 $('.messages-loader').hide();
                 for(i = 0; i < results.length; i++){
-                    if(self.options.message.get('id') < results[i].message_id){
+                    if(self.message_id < results[i].message_id){
                         var html = "<div class='row userMessageBox'>"+
                                     "<div class='large-1 columns'>"+
                                         "<img class='userMessageBox-img' src='../../../img/placeholder-user.png'/>"+
@@ -40,15 +40,15 @@ define([
                                         "<div class='userMessageBox-comment'>"+results[i].message+"</div>"+
                                     "</div>"+
                                 "</div>";
-                        self.$el.append(html); 
-                        var message_id = self.options.message.get('id');
-                        if(message_id < results[i].message_id){
-                            self.options.message.set({
-                                'id': results[i].message_id
-                            });
+                        self.$el.find('#messages-userContainer').append(html); 
+                        if(self.message_id < results[i].message_id){
+                           self.message_id = results[i].message_id;
                         }
                     } 
                 }  
+            },false);
+            this.sse.addEventListener('error', function(e){
+                $('.messages-loader').hide();
             },false);
         },
         onBeforeDestroy: function(){

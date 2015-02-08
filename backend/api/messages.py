@@ -54,7 +54,7 @@ class ChatUserRetrieveApi(MethodView):
             user = User.query.filter_by(username = request_data['username']).first()
             if user is None:
                 return jsonify(**{'success': False}), 401
-            return jsonify(**{'success': True})
+            return jsonify(**{'success': True, 'username':user.username,'firstname':user.first_name,'lastname':user.last_name})
         return jsonify(**{'success':False}), 401
 
 class ChatMessageApi(MethodView):
