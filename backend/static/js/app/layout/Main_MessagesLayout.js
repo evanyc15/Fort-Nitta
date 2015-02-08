@@ -5,7 +5,7 @@ define([
     'marionette',
     'underscore',
     'handlebars',
-    'views/Main_MessagesSideBarView',
+    'views/Main_MessagesSidebarView',
     'layout/Main_MessageBoxLayout',
     'models/MessageModel',
     'text!templates/main_messageslayout.html'
