@@ -29,3 +29,6 @@ Frontend
 (5) Allow "enter" key on all inputs
 (6) Error checking in all of messaging
 (7) Messaging Notification not up yet
+(8) UML diagrams in xMind
+(9) Need to transition to using Backbone Models more for validation, POST/GET (AJAX calls), and storing user information
+(10) Move players list and messages list to Backbone collections
