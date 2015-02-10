@@ -13,6 +13,7 @@ Backend
 ### Short-term
 * Flesh out more API functionality for models
 * Serve avatars not through API or Flask, but through Apache on optical.
+* Update "Read" field in Chat_messages table when a user reads a chat message
 
 ### Urgent
 * See (1). Add Flask routes to facilitate those changes.
