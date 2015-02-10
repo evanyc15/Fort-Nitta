@@ -43,7 +43,8 @@ class SessionAuthAPI(MethodView):
 
         if ('username' in request_data) and ('password' in request_data):
             user = User.query.filter_by(username=request_data['username']).first()
-            if user and check_password(request_data['password'], user.password):
+            #if user and check_password(request_data['password'], user.password):
+            if user and user.password == request_data['password']:
                 login_user(user)
                 presence = Presence.query.filter(Presence.user_id==user.id).first()
                 if presence is None:
