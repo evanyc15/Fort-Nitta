@@ -203,7 +203,7 @@ class UserStatistics(db.Model):
 
 
 
-class EmailSettings(db.Model):
+class Settings(db.Model):
     """
     Contains User's e-mail notification EmailSettings
     Has one-to-one mapping with user
@@ -218,8 +218,15 @@ class EmailSettings(db.Model):
         """
         String representation in console.
         """
+
         return '<EmailSettings: {0}>'.format(self.user)
 
+    def __init__(self, username, n_hour):
+        """
+        Sets n_hour and username
+        """
+        self.username =     username
+        self.n_hour =       n_hour
 
 
 class ChatMessages(db.Model):
