@@ -17,13 +17,13 @@ def event_stream():
         # Get users who are either online in the game or web
         user_presences = Presence.query.join(Presence.user).filter(or_(Presence.game_online == True, Presence.web_online == True)).all()
         if user_presences is None:
-            yield "data: []\n\n"
+            return "data: []\n\n"
 
         # Put all new presence users into the presence list
         for new_data in user_presences:
-            jsonData = {'username': new_data.user.username,'first_name': new_data.user.first_name, 'last_name': new_data.user.last_name, 'web_online': new_data.web_online, 'game_online': new_data.game_online}
             if not any(init_data['username'] == new_data.user.username for init_data in presence_list):
             # if new_data.user.username not in init_data (presence_list):
+                jsonData = {'id':new_data.id,'username': new_data.user.username,'first_name': new_data.user.first_name, 'last_name': new_data.user.last_name, 'web_online': new_data.web_online, 'game_online': new_data.game_online}
                 presence_list.append(jsonData)
             # Now this is check specifically if a user has changed their web or game online status
             else:
@@ -37,7 +37,7 @@ def event_stream():
             if not any(init_data.user.username == it_data['username'] for init_data in user_presences):
                 presence_list.remove(it_data)
         # return jsonify(data = presence_list)
-        yield "data: %s\n\n" % json.dumps(presence_list)
+        return "data: %s\n\n" % json.dumps(presence_list)
 
 @app.route('/stream')
 def stream():

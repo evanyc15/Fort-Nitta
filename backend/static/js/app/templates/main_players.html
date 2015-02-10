@@ -9,7 +9,21 @@
         </div>
         <div class="row">
             <div class="large-12 columns" id="playerList">
-              
+                {{#each []}}
+                    <div class="row playerTile">
+                        <div class="large-4 columns">
+                            {{#if this.game_online}}
+                                <i class="fa fa-gamepad playerTileStatus"></i>
+                            {{/if}}
+                            {{#if this.web_online}}
+                                <i class='fa fa-globe playerTileStatus'></i>
+                            {{/if}}
+                        </div>
+                        <div class="large-8 columns playerName">
+                            {{this.first_name}}&nbsp;{{this.last_name}}
+                        </div>
+                     </div>
+                {{/each}}
             </div>
         </div>
   </div>
