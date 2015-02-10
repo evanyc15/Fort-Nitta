@@ -22,6 +22,26 @@ define([
 			"change #profilePictureChangeInput": "saveFile"
 		},
 		onRender: function(){
+			$.ajax({
+				url: '/api/user_statistics/',
+				type: 'GET',
+				cache: false,
+				contentType: false,
+				processData: false,
+				crossDomain: true,
+				xhrFields: {
+					withCredentials: true
+				},
+				success: function(data){
+					console.log('SUCCESS');
+					$("#win_loss_ratio").html(data.user_statistics.win_loss_ratio);
+					$("#win_loss_ratio_meter").css('width', (100*data.user_statistics.win_loss_ratio)+'%')
+				},
+				error: function(data){
+					console.log('ERROR');
+					$("#win_loss_ratio").html("You haven't played any games yet!");
+				}				
+			})
 			var html = this.template({
 				"username": App.session.user.get('username'),
 				"email": App.session.user.get('email'),
