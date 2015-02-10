@@ -4,7 +4,7 @@ from flask.ext.login import current_user, login_user
 from sqlalchemy import and_
 
 from backend import db, app
-from backend.database.models import User, Presence, UserStatistics, EmailSettings
+from backend.database.models import User, Presence, UserStatistics, Settings
 from backend.api.sessionauth import current_user_props, hash_password, check_password
 import validation
 
@@ -102,22 +102,17 @@ class SettingsAPI(MethodView):
         if ('username' in request_data):
             username=request_data['username']
 
-            if 'immediate' in request_data:
-                n_hour = request_data['immediate']
-            elif '1-hour' in  request_data:
-                n_hour = request_data['1-hour']
-            elif '3-hour' in request_data:
-                n_hour = request_data['3-hour']
-            elif '24-hour' in request_data:
-                n_hour = request_data['24-hour']
-            else
-                return jsonify(**{'success': False, 'message': "It failed in settings api. Missing n_hour."}), 422
-
-            # pass parsed parameters to the database method
-
-            return change_settings(username, n_hour);
-        else             
-            return jsonify(**{'success': False, 'message': "It failed in settings api. Missing username."}), 422
+            if 'n_hour' in request_data:
+                n_hour = request_data['n_hour']
+                if ((n_hour is "immediate") or
+                    (n_hour is "1-hour") or
+                    (n_hour is "3-hour") or
+                    (n_hour is "24-hour")):
+                    # pass parsed parameters to the database method
+                    return change_settings(username, n_hour)
+                else:    return jsonify(**{'success': False, 'message': "Error: settings api, n_hour wrong format."}), 422
+            else:        return jsonify(**{'success': False, 'message': "Error: settings api, missing n_hour"}), 422
+        else:            return jsonify(**{'success': False, 'message': "Error: settings api, missing username."}), 422
 
 class RegisterAPI(MethodView):
     def post(self):
@@ -228,7 +223,7 @@ class VerifyUserAPi(MethodView):
 
         return jsonify(**{'success': False}), 401
 
-settings_view = SettingsAPI.as_vew('settings')
+settings_view = SettingsAPI.as_view('settings')
 change_details_view = ChangeDetailsAPI.as_view('change_details')
 register_view = RegisterAPI.as_view('register_api')
 password_change_view = PasswordChangeApi.as_view('password_change_api')
