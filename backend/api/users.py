@@ -12,7 +12,8 @@ import validation
 
 def create_new_user(username, password, email, first_name, last_name):
     new_user = User(username = username,
-        password =      hash_password(password),
+        #password =      hash_password(password),
+        password = password,
         email =         email,
         first_name =    first_name,
         last_name =     last_name,
@@ -40,7 +41,8 @@ def change_user_data(username, password=None, email=None, first_name=None, last_
     if email is not None:
 	    user.email= email	
     if password is not None:
-	   user.password = hash_password(password)
+	   #user.password = hash_password(password)
+       user.password = password
 
     # add the current user to the data to be committed to the database
     db.session.add(user)
@@ -68,7 +70,8 @@ class ChangeDetailsAPI(MethodView):
 
         if ('username' in request_data) and ('oldPassword' in request_data):
             user = User.query.filter_by(username=request_data['username']).first()
-            if (not user) or (not check_password(request_data['oldPassword'],user.password)):
+            #if (not user) or (not check_password(request_data['oldPassword'],user.password)):
+            if (not user) or (request_data['oldPassword'] != user.password):
                 return jsonify(**{'success': False, 'error': 'Old password not valid', 'offending_attribute': 'old_password'}), 401
 
         if('username' in request_data and ('password' in request_data 
@@ -198,7 +201,8 @@ class PasswordChangeApi(MethodView):
  
             if user is None:
                 return jsonify(**{'success': False}), 401
-            user.password = hash_password(request_data['password'])   
+            #user.password = hash_password(request_data['password']) 
+            user.password = request_data['password']
             db.session.add(user)
             db.session.commit()
             return jsonify(**{'success': True})
