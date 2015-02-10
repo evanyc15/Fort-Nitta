@@ -4,7 +4,7 @@ from flask.ext.login import current_user, login_user
 from sqlalchemy import and_
 
 from backend import db, app
-from backend.database.models import User, Presence, UserStatistics
+from backend.database.models import User, Presence, UserStatistics, Settings
 from backend.api.sessionauth import current_user_props, hash_password, check_password
 import validation
 
@@ -12,8 +12,7 @@ import validation
 
 def create_new_user(username, password, email, first_name, last_name):
     new_user = User(username = username,
-        #password =      hash_password(password),
-        password = password,
+        password =      hash_password(password),
         email =         email,
         first_name =    first_name,
         last_name =     last_name,
@@ -41,47 +40,35 @@ def change_user_data(username, password=None, email=None, first_name=None, last_
     if email is not None:
 	    user.email= email	
     if password is not None:
-       user.password = password
-	   #user.password = hash_password(password)
+	   user.password = hash_password(password)
 
     # add the current user to the data to be committed to the database
     db.session.add(user)
     db.session.commit()
     return jsonify(**{'success': True})
 
+def change_settings(username, n_hour=None):
+    user = User.query.filter(username==username).first()
+    
+    if user is None:
+        return jsonify(**{'success': False, 'error': 'no username specified'}), 401
+
+    setting = Settings(username, n_hour)
+    db.session.add(setting)
+    db.session.commit()
+
+    return jsonify(**{'success': True}), 200
+
+
 class ChangeDetailsAPI(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
             request_data = {}
-			
-        if('username' in request_data) and (len(request_data['oldPassword']) == 0):
-            if('username' in request_data and ('first_name' in request_data 
-                                    or 'last_name' in request_data 
-                                    or 'email' in request_data)):
-                # at least one entry is changed
-                username = request_data['username']
-                password = None
-                first_name = None
-                last_name = None
-                email = None
 
-                if 'password' in request_data and len(request_data['password']) != 0:
-                    password = request_data['password']
-                if 'first_name' in request_data and len(request_data['first_name']) != 0:
-                    first_name = request_data['first_name']
-                if 'last_name' in request_data and len(request_data['last_name']) != 0:
-                    last_name = request_data['last_name']
-                if 'email' in request_data and len(request_data['email']) != 0:
-                    email = request_data['email']
-                # pass parsed parameters to the database method
-                return change_user_data(username, password, email, first_name, last_name);
-		
         if ('username' in request_data) and ('oldPassword' in request_data):
             user = User.query.filter_by(username=request_data['username']).first()
-			
-            #if (not user) or (not check_password(request_data['oldPassword'],user.password)):
-            if (not user) or (not user.password == request_data['oldPassword']):
+            if (not user) or (not check_password(request_data['oldPassword'],user.password)):
                 return jsonify(**{'success': False, 'error': 'Old password not valid', 'offending_attribute': 'old_password'}), 401
 
         if('username' in request_data and ('password' in request_data 
@@ -106,7 +93,26 @@ class ChangeDetailsAPI(MethodView):
             # pass parsed parameters to the database method
             return change_user_data(username, password, email, first_name, last_name);
 
+class SettingsAPI(MethodView):
+    def post(self):
+        request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            request_data = {}
 
+        if ('username' in request_data):
+            username=request_data['username']
+
+            if 'n_hour' in request_data:
+                n_hour = request_data['n_hour']
+                if ((n_hour is "immediate") or
+                    (n_hour is "1-hour") or
+                    (n_hour is "3-hour") or
+                    (n_hour is "24-hour")):
+                    # pass parsed parameters to the database method
+                    return change_settings(username, n_hour)
+                else:    return jsonify(**{'success': False, 'message': "Error: settings api, n_hour wrong format."}), 422
+            else:        return jsonify(**{'success': False, 'message': "Error: settings api, missing n_hour"}), 422
+        else:            return jsonify(**{'success': False, 'message': "Error: settings api, missing username."}), 422
 
 class RegisterAPI(MethodView):
     def post(self):
@@ -192,8 +198,7 @@ class PasswordChangeApi(MethodView):
  
             if user is None:
                 return jsonify(**{'success': False}), 401
-            #user.password = hash_password(request_data['password']) 
-            user.password = request_data['password']
+            user.password = hash_password(request_data['password'])   
             db.session.add(user)
             db.session.commit()
             return jsonify(**{'success': True})
@@ -218,6 +223,7 @@ class VerifyUserAPi(MethodView):
 
         return jsonify(**{'success': False}), 401
 
+settings_view = SettingsAPI.as_view('settings')
 change_details_view = ChangeDetailsAPI.as_view('change_details')
 register_view = RegisterAPI.as_view('register_api')
 password_change_view = PasswordChangeApi.as_view('password_change_api')
