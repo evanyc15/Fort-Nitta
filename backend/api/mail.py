@@ -69,7 +69,7 @@ class VerifyEmailApi(MethodView):
                     )
                     msg.body = ("Hey Fort Nitta user,\n\n" +
                     "   To verify your account, please visit the following link:\n   " + 
-                    url + "#home/verifyemail/?" + "user=" + user.username + "&tok=" +
+                    url + "#home/verifyemail?" + "user=" + user.username + "&tok=" +
                     hash_token +
                     "\n\nAll the best,\n" + "Fort Nitta Team,\n"+url)
                     mail.send(msg)
