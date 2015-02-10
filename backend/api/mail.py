@@ -36,7 +36,7 @@ class PasswordRecApi(MethodView):
                     )
                     msg.body = ("Hey Fort Nitta user,\n\n" +
                     "   To reset your password, please visit the following link:\n   " + 
-                    url + "#home/changepassword/?" + "user=" + user.username + "&tok=" +
+                    url + "#home/changepassword?" + "user=" + user.username + "&tok=" +
                     hash_token +
                     "\n\nAll the best,\n" + "Fort Nitta Team,\n"+url)
                     mail.send(msg)
