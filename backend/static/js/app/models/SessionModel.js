@@ -178,7 +178,7 @@ define([
         },
 		changeDetails: function(opts, callback, args){
 			this.postAuth(_.extend(opts, { method: 'users/change_details/'}), callback);
-		}
+		},
         settings: function(opts, callback, args){
             this.postAuth(_.extend(opts, { method: 'users/settings/'}), callback);
         }
