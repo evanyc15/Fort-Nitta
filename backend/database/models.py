@@ -210,7 +210,6 @@ class Settings(db.Model):
     """
     id =                db.Column(db.Integer, primary_key=True)
     n_hour =            db.Column(db.String)
-
     # Foreign Key: One-to-one relationship with a User model
     user_id =   db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -221,11 +220,11 @@ class Settings(db.Model):
 
         return '<EmailSettings: {0}>'.format(self.user)
 
-    def __init__(self, user_id, n_hour):
+    def __init__(self, user_id, n_hour = "2-hour"):
         """
         Sets n_hour and username
         """
-        self.id =           user_id
+        self.user_id =      user_id
         self.n_hour =       n_hour
 
 
@@ -252,8 +251,8 @@ class ChatMessages(db.Model):
         self.read =             False
 
 
-    # def __repr__(self):
-    #     """
-    #     String representation in console.
-    #     """
-    #     return '<ChatMessages: {0}>'.format(self.user)
+    def __repr__(self):
+        """
+        String representation in console.
+        """
+        return '<ChatMessages: {0}>'.format(self.to_user)

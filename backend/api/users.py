@@ -1,10 +1,13 @@
 from flask import request, jsonify
 from flask.views import MethodView
 from flask.ext.login import current_user, login_user
-from sqlalchemy import and_
+from sqlalchemy import and_, update
+import logger
+
+from backend.api.mail import sendEmail
 
 from backend import db, app
-from backend.database.models import User, Presence, UserStatistics, Settings
+from backend.database.models import User, Presence, UserStatistics, Settings, ChatMessages
 from backend.api.sessionauth import current_user_props, hash_password, check_password
 import validation
 
@@ -50,17 +53,17 @@ def change_user_data(username, password=None, email=None, first_name=None, last_
     return jsonify(**{'success': True})
 
 def change_emailSettings(username, n_hour=None):
-    user = User.query.filter(username==username).first()
+    user = User.query.filter_by(username=username).first()
     
     if user is None:
         return jsonify(**{'success': False, 'error': 'no username specified'}), 401
 
-    setting = Settings.query.filter(username==username).first()
-    if setting is None:
-        setting = Settings(user.id, n_hour)
-    else:
-        setting.n_hour = n_hour
-    db.session.add(setting)
+    setting = Settings.query.filter_by(user_id=user.id).first()
+    #print "user_id" + str(Settings.user_id)
+
+    setting.n_hour = n_hour
+    #Settings.update().values(n_hour=n_hour).where(Settings.user_id == user.id);
+    #db.session.add(setting)
     db.session.commit()
 
     return jsonify(**{'success': True}), 200
@@ -119,8 +122,9 @@ class SettingsAPI(MethodView):
                     (n_hour == '24-hour')):
                     # pass parsed parameters to the database method
                     return change_emailSettings(username, n_hour)
-                #else:    return jsonify(**{'success': False, 'message': "Error: settings api, n_hour wrong format."}), 422
-                else:    return jsonify(**{'success': False, 'message': username + " " + n_hour}), 422
+                    #return sendEmail(0, '2-hour', 60) 
+                else:    return jsonify(**{'success': False, 'message': "Error: settings api, n_hour wrong format."}), 422
+                #else:    return jsonify(**{'success': False, 'message': username + " " + n_hour}), 422
             else:        return jsonify(**{'success': False, 'message': "Error: settings api, missing n_hour"}), 422
         else:            return jsonify(**{'success': False, 'message': "Error: settings api, missing username."}), 422
 
@@ -138,6 +142,8 @@ class RegisterAPI(MethodView):
         user = create_new_user(**cleaned_data)
         new_user_statistics = UserStatistics(user_id = user.id)
         new_presence = Presence(user_id = user.id)
+        new_setting = Settings(user_id = user.id)
+        db.session.add(new_setting)
         db.session.add(new_user_statistics)
         db.session.add(new_presence)
         db.session.commit()

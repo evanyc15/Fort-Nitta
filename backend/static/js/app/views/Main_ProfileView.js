@@ -34,8 +34,12 @@ define([
 				},
 				success: function(data){
 					console.log('SUCCESS');
-					$("#win_loss_ratio").html(data.user_statistics.win_loss_ratio);
-					$("#win_loss_ratio_meter").css('width', (100*data.user_statistics.win_loss_ratio)+'%')
+                    if(!data.user_statistics.win_loss_ratio || data.user_statistics.win_loss_ratio == '')
+                        $("#win_loss_ratio").html("You haven't played any games yet!");
+                    else {
+                        $("#win_loss_ratio").html(data.user_statistics.win_loss_ratio);
+                        $("#win_loss_ratio_meter").css('width', (100*data.user_statistics.win_loss_ratio)+'%')
+                    }
 				},
 				error: function(data){
 					console.log('ERROR');
