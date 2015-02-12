@@ -78,7 +78,7 @@ define([
         postAuth: function(opts, callback, args){
             var self = this;
             var postData = _.omit(opts, 'method');
-            // console.log(postData);
+           
             $.ajax({
                 url: this.url() + '/' + opts.method,
                 contentType: 'application/json',
@@ -93,7 +93,7 @@ define([
                 xhrFields: {
                     withCredentials: true
                 },
-                data:  JSON.stringify( _.omit(opts, 'method') ),
+                data:  JSON.stringify(postData.data),
                 success: function(res){
 
                     if( res.success ){

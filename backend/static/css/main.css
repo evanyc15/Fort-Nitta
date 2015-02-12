@@ -45,13 +45,3 @@ body {
     transition: all 0.4s ease-out;
 	width: 0px;
 }
-.error {
-    margin: -16px 0px 16px 0px !important;
-    display: none !important;
-}
-.error.show {
-    display: block !important;
-}
-.error.success {
-    background-color: rgb(0,120,174) !important;
-}

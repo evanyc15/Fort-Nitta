@@ -13,6 +13,7 @@ require.config({
 
         // Plugins
         "backbone.validateAll":"../libs/plugins/Backbone.validateAll",
+        "backbone.validation":"../libs/plugins/backbone-validation",
         "cookie":"../libs/jquery.cookie",
         "foundation":"../libs/foundation/foundation.min",
         "foundation-topbar":"../libs/foundation/foundation/foundation.topbar",
@@ -31,6 +32,7 @@ require.config({
             // Exports the global window.Backbone object
             "exports":"Backbone"
         },
+        "backbone.validation":["backbone"],
         "cookie":["jquery"],
         "foundation":["jquery"],
         "foundation-topbar":["foundation"],
