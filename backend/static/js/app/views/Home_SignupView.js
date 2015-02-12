@@ -27,21 +27,25 @@ define([
                     data: model.toJSON()
                 }, {
                     success: function(mod, res){
-                        // console.log("SUCCESS", mod, res);
                         console.log("SUCCESS");
+                        self.model.clear();
                         Backbone.history.navigate('main', {trigger: true});
                     },
                     error: function(err){
                         console.log("ERROR", err);
-                        self.showError("small#passwordError.error");
                     }
                 });
             });
             this.model.bind('validated:invalid', function(model, errors) {
-                // console.log(errors);
                 Object.keys(errors).forEach(function(k) {
-                    console.log("input[name='"+k+"']");
-                    self.$el.find("input[name='"+k+"']").addClass('error').attr("placeholder",errors[k]);
+                    var htmlElement = self.$el.find("input[name='"+k+"']");
+                    var placeholder = htmlElement.attr("placeholder");
+
+                    htmlElement.val("");
+                    htmlElement.addClass("error").attr("placeholder",errors[k]);
+                    setTimeout(function() {
+                        htmlElement.removeClass("error").attr("placeholder",placeholder);
+                    }, 5000);
                 });
             });
 		},
@@ -57,7 +61,7 @@ define([
         rePasswordKeyup: function(event) {
             var k = event.keyCode || event.which;
 
-            if (k == 13 && $('#repasswordInput').val() === ''){
+            if (k == 13 && $("#repasswordInput").val() === ""){
                 event.preventDefault();   // prevent enter-press submit when input is empty
             } else if(k == 13){
                 event.preventDefault();
@@ -66,10 +70,6 @@ define([
             }
         },
 		signup: function(event) {
-            var flag = true;
-            var reEmail = /\S+@\S+\.\S+/;
-			var reUsername = /[;|,|\/|\\]+/;
-
             if(event){
                 event.stopPropagation();
                 event.preventDefault();
@@ -82,12 +82,6 @@ define([
                 'password': this.$("#passwordInput").val(),
                 'repassword': this.$("#repasswordInput").val()
             }).validate();
-		},
-        showError: function(string){
-            $(string).addClass("show");
-            setTimeout(function() {
-                $(string).removeClass("show");
-            }, 5000);
-        }
+		}
 	});
 });

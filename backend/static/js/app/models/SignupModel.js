@@ -43,14 +43,20 @@ define([
                 pattern: 'email',
                 msg: 'Please enter a valid email'
             }],
-            password: {
+            password: [{
                 required: true,
-                equalTo: 'repassword'
-            },
-            repassword: {
+                msg: 'Please enter a password'
+            }, {
+                equalTo: 'repassword',
+                msg: 'Passwords should be the same'
+            }],
+            repassword: [{
                 required: true,
-                equalTo: 'password'
-            }
+                msg: 'Please enter a password'
+            }, {
+                equalTo: 'password',
+                msg: 'Passwords should be the same'
+            }]
       }
 
     });

@@ -34,7 +34,6 @@ define([
                         App.session.logout({
                         },{
                             success: function(){
-                                console.log("Logged out");    
                                 Backbone.history.navigate('home/verifyemail', {trigger: true});
                             },
                             error: function(xhr, textStatus, errorThrown ) {

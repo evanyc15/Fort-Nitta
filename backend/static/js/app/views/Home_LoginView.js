@@ -4,17 +4,50 @@ define([
 	'jquery',
 	'marionette',
 	'handlebars',
+    'models/LoginModel',
 	'text!templates/home_loginBox.html'
-], function (App, $, Marionette, Handlebars, template){
+], function (App, $, Marionette, Handlebars, LoginModel, template){
 
 	"use strict";
 
 	return Marionette.ItemView.extend({
 		//Template HTML string
         template: Handlebars.compile(template),
+        model: new LoginModel(),
 
 		initialize: function(options){
 			this.options = options;
+            var self = this;
+
+            Backbone.Validation.bind(this, {
+              model: this.model
+            });
+            this.model.bind('validated:valid', function(model) {
+                App.session.login({
+                    data: model.toJSON()
+                }, {
+                    success: function(mod, res){
+                        console.log("SUCCESS");
+                        self.model.clear();
+                        Backbone.history.navigate('main', {trigger: true});
+                    },
+                    error: function(err){
+                        console.log("ERROR", err);
+                    }
+                });
+            });
+            this.model.bind('validated:invalid', function(model, errors) {
+                Object.keys(errors).forEach(function(k) {
+                    var htmlElement = self.$el.find("input[name='"+k+"']");
+                    var placeholder = htmlElement.attr("placeholder");
+
+                    htmlElement.val("");
+                    htmlElement.addClass("error").attr("placeholder",errors[k]);
+                    setTimeout(function() {
+                        htmlElement.removeClass("error").attr("placeholder",placeholder);
+                    }, 5000);
+                });
+            });
 		},
 		events: {
 			"click #signupButton": "signUpShow",
@@ -29,7 +62,7 @@ define([
         onPasswordKeyup: function(event){
             var k = event.keyCode || event.which;
 
-            if (k == 13 && $("#passwordInput").val() === ''){
+            if (k == 13 && $("#passwordInput").val() === ""){
                 event.preventDefault();    // prevent enter-press submit when input is empty
             } else if(k == 13){
                 event.preventDefault();
@@ -42,20 +75,10 @@ define([
                 event.stopPropagation();
                 event.preventDefault();
             }   
-      		App.session.login({
-                username: this.$("#usernameInput").val(),
-                password: this.$("#passwordInput").val()
-            }, {
-                success: function(mod, res){
-                    Backbone.history.navigate('main', {trigger: true});
-                },
-                error: function(err){
-                    $("small.error").addClass("show");
-                    setTimeout(function() {
-					  $("small.error").removeClass("show");
-					}, 5000);
-                }
-            });
+            this.model.set({
+                'username': this.$("#usernameInput").val(),
+                'password': this.$("#passwordInput").val()
+            }).validate();
 	    },
         forgotPassword: function() {
             this.trigger("click:forgotPassword:show");
