@@ -23,14 +23,16 @@ define([
 			"click #logoutButton": "logout",
 			"click #topbarSettings": "settings",
 			"click #topBarMyProfile": "myprofile",
-			"click #message-seeall": "messageSeeall"
+			"click #topbar_message-seeall": "messageSeeall",
+		 	"mouseenter #topbar_messageButton,#topbar_messageContainer": "messagesShow",
+  			"mouseleave #topbar_messageButton,#topbar_messageContainer": "messagesHide"
 		},
 		onRender: function(){
+			var self = this;
+
 	  		var html = this.template(App.session.user.toJSON());
 			this.$el.html(html);
-		},
-		onShow: function() {
-			var self = this;
+
 			$.ajax({
 				url: '/api/messages/chat/?username='+App.session.user.get('username'),
 				type: 'GET',
@@ -44,11 +46,21 @@ define([
 					self.collection.add(data, {merge: true});
 					var html = self.template(self.collection.toJSON());
                 	self.$el.html(html);
+
+                	$(document).foundation('reflow');
 				},
 				error: function(data){
 					console.log(data);
 				}
 	  		});
+		},
+		onShow: function() {
+		},
+		messagesShow: function() {
+			this.$("#topbar_messageContainer").show();
+		},
+		messagesHide: function() {
+			this.$("#topbar_messageContainer").hide();
 		},
 		messageSeeall: function(){
 			this.trigger("click:messages:show");

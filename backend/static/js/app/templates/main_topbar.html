@@ -1,18 +1,18 @@
 <link rel="stylesheet" type="text/css" href="../../../css/main_topbar.css">
 <!-- Begin Top Bar -->
 <div class="fixed">
-    <nav class="top-bar" data-topbar>
-    <ul class="title-area">
-    <!-- Title Area -->
-    <li class="name">
-        <h1>
-            <a href="javascript:void(0)">
-                <img id="topBarLogo" src="../../../img/ECS160_CastleWarsLogoWhite.png" />
-            </a>
-        </h1>
-    </li>
-    <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-    </ul>
+    <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+            <!-- Title Area -->
+            <li class="name">
+                <h1>
+                    <a href="javascript:void(0)">
+                        <img id="topBarLogo" src="../../../img/ECS160_CastleWarsLogoWhite.png" />
+                    </a>
+                </h1>
+            </li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+        </ul>
         <section class="top-bar-section">
             <!-- Left Nav Section -->
             <ul class="left">
@@ -40,29 +40,10 @@
                     <a href="javascript:void(0)">Announcement Updates</a>
                 </li>
             </ul>
-
-            <!-- Message Box -->
-            <div id="topbar_messageBox">
-                {{#each []}}
-                    <div class="topbar_messageUser">
-                        <img class="message-img" src="../../../img/placeholder-user.png"/>
-                        <div class="message-dataBox">
-                            <div class="message-name">{{this.firstname}}&nbsp;{{this.lastname}}</div>
-                            <div class="message-comment">{{this.message}}</div>
-                            <div class="message-datetime">{{this.message_created}}</div>
-                        </div> 
-                    </div>
-                {{/each}}
-            </div>  
-            <ul class="under">
-                <li id="message-seeall">See All</li>
-            </ul>
-
-
             <!-- Right Nav Section -->
             <ul class="right">
                 <li class="divider"></li>
-                <li class="has-dropdown">
+                <li id="topbar_messageButton">
                     <a href="javascript:void(0)"><i class="fa fa-envelope-o"></i></a>
                 </li>
                 <li class="divider"></li>
@@ -93,9 +74,28 @@
     </nav>
 </div>
 <!-- End Top Bar -->
-<div id="myModal" class="reveal-modal" data-reveal>
+<!-- <div id="myModal" class="reveal-modal" data-reveal>
   <h2>WELCOME TO FORT NITTA</h2>
   <h4 id="modalPlatform"></h4>
   <h5 id="modalDownload"></h5>
   <a class="close-reveal-modal">&#215;</a>
+</div> -->
+
+<!-- Message Box -->
+<div id="topbar_messageContainer">
+    <div id="topbar_messageList">
+        {{#each []}}
+            <div class="topbar_messageUser">
+                <img class="message-img" src="../../../img/placeholder-user.png"/>
+                <div class="message-dataBox">
+                    <div class="message-name">{{this.firstname}}&nbsp;{{this.lastname}}</div>
+                    <div class="message-comment">{{this.message}}</div>
+                    <div class="message-datetime">{{this.message_created}}</div>
+                </div> 
+            </div>
+        {{/each}}
+    </div>  
+    <div id="topbar_message-seeall">
+        See All
+    </div>
 </div>
