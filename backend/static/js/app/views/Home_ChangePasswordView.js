@@ -33,7 +33,7 @@ define([
                 $("#repasswordError").addClass("show");
                 setTimeout(function() {
                     $("#repasswordError").removeClass("show");
-                }, 5000);
+                }, 3000);
             } else{
                 var password = this.$("#passwordInput").val();
                 this.urlParams["password"] = password;

@@ -28,7 +28,7 @@ def create_new_user(username, password, email, first_name, last_name):
     return new_user
 # changes the user data in the database, changing only the named parameters
 def change_user_data(username, password=None, email=None, first_name=None, last_name=None):
-    user = User.query.filter(username==username).first()
+    user = User.query.filter_by(username=username).first()
  
     if user is None:
         return jsonify(**{'success': False, 'error': 'no username specified'}), 401

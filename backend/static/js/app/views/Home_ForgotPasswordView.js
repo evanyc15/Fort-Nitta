@@ -25,6 +25,8 @@ define([
         },
         // This sends the email to the user for reset their password
         passwordRecovery: function(event) {
+            var self = this;
+
             if(event){
                 event.stopPropagation();
                 event.preventDefault();
@@ -34,7 +36,7 @@ define([
                 $("#emailError").addClass("show");
                 setTimeout(function() {
                     $("#emailError").removeClass("show");
-                }, 5000);
+                }, 3000);
             } else{
                 $.ajax({
                     url: '/api/recpassmail/',
@@ -47,24 +49,31 @@ define([
                         withCredentials: true
                     },
                     success: function(data){
-                        console.log(data);
                         if(data.success){
-                            $("#emailSuccess").addClass("show");
+                            self.$("#emailSuccess").show();
                             setTimeout(function() {
-                                $("#emailSuccess").removeClass("show");
-                            }, 5000);
+                                self.$("#emailSuccess").hide();
+                            }, 3000);
                         } else {
-                            $("#emailError").addClass("show");
+                            var emailElement = self.$("input[name='email']");
+                            var placeholder = emailElement.attr("placeholder");
+
+                            emailElement.val("");
+                            emailElement.addClass("error").attr("placeholder", "Please enter a valid email");
                             setTimeout(function() {
-                                $("#emailError").removeClass("show");
-                            }, 5000);
+                                emailElement.removeClass("error").attr("placeholder", placeholder);
+                            }, 3000);
                         }
                     },
                     error: function(){
-                        $("#emailError").addClass("show");
+                        var emailElement = self.$("input[name='email']");
+                        var placeholder = emailElement.attr("placeholder");
+
+                        emailElement.val("");
+                        emailElement.addClass("error").attr("placeholder", "Please enter a valid email");
                         setTimeout(function() {
-                            $("#emailError").removeClass("show");
-                        }, 5000);
+                            emailElement.removeClass("error").attr("placeholder", placeholder);
+                        }, 3000);
                     }
                 });
             } 

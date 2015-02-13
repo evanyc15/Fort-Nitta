@@ -45,7 +45,7 @@ define([
                     htmlElement.addClass("error").attr("placeholder",errors[k]);
                     setTimeout(function() {
                         htmlElement.removeClass("error").attr("placeholder",placeholder);
-                    }, 5000);
+                    }, 3000);
                 });
             });
 		},
