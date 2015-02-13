@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="../../../css/main_topbar.css">
 <!-- Begin Top Bar -->
-<div class="sticky">
+<div class="fixed">
     <nav class="top-bar" data-topbar>
     <ul class="title-area">
     <!-- Title Area -->
@@ -40,56 +40,30 @@
                     <a href="javascript:void(0)">Announcement Updates</a>
                 </li>
             </ul>
+
+            <!-- Message Box -->
+            <div id="topbar_messageBox">
+                {{#each []}}
+                    <div class="topbar_messageUser">
+                        <img class="message-img" src="../../../img/placeholder-user.png"/>
+                        <div class="message-dataBox">
+                            <div class="message-name">{{this.firstname}}&nbsp;{{this.lastname}}</div>
+                            <div class="message-comment">{{this.message}}</div>
+                            <div class="message-datetime">{{this.message_created}}</div>
+                        </div> 
+                    </div>
+                {{/each}}
+            </div>  
+            <ul class="under">
+                <li id="message-seeall">See All</li>
+            </ul>
+
+
             <!-- Right Nav Section -->
             <ul class="right">
                 <li class="divider"></li>
                 <li class="has-dropdown">
                     <a href="javascript:void(0)"><i class="fa fa-envelope-o"></i></a>
-                    <ul class="dropdown" id="message-dropdown">
-                        <li>
-                            <img class="message-img" src="../../../img/placeholder-user.png"/>
-                            <div class="message-dataBox">
-                                <div class="message-name">Bob Doe</div>
-                                <div class="message-comment">This is so very cool, dang man, hasdf;ajkd</div>
-                                <div class="message-datetime">February 2nd, 2015 1:46PM</div>
-                            </div> 
-                        </li>
-                        <li>
-                            <img class="message-img" src="../../../img/placeholder-user.png"/>
-                            <div class="message-dataBox">
-                                <div class="message-name">Bob Doe</div>
-                                <div class="message-comment">This is so very cool, dang man, hasdf;ajkd</div>
-                                <div class="message-datetime">February 2nd, 2015 1:46PM</div>
-                            </div> 
-                        </li>
-                        <li>
-                            <img class="message-img" src="../../../img/placeholder-user.png"/>
-                            <div class="message-dataBox">
-                                <div class="message-name">Bob Doe</div>
-                                <div class="message-comment">This is so very cool, dang man, hasdf;ajkd</div>
-                                <div class="message-datetime">February 2nd, 2015 1:46PM</div>
-                            </div> 
-                        </li>
-                        <li>
-                            <img class="message-img" src="../../../img/placeholder-user.png"/>
-                            <div class="message-dataBox">
-                                <div class="message-name">Bob Doe</div>
-                                <div class="message-comment">This is so very cool, dang man, hasdf;ajkd</div>
-                                <div class="message-datetime">February 2nd, 2015 1:46PM</div>
-                            </div> 
-                        </li>
-                        <li>
-                            <img class="message-img" src="../../../img/placeholder-user.png"/>
-                            <div class="message-dataBox">
-                                <div class="message-name">Bob Doeperdd</div>
-                                <div class="message-comment">This is so very cool, dang man, hasdf;ajkd</div>
-                                <div class="message-datetime">February 2nd, 2015 1:46PM</div>
-                            </div> 
-                        </li>
-                    </ul>  
-                    <ul class="dropdown under">
-                        <li id="message-seeall">See All</li>
-                    </ul>
                 </li>
                 <li class="divider"></li>
                 <li class="has-dropdown">

@@ -4,15 +4,17 @@ define([
 	'jquery',
 	'marionette',
 	'handlebars',
+	'collections/TopBarMessagesCollection',
 	'text!templates/main_topbar.html',
 	'foundation-reveal'
-], function (App, $, Marionette, Handlebars, template){
+], function (App, $, Marionette, Handlebars, TopBarMessagesCollection, template){
 
 	"use strict";
 
 	return Marionette.ItemView.extend({
 		//Template HTML string
         template: Handlebars.compile(template),
+        collection: new TopBarMessagesCollection(),
 
 		initialize: function(options){
 			this.options = options;	
@@ -24,11 +26,29 @@ define([
 			"click #message-seeall": "messageSeeall"
 		},
 		onRender: function(){
-			var html = this.template(App.session.user.toJSON());
+	  		var html = this.template(App.session.user.toJSON());
 			this.$el.html(html);
 		},
 		onShow: function() {
-			// this.detectUserAgent();
+			var self = this;
+			$.ajax({
+				url: '/api/messages/chat/?username='+App.session.user.get('username'),
+				type: 'GET',
+				contentType: 'application/json',
+                dataType: 'json',
+				crossDomain: true,
+				xhrFields: {
+					withCredentials: true
+				},
+				success: function(data){
+					self.collection.add(data, {merge: true});
+					var html = self.template(self.collection.toJSON());
+                	self.$el.html(html);
+				},
+				error: function(data){
+					console.log(data);
+				}
+	  		});
 		},
 		messageSeeall: function(){
 			this.trigger("click:messages:show");

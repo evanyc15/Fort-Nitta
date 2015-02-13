@@ -12,12 +12,9 @@ define([
         },
 
         defaults: {
-            from_username: '',
-            from_firstname: '',
-            from_lastname: '',
-            to_username: '',
-            to_firstname: '',
-            to_lastname: '',
+            username: '',
+            firstname: '',
+            lastname: '',
             message: '',
             message_created: '',
             id: -1

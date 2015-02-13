@@ -16,7 +16,6 @@ define([
 
         initialize: function(options){
             this.options = options;
-            this.message_id = 0;
         },
         events: {
          

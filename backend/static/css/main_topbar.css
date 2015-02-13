@@ -1,53 +1,26 @@
-.dropdown.under {
-    position: absolute !important;
-    bottom: -175px;
-    left: -164px !important;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+#topbar_messageBox {
+    position: absolute;
+    width: 209px;
+    height: 300px;
+    border: 1px solid black;
+    left: 50%;
+    top: 175px;
 }
-#message-seeall {
-    width: 225px !important;
-}
-#message-dropdown {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    max-height: 150px;
-    overflow-y: auto;
-}
-#message-dropdown li {
-    width: 225px;
+.topbar_messageUser {
+    width: 209px;
     height: 60px;
-    background-color: #F0F0F0;
+    padding: 10px;
     border-bottom: 1px dotted black;
-    padding: 8px;
 }
 .message-img {
+    display: inline-block;
     height:100%;
     width:auto;
-    float:left;
 }
 .message-dataBox {
-    float:left;
-    padding: 0;
-    margin-top: -2px;
-    margin-left: 10px;
-}
-.message-dataBox div {
-    display: block;
-    width: 136px;
-}
-.message-name {
-    font-weight: bold;
-    font-size: 11px;
-}
-.message-comment {
-    font-size: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.message-datetime {
-    font-size: 8px;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
 }
 #message-seeall {
     height: 25px !important;

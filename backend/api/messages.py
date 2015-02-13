@@ -83,6 +83,7 @@ class ChatMessageApi(MethodView):
     def get(self):
         messageList = []
 
+        # This is to get the messages for a chat. It gets the messages between a from_user and to_user
         if request.args.get('from_username') and request.args.get('to_username') and request.args.get('message_id'):
             to_username = request.args.get('to_username')
             from_username = request.args.get('from_username')
@@ -94,10 +95,22 @@ class ChatMessageApi(MethodView):
             for messageHolder in messages:
                 to_user = User.query.filter_by(id = messageHolder.to_user).first()
                 from_user = User.query.filter_by(id = messageHolder.from_user).first()
-                jsonData = {'message_id':messageHolder.id,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name,'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
+                jsonData = {'id':messageHolder.id,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name,'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
                 messageList.append(jsonData)
             return json.dumps(messageList)
-        return jsonify(**{'success': False, 'asdf': 'adf'}), 401
+
+        # This is to get just all the messages for a specific user regardless of to_user or from_user
+        # This is mostly used to get the messages for the notification message dropdown in the website
+        elif request.args.get('username'):
+            user = User.query.filter_by(username = request.args.get('username')).first()
+            messages = ChatMessages.query.filter_by(to_user = user.id).order_by(ChatMessages.id.asc()).limit(10).all()
+            for messageHolder in messages:
+                user = User.query.filter_by(id=messageHolder.from_user).first()
+                jsonData = {'id':messageHolder.id,'username':user.username,'firstname':user.first_name,'lastname':user.last_name,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
+                messageList.append(jsonData)
+            return json.dumps(messageList)
+        return jsonify(**{'success': False}), 401
+
 
 # Get all the users that a "this" user has chatted with
 class ChatUserApi(MethodView):
