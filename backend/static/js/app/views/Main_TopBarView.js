@@ -30,9 +30,6 @@ define([
 		onRender: function(){
 			var self = this;
 
-	  		var html = this.template(App.session.user.toJSON());
-			this.$el.html(html);
-
 			$.ajax({
 				url: '/api/messages/chat/?username='+App.session.user.get('username'),
 				type: 'GET',
@@ -45,6 +42,8 @@ define([
 				success: function(data){
 					self.collection.add(data, {merge: true});
 					var html = self.template(self.collection.toJSON());
+					html += self.template({messageCount:self.collection.length});
+					html += self.template($.extend({messageCount:self.collection.length},App.session.user.toJSON()));
                 	self.$el.html(html);
 
                 	$(document).foundation('reflow');

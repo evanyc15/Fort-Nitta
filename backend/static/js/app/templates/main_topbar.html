@@ -44,7 +44,14 @@
             <ul class="right">
                 <li class="divider"></li>
                 <li id="topbar_messageButton">
-                    <a href="javascript:void(0)"><i class="fa fa-envelope-o"></i></a>
+                    <a href="javascript:void(0)">
+                        <div style="position:relative;">
+                            <i id="topbar_messageCounterIcon" class="fa fa-circle">
+                                <div id="topbar_messageCounterText">{{this.messageCount}}</div>
+                            </i>
+                            <i class="fa fa-envelope-o" style="font-size:1.5em;"></i>
+                        </div>
+                    </a>
                 </li>
                 <li class="divider"></li>
                 <li class="has-dropdown">

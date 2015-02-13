@@ -46,10 +46,12 @@ define([
                 self.collection.each(function(data) {
                     var flag = false;
                     for(i = 0; i < results.length; i++){
-                        if(data.get('id') === results[i].id){
-                            flag = true;
-                            break;
-                        }
+                        if(typeof data !== "undefined"){
+                            if(data.get('id') === results[i].id){
+                                flag = true;
+                                break;
+                            }
+                        } 
                     }
                     if(!flag){
                         self.collection.remove(data.get('id'));
