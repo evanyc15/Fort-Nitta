@@ -50,7 +50,7 @@ def change_user_data(username, password=None, email=None, first_name=None, last_
     # add the current user to the data to be committed to the database
     db.session.add(user)
     db.session.commit()
-    return jsonify(**{'success': True})
+    return jsonify(**{'success': True, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email})
 
 def change_emailSettings(username, n_hour=None):
     user = User.query.filter_by(username=username).first()
@@ -75,11 +75,11 @@ class ChangeDetailsAPI(MethodView):
         if request_data is None:
             request_data = {}
 
-        if ('username' in request_data) and ('oldPassword' in request_data):
+        if ('username' in request_data) and ('oldpassword' in request_data):
             user = User.query.filter_by(username=request_data['username']).first()
             #if (not user) or (not check_password(request_data['oldPassword'],user.password)):
-            if (not user) or (request_data['oldPassword'] != user.password):
-                return jsonify(**{'success': False, 'error': 'Old password not valid', 'offending_attribute': 'old_password'}), 401
+            if (not user) or (request_data['oldpassword'] != user.password):
+                return jsonify(**{'success': False, 'error': 'Old password not valid', 'offending_attribute': 'oldpassword'}), 401
 
         if('username' in request_data and ('password' in request_data 
                                     or 'first_name' in request_data 
@@ -102,6 +102,7 @@ class ChangeDetailsAPI(MethodView):
                 email = request_data['email']
             # pass parsed parameters to the database method
             return change_user_data(username, password, email, first_name, last_name);
+        return jsonify(**{'success': False}), 401
 
 class SettingsAPI(MethodView):
     def post(self):

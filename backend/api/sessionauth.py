@@ -19,8 +19,8 @@ def session_auth_required(func):
 def current_user_props():
     return {'username': current_user.username, 
         'uid': current_user.id, 
-        'firstname': current_user.first_name, 
-        'lastname': current_user.last_name,
+        'first_name': current_user.first_name, 
+        'last_name': current_user.last_name,
         'email': current_user.email,
         'date_joined': current_user.date_joined,
         'avatar_path': current_user.avatar_path,

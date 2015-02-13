@@ -14,16 +14,21 @@ define([
 
         defaults: {
             username: '',
-            password: ''
+            first_name: '',
+            last_name: '',
+            email: '',
+            oldpassword: '',
+            password: '',
+            repassword: ''
         },
         validation: {
-            username: {
-                required: true,
-                msg: 'Please enter a username'
-            },
             password: {
-                required: true,
-                msg: 'Please enter a password'
+                equalTo: 'repassword',
+                msg: 'Passwords do not match'
+            },
+            repassword: {
+                equalTo: 'password',
+                msg: 'Passwords do not match'
             }
         }
     });

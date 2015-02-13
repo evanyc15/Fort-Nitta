@@ -17,7 +17,7 @@
 		    	<span class="prefix">First name</span>
 		    </div>
 		    <div class="large-9 columns">
-		     	<input type="text" id ="firstnameInput" placeholder="Enter first name">
+		     	<input type="text" id ="firstnameInput" name="first_name" placeholder="{{this.first_name}}">
 		    </div>
 		</div>
 
@@ -27,7 +27,7 @@
 		    	<span class="prefix">Last name</span>
 		    </div>
 		    <div class="large-9 columns">
-		     	<input type="text" id ="lastnameInput" placeholder="Enter last name">
+		     	<input type="text" id ="lastnameInput" name="last_name" placeholder="{{this.last_name}}">
 		    </div>	    
 		</div>
 
@@ -38,7 +38,7 @@
 		    	<span class="prefix">E-mail</span>
 		    </div>
 		    <div class="large-9 columns">
-			     <input type="text" id ="emailInput" placeholder="Enter e-mail">
+			     <input type="text" id ="emailInput" name="email" placeholder="{{this.email}}">
 		    </div>
 		</div>
 
@@ -50,8 +50,8 @@
 		    	<span class="prefix">Old Password</span>
 		    </div>
 		    <div class="large-9 columns">
-		     	<input type="password" id ="passwordInputOld" placeholder="Enter old password">
-		     	<small id="oldPasswordError" class="error">Incorrect Password</small>
+		     	<input type="password" id ="oldpasswordInput" name="oldpassword" placeholder="Enter old password">
+		     	<!-- <small id="oldPasswordError" class="error">Incorrect Password</small> -->
 		    </div>	    
 		</div>
 
@@ -60,17 +60,17 @@
 		    	<span class="prefix">New Password</span>
 		    </div>
 		    <div class="large-9 columns">
-		     	<input type="password" id ="passwordInput" placeholder="Enter new password">
+		     	<input type="password" id ="passwordInput" name="password" placeholder="Enter new password">
 		    </div>	    
 		</div>	
 
 		<div class="row collapse prefix-radius">
 		    <div class="large-3 columns">
-		    	<span class="prefix">Re-enter Password</span>
+		    	<span class="prefix">Password Again</span>
 		    </div>
 		    <div class="large-9 columns">
-		     	<input type="password" id ="repasswordInput" placeholder="Re-enter new password">
-					<small id="repasswordError" class="error"></small>
+		     	<input type="password" id ="repasswordInput" name="repassword" placeholder="Re-enter new password">
+				<!-- <small id="repasswordError" class="error"></small> -->
 		    </div>	    
 		</div>	
 	</div>

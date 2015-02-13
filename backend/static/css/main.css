@@ -1,6 +1,11 @@
 body {
     background-color: rgb(241, 241, 241);
 }
+input.error {
+    color: red;
+    border: 2px solid red;
+    margin: 0 0 1rem 0;
+}
 #topBarLogo {
 	margin-top: 5px;
 	width: 110px;

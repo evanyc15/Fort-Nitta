@@ -13,8 +13,8 @@ define([
 
         defaults: {
             uid: 0,
-            firstname: '',
-            lastname: '',
+            first_name: '',
+            last_name: '',
             username: '',
             email: '',
             date_joined: '',

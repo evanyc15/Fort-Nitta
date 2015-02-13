@@ -3,46 +3,86 @@ define([
     'app',
     'marionette',
     'handlebars',
+    'models/SettingsModel',
     'text!templates/main_settingschange.html'
-], function (App, Marionette, Handlebars, template){
+], function (App, Marionette, Handlebars, SettingsModel, template){
     "use strict";
 
     return Marionette.ItemView.extend({
         //Template HTML string
         template: Handlebars.compile(template),
+        model: new SettingsModel(),
 
         initialize: function(options){
             this.options = options;
+            var self = this;
+
+            Backbone.Validation.bind(this, {
+                model: this.model
+            });
+            this.model.bind('validated:valid', function(model) {
+               App.session.changeDetails({
+                    data: model.toJSON()         
+                }, 
+                {
+                    success: function(data){
+                        App.session.user.set(_.pick(data, _.keys(App.session.user.defaults)));
+
+                        Backbone.history.navigate('main', {trigger: true});
+                    },       
+                    error: function(data){
+                        var htmlElement = self.$el.find("input[name='"+data.responseJSON.offending_attribute+"']");
+                        var placeholder = htmlElement.attr("placeholder");
+
+                        htmlElement.val("");
+                        htmlElement.addClass("error").attr("placeholder",data.responseJSON.error);
+                        setTimeout(function() {
+                            htmlElement.removeClass("error").attr("placeholder",placeholder);
+                        }, 5000);
+                    }
+                });
+            });
+            this.model.bind('validated:invalid', function(model, errors) {
+                Object.keys(errors).forEach(function(k) {
+                    var htmlElement = self.$el.find("input[name='"+k+"']");
+                    var placeholder = htmlElement.attr("placeholder");
+
+                    htmlElement.val("");
+                    htmlElement.addClass("error").attr("placeholder",errors[k]);
+                    setTimeout(function() {
+                        htmlElement.removeClass("error").attr("placeholder",placeholder);
+                    }, 5000);
+                });
+            });
         },
         events: {
 		    "click #profilePictureChange": "changeProfilePicture",
             "click #settingsSubmitButton": "changeDetails",
 		    "click #settingsCancelButton": "cancel"   
         },
-		onShow: function() {
-            //console.log(moment(App.session.user.date_joined).format("ddd, YYYY MMM Do")); 
-			if(App.session.user.attributes.firstname!= ""){
-			    this.$el.find("#firstnameInput").attr('placeholder', App.session.user.attributes.firstname);
-			}
-			if(App.session.user.attributes.lastname!= ""){
-			    this.$el.find("#lastnameInput").attr('placeholder', App.session.user.attributes.lastname);
-			}
-			if(App.session.user.attributes.email!= ""){
-			    this.$el.find("#emailInput").attr('placeholder', App.session.user.attributes.email);
-			}
-            if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
-                this.$el.find("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);
-            }
+        onRender: function() {
+            var html = this.template(App.session.user.toJSON());
+            this.$el.html(html);
         },
         changeProfilePicture: function() {
             $("#profilePictureChangeInput").click();
         },
 		changeDetails: function(event){
 			var self = this;
-            var picture = $('input[name="imageInput"]')[0].files[0]; 
-            var data = new FormData();
-               data.append('file', picture);
-            if(self.$("#profilePictureChange").val() !== "" && self.$("#profilePictureChange").val() !== null){    
+
+            var firstnameElement = self.$("#firstnameInput");
+            var lastnameElement = self.$("#lastnameInput");
+            var emailElement = self.$("#emailInput");
+            var oldpasswordElement = self.$("#oldpasswordInput");
+            var passwordElement = self.$("#passwordInput");
+            var repasswordElement = self.$("#repasswordInput");
+            var firstname, lastname, email, oldpassword, password, repassword;
+            
+            
+            if(self.$("#profilePictureChangeInput").val() !== "" && self.$("#profilePictureChangeInput").val() !== null){    
+                var picture = $('input[name="imageInput"]')[0].files[0];
+                var data = new FormData(); 
+                data.append('file', picture);
                 $.ajax({
                     url: '/api/avatar/',
                     type: 'POST',
@@ -63,50 +103,39 @@ define([
                     }
                 });            
             }
-		    if(self.$("#passwordInput").val() === self.$("#repasswordInput").val()){					
-				App.session.changeDetails(
-                {
-    				username: App.session.user.get("username"),
-                    oldPassword: self.$("#passwordInputOld").val(),
-    				password: self.$("#passwordInput").val(),
-    				first_name: self.$("#firstnameInput").val(),
-    				last_name: self.$("#lastnameInput").val(),
-    				email: self.$("#emailInput").val()				
-			    }, 
-			    {
-    				success: function(mod, res){
-        				console.log("SUCCESS-changeDetails");
-        				Backbone.history.navigate('main', {trigger: true});
-			        },
-				
-				    error: function(data){
-					    console.log("Old password does not match!");
-                        //console.log(data);
-                        // if(res.offending_attribute && res.offending_attribute == 'old_password'){
-                        //     $("#oldPasswordError").html(res);
-                        //     $("#oldPasswordError").addClass('show');
-                        // }else if(res.offending_attribute && res.offending_attribute == 'password'){
-                        //     $("#repasswordError").html(res);
-                        //     $("#repasswordError").addClass('show');
-                        //}
-				    }
-			    });
-			}
-			else {
-				console.log("New passwords don't match!");
-                $("#repasswordError").html("Passwords don't match");
-				$("#repasswordError").addClass("show");
-			}
-				
+            if(firstnameElement.val() != "" || lastnameElement.val() != "" || emailElement.val() != "" || 
+                oldpasswordElement.val() != "" || passwordElement != "" || repasswordElement != ""){
 
-	},
-	showError: function(string){
-            $(string).addClass("show");
-            setTimeout(function() {
-                $(string).removeClass("show");
-            }, 5000);
-        },
-		
+                if(firstnameElement.val() != "") {
+                    firstname = firstnameElement.val();
+                } 
+                if(lastnameElement.val() != ""){
+                    lastname = lastnameElement.val();
+                } 
+                if(emailElement.val() != ""){
+                    email = emailElement.val();
+                } 
+                if(oldpasswordElement.val() != ""){
+                    oldpassword = oldpasswordElement.val();
+                }
+                if(passwordElement.val() != ""){
+                    password = passwordElement.val(); 
+                }
+                if(repasswordElement.val() != ""){
+                    repassword = repasswordElement.val();
+                }
+                
+                this.model.set({
+                    'username': App.session.user.get('username'),
+                    'first_name': firstname ,
+                    'last_name': lastname,
+                    'email': email,
+                    'oldpassword': oldpassword, 
+                    'password': password,
+                    'repassword': repassword 
+                }).validate();
+            }
+    	},
 		cancel: function(event){
 		    console.log("Cancel button invoked");
 			Backbone.history.navigate('main', {trigger: true}); 
