@@ -33,7 +33,7 @@ define([
 					withCredentials: true
 				},
 				success: function(data){
-					console.log('SUCCESS');
+					console.log(data);
                     if(!data.user_statistics.win_loss_ratio || data.user_statistics.win_loss_ratio == '')
                         $("#win_loss_ratio").html("You haven't played any games yet!");
                     else {
