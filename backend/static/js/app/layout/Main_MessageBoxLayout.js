@@ -27,15 +27,15 @@ define([
         },
         onRender: function(){
             var self = this
-            if(this.options.message.get('messaging')){
+            if(this.options.messagesUser.get('messaging')){
                 this.contentRegion.show(new MessagesUserView({
-                    message: self.options.message
+                    messagesUser: self.options.messagesUser
                 }));
             }
         },
         onShow: function() {
-            if(this.options.message.get('messaging')){
-                this.$el.find('#messages-chatNameDisplay').text("From "+App.session.user.get('username')+ " to "+this.options.message.get('username'));
+            if(this.options.messagesUser.get('messaging')){
+                this.$el.find('#messages-chatNameDisplay').text("From "+App.session.user.get('username')+ " to "+this.options.messagesUser.get('username'));
             }
         },
         chatKeyUp: function(event) {
@@ -62,7 +62,7 @@ define([
                     type: 'POST',
                     contentType: 'application/json',
                     dataType: 'json',
-                    data: JSON.stringify({'from_user':App.session.user.get('username'),'to_user':self.options.message.get('username'),'message':message}),
+                    data: JSON.stringify({'from_user':App.session.user.get('username'),'to_user':self.options.messagesUser.get('username'),'message':message}),
                     crossDomain: true,
                     xhrFields: {
                         withCredentials: true

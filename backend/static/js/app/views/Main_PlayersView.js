@@ -46,19 +46,18 @@ define([
                 self.collection.each(function(data) {
                     var flag = false;
                     for(i = 0; i < results.length; i++){
-                        if(data.attributes.id === results[i].id){
+                        if(data.get('id') === results[i].id){
                             flag = true;
                             break;
                         }
                     }
                     if(!flag){
-                        self.collection.remove(data.attributes.id);
+                        self.collection.remove(data.get('id'));
                     }
                 });
                  // TESTING COLLECTIONS HERE
-                for(i = 0; i < results.length; i++){
-                    self.collection.add(results, {merge: true});
-                }
+                self.collection.add(results, {merge: true});
+
                 var html = self.template(self.collection.toJSON());
                 self.$el.html(html);
     			}, false);

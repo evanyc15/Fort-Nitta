@@ -3,14 +3,16 @@ define([
     'app',
     'marionette',
     'handlebars',
+    'collections/MessagesCollection',
     'text!templates/main_messagesuser.html'
-], function (App, Marionette, Handlebars, template){
+], function (App, Marionette, Handlebars, MessagesCollection, template){
 
     "use strict";
 
     return Marionette.ItemView.extend({
         //Template HTML string
         template: Handlebars.compile(template),
+        collection: new MessagesCollection(),
 
         initialize: function(options){
             this.options = options;
@@ -23,30 +25,18 @@ define([
             var self = this;
             this.$el.find('.messages-loader').show();
             // This is to get the messages in the current chat between two users (one which is "this" user)
-            this.sse = new EventSource('/messageStream?from_username='+App.session.user.get('username')+'&to_username='+this.options.message.get('username'));
+            this.sse = new EventSource('/messageStream?from_username='+App.session.user.get('username')+'&to_username='+this.options.messagesUser.get('username'));
             this.sse.addEventListener('message', function(e) {
                 var results = JSON.parse(e.data);
                 var i;
+
+                self.collection.add(results, {merge: true});
                 $('.messages-loader').hide();
-                for(i = 0; i < results.length; i++){
-                    if(self.message_id < results[i].message_id){
-                        var html = "<div class='row userMessageBox'>"+
-                                    "<div class='large-1 columns'>"+
-                                        "<img class='userMessageBox-img' src='../../../img/placeholder-user.png'/>"+
-                                    "</div>"+
-                                    "<div class='large-11 columns'>"+
-                                        "<div class='userMessageBox-username'>"+results[i].from_username+"</div>"+
-                                        "<div class='userMessageBox-name'>"+results[i].from_firstname+" "+results[i].from_lastname+"</div>"+
-                                        "<div class='userMessageBox-datetime'>"+results[i].message_created+"</div>"+
-                                        "<div class='userMessageBox-comment'>"+results[i].message+"</div>"+
-                                    "</div>"+
-                                "</div>";
-                        self.$el.find('#messages-userContainer').append(html); 
-                        if(self.message_id < results[i].message_id){
-                           self.message_id = results[i].message_id;
-                        }
-                    } 
-                }  
+
+                var html = self.template(self.collection.toJSON());
+                self.$el.html(html);
+                
+                $("#messageschatRegion").scrollTop($("#messageschatRegion")[0].scrollHeight);
             },false);
             this.sse.addEventListener('error', function(e){
                 $('.messages-loader').hide();

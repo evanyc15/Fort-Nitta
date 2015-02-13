@@ -12,7 +12,7 @@ presence_list = []
 def event_stream():
     while True:
         # Check database every n seconds (2 right now)
-        gevent.sleep(2)
+        gevent.sleep(1)
         
         # Get users who are either online in the game or web
         user_presences = Presence.query.join(Presence.user).filter(or_(Presence.game_online == True, Presence.web_online == True)).all()

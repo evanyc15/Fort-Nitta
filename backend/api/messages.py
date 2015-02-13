@@ -14,7 +14,7 @@ def event_stream():
 
     while True:
         # Check database every n seconds (2 right now)
-        gevent.sleep(2)
+        gevent.sleep(1)
 
         messageList = []
         to_user = User.query.filter_by(username = to_username).first()

@@ -32,7 +32,9 @@ define([
                 success: function(data){
                     var i;
                     for(i = 0; i < data.length; i++){
-                        self.tags.push(data[i].username);
+                        if(data[i].username !== App.session.user.get('username')){
+                            self.tags.push(data[i].username);
+                        }         
                     }
                 },
                 error: function(){
@@ -96,8 +98,13 @@ define([
             return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
         },
         // This is run after the new message (plus sign) is clicked. This is to establish a new chat with a user that "this" user has not chatted with.
-        newMessage: function(){
+        newMessage: function(event){
+            if(event){
+                event.stopPropagation();
+                event.preventDefault();
+            }
             var self = this;
+
             var username = this.$el.find("#main_messages-search-input").val();
             if(username !== '' && username !== App.session.user.get('username')){
                 $.ajax({

@@ -7,9 +7,9 @@ define([
     'handlebars',
     'views/Main_MessagesSidebarView',
     'layout/Main_MessageBoxLayout',
-    'models/MessageModel',
+    'models/MessageUserModel',
     'text!templates/main_messageslayout.html'
-],  function (App, $, Backbone, Marionette, _, Handlebars, MessagesSideBarView, MessageBox, MessageModel, template) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, MessagesSideBarView, MessageBox, MessageUserModel, template) {
 
     "use strict";
 
@@ -19,19 +19,19 @@ define([
 
         initialize: function(options){
             var self = this;
-            this.messages = new MessageModel({});
+            this.messagesUser = new MessageUserModel({});
 
             this.messageSideBarView = new MessagesSideBarView();
             // When the sidebar's user chat is clicked, this switches the Message Box (Right container) to the respective chat between the two users
             // We use the session model's variable for "this" user to act as the "from_user". When the user tile on the side bar is clicked
             // The user tile is the "to_user". Thus, "this" user is chatting with another user. We pass the variables into MessageBox and then MessageUser
             this.messageSideBarView.on("click:Messenger:switch", function(data){
-                self.messages.set({
+                self.messagesUser.set({
                     'username': data.username,
                     'messaging': true
                 });
                 self.contentRegion.show(new MessageBox({
-                    message: self.messages
+                    messagesUser: self.messagesUser
                 }));
             });
         },
@@ -46,7 +46,7 @@ define([
             var self = this;
             this.sidebarRegion.show(this.messageSideBarView);
             this.contentRegion.show(new MessageBox({
-                message: self.messages
+                messagesUser: self.messagesUser
             }));
         }
     });
