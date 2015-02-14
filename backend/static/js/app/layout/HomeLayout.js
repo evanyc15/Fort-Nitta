@@ -70,7 +70,8 @@ define([
 				this.loginRegion.show(this.loginView);
 			}
 			this.aboutRegion.show(this.aboutView);
-
+			$("body").removeClass("f-topbar-fixed");
+			$(window).scrollTop(0);
 		},
 		onShow: function() {
 			$(document).foundation();
