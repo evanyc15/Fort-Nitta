@@ -7,8 +7,9 @@ define([
     'handlebars',
     'views/Main_ForumsMain',
     'views/Main_ForumsThread',
+    'views/Main_ForumsPosts',
     'text!templates/main_forumslayout.html'
-],  function (App, $, Backbone, Marionette, _, Handlebars, ForumsMainView, ForumsThread, template) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, ForumsMainView, ForumsThread, ForumsPost, template) {
 
     "use strict";
 
@@ -20,13 +21,19 @@ define([
             var self = this;
 
             this.forumsMainView = new ForumsMainView();
+            this.forumsThreadView = new ForumsThread();
+            this.forumsPostView = new ForumsPost();
 
             this.forumsMainView.on("click:thread:show", function(data){
-                self.contentRegion.show(new ForumsThread({
-                    id: data.id
-                }));
-                Backbone.history.navigate('main/forums/'+data.id);
+                self.forumsThreadView.options = {id: data.id};
+                self.contentRegion.show(self.forumsThreadView);
+                // Backbone.history.navigate('main/forums/'+data.id);
             });
+            this.forumsThreadView.on("click:posts:show", function(data){
+                self.forumsPostView.options = {id: data.id};
+                self.contentRegion.show(self.forumsPostView);
+            });
+            // this.
         },
         regions: {
             contentRegion: "#forumsContentRegion"

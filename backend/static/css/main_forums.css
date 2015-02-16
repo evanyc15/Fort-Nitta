@@ -51,9 +51,75 @@
 #forumsThread-newThread {
 
 }
+.forumsThreadTile-Info {
+    vertical-align: top;
+}
+.forumsThreadTile {
+    cursor: pointer;
+}
+.forumsThreadTile:hover {
+    background-color: #D8D8D8;
+}
+.forumsThread-icon {
+    display: inline-block;
+    font-size: 2.5em;
+    margin-right: 30px;
+}
+.forumsThreadSubject {
+    display: inline-block;
+}
 .forumsThreadSubject-title {
-    font-size: 1.15em;
+    font-size: 1.10em;
 }
 .forumsThreadSubject-creator {
-    font-size: 0.65em;
+    font-size: 0.60em;
+}
+.forumsThread-Replies {
+    font-size: 0.60em;
+}
+.forumsThread-Views {
+    font-size: 0.60em;
+}
+
+/* Forum Posts CSS */
+.forumsPostsBox {
+    border: 1px solid #D8D8D8;
+    -webkit-box-shadow: 0px 0px 15px -9px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 15px -9px rgba(0,0,0,1);
+    box-shadow: 0px 0px 15px -9px rgba(0,0,0,1);
+    margin-bottom: 5px !important;
+    padding: 10px;
+}
+.forumsPostsTile {
+    margin: 0 !important;
+    border: 1px solid #D8D8D8;
+}
+.forumsPostsTile .large-2.columns {
+    background-color: #E8E8E8;
+}
+.forumsPostsTile .columns {
+    padding: 15px;
+}
+.forumsPostsTile-Header {
+    padding: 5px 15px 5px 15px;
+    background-color: #E0E0E0;
+    width: 100%
+}
+.forumsPostsTile-name {
+    font-size: 1.2em;
+    text-align: center;
+}
+.forumsPostsTile-img {
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 125px;
+    height: 125px;
+}
+.forumsPostsTile-dateCreated {
+    display: inline-block;
+}
+.forumsPostsTile-counter {
+    display: inline-block;
+    position: absolute;
+    right: 50px;
 }
