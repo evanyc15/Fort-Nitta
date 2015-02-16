@@ -12,11 +12,12 @@ define([
 	'views/Main_ProfileView',
 	'layout/Main_SettingsLayout',
 	'layout/Main_MessagesLayout',
+	'layout/Main_ForumsLayout',
 	'cookie',
 	'foundation',
 	'foundation-topbar',
 	'foundation-datatables'
-],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout, MessagesLayout) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout, MessagesLayout, ForumsLayout) {
 
 	"use strict";
 
@@ -50,6 +51,10 @@ define([
 				self.contentRegion.show(new MessagesLayout());
 				Backbone.history.navigate('main/messages');
 			});
+			this.topbarView.on("click:forums:show", function(){
+				self.contentRegion.show(new ForumsLayout());
+				Backbone.history.navigate('main/forums');
+			});
 		},
 		regions: {
 			topbarRegion: "#topbarRegion",
@@ -57,6 +62,7 @@ define([
 			contentRegion: "#contentRegion"
 		},
 		onRender: function() {
+			var self = this;
 			this.topbarRegion.show(this.topbarView);
 			this.playersRegion.show(this.playersView);
 			
@@ -64,6 +70,10 @@ define([
 				this.contentRegion.show(new SettingsLayout());
 			} else if(this.options.action === "messages"){
 				this.contentRegion.show(new MessagesLayout());
+			} else if(this.options.action === "forums"){
+				this.contentRegion.show(new ForumsLayout({
+					action: self.options.action.action
+				}));
 			} else{
 				this.contentRegion.show(new MyProfileView());
 			}

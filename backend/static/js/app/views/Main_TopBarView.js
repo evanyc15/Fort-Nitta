@@ -21,9 +21,10 @@ define([
 		},
 		events: {
 			"click #logoutButton": "logout",
-			"click #topbarSettings": "settings",
-			"click #topBarMyProfile": "myprofile",
+			"click #topbar_settingsButton": "settingsShow",
+			"click #topbar_profileButton": "myprofileShow",
 			"click #topbar_message-seeall": "messageSeeall",
+			"click #topbar_forumsButton": "forumsShow",
 		 	"mouseenter #topbar_messageButton,#topbar_messageContainer": "messagesShow",
   			"mouseleave #topbar_messageButton,#topbar_messageContainer": "messagesHide"
 		},
@@ -87,11 +88,14 @@ define([
 			this.$el.find("#modalDownload").html("Download the "+fileType+" on the right to begin playing the game! -->");
 			this.$el.find("#myModal").foundation('reveal','open');
 		},
-		settings: function(){
+		settingsShow: function(){
 			this.trigger("click:settings:show");
 		},
-		myprofile: function() {
+		myprofileShow: function(){
 			this.trigger("click:myprofile:show");
+		},
+		forumsShow: function(){
+			this.trigger("click:forums:show");
 		},
 		logout: function(event) {
 			event.stopPropagation();
