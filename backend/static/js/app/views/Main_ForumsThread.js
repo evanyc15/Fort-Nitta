@@ -15,7 +15,8 @@ define([
             this.options = options;
         },
         events: {
-            "click .forumsThreadTile": "postShow"
+            "click .forumsThreadTile": "postShow",
+            "click #forumsThread-newThread": "newThread",
         },
         onRender: function() {
             var header;
@@ -50,8 +51,14 @@ define([
             var id = $(event.target).closest(".forumsThreadTile").find(".forumsThreadSubject-title").text();
 
             this.trigger("click:posts:show", {id: id});
+        },
+        newThread: function(event){
+            if(event){
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            this.trigger("click:newthread:show");
         }
-
         
     });
 });

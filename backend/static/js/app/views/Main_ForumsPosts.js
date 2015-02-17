@@ -15,7 +15,7 @@ define([
             this.options = options;
         },
         events: {
-           
+           "click #forumsPosts-reply": "newPost"
         },
         onRender: function() {
             this.$el.find("#forumsPosts-header").text(this.options.id);
@@ -25,7 +25,13 @@ define([
                 "bSort": false
             });
         },
-
+        newPost: function(event){
+            if(event){
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            this.trigger("click:newpost:show");
+        }
         
     });
 });

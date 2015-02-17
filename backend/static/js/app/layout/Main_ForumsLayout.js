@@ -8,8 +8,10 @@ define([
     'views/Main_ForumsMain',
     'views/Main_ForumsThread',
     'views/Main_ForumsPosts',
+    'views/Main_ForumsThread-Create',
+    'views/Main_ForumsPosts-Create',
     'text!templates/main_forumslayout.html'
-],  function (App, $, Backbone, Marionette, _, Handlebars, ForumsMainView, ForumsThread, ForumsPost, template) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, ForumsMainView, ForumsThreadView, ForumsPostView, ForumsThreadCreateView, ForumsPostsCreateView, template) {
 
     "use strict";
 
@@ -21,8 +23,9 @@ define([
             var self = this;
 
             this.forumsMainView = new ForumsMainView();
-            this.forumsThreadView = new ForumsThread();
-            this.forumsPostView = new ForumsPost();
+            this.forumsThreadView = new ForumsThreadView();
+            this.forumsPostView = new ForumsPostView();
+            // this.ForumsThreadCreateView = new ForumsThreadCreateView();
 
             this.forumsMainView.on("click:thread:show", function(data){
                 self.forumsThreadView.options = {id: data.id};
@@ -33,6 +36,12 @@ define([
                 self.forumsPostView.options = {id: data.id};
                 self.contentRegion.show(self.forumsPostView);
             });
+            this.forumsThreadView.on("click:newthread:show", function(){
+                self.contentRegion.show(new ForumsThreadCreateView());
+            });
+            this.forumsPostView.on("click:newpost:show", function(){
+                self.contentRegion.show(new ForumsPostsCreateView());
+            }); 
             // this.
         },
         regions: {
