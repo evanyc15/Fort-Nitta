@@ -14,7 +14,8 @@ import datetime
 
 class PasswordRecApi(MethodView):
     def post(self):
-        url = "optical.cs.ucdavis.edu/"#"http://localhost:5000/"
+        # url = "optical.cs.ucdavis.edu/"#"
+        url = "http://localhost:5000/"
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
             return jsonify(**{'success': False }), 401
@@ -47,7 +48,8 @@ class PasswordRecApi(MethodView):
 
 class VerifyEmailApi(MethodView):
     def post(self):
-        url = "optical.cs.ucdavis.edu/"#"http://localhost:5000/"
+        # url = "optical.cs.ucdavis.edu/"#"http://localhost:5000/"
+        url = "http://localhost:5000/"
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
             return jsonify(**{'success': False }), 401

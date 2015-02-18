@@ -42,26 +42,26 @@ define([
                     },
                     success: function(data){
                         if(data.success){
-                            $("#verifySuccess").addClass("show");
+                            $("#verifySuccess").css("display","block");
                             setTimeout(function() {
-                                $("#verifySuccess").removeClass("show");
+                                $("#verifySuccess").css("display","none");
                                 self.trigger("click:login:show");
                             }, 3000);
                         } else{
-                            $("#verifyError").addClass("show");
+                            $("#verifyError").css("display","block");
                             setTimeout(function() {
-                                $("#verifyError").removeClass("show");
-                                self.template = Handlebars.compile(templateVerify);
+                                $("#verifyError").css("display","none");
+                                self.trigger("click:login:show");
                             }, 3000);
                         }
                     },
                     error: function(){
-                        $("#verifyError").addClass("show");
+                        $("#verifyError").css("display","block");
                         setTimeout(function() {
-                            $("#verifyError").removeClass("show");
-                            self.template = Handlebars.compile(templateVerify);
-                        }, 3000);
-                    }
+                            $("#verifyError").css("display","none");
+                            self.trigger("click:login:show");
+                        }, 3000);    
+                    },
                 });            
             }
         },
@@ -99,9 +99,9 @@ define([
                     },
                     success: function(data){
                         if(data.success){
-                            $("#emailSuccess").show();
+                            $("#emailSuccess").css("display","block");
                             setTimeout(function() {
-                                $("#emailSuccess").hide();
+                                $("#emailSuccess").css("display","none");
                             }, 3000);
                         } else {
                             var emailElement = self.$("input[name='email']");

@@ -4,19 +4,90 @@ define([
     'jquery',
     'marionette',
     'handlebars',
+    'models/ChangePasswordModel',
     'text!templates/home_changePasswordBox.html'
-], function (App, $, Marionette, Handlebars, template){
+], function (App, $, Marionette, Handlebars, ChangePasswordModel, template){
 
     "use strict";
 
     return Marionette.ItemView.extend({
         //Template HTML string
         template: Handlebars.compile(template),
+        model: new ChangePasswordModel(),
 
         initialize: function(options){
             this.options = options;
+            var self = this;
 
             this.urlParams = {}
+            Backbone.Validation.bind(this, {
+                model: this.model
+            });
+            this.model.bind('validated:valid', function(model) {
+                self.urlParams["password"] = self.model.get("password");
+                if(self.options.id !== "" && self.options.id){
+                    var vars = String(self.options.id).replace('?','').split('&');
+                    for (var i = 0; i < vars.length; i++) {
+                        var pair = vars[i].split('=');
+                        self.urlParams[pair[0]] = pair[1];
+                    }
+                }
+                $.ajax({
+                    url: '/api/users/changepass/',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify(self.urlParams),
+                    crossDomain: true,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function(data){
+                        if(data.success){
+                            $("#passwordSuccess").css("display","block");
+                            setTimeout(function() {
+                                $("#passwordSuccess").css("display","none");
+                                self.trigger("click:login:show");
+                            }, 3000);
+                        } else{
+                            Object.keys(errors).forEach(function(k) {
+                                var htmlElement = self.$el.find("input[name='"+k+"']");
+                                var placeholder = htmlElement.attr("placeholder");
+
+                                htmlElement.val("");
+                                htmlElement.addClass("error").attr("placeholder",errors[k]);
+                                setTimeout(function() {
+                                    htmlElement.removeClass("error").attr("placeholder",placeholder);
+                                }, 3000);
+                            });
+                        }
+                    },
+                    error: function(){
+                         Object.keys(errors).forEach(function(k) {
+                            var htmlElement = self.$el.find("input[name='"+k+"']");
+                            var placeholder = htmlElement.attr("placeholder");
+
+                            htmlElement.val("");
+                            htmlElement.addClass("error").attr("placeholder",errors[k]);
+                            setTimeout(function() {
+                                htmlElement.removeClass("error").attr("placeholder",placeholder);
+                            }, 3000);
+                        });
+                    }
+                });    
+            });
+            this.model.bind('validated:invalid', function(model, errors) {
+                Object.keys(errors).forEach(function(k) {
+                    var htmlElement = self.$el.find("input[name='"+k+"']");
+                    var placeholder = htmlElement.attr("placeholder");
+
+                    htmlElement.val("");
+                    htmlElement.addClass("error").attr("placeholder",errors[k]);
+                    setTimeout(function() {
+                        htmlElement.removeClass("error").attr("placeholder",placeholder);
+                    }, 3000);
+                });
+            });
         },
         events: {
            "click #backLoginButton": "loginShow",
@@ -29,53 +100,14 @@ define([
         changePassword: function(event) {
             var self = this;
 
-            if(this.$("#passwordInput").val() !== this.$("#repasswordInput").val()){
-                $("#repasswordError").addClass("show");
-                setTimeout(function() {
-                    $("#repasswordError").removeClass("show");
-                }, 3000);
-            } else{
-                var password = this.$("#passwordInput").val();
-                this.urlParams["password"] = password;
-                if(this.options.id !== "" && this.options.id){
-                    var vars = String(this.options.id).replace('?','').split('&');
-                    for (var i = 0; i < vars.length; i++) {
-                        var pair = vars[i].split('=');
-                        this.urlParams[pair[0]] = pair[1];
-                    }
-                }
-                $.ajax({
-                    url: '/api/users/changepass/',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    dataType: 'json',
-                    data: JSON.stringify(this.urlParams),
-                    crossDomain: true,
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    success: function(data){
-                        if(data.success){
-                            $("#passwordSuccess").addClass("show");
-                            setTimeout(function() {
-                                $("#passwordSuccess").removeClass("show");
-                                self.trigger("click:login:show");
-                            }, 3000);
-                        } else{
-                            $("#passwordError").addClass("show");
-                            setTimeout(function() {
-                                $("#passwordError").removeClass("show");
-                            }, 3000);
-                        }
-                    },
-                    error: function(){
-                        $("#passwordError").addClass("show");
-                        setTimeout(function() {
-                            $("#passwordError").removeClass("show");
-                        }, 3000);
-                    }
-                });            
-            }
+            if(event){
+                event.stopPropagation();
+                event.preventDefault();
+            }   
+            this.model.set({
+                'password': this.$("#passwordInput").val(),
+                'repassword': this.$("#repasswordInput").val()
+            }).validate();
         }
      
     });
