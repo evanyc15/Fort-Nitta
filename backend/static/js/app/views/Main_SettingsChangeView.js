@@ -64,6 +64,11 @@ define([
             var html = this.template(App.session.user.toJSON());
             this.$el.html(html);
         },
+        onShow: function() {
+            if(App.session.user.get("avatar_path") && App.session.user.get("avatar_path") != ""){
+                this.$el.find("#profilePicture").attr('src','/api/avatar/'+App.session.user.get("avatar_path"));
+            }
+        },
         changeProfilePicture: function() {
             $("#profilePictureChangeInput").click();
         },
@@ -96,6 +101,7 @@ define([
                     },
                     success: function(data){
                         $("#profilePicture").attr('src','/api/avatar/'+ data.user.avatar_path)
+                        App.session.user.set(_.pick(data.user, _.keys(App.session.user.defaults)));
                     },
                     error: function(data){
                         //alert('no upload');
@@ -103,40 +109,32 @@ define([
                     }
                 });            
             }
-            if(firstnameElement.val() == "" || firstnameElement.val() != "" || lastnameElement.val() != "" || emailElement.val() != "" || 
+            this.model.set({'username': App.session.user.get('username')});
+            if(firstnameElement.val() != "" || lastnameElement.val() != "" || emailElement.val() != "" || 
                 oldpasswordElement.val() != "" || passwordElement != "" || repasswordElement != ""){
 
-                if(firstnameElement.val() == "") {
-                    firstname = firstnameElement.val();
-                }
                 if(firstnameElement.val() != "") {
-                    firstname = firstnameElement.val();
-                } 
+                    this.model.set({'first_name': firstnameElement.val()}); 
+                }
                 if(lastnameElement.val() != ""){
-                    lastname = lastnameElement.val();
+                    this.model.set({'last_name': lastnameElement.val()});
                 } 
                 if(emailElement.val() != ""){
-                    email = emailElement.val();
+                    this.model.set({'email': emailElement.val()});
                 } 
                 if(oldpasswordElement.val() != ""){
-                    oldpassword = oldpasswordElement.val();
+                    this.model.set({'oldpassword': oldpasswordElement.val()});
+                } else {
+                    this.model.set({'oldpassword': App.session.user.get('password')})
                 }
                 if(passwordElement.val() != ""){
-                    password = passwordElement.val(); 
+                    this.model.set({'password': passwordElement.val()}); 
                 }
                 if(repasswordElement.val() != ""){
-                    repassword = repasswordElement.val();
+                    this.model.set({'repassword': repasswordElement.val()});
                 }
                 
-                this.model.set({
-                    'username': App.session.user.get('username'),
-                    'first_name': firstname ,
-                    'last_name': lastname,
-                    'email': email,
-                    'oldpassword': oldpassword, 
-                    'password': password,
-                    'repassword': repassword 
-                }).validate();
+                this.model.validate();
             }
     	},
 		cancel: function(event){

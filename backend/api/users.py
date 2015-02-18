@@ -75,7 +75,7 @@ class ChangeDetailsAPI(MethodView):
         if request_data is None:
             request_data = {}
 
-        if ('username' in request_data) and ('oldpassword' in request_data):
+        if ('username' in request_data) and ('oldpassword' in request_data) and len(request_data['oldpassword']) != 0:
             user = User.query.filter_by(username=request_data['username']).first()
             #if (not user) or (not check_password(request_data['oldPassword'],user.password)):
             if (not user) or (request_data['oldpassword'] != user.password):
