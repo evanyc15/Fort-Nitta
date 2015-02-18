@@ -22,13 +22,13 @@ define([
             var header;
             var jsonHeaders = {'ccintroductions': 'Introductions', 
                                 'ccgeneralnewsdiscussion': 'General News & Discussion',
-                                'ccgeneralhelp&how': 'General Help & How To',
+                                'ccgeneralhelphowto': 'General Help & How To',
                                 'platformandroid': 'Android',
                                 'platformiososx': 'iOS and OSX',
                                 'platformlinux': 'Linux',
                                 'platformwindows': 'Windows',
                                 'supportuseraccounts': 'User Accounts'};
-                                
+
             header = jsonHeaders[this.options.id];
 
             this.$el.find("#forumsThread-header").text(header);

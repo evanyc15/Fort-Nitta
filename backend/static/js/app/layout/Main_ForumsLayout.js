@@ -28,9 +28,9 @@ define([
             // this.ForumsThreadCreateView = new ForumsThreadCreateView();
 
             this.forumsMainView.on("click:thread:show", function(data){
-                self.forumsThreadView.options = {id: data.id};
+                self.forumsThreadView.options = {id: data.id.toLowerCase()};
                 self.contentRegion.show(self.forumsThreadView);
-                // Backbone.history.navigate('main/forums/'+data.id);
+                Backbone.history.navigate('main/forums/'+data.id);
             });
             this.forumsThreadView.on("click:posts:show", function(data){
                 self.forumsPostView.options = {id: data.id};
