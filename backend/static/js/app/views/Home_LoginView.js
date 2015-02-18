@@ -33,6 +33,17 @@ define([
                     },
                     error: function(err){
                         console.log("ERROR", err);
+                        var errors = err.responseJSON.errors;
+                        var errorHtml = [self.$el.find('input[name="username"]'), self.$el.find('input[name="password"]')];
+                        errorHtml.forEach(function(htmlElement){
+                            var placeholder = htmlElement.attr("placeholder");
+                            console.log(errors);
+                            htmlElement.val("");
+                            htmlElement.addClass("error").attr("placeholder",errors);
+                            setTimeout(function() {
+                                htmlElement.removeClass("error").attr("placeholder",placeholder);
+                            }, 3000);
+                        });
                     }
                 });
             });

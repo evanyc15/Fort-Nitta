@@ -37,6 +37,7 @@ def check_password(pw, hashed):
 
 class SessionAuthAPI(MethodView):
     def post(self):
+        errors = None
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
             return jsonify(**{'success': False}), 401
@@ -54,8 +55,10 @@ class SessionAuthAPI(MethodView):
                 db.session.commit()
                 # Leave property authenticated to be calculated by current_user.is_authenticated()     
                 return jsonify(**{'success': True, 'authenticated': current_user.is_authenticated(), 'user': current_user_props()})
+            else:
+                errors = 'Invalid username or password'
 
-        return jsonify(**{'success': False, 'authenticated': current_user.is_authenticated()}), 401
+        return jsonify(**{'success': False, 'authenticated': current_user.is_authenticated(), 'errors': errors}), 401
 
     @session_auth_required
     def get(self):
