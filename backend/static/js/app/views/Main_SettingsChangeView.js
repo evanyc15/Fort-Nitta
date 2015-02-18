@@ -29,7 +29,6 @@ define([
                         App.session.user.set(_.pick(data, _.keys(App.session.user.defaults)));
 
                         Backbone.history.navigate('main', {trigger: true});
-                        location.reload();
                     },       
                     error: function(data){
                         var htmlElement = self.$el.find("input[name='"+data.responseJSON.offending_attribute+"']");
