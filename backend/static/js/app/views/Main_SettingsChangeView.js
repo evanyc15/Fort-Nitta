@@ -21,6 +21,31 @@ define([
                 model: this.model
             });
             this.model.bind('validated:valid', function(model) {
+                if(self.$("#profilePictureChangeInput").val() !== "" && self.$("#profilePictureChangeInput").val() !== null){    
+                    var picture = $('input[name="imageInput"]')[0].files[0];
+                    var data = new FormData(); 
+                    data.append('file', picture);
+                    $.ajax({
+                        url: '/api/avatar/',
+                        type: 'POST',
+                        data: data,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        crossDomain: true,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function(data){
+                            $("#profilePicture").attr('src','/api/avatar/'+ data.user.avatar_path)
+                            App.session.user.set(_.pick(data.user, _.keys(App.session.user.defaults)));
+                        },
+                        error: function(data){
+                            //alert('no upload');
+                            $('#loadingModal').modal('hide');
+                        }
+                    });            
+                }
                App.session.changeDetails({
                     data: model.toJSON()         
                 }, 
@@ -53,6 +78,7 @@ define([
                         htmlElement.removeClass("error").attr("placeholder",placeholder);
                     }, 3000);
                 });
+                self.model.clear();
             });
         },
         events: {
@@ -83,32 +109,6 @@ define([
             var repasswordElement = self.$("#repasswordInput");
             var firstname, lastname, email, oldpassword, password, repassword;
             
-            
-            if(self.$("#profilePictureChangeInput").val() !== "" && self.$("#profilePictureChangeInput").val() !== null){    
-                var picture = $('input[name="imageInput"]')[0].files[0];
-                var data = new FormData(); 
-                data.append('file', picture);
-                $.ajax({
-                    url: '/api/avatar/',
-                    type: 'POST',
-                    data: data,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    crossDomain: true,
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    success: function(data){
-                        $("#profilePicture").attr('src','/api/avatar/'+ data.user.avatar_path)
-                        App.session.user.set(_.pick(data.user, _.keys(App.session.user.defaults)));
-                    },
-                    error: function(data){
-                        //alert('no upload');
-                        $('#loadingModal').modal('hide');
-                    }
-                });            
-            }
             this.model.set({'username': App.session.user.get('username')});
             if(firstnameElement.val() != "" || lastnameElement.val() != "" || emailElement.val() != "" || 
                 oldpasswordElement.val() != "" || passwordElement != "" || repasswordElement != ""){
