@@ -115,7 +115,8 @@ class VerifyEmailApi(MethodView):
 # startEmailing(running)    
 
 password_rec_view = PasswordRecApi.as_view('password_rec_api')
-verify_email_view = VerifyEmailApi.as_view('verify_email_api')
 app.add_url_rule('/api/recpassmail/', view_func=password_rec_view, methods=['POST'])
+
+verify_email_view = VerifyEmailApi.as_view('verify_email_api')
 app.add_url_rule('/api/veremailacc/', view_func=verify_email_view, methods=['POST'])
 

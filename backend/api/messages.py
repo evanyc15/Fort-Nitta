@@ -131,8 +131,10 @@ class ChatUserApi(MethodView):
         return jsonify(**{'success': False}), 401
 
 chat_user_view = ChatUserApi.as_view('chat_user_api')
-chat_message_view = ChatMessageApi.as_view('chat_message_api')
-chat_userRetrieve_view = ChatUserRetrieveApi.as_view('chat_userretrieve_api')
-app.add_url_rule('/api/messages/chat/', view_func=chat_message_view, methods=['POST','GET'])
 app.add_url_rule('/api/messages/users/', view_func=chat_user_view, methods=['GET'])
+
+chat_message_view = ChatMessageApi.as_view('chat_message_api')
+app.add_url_rule('/api/messages/chat/', view_func=chat_message_view, methods=['POST','GET'])
+
+chat_userRetrieve_view = ChatUserRetrieveApi.as_view('chat_userretrieve_api')
 app.add_url_rule('/api/messages/retrieveUsers/', view_func=chat_userRetrieve_view, methods=['GET','POST'])
