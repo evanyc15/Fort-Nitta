@@ -20,6 +20,7 @@ define([
             replies: '',
             views: '',
             lastpost_id: -1,
+            category_id: -1,
             date_created: ''
         },
         validation: {

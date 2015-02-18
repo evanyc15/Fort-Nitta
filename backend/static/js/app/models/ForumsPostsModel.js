@@ -18,6 +18,7 @@ define([
             last_name: '',
             avatar_path: '',
             date_created: '',
+            post_id: -1,
             message: ''
         },
         validation: {
