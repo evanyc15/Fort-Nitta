@@ -9,12 +9,13 @@ define([
         //"index" must be a method in AppRouter's controller
         appRoutes: {
             '': 'index',
-            'home': 'index',
-            'home/:action': 'index',
             'home/:action/:id': 'index',
-            'main':'main',
+            'home/:action': 'index',
+            'home': 'index', 
+            'main/:action/:action2': 'main', 
+            'main/:action/:id': 'main',
             'main/:action': 'main',
-            'main/:action/:id': 'main'  
+            'main':'main'         
         }
     });
 });

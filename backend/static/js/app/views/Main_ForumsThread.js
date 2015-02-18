@@ -20,21 +20,16 @@ define([
         },
         onRender: function() {
             var header;
-            if(this.options.id.substring(0,2) === "cc"){
-                header = this.options.id.substring(2,this.options.id.length);
-            } else if(this.options.id.substring(0,8) === "platform"){
-                header = this.options.id.substring(8,this.options.id.length);
-            } else if(this.options.id.substring(0,7) === "support"){
-                header = this.options.id.substring(7,this.options.id.length);
-            }
-
-            if(header === "GeneralNewsDiscussion"){
-                header = "General News & Discussion";
-            } else if(header === "GeneralHelpHowTo"){
-                header = "General Help & How To";
-            } else if(header === "UserAccounts"){
-                header = "User Accounts";
-            }
+            var jsonHeaders = {'ccintroductions': 'Introductions', 
+                                'ccgeneralnewsdiscussion': 'General News & Discussion',
+                                'ccgeneralhelp&how': 'General Help & How To',
+                                'platformandroid': 'Android',
+                                'platformiososx': 'iOS and OSX',
+                                'platformlinux': 'Linux',
+                                'platformwindows': 'Windows',
+                                'supportuseraccounts': 'User Accounts'};
+                                
+            header = jsonHeaders[this.options.id];
 
             this.$el.find("#forumsThread-header").text(header);
             this.$el.find("#threadTable").DataTable({

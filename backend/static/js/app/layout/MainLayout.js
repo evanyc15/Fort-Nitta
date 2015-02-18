@@ -72,7 +72,7 @@ define([
 				this.contentRegion.show(new MessagesLayout());
 			} else if(this.options.action === "forums"){
 				this.contentRegion.show(new ForumsLayout({
-					action: self.options.action.action
+					action: self.options.action2
 				}));
 			} else{
 				this.contentRegion.show(new MyProfileView());

@@ -11,13 +11,13 @@ define([
 
 
     return Backbone.Marionette.Controller.extend({
-        initialize:function (options) {
+        initialize: function (options) {
             // Create a new session model and scope it to the app global
             // This will be a singleton, which other modules can access
             App.session = new SessionModel({});
         },
         //gets mapped to in AppRouter's appRoutes
-        index:function (action, id) {
+        index: function (action, id) {
             // Check the auth status upon initialization,
             // if logged in, redirect to main page
             App.session.checkAuth(function(loginStatus){
@@ -57,15 +57,17 @@ define([
                 }
             });          
         },
-        main:function (action, id) {
+        main: function (action, action2, id) {
             // Check the auth status upon initialization,
             // if logged in, continue to main page
+
             App.session.checkAuth(function(loginStatus){
                 
                 if(loginStatus){
                     if(App.session.user.get('new_user') === 0){
                         App.mainRegion.show(new MainLayout({
                             action: String(action).toLowerCase(),
+                            action2: String(action2).toLowerCase(),
                             id: String(id)
                         }));
                     } else {
@@ -99,7 +101,6 @@ define([
                 }
             });
                 
-        }
-
+        },
     });
 });

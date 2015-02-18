@@ -51,9 +51,14 @@ define([
 
         },
         onRender: function(){
-            var self = this;
-            if(this.options.action === "platformsandroid"){
+            // var self = this;
+            var action = this.options.action;
+            var actionArray = ["ccintroductions","ccgeneralnewsdiscussion","ccgeneralhelphowto","platformandroid",
+                                "plaformiososx","platformlinux","platformwindows","supportuseraccounts"];
 
+            if(action && action !== "null" && (actionArray.indexOf(action) > -1)){
+                this.forumsThreadView.options = {id: action};
+                this.contentRegion.show(this.forumsThreadView);
             } else {
                 this.contentRegion.show(this.forumsMainView);
             } 
