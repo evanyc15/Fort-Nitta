@@ -16,6 +16,9 @@ define([
         initialize: function(options){
             this.options = options;
 
+            // Reset collection because it is saved when using the "back" button which causes bugs
+            this.collection.reset();
+
             Handlebars.registerHelper('ifevenodd', function (id, options) { 
                 if(id % 2){
                     return options.inverse(this);

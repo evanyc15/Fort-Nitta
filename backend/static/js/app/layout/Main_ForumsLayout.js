@@ -49,6 +49,7 @@ define([
         },
         onRender: function(){
             // var self = this;
+
             var action = this.options.action;
             var actionArray = ["ccintroductions","ccgeneralnewsdiscussion","ccgeneralhelphowto","platformandroid",
                                 "plaformiososx","platformlinux","platformwindows","supportuseraccounts"];

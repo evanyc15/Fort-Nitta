@@ -19,8 +19,12 @@ define([
 
             this.categoryCollection = new ForumsCategoryCollection();
 
+            // Reset collection because it is saved when using the "back" button which causes bugs
+            this.collection.reset();
+
             // This is to create a helper for the template
             Handlebars.registerHelper('ifevenodd', function (id, options) { 
+
                 if(id % 2){
                     return options.inverse(this);
                 } else {  
@@ -47,6 +51,8 @@ define([
 
             var categoryModel = this.categoryCollection.findWhere({'category_name':this.options.model.get('category_name').toLowerCase()});
             header = jsonHeaders[categoryModel.get('category_name').toLowerCase()];
+
+            this.$(".forumsThreadTile").remove();
             $.ajax({
                 url: '/api/forums/threads?id='+categoryModel.get('id'),
                 type: 'GET',
@@ -57,6 +63,7 @@ define([
                     withCredentials: true
                 },
                 success: function(data){
+
                     self.collection.add(data, {merge: true});
 
                     var html = self.template(self.collection.toJSON());
@@ -66,17 +73,21 @@ define([
                 },
                 error: function(data){
                    
+                },
+                complete: function() {
+
+                    self.$el.find("#threadTable").DataTable({
+                        "sPaginationType": "full_numbers",
+                        "bAutoWidth": false, // Disable the auto width calculation 
+                        "aoColumns": [
+                            { "sWidth": "70%" },
+                            { "sWidth": "10%" },
+                            { "sWidth": "20%" },
+                        ],
+                    });
                 }
             });    
-            this.$el.find("#threadTable").DataTable({
-                "sPaginationType": "full_numbers",
-                "bAutoWidth": false, // Disable the auto width calculation 
-                "aoColumns": [
-                    { "sWidth": "70%" },
-                    { "sWidth": "10%" },
-                    { "sWidth": "20%" },
-                ],
-            });
+
         },
         postShow: function(event){
             var id = $(event.target).closest(".forumsThreadTile").data("id");
