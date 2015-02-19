@@ -165,3 +165,6 @@
 #forumsPostsCreate-buttonSubmit {
     margin-left: 10px;
 }
+#postsTable {
+    width: 100%;
+}

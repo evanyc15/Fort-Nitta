@@ -23,9 +23,9 @@
             <tbody>
                 {{#each []}}
                     {{#ifevenodd this.id}}
-                    <tr class="odd forumsThreadTile">
+                    <tr class="odd forumsThreadTile" data-id="{{this.id}}">
                     {{else}}
-                    <tr class="even forumsThreadTile">
+                    <tr class="even forumsThreadTile" data-id="{{this.id}}">
                     {{/ifevenodd}}
                         <td class="forumsThreadTile-Info"> 
                             <i class="fa fa-envelope-o forumsThread-icon"></i>

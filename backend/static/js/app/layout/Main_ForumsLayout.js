@@ -10,8 +10,9 @@ define([
     'views/Main_ForumsPosts',
     'views/Main_ForumsThread-Create',
     'views/Main_ForumsPosts-Create',
+    'models/ForumsCategoryModel',
     'text!templates/main_forumslayout.html'
-],  function (App, $, Backbone, Marionette, _, Handlebars, ForumsMainView, ForumsThreadView, ForumsPostView, ForumsThreadCreateView, ForumsPostsCreateView, template) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, ForumsMainView, ForumsThreadView, ForumsPostView, ForumsThreadCreateView, ForumsPostsCreateView, ForumsCategoryModel, template) {
 
     "use strict";
 
@@ -24,28 +25,20 @@ define([
 
             this.forumsMainView = new ForumsMainView();
             this.forumsThreadView = new ForumsThreadView();
-            this.forumsPostView = new ForumsPostView();
+            this.forumsPostsView = new ForumsPostView();
             this.forumsThreadCreateView = new ForumsThreadCreateView();
+            this.forumsPostsCreateView = new ForumsPostsCreateView();
 
             this.forumsMainView.on("click:thread:show", function(data){
                 self.forumsThreadView.options = {model: data.model};
                 self.contentRegion.show(self.forumsThreadView);
-                Backbone.history.navigate('main/forums/'+data.model.get('id'));
+                Backbone.history.navigate('main/forums/'+data.model.get('category_name'));
             });
-            this.forumsThreadView.on("click:posts:show", function(data){
-                self.forumsPostView.options = {id: data.id};
-                self.contentRegion.show(self.forumsPostView);
-            });
-            this.forumsThreadView.on("click:newthread:show", function(data){
-                self.forumsThreadCreateView.options = {model: data.model};
-                self.contentRegion.show(self.forumsThreadCreateView);
-            });
-            this.forumsPostView.on("click:newpost:show", function(){
-                self.contentRegion.show(new ForumsPostsCreateView());
-            }); 
-            this.forumsThreadCreateView.on("click:returnThreads:show", function(data){
-                self.contentRegion.show(new ForumsThreadView({model: data.model}));
-            });
+            this.forumsThreadView.on("click:posts:show", this.threadstoPostsTriggers.bind(this));
+            this.forumsThreadView.on("click:newthread:show", this.threadstoCreateThreadTriggers.bind(this));
+            this.forumsPostsView.on("click:newpost:show", this.poststoCreatePostsTriggers.bind(this)); 
+            this.forumsThreadCreateView.on("click:returnThreads:show", this.createThreadtoThreadsTriggers.bind(this));
+            this.forumsPostsCreateView.on("click:returnPosts:show", this.createPoststoPostsTriggers.bind(this));
             // this.
         },
         regions: {
@@ -61,11 +54,69 @@ define([
                                 "plaformiososx","platformlinux","platformwindows","supportuseraccounts"];
 
             if(action && action !== "null" && (actionArray.indexOf(action) > -1)){
-                this.forumsThreadView.options = {id: action};
+                this.forumsThreadView.options = {model: new ForumsCategoryModel({'category_name': action})};
                 this.contentRegion.show(this.forumsThreadView);
             } else {
                 this.contentRegion.show(this.forumsMainView);
             } 
+        },
+        threadstoCreateThreadTriggers: function(data){
+
+            this.forumsThreadCreateView.options = {model: data.model};
+            this.contentRegion.show(this.forumsThreadCreateView);
+
+            /* When Create Thread view is shown, the Thread view has been destroyed
+             * Thus, we re-instantiate Thread view and rebind its callbacks
+             */
+            this.forumsThreadView = new ForumsThreadView();
+            this.forumsThreadView.on("click:posts:show", this.threadstoPostsTriggers.bind(this));
+            this.forumsThreadView.on("click:newthread:show", this.threadstoCreateThreadTriggers.bind(this));
+        },
+        createThreadtoThreadsTriggers: function(data){
+
+            this.forumsThreadView.options = {model: data.model};
+            this.contentRegion.show(this.forumsThreadView);
+
+            /* When Thread view is shown, the Create Thread view has been destroyed
+             * Thus, we re-instantiate Create Thread view and rebind its callbacks
+             */
+            this.forumsThreadCreateView = new ForumsThreadCreateView();
+            this.forumsThreadCreateView.on("click:returnThreads:show", this.createThreadtoThreadsTriggers.bind(this));
+        },
+        threadstoPostsTriggers: function(data){
+
+            this.forumsPostsView.options = {model: data.model};
+            this.contentRegion.show(this.forumsPostsView);
+
+            /* When Posts view is shown, the Thread view has been destroyed
+             * Thus, we re-instantiate Thread view and rebind its callbacks
+             */
+            this.forumsThreadView = new ForumsThreadView();
+            this.forumsThreadView.on("click:posts:show", this.threadstoPostsTriggers.bind(this));
+            this.forumsThreadView.on("click:newthread:show", this.threadstoCreateThreadTriggers.bind(this));
+        },
+        poststoCreatePostsTriggers: function(data){
+
+            this.forumsPostsCreateView.options = {model: data.model};
+            this.contentRegion.show(this.forumsPostsCreateView);
+
+            /* When Create Posts view is shown, the Posts view has been destroyed
+             * Thus, we re-instantiate Create Posts view and rebind its callbacks
+             */
+             this.forumsPostsView = new ForumsPostView();
+             this.forumsPostsView.on("click:newpost:show", this.poststoCreatePostsTriggers.bind(this));
+        },
+        createPoststoPostsTriggers: function(data){
+
+            this.forumsPostsView.options = {model: data.model};
+            this.contentRegion.show(this.forumsPostsView);
+
+            /* When Posts view is shown, the Create Posts view has been destroyed
+             * Thus, we re-instantiate Posts view and rebind its callbacks
+             */
+            this.forumsPostsCreateView = new ForumsPostsCreateView();
+            this.forumsPostsCreateView.on("click:returnPosts:show", this.createPoststoPostsTriggers.bind(this));
         }
+
     });
 });

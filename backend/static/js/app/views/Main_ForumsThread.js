@@ -3,8 +3,9 @@ define([
     'marionette',
     'handlebars',
     'collections/ForumsThreadCollection',
+    'collections/ForumsCategoryCollection',
     'text!templates/main_forumsthread.html'
-], function (App, Marionette, Handlebars, ForumsThreadCollection, template){
+], function (App, Marionette, Handlebars, ForumsThreadCollection, ForumsCategoryCollection, template){
 
     "use strict";
 
@@ -15,6 +16,8 @@ define([
 
         initialize: function(options){
             this.options = options;
+
+            this.categoryCollection = new ForumsCategoryCollection();
 
             // This is to create a helper for the template
             Handlebars.registerHelper('ifevenodd', function (id, options) { 
@@ -42,10 +45,10 @@ define([
                                 'platformwindows': 'Windows',
                                 'supportuseraccounts': 'User Accounts'};
 
-                                
-            header = jsonHeaders[this.options.model.get('category_name').toLowerCase()];
+            var categoryModel = this.categoryCollection.findWhere({'category_name':this.options.model.get('category_name').toLowerCase()});
+            header = jsonHeaders[categoryModel.get('category_name').toLowerCase()];
             $.ajax({
-                url: '/api/forums/threads?id='+this.options.model.get('id'),
+                url: '/api/forums/threads?id='+categoryModel.get('id'),
                 type: 'GET',
                 contentType: 'application/json',
                 dataType: 'json',
@@ -76,9 +79,9 @@ define([
             });
         },
         postShow: function(event){
-            var id = $(event.target).closest(".forumsThreadTile").find(".forumsThreadSubject-title").text();
-// NOT UP YET
-            this.trigger("click:posts:show", {id: id});
+            var id = $(event.target).closest(".forumsThreadTile").data("id");
+
+            this.trigger("click:posts:show", {model: this.collection.get(id)});
         },
         newThread: function(event){
             if(event){

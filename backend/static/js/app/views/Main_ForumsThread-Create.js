@@ -64,7 +64,8 @@ define([
             });
         },
         events: {
-            "click #forumsThreadCreate-buttonSubmit": "submitThread"
+            "click #forumsThreadCreate-buttonSubmit": "submitThread",
+            "click #forumsThreadCreate-buttonCancel": "cancelButton"
         },
         onRender: function() {
             
@@ -81,6 +82,13 @@ define([
                     'category_id': this.options.model.get('id')
                 }).validate();
             }
+        },
+        cancelButton: function(event){
+            if(event){
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            this.trigger("click:returnThreads:show", {model: this.options.model});
         }
         
     });

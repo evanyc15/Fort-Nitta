@@ -18,23 +18,29 @@
                 </tr>
             </thead>
             <tbody id="forumsPostsTileContainer">
-                <tr class="odd">
-                    <td>
-                        <div class="row forumsPostsTile">
-                            <div class="forumsPostsTile-Header">
-                                <div class="forumsPostsTile-dateCreated">10 23, 1203</div>
-                                <div class="forumsPostsTile-counter">#1</div>
+                {{#each []}}
+                    {{#ifevenodd this.id}}
+                    <tr class="odd">
+                    {{else}}
+                    <tr class="even">
+                    {{/ifevenodd}} 
+                        <td>
+                            <div class="row forumsPostsTile" data-id="{{this.id}}">
+                                <div class="forumsPostsTile-Header">
+                                    <div class="forumsPostsTile-dateCreated">{{this.date_created}}</div>
+                                    <div class="forumsPostsTile-counter">#1</div>
+                                </div>
+                                <div class="large-2 columns">
+                                    <div class="forumsPostsTile-name">{{this.username}}</div>
+                                    <div class="forumsPostsTile-img"><img src="../../../img/placeholder-user.png"></div>
+                                </div>
+                                <div class="large-10 columns">
+                                    {{this.message}}
+                                </div>
                             </div>
-                            <div class="large-2 columns">
-                                <div class="forumsPostsTile-name">TestUser1</div>
-                                <div class="forumsPostsTile-img"><img src="../../../img/placeholder-user.png"></div>
-                            </div>
-                            <div class="large-10 columns">
-                                This is the first post
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                {{/each}}
             </tbody>
         </table>
     </div>

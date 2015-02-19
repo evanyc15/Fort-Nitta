@@ -87,7 +87,7 @@ define([
 			 */
 			self.loginView = new LoginView();
 			self.loginView.on("click:signup:show", self.logintoSignupViewTriggers.bind(this));
-			self.loginView.on("click:forgotPassword:show", this.logintoForgotPasswordViewTriggers.bind(this));
+			self.loginView.on("click:forgotPassword:show", self.logintoForgotPasswordViewTriggers.bind(this));
 		},
 		signuptoLoginViewTriggers: function() {
 			var self = this;
@@ -111,7 +111,7 @@ define([
 			 * Thus, we re-instantiate login view and rebind the forgot password show and signup show
 			 */
 			self.loginView = new LoginView();
-			self.loginView.on("click:forgotPassword:show", this.logintoForgotPasswordViewTriggers.bind(this));
+			self.loginView.on("click:forgotPassword:show", self.logintoForgotPasswordViewTriggers.bind(this));
 			self.loginView.on("click:signup:show", self.logintoSignupViewTriggers.bind(this));	
 		},
 		forgotPasswordtoLoginViewTriggers: function(){
@@ -124,7 +124,7 @@ define([
 			 * Thus, we re-instantiate forgot password view and rebind the login show
 			 */
 			self.forgotPasswordView = new ForgotPasswordView();
-			self.forgotPasswordView.on("click:login:show", this.forgotPasswordtoLoginViewTriggers.bind(this));
+			self.forgotPasswordView.on("click:login:show", self.forgotPasswordtoLoginViewTriggers.bind(this));
 		},
 		changePasswordtoLoginViewTriggers: function(){
 			var self = this;
@@ -136,7 +136,7 @@ define([
 			 * Thus, we re-instantiate change password view and rebind the login show
 			 */
 			self.changePasswordView = new ChangePasswordView();
-			this.changePasswordView.on("click:login:show", this.changePasswordtoLoginViewTriggers.bind(this));
+			this.changePasswordView.on("click:login:show", self.changePasswordtoLoginViewTriggers.bind(this));
 		},
 		verifyEmailtoLoginViewTriggers: function() {
 			var self = this;
@@ -148,7 +148,7 @@ define([
 			 * Thus, we re-instantiate verify email view and rebind the login show
 			 */
 			self.verifyEmailView = new VerifyEmailView();
-			this.verifyEmailView.on("click:login:show", this.verifyEmailtoLoginViewTriggers.bind(this));
+			self.verifyEmailView.on("click:login:show", self.verifyEmailtoLoginViewTriggers.bind(this));
 		}
 	});
 });
