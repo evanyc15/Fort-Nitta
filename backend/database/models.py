@@ -296,9 +296,9 @@ class ForumsThreads(db.Model):
         self.category_id =      category_id
         self.user_id =          user_id
         self.title =            title
-        replies =               0
-        views =                 0
-        date_created =          datetime.datetime.now()
+        self.replies =          0
+        self.views =            0
+        self.date_created =     datetime.datetime.now()
 
 class ForumsPosts(db.Model):
     """
@@ -320,10 +320,10 @@ class ForumsPosts(db.Model):
         """
         Create a new Forum Post under a specific Forum Thread
         """
-        self.thread_id =    thread_id
-        self.user_id =      user_id
-        self.message =      message
-        date_created =      datetime.datetime.now()
+        self.thread_id =        thread_id
+        self.user_id =          user_id
+        self.message =          message
+        self.date_created =     datetime.datetime.now()
 
 class ForumsPostsLikes(db.Model):
     """

@@ -25,23 +25,27 @@ define([
             this.forumsMainView = new ForumsMainView();
             this.forumsThreadView = new ForumsThreadView();
             this.forumsPostView = new ForumsPostView();
-            // this.ForumsThreadCreateView = new ForumsThreadCreateView();
+            this.forumsThreadCreateView = new ForumsThreadCreateView();
 
             this.forumsMainView.on("click:thread:show", function(data){
-                self.forumsThreadView.options = {id: data.id.toLowerCase()};
+                self.forumsThreadView.options = {model: data.model};
                 self.contentRegion.show(self.forumsThreadView);
-                Backbone.history.navigate('main/forums/'+data.id);
+                Backbone.history.navigate('main/forums/'+data.model.get('id'));
             });
             this.forumsThreadView.on("click:posts:show", function(data){
                 self.forumsPostView.options = {id: data.id};
                 self.contentRegion.show(self.forumsPostView);
             });
-            this.forumsThreadView.on("click:newthread:show", function(){
-                self.contentRegion.show(new ForumsThreadCreateView());
+            this.forumsThreadView.on("click:newthread:show", function(data){
+                self.forumsThreadCreateView.options = {model: data.model};
+                self.contentRegion.show(self.forumsThreadCreateView);
             });
             this.forumsPostView.on("click:newpost:show", function(){
                 self.contentRegion.show(new ForumsPostsCreateView());
             }); 
+            this.forumsThreadCreateView.on("click:returnThreads:show", function(data){
+                self.contentRegion.show(new ForumsThreadView({model: data.model}));
+            });
             // this.
         },
         regions: {

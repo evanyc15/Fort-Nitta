@@ -20,7 +20,7 @@ define([
             var self = this;
 
             Backbone.Validation.bind(this, {
-              model: this.model
+                model: this.model
             });
             this.model.bind('validated:valid', function(model) {
                 App.session.signup({

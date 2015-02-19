@@ -4,13 +4,14 @@ from sqlalchemy import and_, or_
 
 from backend import db, app
 from backend.database.models import User, ForumsThreads, ForumsPosts
+import json
 
 
 class ThreadsAPI(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
-            return jsonify(**{'success': 'none'}), 401
+            return jsonify(**{'success': 'none', 'category_id': request_data['category_id']}), 401
 
         if ('category_id' in request_data) and ('user_id' in request_data) and ('title' in request_data):
             new_thread = ForumsThreads(
@@ -24,9 +25,19 @@ class ThreadsAPI(MethodView):
             return jsonify(**{'success': True, 'id': new_thread.id})
         return jsonify(**{'success': False,}), 401
 
-    # def get(self):
+    def get(self):
+        threadArray = []
 
-    #     return jsonify(**{'success': False}), 401
+        category_id = request.args.get('id')
+        if category_id is "" or category_id is  None:
+            return jsonify(**{'success': False}), 401
+        threads = ForumsThreads.query.join(ForumsThreads.user).filter(ForumsThreads.category_id==category_id).all()
+        if threads is not None:
+            for data in threads:
+                jsonData = {'id':data.id,'category_id':data.category_id,'user_id':data.user_id,'username':data.user.username,'first_name':data.user.first_name,'last_name':data.user.last_name,'title':data.title,'replies':data.replies,'views':data.views,'date_created':data.date_created.strftime("%Y-%m-%d %H:%M:%S")}
+                threadArray.append(jsonData)
+            return json.dumps(threadArray)
+        return jsonify(**{'success': False}), 401
 
 class PostsAPI(MethodView):
     def post(self):

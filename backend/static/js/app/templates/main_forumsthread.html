@@ -21,22 +21,28 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="odd forumsThreadTile">
-                    <td class="forumsThreadTile-Info"> 
-                        <i class="fa fa-envelope-o forumsThread-icon"></i>
-                        <div class="forumsThreadSubject">
-                            <div class="forumsThreadSubject-title">TESTING</div>
-                            <div class="forumsThreadSubject-creator">Started by user, 08-08-1292</div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="forumsThread-Replies">Replies:</div>
-                        <div class="forumsThread-Views">Views:</div>
-                    </td>
-                    <td>
-                        <div class="forumsThread-LastPost"></div>
-                    </td>
-                </tr>
+                {{#each []}}
+                    {{#ifevenodd this.id}}
+                    <tr class="odd forumsThreadTile">
+                    {{else}}
+                    <tr class="even forumsThreadTile">
+                    {{/ifevenodd}}
+                        <td class="forumsThreadTile-Info"> 
+                            <i class="fa fa-envelope-o forumsThread-icon"></i>
+                            <div class="forumsThreadSubject">
+                                <div class="forumsThreadSubject-title">{{this.title}}</div>
+                                <div class="forumsThreadSubject-creator">Started by {{this.username}}, {{this.date_created}}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="forumsThread-Replies">Replies: {{this.replies}}</div>
+                            <div class="forumsThread-Views">Views: {{this.views}}</div>
+                        </td>
+                        <td>
+                            <div class="forumsThread-LastPost"></div>
+                        </td>
+                    </tr>
+                {{/each}}
             </tbody>
         </table>
     </div>
