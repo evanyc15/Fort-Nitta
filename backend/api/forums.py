@@ -7,8 +7,11 @@ from backend.database.models import User, ForumsThreads, ForumsPosts
 
 
 class ThreadsAPI(MethodView):
-    def POST(self):
+    def post(self):
         request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            return jsonify(**{'success': 'none'}), 401
+
         if ('category_id' in request_data) and ('user_id' in request_data) and ('title' in request_data):
             new_thread = ForumsThreads(
                     category_id =   request_data['category_id'],
@@ -19,19 +22,22 @@ class ThreadsAPI(MethodView):
             db.session.commit()
 
             return jsonify(**{'success': True, 'id': new_thread.id})
-        return jsonify(**{'success': False}), 401
+        return jsonify(**{'success': False,}), 401
 
-    def GET(self):
+    # def get(self):
 
-        return jsonify(**{'success': False}), 401
+    #     return jsonify(**{'success': False}), 401
 
 class PostsAPI(MethodView):
-    def POST(self):
+    def post(self):
         request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            return jsonify(**{'success': False}), 401
+
         if ('thread_id' in request_data) and ('user_id' in request_data) and ('message' in request_data):
             new_post = ForumsPosts(
-                    thread_id = request_data['thread_id']
-                    user_id =   request_data['user_id']
+                    thread_id = request_data['thread_id'],
+                    user_id =   request_data['user_id'],
                     message =   request_data['message']
                 )
             db.session.add(new_post)
@@ -40,12 +46,12 @@ class PostsAPI(MethodView):
             return jsonify(**{'success': True, 'id': new_post.id})
         return jsonify(**{'success': False}), 401
 
-    def GET(self):
+    # def get(self):
 
-        return jsonify(**{'success': False}), 401
+    #     return jsonify(**{'success': False}), 401
 
 class PostsImagesAPI(MethodView):
-    def POST(self):
+    def post(self):
 
         return jsonify(**{'success': False}), 401
 
