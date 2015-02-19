@@ -27,7 +27,6 @@ define([
             this.sse = new EventSource('/messageStream?from_username='+App.session.user.get('username')+'&to_username='+this.options.messagesUser.get('username'));
             this.sse.addEventListener('message', function(e) {
                 var results = JSON.parse(e.data);
-                var i;
 
                 self.collection.add(results, {merge: true});
                 $('.messages-loader').hide();

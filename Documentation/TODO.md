@@ -39,3 +39,4 @@ Frontend
 (12) Create friends
 (13) Gamify
 (14) Switching between forum views seems to break (only sometimes) due to view not existing anymore
+(15) Need Flask-side validation for forums threads, posts, images, etc

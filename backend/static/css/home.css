@@ -27,6 +27,11 @@ input.error {
 	border: 2px solid red;
 	margin: 0 0 1rem 0;
 }
+small.fail {
+	display: none;
+	margin: -16px 0px 16px 0px !important;
+	background-color: red !important;
+}
 small.success {
 	display: none;
 	margin: -16px 0px 16px 0px !important;

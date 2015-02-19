@@ -28,6 +28,12 @@ class User(db.Model, UserMixin):
     # One-to-many relationship with many GameStatistics models
     wins =          db.relationship('GameStatistics', backref='user', lazy='dynamic')
 
+    #One-to-many relationship with a Forums Threads model
+    user_forums_threads = db.relationship('ForumsThreads', backref='user', lazy='dynamic')
+
+    #One-to-many relationship with a Forums Posts model
+    user_forums_posts = db.relationship('ForumsPosts', backref='user', lazy='dynamic')
+
     def __init__(self, username, password, email, first_name, last_name):
         """
         Create a new User. Represents an account registration.
@@ -256,3 +262,95 @@ class ChatMessages(db.Model):
         String representation in console.
         """
         return '<ChatMessages: {0}>'.format(self.to_user)
+
+class ForumsCategories(db.Model):
+    """
+    Contains the categories for forums
+    """
+    id =                db.Column(db.Integer, primary_key=True)
+    category_name =     db.Column(db.String(512))
+
+    #One-to-many relationship with a Forums Threads model
+    forums_threads = db.relationship('ForumsThreads', backref='forums_categories', lazy='dynamic')
+
+class ForumsThreads(db.Model):
+    """
+    Contains the threads for forums
+    """
+    id =                db.Column(db.Integer, primary_key=True)
+    category_id =       db.Column(db.Integer, db.ForeignKey('forums_categories.id'))
+    user_id =           db.Column(db.Integer, db.ForeignKey('user.id'))
+    lastpost_id =       db.Column(db.Integer)
+    title =             db.Column(db.String(512))
+    replies =           db.Column(db.Integer)
+    views =             db.Column(db.Integer)
+    date_created =      db.Column(db.DateTime)    
+
+    #One-to-many relationship with a Forums Posts model
+    forums_posts = db.relationship('ForumsPosts', backref='forums_threads', lazy='dynamic')
+
+    def __init__(self, category_id, user_id, title):
+        """
+        Create a new Forum Thread under a specific Forum Category
+        """
+        self.category_id =      category_id
+        self.user_id =          user_id
+        self.title =            title
+        replies =               0
+        views =                 0
+        date_created =          datetime.datetime.now()
+
+class ForumsPosts(db.Model):
+    """
+    Contains the posts for forums
+    """
+    id =                db.Column(db.Integer, primary_key=True)
+    thread_id =         db.Column(db.Integer, db.ForeignKey('forums_threads.id'))
+    user_id =           db.Column(db.Integer, db.ForeignKey('user.id'))
+    message =           db.Column(db.String(4096))
+    date_created =      db.Column(db.DateTime)
+
+
+    #One-to-many relationship with a Forums Posts Likes model
+    forums_postsLikes = db.relationship('ForumsPostsLikes', backref='forums_posts', lazy='dynamic')
+    #One-to-many relationship with a Forums Posts Images model
+    forums_postsImages = db.relationship('ForumsPostsImages', backref='forums_posts', lazy='dynamic')
+
+    def __init__(self, thread_id, user_id, message):
+        """
+        Create a new Forum Post under a specific Forum Thread
+        """
+        self.thread_id =    thread_id
+        self.user_id =      user_id
+        self.message =      message
+        date_created =      datetime.datetime.now()
+
+class ForumsPostsLikes(db.Model):
+    """
+    Contains the images for posts in the forums
+    """
+    id =                db.Column(db.Integer, primary_key=True)
+    post_id =           db.Column(db.Integer, db.ForeignKey('forums_posts.id'))
+    user_id =           db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __init__(self, post_id, user_id):
+        """
+        Creates a like that is affiliated with a post
+        """
+        self.post_id =      post_id
+        self.user_id =      user_id
+
+class ForumsPostsImages(db.Model):
+    """
+    Contains the images for a post
+    """
+    id =            db.Column(db.Integer, primary_key=True)
+    post_id =       db.Column(db.Integer, db.ForeignKey('forums_posts.id'))
+    image_path =    db.Column(db.String(512))
+
+    def __init__(self, post_id, image_path):
+        """
+        Creates an image affiliated with a post
+        """
+        self.post_id = post_id
+        self.image_path = image_path

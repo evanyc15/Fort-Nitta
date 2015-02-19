@@ -29,7 +29,7 @@ def event_stream():
                 message_id = messageHolder.id
             to_user = User.query.filter_by(id = messageHolder.to_user).first()
             from_user = User.query.filter_by(id = messageHolder.from_user).first()
-            jsonData = {'message_id':messageHolder.id,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name,'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
+            jsonData = {'id':messageHolder.id,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name,'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
             messageList.append(jsonData)
         return "data: %s\n\n" % json.dumps(messageList)    
 
