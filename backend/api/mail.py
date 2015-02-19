@@ -81,40 +81,45 @@ class VerifyEmailApi(MethodView):
                 return jsonify(**{'success': False}), 401
         return jsonify(**{'success': False}), 401
 
-# running = False
-# def startEmailing(running):
-#     if not running:
-#         running = True
-#         logger.log("entered emailing")
-#         threading.Timer(1, lambda: sendEmail(0,"2-hour",2)).start()
-#         #threading.Timer(10, lambda: sendEmail(0,"immediate",10)).start()
+running = False
+def startEmailing(running):
+    if not running:
+        running = True
+        #logger.log("mail.py:startEmailing entered")
+        threading.Timer(1, lambda: sendEmail(0,"immediate",2)).start()
+        threading.Timer(1, lambda: sendEmail(0,"1-hour",3600)).start()
+        threading.Timer(1, lambda: sendEmail(0,"2-hour",7200)).start()
+        threading.Timer(1, lambda: sendEmail(0,"4-hour",14400)).start()
+        threading.Timer(1, lambda: sendEmail(0,"12-hour",43200)).start()
+        threading.Timer(1, lambda: sendEmail(0,"24-hour",86400)).start()
+        #STILL NEED TO TEST THIS
         
-# def sendEmail(PK, intervalID, intervalInSecs):
-#    with app.app_context():
-#     logger.log(str(PK) + " " + str(intervalID) + " " + str(intervalInSecs))
-#     queryObject = User.query.join(Settings, User.id==Settings.user_id).join(ChatMessages, Settings.user_id==ChatMessages.to_user).filter(and_(Settings.n_hour==intervalID, ChatMessages.id > PK)).all()
-#     #maxPK = ChatMessages.query(ChatMessages.id).group_by(ChatMessages.id).having(func.max(id)).first()
-#     maxPK = db.session.query(db.func.max(ChatMessages.id)).scalar()
+def sendEmail(PK, intervalID, intervalInSecs):
+   with app.app_context():
+    #logger.log(str(PK) + " " + str(intervalID) + " " + str(intervalInSecs))
+    queryObject = User.query.join(Settings, User.id==Settings.user_id).join(ChatMessages, Settings.user_id==ChatMessages.to_user).filter(and_(Settings.n_hour==intervalID, ChatMessages.id > PK)).all()
+    #maxPK = ChatMessages.query(ChatMessages.id).group_by(ChatMessages.id).having(func.max(id)).first()
+    maxPK = db.session.query(db.func.max(ChatMessages.id)).scalar()
     
-#     url = "optical.cs.ucdavis.edu"#"http://localhost:5000/" 
-#     string = ""
-#     emailArray = []
-#     for i in queryObject:
-#         emailArray.append(i.email);
-#     if len(emailArray) > 0:
-#         msg = Message('Fort Nitta New Message!',
-#                         sender='ecs160server.winter2015@gmail.com',
-#                         recipients= emailArray
-#                      )
-#         msg.body = ("Hey Fort Nitta user,\n\n" +
-#                     "   You have new unread messages waiting!\n   " +
-#                     "   Visit Fort Nitta now to check!\n   " + 
-#                     "\n\nAll the best,\n" + "Fort Nitta Team,\n"+url)
-#         mail.send(msg)
+    url = "http://localhost:5000/" #"optical.cs.ucdavis.edu"#"http://localhost:5000/" 
+    string = ""
+    emailArray = []
+    for i in queryObject:
+        emailArray.append(i.email);
+    if len(emailArray) > 0:
+        msg = Message('Fort Nitta New Message!',
+                        sender='ecs160server.winter2015@gmail.com',
+                        recipients= emailArray
+                     )
+        msg.body = ("Hey Fort Nitta user,\n\n" +
+                    "   You have new unread messages waiting!\n   " +
+                    "   Visit Fort Nitta now to check!\n   " + 
+                    "\n\nAll the best,\n" + "Fort Nitta Team,\n"+url)
+        mail.send(msg)
     
-#     threading.Timer(intervalInSecs, lambda: sendEmail(maxPK,intervalID,intervalInSecs)).start();
+    threading.Timer(intervalInSecs, lambda: sendEmail(maxPK,intervalID,intervalInSecs)).start();
 
-# startEmailing(running)    
+startEmailing(running) 
 
 password_rec_view = PasswordRecApi.as_view('password_rec_api')
 app.add_url_rule('/api/recpassmail/', view_func=password_rec_view, methods=['POST'])

@@ -4,7 +4,7 @@ from flask.ext.login import current_user, login_user
 from sqlalchemy import and_, update
 import logger
 
-# from backend.api.mail import sendEmail
+from backend.api.mail import sendEmail
 
 from backend import db, app
 from backend.database.models import User, Presence, UserStatistics, Settings, ChatMessages
@@ -63,7 +63,7 @@ def change_emailSettings(username, n_hour=None):
 
     setting.n_hour = n_hour
     #Settings.update().values(n_hour=n_hour).where(Settings.user_id == user.id);
-    #db.session.add(setting)
+    db.session.add(setting)
     db.session.commit()
 
     return jsonify(**{'success': True}), 200
