@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
     # One-to-one relationship with a UserStatistics model
     stats =         db.relationship('UserStatistics', backref='user', uselist=False)
     # One-to-many relationship with many GameStatistics models
-    wins =          db.relationship('GameStatistics', backref='user', lazy='dynamic')
+    #wins =          db.relationship('GameStatistics', backref='user', lazy='dynamic')
 
     #One-to-many relationship with a Forums Threads model
     user_forums_threads = db.relationship('ForumsThreads', backref='user', lazy='dynamic')
@@ -130,11 +130,11 @@ class Presence(db.Model):
 
 
 
-# Many-to-many table relating games that users have played.
-games = db.Table('games',
-    db.Column('game_id', db.Integer, db.ForeignKey('game.id')),
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
-)
+## Many-to-many table relating games that users have played.
+#games = db.Table('games',
+ #   db.Column('game_id', db.Integer, db.ForeignKey('game.id')),
+  #  db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
+#)
 
 class Game(db.Model):
     """
@@ -144,11 +144,14 @@ class Game(db.Model):
     """
     id =            db.Column(db.Integer, primary_key=True)
     time_played =   db.Column(db.DateTime)
+    num_players = db.Column(db.Integer)
+    winner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    
 
     # Many-to-many relationship with many User models
-    users =         db.relationship('User', secondary=games, backref=db.backref('games', lazy='dynamic'))
+    #users =         db.relationship('User', secondary=games, backref=db.backref('games', lazy='dynamic'))
     # One-to-one relationship with a GameStatistics model
-    stats =         db.relationship('GameStatistics', backref='game', uselist=False)
+    #stats =         db.relationship('GameStatistics', backref='game', uselist=False)
 
     def __repr__(self):
         """
@@ -158,7 +161,7 @@ class Game(db.Model):
 
 
 
-class GameStatistics(db.Model):
+class GameInfo(db.Model):
     """
     Contains statistics for a single game played.
     Has a strong one-to-one mapping with a Game.
@@ -166,15 +169,19 @@ class GameStatistics(db.Model):
     id =                db.Column(db.Integer, primary_key=True)
 
     # Foreign Key: One-to-one relationship with a User model
-    winner_user_id =    db.Column(db.Integer, db.ForeignKey('user.id'))
+    #winner_user_id =    db.Column(db.Integer, db.ForeignKey('user.id'))
     # Foreign Key: One-to-one relationship with a Game model
     game_id =           db.Column(db.Integer, db.ForeignKey('game.id'))
+    #Foreign Key: user
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    accuracy = db.Column(db.Float)
+    platform = db.Column(db.String)
 
     def __repr__(self):
         """
         String representation in console.
         """
-        return '<GameStatistics: {0}>'.format(self.id)
+        return '<GameInfo: {0}>'.format(self.id)
 
 
 
