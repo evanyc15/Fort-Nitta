@@ -22,7 +22,8 @@ require.config({
         "text":"../libs/plugins/text",
         "datatables":"../libs/plugins/jquery.dataTables/js/jquery.dataTables.min",
         "foundation-datatables":"../libs/plugins/jquery.dataTables/foundation/dataTables.foundation.min",
-        "moment":"../libs/plugins/moment"
+        "moment":"../libs/plugins/moment",
+        "slick":"../libs/plugins/slick/slick.min"
     },
     // Sets the configuration for your third party scripts that are not AMD compatible
     shim:{
@@ -47,7 +48,8 @@ require.config({
             "exports":"Handlebars"
         },
         // Backbone.validateAll plugin (https://github.com/gfranko/Backbone.validateAll)
-        "backbone.validateAll":["backbone"]
+        "backbone.validateAll":["backbone"],
+        "slick":["jquery"]
     }
 });
 

@@ -3,3 +3,5 @@
 @import url("font-awesome/css/font-awesome.min.css");
 @import url("../js/libs/plugins/jquery.dataTables/foundation/dataTables.foundation.css");
 @import url("jquery-ui.min.css");
+@import url("slick/slick.css");
+@import url("slick/slick-theme.css");

@@ -11,7 +11,8 @@ define([
     'views/Main_ForumsThread-Create',
     'views/Main_ForumsPosts-Create',
     'models/ForumsCategoryModel',
-    'text!templates/main_forumslayout.html'
+    'text!templates/main_forumslayout.html',
+    'slick'
 ],  function (App, $, Backbone, Marionette, _, Handlebars, ForumsMainView, ForumsThreadView, ForumsPostView, ForumsThreadCreateView, ForumsPostsCreateView, ForumsCategoryModel, template) {
 
     "use strict";

@@ -23,7 +23,6 @@ define([
                 model: this.model
             });
             this.model.bind('validated:valid', function(model) {
-                console.log("hello");
                 $.ajax({
                     url: '/api/forums/posts',
                     type: 'POST',
@@ -84,7 +83,6 @@ define([
                 event.stopPropagation();
                 event.preventDefault();
             }
-            console.log("clicked");
             if(this.$("#forumsPostsCreate-textarea") != ""){
                 this.model.set({
                     'message': this.$("#forumsPostsCreate-textarea").val(),
