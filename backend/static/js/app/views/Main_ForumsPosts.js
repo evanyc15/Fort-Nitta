@@ -33,7 +33,7 @@ define([
         },
         onRender: function() {
             var self = this;
-
+            
             $.ajax({
                 url: '/api/forums/posts?thread_id='+this.options.model.get('id')+'&user_id='+App.session.user.get('uid'),
                 type: 'GET',
@@ -45,7 +45,6 @@ define([
                 },
                 success: function(data){
 
-                    console.log(data)
                     self.collection.add(data, {merge: true});
 
                     var html = self.template(self.collection.toJSON());

@@ -70,6 +70,11 @@ define([
                     self.$el.html(html);
 
                     self.$el.find("#forumsThread-header").text(header);
+
+                    // Redirect to a Thread's specific post if the user has inputted the right url into the browser.
+                    if(self.options.id && self.options.id !== "null"){
+                        self.trigger("click:posts:show", {model: self.collection.get(self.options.id), 'redirect': true});
+                    }
                 },
                 error: function(data){
                    
@@ -87,12 +92,12 @@ define([
                     });
                 }
             });    
-
         },
         postShow: function(event){
             var id = $(event.target).closest(".forumsThreadTile").data("id");
 
-            this.trigger("click:posts:show", {model: this.collection.get(id)});
+            // Redirect is to determine if user inputted an url to a specific post or if they are going to the post via clicking from categories->threads->post
+            this.trigger("click:posts:show", {model: this.collection.get(id), 'redirect': false});
         },
         newThread: function(event){
             if(event){

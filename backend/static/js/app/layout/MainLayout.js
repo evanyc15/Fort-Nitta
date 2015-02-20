@@ -71,9 +71,17 @@ define([
 			} else if(this.options.action === "messages"){
 				this.contentRegion.show(new MessagesLayout());
 			} else if(this.options.action === "forums"){
-				this.contentRegion.show(new ForumsLayout({
-					action: self.options.action2
-				}));
+				if(this.options.id && this.options.id != ""){
+					var id = parseInt(self.options.id.substring(3));
+					this.contentRegion.show(new ForumsLayout({
+						action: self.options.action2,
+						id: id
+					}));
+				} else{
+					this.contentRegion.show(new ForumsLayout({
+						action: self.options.action2
+					}));
+				}
 			} else{
 				this.contentRegion.show(new MyProfileView());
 			}

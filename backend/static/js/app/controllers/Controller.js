@@ -58,6 +58,7 @@ define([
             });          
         },
         main: function (action, action2, id) {
+
             // Check the auth status upon initialization,
             // if logged in, continue to main page
 

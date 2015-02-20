@@ -50,12 +50,13 @@ define([
         onRender: function(){
             // var self = this;
 
+
             var action = this.options.action;
             var actionArray = ["ccintroductions","ccgeneralnewsdiscussion","ccgeneralhelphowto","platformandroid",
                                 "plaformiososx","platformlinux","platformwindows","supportuseraccounts"];
 
             if(action && action !== "null" && (actionArray.indexOf(action) > -1)){
-                this.forumsThreadView.options = {model: new ForumsCategoryModel({'category_name': action})};
+                this.forumsThreadView.options = {model: new ForumsCategoryModel({'category_name': action}), id: this.options.id};
                 this.contentRegion.show(this.forumsThreadView);
             } else {
                 this.contentRegion.show(this.forumsMainView);
@@ -88,6 +89,9 @@ define([
 
             this.forumsPostsView.options = {model: data.model};
             this.contentRegion.show(this.forumsPostsView);
+            if(!data.redirect){
+                Backbone.history.navigate(Backbone.history.fragment+"?id="+data.model.get('id')); 
+            }
 
             /* When Posts view is shown, the Thread view has been destroyed
              * Thus, we re-instantiate Thread view and rebind its callbacks

@@ -12,6 +12,7 @@ define([
             'home/:action/:id': 'index',
             'home/:action': 'index',
             'home': 'index', 
+            'main/:action/:action2/:id': 'main',
             'main/:action/:action2': 'main', 
             'main/:action/:id': 'main',
             'main/:action': 'main',
