@@ -3,7 +3,7 @@ from flask.views import MethodView
 from sqlalchemy import and_, or_
 
 from backend import db, app
-from backend.database.models import User, ForumsThreads, ForumsPosts
+from backend.database.models import User, ForumsThreads, ForumsPosts, ForumsPostsLikes
 import json
 
 
@@ -60,13 +60,19 @@ class PostsAPI(MethodView):
     def get(self):
         postsArray = []
 
-        thread_id = request.args.get('id')
-        if thread_id is "" or thread_id is None:
+        thread_id = request.args.get('thread_id')
+        user_id = request.args.get('user_id')
+        if thread_id is "" or thread_id is None or user_id is "" or user_id is None:
             return jsonify(**{'success': 'none'}), 401
         posts = ForumsPosts.query.join(ForumsPosts.user).filter(ForumsPosts.thread_id==thread_id).all()
         if posts is not None:
             for data in posts:
-                jsonData = {'id':data.id,'thread_id':data.thread_id,'user_id':data.user_id,'username':data.user.username,'first_name':data.user.first_name,'last_name':data.user.last_name,'message':data.message,'date_created':data.date_created.strftime("%Y-%m-%d %H:%M:%S")}
+                userinLikes = True
+                likesCount = ForumsPostsLikes.query.filter(ForumsPostsLikes.post_id==data.id).count()
+                userinLikesCheck = ForumsPostsLikes.query.filter(and_(ForumsPostsLikes.post_id==data.id,ForumsPostsLikes.user_id==user_id)).first()
+                if userinLikesCheck is None:
+                    userinLikes = False
+                jsonData = {'id':data.id,'thread_id':data.thread_id,'user_id':data.user_id,'username':data.user.username,'first_name':data.user.first_name,'last_name':data.user.last_name,'message':data.message,'date_created':data.date_created.strftime("%Y-%m-%d %H:%M:%S"),'user_inLikes':userinLikes,'likes_Count':likesCount}
                 postsArray.append(jsonData)
             return json.dumps(postsArray)
         return jsonify(**{'success': False}), 401
@@ -74,6 +80,23 @@ class PostsAPI(MethodView):
 class PostsImagesAPI(MethodView):
     def post(self):
 
+        return jsonify(**{'success': False}), 401
+
+class PostsLikesAPI(MethodView):
+    def post(self):
+        request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            return jsonify(**{'success': 'none'}), 401
+
+        if ('post_id' in request_data) and ('user_id' in request_data):
+            new_like = ForumsPostsLikes(
+                post_id = request_data['post_id'],
+                user_id = request_data['user_id']    
+            )
+            db.session.add(new_like)
+            db.session.commit()
+
+            return jsonify(**{'success': True, 'id': new_like.id})
         return jsonify(**{'success': False}), 401
 
 threads_view = ThreadsAPI.as_view('threads_api')
@@ -84,3 +107,6 @@ app.add_url_rule('/api/forums/posts', view_func=posts_view, methods=['POST','GET
 
 postsimage_view = PostsImagesAPI.as_view('postsimages_api')
 app.add_url_rule('/api/forums/postsimages', view_func=postsimage_view, methods=['POST'])
+
+postslikes_view = PostsLikesAPI.as_view('postslike_api')
+app.add_url_rule('/api/forums/likes', view_func=postslikes_view, methods=['POST'])

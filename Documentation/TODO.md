@@ -40,3 +40,9 @@ Frontend
 (13) Gamify
 (14) Switching between forum views seems to break (only sometimes) due to view not existing anymore
 (15) Need Flask-side validation for forums threads, posts, images, etc
+(16) Timer on players list
+(17) Scroll bar not showing on players list
+(18) Messaging not using "read" flag
+(19) Forum navigator to go forward and back between categories, threads, posts
+(20) Messaging avatar pictures
+(21) Forum post images and lightbox

@@ -312,9 +312,9 @@ class ForumsPosts(db.Model):
 
 
     #One-to-many relationship with a Forums Posts Likes model
-    forums_postsLikes = db.relationship('ForumsPostsLikes', backref='forums_posts', lazy='dynamic')
+    forums_postsLikes = db.relationship('ForumsPostsLikes', backref='posts_likes', lazy='dynamic')
     #One-to-many relationship with a Forums Posts Images model
-    forums_postsImages = db.relationship('ForumsPostsImages', backref='forums_posts', lazy='dynamic')
+    forums_postsImages = db.relationship('ForumsPostsImages', backref='posts_images', lazy='dynamic')
 
     def __init__(self, thread_id, user_id, message):
         """

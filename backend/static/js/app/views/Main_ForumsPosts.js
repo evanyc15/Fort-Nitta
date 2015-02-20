@@ -28,13 +28,14 @@ define([
             });
         },
         events: {
-           "click #forumsPosts-reply": "newPost"
+           "click #forumsPosts-reply": "newPost",
+           "click .forumsPostsTile-likeButton": "newLike"
         },
         onRender: function() {
             var self = this;
 
             $.ajax({
-                url: '/api/forums/posts?id='+this.options.model.get('id'),
+                url: '/api/forums/posts?thread_id='+this.options.model.get('id')+'&user_id='+App.session.user.get('uid'),
                 type: 'GET',
                 contentType: 'application/json',
                 dataType: 'json',
@@ -43,6 +44,8 @@ define([
                     withCredentials: true
                 },
                 success: function(data){
+
+                    console.log(data)
                     self.collection.add(data, {merge: true});
 
                     var html = self.template(self.collection.toJSON());
@@ -67,6 +70,32 @@ define([
                 event.preventDefault();
             }
             this.trigger("click:newpost:show", {model: this.options.model});
+        },
+        newLike: function(event){
+            var htmlElement = $(event.target);
+
+            if(htmlElement.find('i.fa-thumbs-o-up').length !== 0){
+                var id = htmlElement.closest('.forumsPostsTile').data('id');
+
+                $.ajax({
+                    url: '/api/forums/likes',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify({'user_id': App.session.user.get('uid'), 'post_id': id}),
+                    crossDomain: true,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function(data){
+                        if(data.success){
+                            htmlElement.removeClass('default').addClass('secondary');
+                            htmlElement.find('i.fa-thumbs-o-up').removeClass('fa-thumbs-o-up').addClass('fa-thumbs-up');
+                            htmlElement.find('span').text(parseInt(htmlElement.find('span').text())+1);
+                        }
+                    }
+                });
+            }
         }
         
     });

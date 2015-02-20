@@ -35,7 +35,17 @@
                                     <div class="forumsPostsTile-img"><img src="../../../img/placeholder-user.png"></div>
                                 </div>
                                 <div class="large-10 columns">
-                                    {{this.message}}
+                                    <div class="forumsPostsTile-message">{{this.message}}</div>  
+                                    <hr style="margin:5px;">
+                                        {{#if this.user_inLikes}}
+                                        <a href="javascript:void(0)" class="button tiny secondary forumsPostsTile-likeButton">
+                                        <i class="fa fa-thumbs-up"></i>
+                                        {{else}}
+                                        <a href="javascript:void(0)" class="button tiny default forumsPostsTile-likeButton">
+                                        <i class="fa fa-thumbs-o-up"></i>
+                                        {{/if}}
+                                        &nbsp;Likes (<span>{{this.likes_Count}}</span>)
+                                    </a>
                                 </div>
                             </div>
                         </td>
