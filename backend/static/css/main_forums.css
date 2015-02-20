@@ -101,11 +101,16 @@
     background-color: #E8E8E8;
 }
 .forumsPostsTile .large-10.columns {
-    height: 190px;
+    background-color: #E8E8E8;
+    height: 218px;
+    padding: 0;
 }
 .forumsPostsTile-message {
     overflow-y: auto;
-    height: 125px;
+    background-color: white;
+    height: 153px;
+    margin: 0px 0px 10px 0px;
+    padding: 10px;
 }
 .forumsPostsTile-Header {
     padding: 5px 15px 5px 15px;
@@ -119,8 +124,8 @@
 .forumsPostsTile-img {
     margin-top: 20px;
     margin-left: 10px;
-    width: 125px;
-    height: 125px;
+    width: 150px;
+    height: 150px;
 }
 .forumsPostsTile-dateCreated {
     display: inline-block;
@@ -133,6 +138,26 @@
 .forumsPostsTile-likeButton {
     padding: 10px 12px 10px 12px !important;
     float: right;
+    right: 5px;
+    bottom: -15px;
+}
+.slick-imageContainer {
+    margin: 0px 150px 0px 150px;
+    width: 450px;
+}
+.slick-images {
+    border: 1px solid #D8D8D8;
+    -webkit-box-shadow: inset 0px 0px 5px 4px rgba(230,227,230,1);
+    -moz-box-shadow: inset 0px 0px 5px 4px rgba(230,227,230,1);
+    box-shadow: inset 0px 0px 5px 4px rgba(230,227,230,1);
+    margin: 0px 50px 0px 50px;
+    background-color: rgba(230,227,230,1);
+}
+.slick-images div {
+    height: 30px;
+}
+.slick-images div img {
+    height: 100%;
 }
 
 /* Forum Thread Create CSS */

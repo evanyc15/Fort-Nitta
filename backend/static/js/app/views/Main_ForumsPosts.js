@@ -51,6 +51,16 @@ define([
                     self.$el.html(html);
 
                     self.$el.find("#forumsPosts-header").text(self.options.model.get('title'));
+                    $('.slick-images').slick({
+                        accessibility: true,
+                        centerMode: true,
+                        arrows: true,
+                        cssEase: 'ease',
+                        dots: true,
+                        infinite: true,
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    });
 
                 },
                 error: function(data){
