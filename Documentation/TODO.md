@@ -46,3 +46,4 @@ Frontend
 (19) Forum navigator to go forward and back between categories, threads, posts
 (20) Messaging avatar pictures
 (21) Forum post images and lightbox
+(22) Forum posts reply is posting multiple times

@@ -55,13 +55,16 @@ define([
                 },
                 error: function(data){
                    
+                },
+                complete: function(){
+                    self.$el.find("#postsTable").DataTable({
+                        "sPaginationType": "full_numbers",
+                        "bSort": false,
+                        "iDisplayLength": 5,
+                    });
                 }
             });    
-            this.$el.find("#postsTable").DataTable({
-                "aDataSort": false,
-                "aaSorting": [],
-                "bSort": false
-            });
+            
         },
         newPost: function(event){
             if(event){

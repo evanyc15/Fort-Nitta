@@ -15,14 +15,15 @@ define([
 
         initialize: function(options){
             this.options = options;
-
             var self = this;
+
+            this.model.clear();
 
             Backbone.Validation.bind(this, {
                 model: this.model
             });
             this.model.bind('validated:valid', function(model) {
-
+                console.log("hello");
                 $.ajax({
                     url: '/api/forums/posts',
                     type: 'POST',
@@ -71,11 +72,19 @@ define([
         onRender: function() {
           
         },
+        onBeforeDestroy: function(){
+            // Need to unbind events to prevent model validation from occuring multiple times when re-entering this view
+            // If we do not unbind, there will be multiple bindings of the same event on the same object which causes it to
+            // fire multiple times.
+            Backbone.Validation.unbind(this, {model: this.model});
+            this.model.unbind();
+        },
         submitPost: function(event){
             if(event){
                 event.stopPropagation();
                 event.preventDefault();
             }
+            console.log("clicked");
             if(this.$("#forumsPostsCreate-textarea") != ""){
                 this.model.set({
                     'message': this.$("#forumsPostsCreate-textarea").val(),

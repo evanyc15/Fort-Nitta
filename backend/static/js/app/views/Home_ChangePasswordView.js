@@ -93,6 +93,13 @@ define([
            "click #backLoginButton": "loginShow",
            "click #passwordButton": "changePassword"
         },
+        onBeforeDestroy: function(){
+            // Need to unbind events to prevent model validation from occuring multiple times when re-entering this view
+            // If we do not unbind, there will be multiple bindings of the same event on the same object which causes it to
+            // fire multiple times.
+            Backbone.Validation.unbind(this, {model: this.model});
+            this.model.unbind();
+        },
         loginShow: function() {
             this.trigger("click:login:show");
         },
