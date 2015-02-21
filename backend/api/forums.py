@@ -99,14 +99,27 @@ class PostsLikesAPI(MethodView):
             return jsonify(**{'success': True, 'id': new_like.id})
         return jsonify(**{'success': False}), 401
 
+    def delete(self):
+        request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            return jsonify(**{'success': 'none'}), 401
+
+        if ('post_id' in request_data) and ('user_id' in request_data):
+            post_like = ForumsPostsLikes.query.filter(and_(ForumsPostsLikes.post_id==request_data['post_id'],ForumsPostsLikes.user_id==request_data['user_id'])).first()
+            db.session.delete(post_like)
+            db.session.commit()
+
+            return jsonify(**{'success': True})
+        return jsonify(**{'success': False}), 401
+
 threads_view = ThreadsAPI.as_view('threads_api')
-app.add_url_rule('/api/forums/threads', view_func=threads_view, methods=['POST','GET'])
+app.add_url_rule('/api/forums/threads/', view_func=threads_view, methods=['POST','GET'])
 
 posts_view = PostsAPI.as_view('posts_api')
-app.add_url_rule('/api/forums/posts', view_func=posts_view, methods=['POST','GET'])
+app.add_url_rule('/api/forums/posts/', view_func=posts_view, methods=['POST','GET'])
 
 postsimage_view = PostsImagesAPI.as_view('postsimages_api')
-app.add_url_rule('/api/forums/postsimages', view_func=postsimage_view, methods=['POST'])
+app.add_url_rule('/api/forums/postsimages/', view_func=postsimage_view, methods=['POST'])
 
 postslikes_view = PostsLikesAPI.as_view('postslike_api')
-app.add_url_rule('/api/forums/likes', view_func=postslikes_view, methods=['POST'])
+app.add_url_rule('/api/forums/likes/', view_func=postslikes_view, methods=['POST','DELETE'])

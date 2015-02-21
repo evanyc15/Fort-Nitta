@@ -90,6 +90,11 @@
     margin-bottom: 5px !important;
     padding: 10px;
 }
+#postsTable_filter label input {
+    height: 25px !important;
+    padding: 5px !important;
+    margin-left: 5px !important;
+}
 .forumsPostsTile {
     margin: 0 !important;
     border: 1px solid #D8D8D8;
@@ -102,13 +107,13 @@
 }
 .forumsPostsTile .large-10.columns {
     background-color: #E8E8E8;
-    height: 218px;
+    height: 228px;
     padding: 0;
 }
 .forumsPostsTile-message {
     overflow-y: auto;
     background-color: white;
-    height: 153px;
+    height: 160px;
     margin: 0px 0px 10px 0px;
     padding: 10px;
 }
@@ -124,8 +129,8 @@
 .forumsPostsTile-img {
     margin-top: 20px;
     margin-left: 10px;
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
 }
 .forumsPostsTile-dateCreated {
     display: inline-block;
@@ -138,8 +143,8 @@
 .forumsPostsTile-likeButton {
     padding: 10px 12px 10px 12px !important;
     float: right;
-    right: 5px;
-    bottom: -15px;
+    right: 10px;
+    bottom: -10px;
 }
 .slick-imageContainer {
     margin: 0px 150px 0px 150px;
@@ -150,8 +155,9 @@
     -webkit-box-shadow: inset 0px 0px 5px 4px rgba(230,227,230,1);
     -moz-box-shadow: inset 0px 0px 5px 4px rgba(230,227,230,1);
     box-shadow: inset 0px 0px 5px 4px rgba(230,227,230,1);
+    background-color: #E8E8E8;
     margin: 0px 50px 0px 50px;
-    background-color: rgba(230,227,230,1);
+    padding: 2px;
 }
 .slick-images div {
     height: 30px;

@@ -24,7 +24,7 @@ define([
             });
             this.model.bind('validated:valid', function(model) {
                 $.ajax({
-                    url: '/api/forums/posts',
+                    url: '/api/forums/posts/',
                     type: 'POST',
                     contentType: 'application/json',
                     dataType: 'json',

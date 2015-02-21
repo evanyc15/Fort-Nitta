@@ -45,6 +45,8 @@ define([
                 },
                 success: function(data){
 
+                    console.log(data);
+
                     self.collection.add(data, {merge: true});
 
                     var html = self.template(self.collection.toJSON());
@@ -71,6 +73,7 @@ define([
                         "sPaginationType": "full_numbers",
                         "bSort": false,
                         "iDisplayLength": 5,
+                        "bLengthChange": false //used to hide the property  
                     });
                 }
             });    
@@ -84,13 +87,13 @@ define([
             this.trigger("click:newpost:show", {model: this.options.model});
         },
         newLike: function(event){
-            var htmlElement = $(event.target);
+            var htmlElement = $(event.target).closest('.large-10.columns').find('.forumsPostsTile-likeButton');
 
-            if(htmlElement.find('i.fa-thumbs-o-up').length !== 0){
+            if(htmlElement.hasClass('notLiked')){
                 var id = htmlElement.closest('.forumsPostsTile').data('id');
 
                 $.ajax({
-                    url: '/api/forums/likes',
+                    url: '/api/forums/likes/',
                     type: 'POST',
                     contentType: 'application/json',
                     dataType: 'json',
@@ -102,8 +105,32 @@ define([
                     success: function(data){
                         if(data.success){
                             htmlElement.removeClass('default').addClass('secondary');
+                            htmlElement.removeClass('notLiked').addClass('isLiked');
                             htmlElement.find('i.fa-thumbs-o-up').removeClass('fa-thumbs-o-up').addClass('fa-thumbs-up');
-                            htmlElement.find('span').text(parseInt(htmlElement.find('span').text())+1);
+                            htmlElement.find('.forumsPostsTile-likeText').text('Unlike');
+                            htmlElement.find('.forumsPostsTile-likeCountText').text(parseInt(htmlElement.find('.forumsPostsTile-likeCountText').text())+1);
+                        }
+                    }
+                });
+            } else if(htmlElement.hasClass('isLiked')){
+                var id = htmlElement.closest('.forumsPostsTile').data('id');
+                $.ajax({
+                    url: '/api/forums/likes/',
+                    type: 'DELETE',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify({'user_id': App.session.user.get('uid'), 'post_id': id}),
+                    crossDomain: true,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function(data){
+                        if(data.success){
+                            htmlElement.removeClass('secondary').addClass('default');
+                            htmlElement.removeClass('isLiked').addClass('notLiked');
+                            htmlElement.find('i.fa-thumbs-up').removeClass('fa-thumbs-up').addClass('fa-thumbs-o-up');
+                            htmlElement.find('.forumsPostsTile-likeText').text('Like');
+                            htmlElement.find('.forumsPostsTile-likeCountText').text(parseInt(htmlElement.find('.forumsPostsTile-likeCountText').text())-1);
                         }
                     }
                 });

@@ -37,13 +37,15 @@
                                 <div class="large-10 columns">
                                     <div class="forumsPostsTile-message">{{this.message}}</div>  
                                         {{#if this.user_inLikes}}
-                                        <a href="javascript:void(0)" class="button tiny secondary forumsPostsTile-likeButton">
+                                        <a href="javascript:void(0)" class="button tiny secondary forumsPostsTile-likeButton isLiked">
                                             <i class="fa fa-thumbs-up"></i>
+                                            &nbsp;<span class="forumsPostsTile-likeText">Unlike</span> 
                                             {{else}}
-                                            <a href="javascript:void(0)" class="button tiny default forumsPostsTile-likeButton">
+                                            <a href="javascript:void(0)" class="button tiny default forumsPostsTile-likeButton notLiked">
                                             <i class="fa fa-thumbs-o-up"></i>
+                                            &nbsp;<span class="forumsPostsTile-likeText">Like</span> 
                                             {{/if}}
-                                            &nbsp;Likes (<span>{{this.likes_Count}}</span>)
+                                            (<span class="forumsPostsTile-likeCountText">{{this.likes_Count}}</span>)
                                         </a>
                                     <div class="slick-imageContainer">
                                         <div class="slick-images">
