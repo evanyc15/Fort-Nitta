@@ -21,6 +21,7 @@ define([
                 model: this.model
             });
             this.model.bind('validated:valid', function(model) {
+                console.log("validated");
 
                 $.ajax({
                     url: '/api/forums/threads/',

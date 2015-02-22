@@ -45,8 +45,6 @@ define([
                 },
                 success: function(data){
 
-                    console.log(data);
-
                     self.collection.add(data, {merge: true});
 
                     var html = self.template(self.collection.toJSON());

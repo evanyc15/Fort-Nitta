@@ -31,7 +31,7 @@ class ThreadsAPI(MethodView):
         category_id = request.args.get('id')
         if category_id is "" or category_id is None:
             return jsonify(**{'success': 'none'}), 401
-        threads = ForumsThreads.query.join(ForumsThreads.user).filter(ForumsThreads.category_id==category_id).all()
+        threads = ForumsThreads.query.join(ForumsThreads.user).filter(ForumsThreads.category_id==category_id).order_by(ForumsThreads.date_created.desc()).all()
         if threads is not None:
             for data in threads:
                 jsonData = {'id':data.id,'category_id':data.category_id,'user_id':data.user_id,'username':data.user.username,'first_name':data.user.first_name,'last_name':data.user.last_name,'title':data.title,'replies':data.replies,'views':data.views,'date_created':data.date_created.strftime("%Y-%m-%d %H:%M:%S")}
@@ -64,7 +64,7 @@ class PostsAPI(MethodView):
         user_id = request.args.get('user_id')
         if thread_id is "" or thread_id is None or user_id is "" or user_id is None:
             return jsonify(**{'success': 'none'}), 401
-        posts = ForumsPosts.query.join(ForumsPosts.user).filter(ForumsPosts.thread_id==thread_id).all()
+        posts = ForumsPosts.query.join(ForumsPosts.user).filter(ForumsPosts.thread_id==thread_id).order_by(ForumsPosts.date_created.desc()).all()
         if posts is not None:
             for data in posts:
                 userinLikes = True

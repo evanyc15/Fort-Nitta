@@ -176,6 +176,11 @@
     padding: 10px;
     background-color: white;
 }
+#threadTable_filter label input {
+    height: 25px !important;
+    padding: 5px !important;
+    margin-left: 5px !important;
+}
 .forumsThreadCreate-Header {
     padding: 5px 15px 5px 15px;
 }

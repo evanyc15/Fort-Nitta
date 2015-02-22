@@ -91,6 +91,7 @@ define([
                             { "sWidth": "10%" },
                             { "sWidth": "20%" },
                         ],
+                        "bLengthChange": false //used to hide the property  
                     });
                 }
             });    
