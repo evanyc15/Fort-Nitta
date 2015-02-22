@@ -174,8 +174,9 @@ class GameInfo(db.Model):
     game_id =           db.Column(db.Integer, db.ForeignKey('game.id'))
     #Foreign Key: user
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    accuracy = db.Column(db.Float)
-    platform = db.Column(db.String)
+    numCannons = db.Column(db.Integer)
+    numFires = db.Column(db.Integer)
+    numWalls = db.Column(db.Integer)
 
     def __repr__(self):
         """
