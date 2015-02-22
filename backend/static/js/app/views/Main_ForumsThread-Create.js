@@ -23,7 +23,7 @@ define([
             this.model.bind('validated:valid', function(model) {
 
                 $.ajax({
-                    url: '/api/forums/threads',
+                    url: '/api/forums/threads/',
                     type: 'POST',
                     contentType: 'application/json',
                     dataType: 'json',
@@ -67,8 +67,7 @@ define([
             "click #forumsThreadCreate-buttonSubmit": "submitThread",
             "click #forumsThreadCreate-buttonCancel": "cancelButton"
         },
-        onRender: function() {
-            
+        onRender: function() {            
         },
         onBeforeDestroy: function(){
             // Need to unbind events to prevent model validation from occuring multiple times when re-entering this view

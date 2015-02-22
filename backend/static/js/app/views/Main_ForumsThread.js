@@ -52,6 +52,8 @@ define([
             var categoryModel = this.categoryCollection.findWhere({'category_name':this.options.model.get('category_name').toLowerCase()});
             header = jsonHeaders[categoryModel.get('category_name').toLowerCase()];
 
+            this.options.model.set({id:categoryModel.get('id')});
+
             this.$(".forumsThreadTile").remove();
             $.ajax({
                 url: '/api/forums/threads?id='+categoryModel.get('id'),
