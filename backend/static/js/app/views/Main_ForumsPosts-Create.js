@@ -15,16 +15,20 @@ define([
 
         initialize: function(options){
             this.options = options;
+        },
+        events: {
+            "click #forumsPostsCreate-buttonSubmit": "submitPost",
+            "click #forumsPostsCreate-buttonCancel": "cancelButton"
+        },
+        onRender: function() {
             var self = this;
-
-            this.model.clear();
 
             Backbone.Validation.bind(this, {
                 model: this.model
             });
             this.model.bind('validated:valid', function(model) {
-                console.log("validated");
-                
+                console.log("options",self.options.model);
+
                 $.ajax({
                     url: '/api/forums/posts/',
                     type: 'POST',
@@ -66,18 +70,10 @@ define([
                 self.model.clear();
             });
         },
-        events: {
-            "click #forumsPostsCreate-buttonSubmit": "submitPost",
-            "click #forumsPostsCreate-buttonCancel": "cancelButton"
-        },
-        onRender: function() {
-          
-        },
-        onBeforeDestroy: function(){
-            // Need to unbind events to prevent model validation from occuring multiple times when re-entering this view
-            // If we do not unbind, there will be multiple bindings of the same event on the same object which causes it to
-            // fire multiple times.
+        onClose: function(){
+            this.remove();
             Backbone.Validation.unbind(this, {model: this.model});
+            this.unbind();
             this.model.unbind();
         },
         submitPost: function(event){

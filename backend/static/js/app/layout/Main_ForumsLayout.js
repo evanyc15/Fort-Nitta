@@ -49,8 +49,8 @@ define([
 
         },
         onRender: function(){
-            // var self = this;
 
+            // var self = this;
 
             var action = this.options.action;
             var actionArray = ["ccintroductions","ccgeneralnewsdiscussion","ccgeneralhelphowto","platformandroid",
@@ -65,6 +65,8 @@ define([
         },
         threadstoCreateThreadTriggers: function(data){
 
+            this.forumsThreadView.close();
+
             this.forumsThreadCreateView.options = {model: data.model};
             this.contentRegion.show(this.forumsThreadCreateView);
 
@@ -77,6 +79,8 @@ define([
         },
         createThreadtoThreadsTriggers: function(data){
 
+            this.forumsThreadCreateView.close();
+
             this.forumsThreadView.options = {model: data.model};
             this.contentRegion.show(this.forumsThreadView);
 
@@ -87,6 +91,8 @@ define([
             this.forumsThreadCreateView.on("click:returnThreads:show", this.createThreadtoThreadsTriggers.bind(this));
         },
         threadstoPostsTriggers: function(data){
+
+            this.forumsThreadView.close();
 
             this.forumsPostsView.options = {model: data.model};
             this.contentRegion.show(this.forumsPostsView);
@@ -103,6 +109,8 @@ define([
         },
         poststoCreatePostsTriggers: function(data){
 
+            this.forumsPostsView.close();
+
             this.forumsPostsCreateView.options = {model: data.model};
             this.contentRegion.show(this.forumsPostsCreateView);
 
@@ -113,6 +121,8 @@ define([
              this.forumsPostsView.on("click:newpost:show", this.poststoCreatePostsTriggers.bind(this));
         },
         createPoststoPostsTriggers: function(data){
+
+            this.forumsPostsCreateView.close();
 
             this.forumsPostsView.options = {model: data.model};
             this.contentRegion.show(this.forumsPostsView);

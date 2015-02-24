@@ -77,6 +77,12 @@ define([
             });    
             
         },
+        onClose: function(){
+            console.log("post close");
+
+            this.remove();
+            this.unbind();
+        },
         newPost: function(event){
             if(event){
                 event.stopPropagation();

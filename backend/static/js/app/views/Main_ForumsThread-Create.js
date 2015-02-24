@@ -15,6 +15,12 @@ define([
 
         initialize: function(options){
             this.options = options;
+        },
+        events: {
+            "click #forumsThreadCreate-buttonSubmit": "submitThread",
+            "click #forumsThreadCreate-buttonCancel": "cancelButton"
+        },
+        onRender: function() {    
             var self = this;
 
             Backbone.Validation.bind(this, {
@@ -62,27 +68,22 @@ define([
                     }, 3000);
                 });
                 self.model.clear();
-            });
+            });  
         },
-        events: {
-            "click #forumsThreadCreate-buttonSubmit": "submitThread",
-            "click #forumsThreadCreate-buttonCancel": "cancelButton"
-        },
-        onRender: function() {            
-        },
-        onBeforeDestroy: function(){
-            // Need to unbind events to prevent model validation from occuring multiple times when re-entering this view
-            // If we do not unbind, there will be multiple bindings of the same event on the same object which causes it to
-            // fire multiple times.
+        onClose: function(){
+            this.remove();
             Backbone.Validation.unbind(this, {model: this.model});
+            this.unbind();
             this.model.unbind();
         },
         submitThread: function(event){
+            console.log("clickclick");
             if(event){
                 event.stopPropagation();
                 event.preventDefault();
             }
             if(this.$("#forumsThreadCreate-textarea") != ""){
+                console.log("textsubmit");
                 this.model.set({
                     'title': this.$("#forumsThreadCreate-textarea").val(),
                     'user_id': App.session.user.get('uid'),
