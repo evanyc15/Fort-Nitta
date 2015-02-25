@@ -22,6 +22,7 @@ class AvatarAPI(MethodView):
 
         # In case for whatever reason a username is made of Unix relative directory markers
         filename = secure_filename(current_user.username) + '.' + ext
+        print os.path.join(app.config['AVATAR_UPLOADS'], filename)
         file.save(os.path.join(app.config['AVATAR_UPLOADS'], filename))
 
         current_user.set_avatar_local_path(filename)

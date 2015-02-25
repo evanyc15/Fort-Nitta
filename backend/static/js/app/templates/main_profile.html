@@ -12,9 +12,9 @@
                 <i class="fa fa-info profileInfo-icon"></i>
                 <span class="profileInfo-header">&nbsp;&nbsp;INFORMATION </span>
                 <div class="profileInfo-content">
-                    <span><span>User:&nbsp;&nbsp;&nbsp;</span>{{this.username}}</span>
-                    <span><span>Email:&nbsp;&nbsp;</span>{{this.email}}</span>
-                    <span><span>Joined:</span>{{this.date_joined}}</span>
+                    <span><span>User:&nbsp;&nbsp;&nbsp;</span>{{this.user_info.username}}</span>
+                    <span><span>Email:&nbsp;&nbsp;</span>{{this.user_info.email}}</span>
+                    <span><span>Joined:</span>{{this.user_info.date_joined}}</span>
                 </div>
             </div>
         </div>
@@ -68,7 +68,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="odd">
+                {{#each []}}
+                    {{#ifevenodd this.id}}
+                    <tr class="odd" data-id="{{this.id}}">
+                    {{else}}
+                    <tr class="even" data-id="{{this.id}}">
+                    {{/ifevenodd}}
+                        <td>{{this.id}}</td>
+                        {{#ifwinner this.user_id this.winner_id}}
+                        <td>Win</td>
+                        {{else}}
+                        <td>Loss</td>
+                        {{/ifwinner}}
+                        <td>{{this.numCannons}}</td>
+                        <td>{{this.numFires}}</td>
+                        <td>{{this.numWalls}}</td>
+                        <td>{{this.num_players}}</td>
+                    </tr>
+                {{/each}}
+                <!--<tr class="odd">
                     <td>1</td>
                     <td>Win</td>
                     <td>1</td>
@@ -83,7 +101,7 @@
                     <td>6</td>
                     <td>7</td>
                     <td>8</td>
-                </tr>
+                </tr>-->
             </tbody>
         </table>
     </div>

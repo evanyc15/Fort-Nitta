@@ -6,6 +6,7 @@ define([
 	'underscore',
 	'handlebars',
 	'models/SessionModel',
+	//'models/GameInfoModel',
 	'text!templates/main_layout.html',
 	'views/Main_TopBarView',
 	'views/Main_PlayersView',
@@ -83,7 +84,10 @@ define([
 					}));
 				}
 			} else{
-				this.contentRegion.show(new MyProfileView());
+				//this.myProfileView = new MyProfileView();
+				//this.myProfileView.options = {model: new GameInfoModel()}
+				//this.contentRegion.show(this.myProfileView);
+				this.contentRegion.show(new MyProfileView())
 			}
 		},
 		onShow: function() {
