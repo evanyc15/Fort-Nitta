@@ -30,3 +30,7 @@ def static_img(path):
 @app.route('/api/avatar/<path:path>')
 def avatar_proxy(path):
     return send_from_directory(app.config['AVATAR_UPLOADS'], path)
+
+@app.route('/api/forums/postsimages/<path:path>')
+def forums_images_proxy(path):
+    return send_from_directory(app.config['FORUMS_IMG_UPLOADS'], path)

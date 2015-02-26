@@ -23,7 +23,13 @@ require.config({
         "datatables":"../libs/plugins/jquery.dataTables/js/jquery.dataTables.min",
         "foundation-datatables":"../libs/plugins/jquery.dataTables/foundation/dataTables.foundation.min",
         "moment":"../libs/plugins/moment",
-        "slick":"../libs/plugins/slick/slick.min"
+        "slick":"../libs/plugins/slick/slick.min",
+        "jquery-mousewheel":"../libs/plugins/jquery.mousewheel-3.0.6.pack",
+        "fancybox":"../libs/plugins/fancybox/jquery.fancybox.pack",
+        "fancybox-buttons":"../libs/plugins/fancybox/helpers/jquery.fancybox-buttons",
+        "fancybox-media":"../libs/plugins/fancybox/helpers/jquery.fancybox-media",
+        "fancybox-thumbs":"../libs/plugins/fancybox/helpers/jquery.fancybox-thumbs",
+        "dropzone":"../libs/plugins/dropzone/dropzone"
     },
     // Sets the configuration for your third party scripts that are not AMD compatible
     shim:{
@@ -49,7 +55,12 @@ require.config({
         },
         // Backbone.validateAll plugin (https://github.com/gfranko/Backbone.validateAll)
         "backbone.validateAll":["backbone"],
-        "slick":["jquery"]
+        "slick":["jquery"],
+        "jquery-mousewheel":["jquery"],
+        "fancybox":["jquery"],
+        "fancybox-buttons":["jquery","fancybox"],
+        "fancybox-media":["jquery","fancybox"],
+        "fancybox-thumbs":["jquery","fancybox"]
     }
 });
 

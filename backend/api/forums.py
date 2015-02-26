@@ -3,8 +3,11 @@ from flask.views import MethodView
 from sqlalchemy import and_, or_
 
 from backend import db, app
-from backend.database.models import User, ForumsThreads, ForumsPosts, ForumsPostsLikes
+from backend.database.models import User, ForumsThreads, ForumsPosts, ForumsPostsLikes, ForumsPostsImages
+from sessionauth import session_auth_required, current_user_props
 import json
+import hashlib
+import os
 
 
 class ThreadsAPI(MethodView):
@@ -72,15 +75,71 @@ class PostsAPI(MethodView):
                 userinLikesCheck = ForumsPostsLikes.query.filter(and_(ForumsPostsLikes.post_id==data.id,ForumsPostsLikes.user_id==user_id)).first()
                 if userinLikesCheck is None:
                     userinLikes = False
-                jsonData = {'id':data.id,'thread_id':data.thread_id,'user_id':data.user_id,'username':data.user.username,'first_name':data.user.first_name,'last_name':data.user.last_name,'message':data.message,'date_created':data.date_created.strftime("%Y-%m-%d %H:%M:%S"),'user_inLikes':userinLikes,'likes_Count':likesCount}
+
+                forumImagesArray = []
+                forum_images = ForumsPostsImages.query.filter(ForumsPostsImages.post_id==data.id).all()
+                for dataImg in forum_images:
+                    jsonImages = {'id': dataImg.id, 'post_id': dataImg.post_id, 'image_path': dataImg.image_path}
+                    forumImagesArray.append(jsonImages)
+                jsonData = {'id':data.id,'thread_id':data.thread_id,'user_id':data.user_id,'username':data.user.username,'first_name':data.user.first_name,'last_name':data.user.last_name,'message':data.message,'date_created':data.date_created.strftime("%Y-%m-%d %H:%M:%S"),'user_inLikes':userinLikes,'likes_Count':likesCount, 'forum_images': forumImagesArray}
                 postsArray.append(jsonData)
             return json.dumps(postsArray)
         return jsonify(**{'success': False}), 401
 
 class PostsImagesAPI(MethodView):
     def post(self):
+        file = request.files['images']
+        post_id = request.headers.get('post_id')
+        filepath = None
 
-        return jsonify(**{'success': False}), 401
+        if not file or not post_id:
+            return jsonify(**{'success': False}), 401
+
+        ext = (file.filename.rsplit('.', 1)[1]) if ('.' in file.filename) else None
+
+        if ext not in ['jpg', 'jpeg', 'png', 'gif']:
+            return jsonify(**{'success': False}), 422
+
+        filenameHash = hashlib.md5(file.filename).hexdigest()
+        
+        # Creating file path
+        if not os.path.isdir(app.config['FORUMS_IMG_UPLOADS']):
+            os.makedirs(app.config['FORUMS_IMG_UPLOADS'])
+        filepath = app.config['FORUMS_IMG_UPLOADS']
+        if not os.path.isdir(filepath+'/'+filenameHash[3:5]):
+            os.makedirs(filepath+'/'+filenameHash[3:5])
+        filepath = filepath+'/'+filenameHash[3:5]
+        if not os.path.isdir(filepath+'/'+filenameHash[0:2]):
+            os.makedirs(filepath+'/'+filenameHash[0:2])
+        filepath = filepath+'/'+filenameHash[0:2]
+        if not os.path.isdir(filepath+'/'+filenameHash[5:7]):
+            os.makedirs(filepath+'/'+filenameHash[5:7])
+        filepath = filepath+'/'+filenameHash[5:7]
+
+        file.save(os.path.join(filepath, file.filename))
+
+        new_forum_img = ForumsPostsImages(
+                post_id = post_id,
+                image_path = filenameHash[3:5]+'/'+filenameHash[0:2]+'/'+filenameHash[5:7]+'/'+file.filename    
+            )
+        db.session.add(new_forum_img)
+        db.session.commit()
+        
+        return jsonify(**{'success': True ,'id': new_forum_img.id})
+
+        # return jsonify(**{'success': False, 'Default': True, 'Type': 'post'}), 401
+    def get(self):
+
+        forumImagesArray = []
+
+        post_id = request.args.get('post_id')
+
+        forum_images = ForumsPostsImages.query.filter(ForumsPostsImages.post_id==post_id).all()
+        for dataImg in forum_images:
+            jsonImages = {'id': dataImg.id, 'post_id': dataImg.post_id, 'image_path': dataImg.image_path}
+            forumImagesArray.append(jsonImages)
+        return json.dumps(forumImagesArray)
+
 
 class PostsLikesAPI(MethodView):
     def post(self):
@@ -119,7 +178,7 @@ posts_view = PostsAPI.as_view('posts_api')
 app.add_url_rule('/api/forums/posts/', view_func=posts_view, methods=['POST','GET'])
 
 postsimage_view = PostsImagesAPI.as_view('postsimages_api')
-app.add_url_rule('/api/forums/postsimages/', view_func=postsimage_view, methods=['POST'])
+app.add_url_rule('/api/forums/postsimages/', view_func=postsimage_view, methods=['POST','GET'])
 
 postslikes_view = PostsLikesAPI.as_view('postslike_api')
 app.add_url_rule('/api/forums/likes/', view_func=postslikes_view, methods=['POST','DELETE'])

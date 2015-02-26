@@ -49,13 +49,13 @@
                                         </a>
                                     <div class="slick-imageContainer">
                                         <div class="slick-images">
-                                            <div><img src="../../../img/placeholder-user.png"></div>
-                                            <div><img src="../../../img/placeholder-user.png"></div>
-                                            <div><img src="../../../img/placeholder-user.png"></div>
-                                            <div><img src="../../../img/placeholder-user.png"></div>
-                                            <div><img src="../../../img/placeholder-user.png"></div>
-                                            <div><img src="../../../img/placeholder-user.png"></div>
-                                            <div><img src="../../../img/placeholder-user.png"></div>
+                                            {{#each forum_images}}
+                                                <div>
+                                                    <a class="fancybox-thumb" rel="group{{../id}}" href="/api/forums/postsimages/{{this.image_path}}">
+                                                        <img src="/api/forums/postsimages/{{this.image_path}}">
+                                                    </a>
+                                                </div>
+                                            {{/each}}
                                         </div>
                                     </div>
                                 </div>

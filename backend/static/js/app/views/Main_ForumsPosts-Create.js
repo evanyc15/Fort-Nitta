@@ -3,7 +3,8 @@ define([
     'marionette',
     'handlebars',
     'models/ForumsPostsModel',
-    'text!templates/main_forumsposts-create.html'
+    'text!templates/main_forumsposts-create.html',
+    'dropzone'
 ], function (App, Marionette, Handlebars, ForumsPostsModel, template){
 
     "use strict";
@@ -15,20 +16,20 @@ define([
 
         initialize: function(options){
             this.options = options;
+            this.dropzone;
         },
         events: {
             "click #forumsPostsCreate-buttonSubmit": "submitPost",
             "click #forumsPostsCreate-buttonCancel": "cancelButton"
         },
         onRender: function() {
+
             var self = this;
 
             Backbone.Validation.bind(this, {
                 model: this.model
             });
             this.model.bind('validated:valid', function(model) {
-                console.log("options",self.options.model);
-
                 $.ajax({
                     url: '/api/forums/posts/',
                     type: 'POST',
@@ -40,7 +41,8 @@ define([
                         withCredentials: true
                     },
                     success: function(data){
-                        self.trigger("click:returnPosts:show", {model: self.options.model});
+                        self.dropzone.options.headers = { "post_id": data.id };
+                        self.dropzone.processQueue();
                     },
                     error: function(){
                         var htmlElement = self.$el.find("textarea[name='message']");
@@ -69,6 +71,41 @@ define([
                 });
                 self.model.clear();
             });
+
+            // $("#forumsPostsCreate-dropzone").dropzone({ url: "/file/post" });
+        },
+        onShow: function(){
+            var self = this;
+            this.dropzone = new Dropzone("#forumsPostsCreate-dropzone", 
+                { 
+                    url: "/api/forums/postsimages/",
+                    method: "POST",
+                    headers: {'id':'hello'},
+                    maxFilesize: 10,
+                    maxFiles: 10,
+                    parallelUploads: 10,
+                    acceptedFiles: "image/*",
+                    paramName: "images",
+                    withCredentials: true,
+                    crossDomain: true,
+                    autoProcessQueue: false,
+                    addRemoveLinks: true,
+                    dictDefaultMessage: "Drop files here or click here to upload images",
+                    init: function(){
+                        this.on("success", function(data, server){
+                            console.log("data", server);
+                        });
+                        this.on("error", function(data, server){
+                            console.log("error", server);
+                        });
+                        this.on("queuecomplete", function (file) {
+                            console.log("All files have uploaded ");
+                            setTimeout(function() {
+                                self.trigger("click:returnPosts:show", {model: self.options.model});
+                            }, 1500);
+                        });
+                    }
+                });
         },
         onClose: function(){
             this.remove();

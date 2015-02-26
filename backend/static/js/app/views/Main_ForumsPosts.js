@@ -3,7 +3,12 @@ define([
     'marionette',
     'handlebars',
     'collections/ForumsPostsCollection',
-    'text!templates/main_forumsposts.html'
+    'text!templates/main_forumsposts.html',
+    'fancybox',
+    'jquery-mousewheel',
+    'fancybox-buttons',
+    'fancybox-media',
+    'fancybox-thumbs'
 ], function (App, Marionette, Handlebars, ForumsPostsCollection, template){
 
     "use strict";
@@ -44,6 +49,7 @@ define([
                     withCredentials: true
                 },
                 success: function(data){
+                    console.log(data);
 
                     self.collection.add(data, {merge: true});
 
@@ -60,6 +66,15 @@ define([
                         infinite: true,
                         slidesToShow: 3,
                         slidesToScroll: 3
+                    });
+                    self.$(".fancybox-thumb").fancybox({
+                        prevEffect  : 'none',
+                        nextEffect  : 'none',
+                        helpers : {
+                            title   : {
+                                type: 'outside'
+                            }
+                        }
                     });
 
                 },
@@ -78,8 +93,6 @@ define([
             
         },
         onClose: function(){
-            console.log("post close");
-
             this.remove();
             this.unbind();
         },

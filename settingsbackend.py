@@ -33,7 +33,7 @@ MAIL_USERNAME = 'ecs160server.winter2015@gmail.com'
 
 
 # CORS
-CORS_HEADERS = ['Content-Type', 'X-CSRF-Token', 'Authentication', 'Accept']
+CORS_HEADERS = ['Content-Type','X-CSRF-Token','Authentication','Accept','X-Requested-With','Content-Length','Content-Disposition']
 CORS_SUPPORTS_CREDENTIALS = ['True']
 CORS_RESOURCES = {r"/api/*": {"origins": "http://localhost"}}
 
@@ -41,6 +41,9 @@ CORS_RESOURCES = {r"/api/*": {"origins": "http://localhost"}}
 
 # Avatar upload path
 AVATAR_UPLOADS = os.path.join(basedir, 'backend/assets/avatar')
+
+# Forums upload path
+FORUMS_IMG_UPLOADS = os.path.join(basedir, 'backend/assets/forums/img')
 
 
 

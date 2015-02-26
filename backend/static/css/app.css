@@ -5,3 +5,6 @@
 @import url("jquery-ui.min.css");
 @import url("slick/slick.css");
 @import url("slick/slick-theme.css");
+@import url("fancybox/jquery.fancybox.css");
+@import url("dropzone/basic.css");
+@import url("dropzone/dropzone.css");

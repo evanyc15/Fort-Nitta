@@ -97,8 +97,6 @@ define([
             });    
         },
         onClose: function(){
-            console.log("thread-close");
-
             this.remove();
             this.unbind();
         },

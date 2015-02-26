@@ -147,23 +147,29 @@
     bottom: -10px;
 }
 .slick-imageContainer {
-    margin: 0px 150px 0px 150px;
-    width: 450px;
+    width: 300px;
+    margin-left: 100px;
 }
 .slick-images {
-    border: 1px solid #D8D8D8;
+    border: 1px solid #E0E0E0;
     -webkit-box-shadow: inset 0px 0px 5px 4px rgba(230,227,230,1);
     -moz-box-shadow: inset 0px 0px 5px 4px rgba(230,227,230,1);
     box-shadow: inset 0px 0px 5px 4px rgba(230,227,230,1);
     background-color: #E8E8E8;
-    margin: 0px 50px 0px 50px;
-    padding: 2px;
+    margin: 0px 5px 0px 5px;
+    padding: 0px 2px 0px 2px;
 }
 .slick-images div {
+    position: relative;
     height: 30px;
 }
 .slick-images div img {
-    height: 100%;
+    position: absolute !important;
+    max-height: 30px;
+    left: 0 !important;
+    right: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 /* Forum Thread Create CSS */
@@ -214,4 +220,10 @@
 }
 #postsTable {
     width: 100%;
+}
+#forumsPostsCreate-dropzone {
+    border: 1px dashed #B8B8B8;
+}
+.dz-error-message {
+    display: none !important;
 }

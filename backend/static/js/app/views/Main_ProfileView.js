@@ -54,6 +54,8 @@ define([
 			this.$el.html(html);
 		},
 		onShow: function() {
+
+			console.log(App.session.user);
 			//console.log(moment(App.session.user.date_joined).format("ddd, YYYY MMM Do")); 
 			if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
 				this.$el.find("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);

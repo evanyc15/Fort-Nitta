@@ -49,3 +49,4 @@ Frontend
 --!D! (22) Forum posts reply is posting multiple times
 --!D! (23) Unlike posts as well
 (24) Timer to logout after some time
+(25) Delete post if image upload fails
