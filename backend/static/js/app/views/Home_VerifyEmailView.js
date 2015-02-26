@@ -15,12 +15,21 @@ define([
 
         initialize: function(options){
             this.options = options;
+            if(!this.options.id || this.options.id === 'undefined' || this.options.id === "" || this.options.id === "null"){
+                this.template = Handlebars.compile(templateVerify);
+            } else{
+                this.template = Handlebars.compile(templateVerified);
+            }
+        },
+        events: {
+            "click #backLoginButton": "backtoLogin",
+            "click #sendEmailButton": "sendEmail"
+        },
+        onRender: function(){
             this.urlParams = {}
 
             // Checks the url (passed in from controller), if there are GET parameters, then it sends the ajax call to verify user
-            if(!this.options.id || this.options.id === 'undefined' || this.options.id === "" || this.options.id === "null"){
-                this.template = Handlebars.compile(templateVerify);
-            } else {
+            if(this.options.id && this.options.id !== 'undefined' && this.options.id !== "" && this.options.id !== "null") {
                 var self = this;
                 this.template = Handlebars.compile(templateVerified);
                 if(this.options.id !== "" && this.options.id){
@@ -64,10 +73,6 @@ define([
                     },
                 });            
             }
-        },
-        events: {
-            "click #backLoginButton": "backtoLogin",
-            "click #sendEmailButton": "sendEmail"
         },
         backtoLogin: function() {
             this.trigger("click:login:show");

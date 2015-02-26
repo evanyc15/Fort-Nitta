@@ -17,25 +17,24 @@ define([
 		initialize: function(options){
 			this.options = options;
 
-      // Reset collection because it is saved when using the "back" button which causes bugs
-      this.collection.reset();
+	      	// Reset collection because it is saved when using the "back" button which causes bugs
+	      	this.collection.reset();
 
-      // This is to create a helper for the template
-      Handlebars.registerHelper('ifevenodd', function (id, options) { 
+	      	// This is to create a helper for the template
+	      	Handlebars.registerHelper('ifevenodd', function (id, options) { 
+				if(id % 2){
+              		return options.inverse(this);
+	          	} else {  
+              		return options.fn(this);
+	          	}
+	      	});
 
-          if(id % 2){
-              return options.inverse(this);
-          } else {  
-              return options.fn(this);
-          }
-      });
-
-      Handlebars.registerHelper('ifwinner', function (id, winner_id, options) {
-      	if(id === winner_id) {
-      		return options.fn(this);
-      	}
-      	return options.inverse(this);
-      })
+	      	Handlebars.registerHelper('ifwinner', function (id, winner_id, options) {
+	      		if(id === winner_id) {
+	      			return options.fn(this);
+	      		}
+	      		return options.inverse(this);
+	      	});
 		},
 		events: {
 			"mouseenter #profilePicture,#profilePictureChange": "changeProfilePictureShow",
@@ -58,14 +57,11 @@ define([
 			this.$el.html(html);
 		},
 		onShow: function() {
-
-			console.log(App.session.user);
 			//console.log(moment(App.session.user.date_joined).format("ddd, YYYY MMM Do")); 
 			if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
 				this.$el.find("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);
 			}
 			$("#username").html(App.session.user.attributes.username);
-			this.$el.find("#profileTable").DataTable();
 		},
 		changeProfilePictureShow: function() {
 			$("#profilePictureChange").show();

@@ -50,5 +50,5 @@ Frontend
 --!D! (23) Unlike posts as well
 (24) Timer to logout after some time
 (25) Delete post if image upload fails
-(26) Implement image compression
+--!D! (26) Implement image compression
 (27) Migrate a lot of ajax calls and other definitions in view initializers into the onRender function to help with efficiency and performance

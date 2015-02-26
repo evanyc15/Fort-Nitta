@@ -15,7 +15,12 @@ define([
 
         initialize: function(options){
             this.options = options;
-
+        },
+        events: {
+            "click .main_messages-user": "switchMessenger",
+            "click #main_messages-new-message": "newMessage"
+        },
+        onRender: function(){
             var self = this;
 
             // This is to populate the autocomplete fields with all usernames
@@ -41,10 +46,6 @@ define([
                 
                 }
             });
-        },
-        events: {
-            "click .main_messages-user": "switchMessenger",
-            "click #main_messages-new-message": "newMessage"
         },
         onShow: function() {
             var self = this;

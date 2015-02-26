@@ -16,32 +16,36 @@ define([
 
 		initialize: function(options){
 			this.options = options;
-
-			var width = $(window).width();
-			var height = $(window).height();
+		},
+		events: {
+			"click #playersDisplayButton": "playersDisplay"
+		},
+        onRender: function() {
+            var width = $(window).width();
+            var height = $(window).height();
             var self = this;
 
             // Detects a windows change, if vertical, it resizes the player bar, if horizontal, it shrinks the player bar.
-			$(window).on("resize", function(){
+            $(window).on("resize", function(){
 
-				if($(window).width() != width){
-					width = $(window).width();
-					self.$el.find("#playersDisplayButton").removeClass("playersDisplayShown").addClass("playersDisplayHidden");
-					self.trigger("click:playersDisplay:hide");
-				} else if($(window).height() != height){
-					height = $(window).height();
-					$("#playerList").height(height-110);
-				}
-			});
-
+                if($(window).width() != width){
+                    width = $(window).width();
+                    self.$el.find("#playersDisplayButton").removeClass("playersDisplayShown").addClass("playersDisplayHidden");
+                    self.trigger("click:playersDisplay:hide");
+                } else if($(window).height() != height){
+                    height = $(window).height();
+                    $("#playerList").height(height-110);
+                }
+            });
+            
             this.playersArray = [];
             // SSE Eventsource listener to get online players for players list
-			var sse = new EventSource('/stream');
+            var sse = new EventSource('/stream');
             sse.addEventListener('message', function(e) {
 
-            	var results = JSON.parse(e.data);
+                var results = JSON.parse(e.data);
                 // console.log(results);
-				var i, j;   
+                var i, j;   
 
                 self.collection.each(function(data) {
                     var flag = false;
@@ -62,12 +66,7 @@ define([
 
                 var html = self.template(self.collection.toJSON());
                 self.$el.html(html);
-    			}, false);
-		},
-		events: {
-			"click #playersDisplayButton": "playersDisplay"
-		},
-        onRender: function() {
+                }, false);
         },
 		onShow: function(){
 			this.$el.find("#playerList").height($(window).height()-110);
