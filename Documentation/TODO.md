@@ -51,4 +51,5 @@ Frontend
 (24) Timer to logout after some time
 (25) Delete post if image upload fails
 --!D! (26) Implement image compression
-(27) Migrate a lot of ajax calls and other definitions in view initializers into the onRender function to help with efficiency and performance
+--!D! (27) Migrate a lot of ajax calls and other definitions in view initializers into the onRender function to help with efficiency and performance.
+(28) In layouts, move around the function bindings so that views are only instantiated when moving between views. No need to do it all in initializer

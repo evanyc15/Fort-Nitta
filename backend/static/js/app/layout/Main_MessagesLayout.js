@@ -20,7 +20,17 @@ define([
         initialize: function(options){
             var self = this;
             this.messagesUser = new MessageUserModel({});
+        },
+        regions: {
+            sidebarRegion: "#messagessidebarRegion",
+            contentRegion: "#messagescontentRegion"
+        },
+        events: {
 
+        },
+        onRender: function(){
+            var self = this;
+            
             this.messageSideBarView = new MessagesSideBarView();
             // When the sidebar's user chat is clicked, this switches the Message Box (Right container) to the respective chat between the two users
             // We use the session model's variable for "this" user to act as the "from_user". When the user tile on the side bar is clicked
@@ -34,16 +44,6 @@ define([
                     messagesUser: self.messagesUser
                 }));
             });
-        },
-        regions: {
-            sidebarRegion: "#messagessidebarRegion",
-            contentRegion: "#messagescontentRegion"
-        },
-        events: {
-
-        },
-        onRender: function(){
-            var self = this;
             this.sidebarRegion.show(this.messageSideBarView);
             this.contentRegion.show(new MessageBox({
                 messagesUser: self.messagesUser

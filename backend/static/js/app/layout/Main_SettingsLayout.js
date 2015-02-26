@@ -21,6 +21,12 @@ define([
 
         initialize: function(options){
             this.options = options;
+        },
+        regions: {
+            sidebarRegion: "#sidebarRegion",
+            contentRegion: "#settingsRegion"
+        },
+        onRender: function() {
             var self = this;
 
             this.settingssidebarView = new SettingsSideBarView();
@@ -31,12 +37,6 @@ define([
             this.settingssidebarView.on("click:email&not:show", function() {
                 self.contentRegion.show(new SettingsEmailNotView());
             });
-        },
-        regions: {
-            sidebarRegion: "#sidebarRegion",
-            contentRegion: "#settingsRegion"
-        },
-        onRender: function() {
             this.sidebarRegion.show(this.settingssidebarView);
             this.contentRegion.show(new SettingsChangeView());
         }
