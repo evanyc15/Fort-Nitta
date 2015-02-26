@@ -42,6 +42,7 @@ define([
                     },
                     success: function(data){
                         self.dropzone.options.headers = { "post_id": data.id };
+                        console.log(self.dropzone.options);
                         self.dropzone.processQueue();
                     },
                     error: function(){
@@ -80,7 +81,6 @@ define([
                 { 
                     url: "/api/forums/postsimages/",
                     method: "POST",
-                    headers: {'id':'hello'},
                     maxFilesize: 10,
                     maxFiles: 10,
                     parallelUploads: 10,
