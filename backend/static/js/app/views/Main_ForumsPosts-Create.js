@@ -42,7 +42,6 @@ define([
                     },
                     success: function(data){
                         self.dropzone.options.headers = { "post_id": data.id };
-                        console.log(self.dropzone.options);
                         self.dropzone.processQueue();
                     },
                     error: function(){

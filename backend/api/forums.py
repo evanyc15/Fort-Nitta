@@ -89,7 +89,7 @@ class PostsAPI(MethodView):
 class PostsImagesAPI(MethodView):
     def post(self):
         file = request.files['images']
-        post_id = request.headers.get('post_id')
+        post_id = request.args.get('post_id')
         filepath = None
 
         if not file:
