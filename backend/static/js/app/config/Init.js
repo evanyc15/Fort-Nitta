@@ -29,7 +29,8 @@ require.config({
         "fancybox-buttons":"../libs/plugins/fancybox/helpers/jquery.fancybox-buttons",
         "fancybox-media":"../libs/plugins/fancybox/helpers/jquery.fancybox-media",
         "fancybox-thumbs":"../libs/plugins/fancybox/helpers/jquery.fancybox-thumbs",
-        "dropzone":"../libs/plugins/dropzone/dropzone"
+        "dropzone":"../libs/plugins/dropzone/dropzone",
+        "skrollr":"../libs/plugins/skrollr.min"
     },
     // Sets the configuration for your third party scripts that are not AMD compatible
     shim:{

@@ -1,1 +1,111 @@
-.fullWidth{width:100%;margin-left:auto;margin-right:auto;max-width:initial}#loginContainer{position:absolute;z-index:99;width:400px!important;top:75px;left:0;right:0;margin-left:auto!important;margin-right:auto!important;padding-top:10px;background-color:rgba(0,0,0,.3)}.formIcon{font-size:1.7em!important;opacity:.8;margin-top:6px}input.error{color:red;border:2px solid red;margin:0 0 1rem}small.fail{display:none;margin:-16px 0 16px!important;background-color:red!important}small.success{display:none;margin:-16px 0 16px!important;background-color:#0078ae!important}#loginInput{display:none}#forgotPasswordA{position:absolute;margin-top:-9px;color:#fff;font-size:15px}#forgotPasswordA:hover{color:gray}#loginButton,#signupButton{margin-top:25px}
+
+section {
+	height: 100vh;
+	-moz-transition: all 0.3s ease- out; 
+ 	-ms-transition: all 0.3s ease- out;
+ 	-o-transition: all 0.3s ease- out;
+ 	-webkit-transition: all 0.3s ease- out;
+	transition: all 0.3s ease-out;
+}
+#home_loginSection {
+	/*display: none;*/
+	background-image: url('../../../img/castle-wallpaper-hd.jpg');
+	background-size: 100%;
+}
+#home_aboutSection {
+	/*display: none;*/
+}
+#home_screenshotSection {
+	/*wdisplay: none;*/
+	background-image: url('../../../img/castle-wallpaper2-hd.jpg');
+	background-size: 100%;
+}
+#home_footerSection {
+	/*display: none;*/
+}
+.fullWidth {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: initial;
+}
+#loginContainer {
+    position: absolute;
+    z-index: 99;
+    width: 400px!important;
+    top: 75px;
+    left: 0;
+    right: 0;
+    margin-left: auto!important;
+    margin-right: auto!important;
+    padding-top: 10px;
+    background-color: rgba(0, 0, 0, .3);
+}
+#aboutRegion{
+	padding-top: 50px;
+	border-bottom: 1px solid #E0E0E0;
+}
+#home_screenshotSection {
+	padding-top: 50px;
+	max-height: 775px;
+	min-height: 550px;
+}
+#home_profileScreenshotImg {
+	position: absolute;
+	max-width: 650px;
+	height: auto;
+	top: 50px;
+	left: 125px;
+	opacity: 0.90;
+	-webkit-box-shadow: 0px 5px 10px 0px rgba(38,38,38,1);
+	-moz-box-shadow: 0px 5px 10px 0px rgba(38,38,38,1);
+	box-shadow: 0px 5px 10px 0px rgba(38,38,38,1);
+}
+#home_forumsScreenshotImg {
+	position: absolute;
+	max-width: 650px;
+	height: auto;
+	top: 100px;
+	right: 135px;
+	opacity: 0.95;
+	border-left: 1px solid #D8D8D8;
+	border-top: 1px solid #D8D8D8;
+	-webkit-box-shadow: 0px 5px 10px 0px rgba(38,38,38,1);
+	-moz-box-shadow: 0px 5px 10px 0px rgba(38,38,38,1);
+	box-shadow: 0px 5px 10px 0px rgba(38,38,38,1);
+}
+.formIcon {
+    font-size: 1.7em!important;
+    opacity: .8;
+    margin-top: 6px;
+}
+input.error {
+    color: red;
+    border: 2px solid red;
+    margin: 0 0 1rem;
+}
+small.fail {
+    display: none;
+    margin: -16px 0 16px!important;
+    background-color: red!important;
+}
+small.success {
+    display: none;
+    margin: -16px 0 16px!important;
+    background-color: #0078ae!important;
+}
+#loginInput {
+    display: none;
+}
+#forgotPasswordA {
+    position: absolute;
+    margin-top: -9px;
+    color: #fff;
+    font-size: 15px;
+}
+#forgotPasswordA:hover {
+    color: gray;
+}
+#loginButton, #signupButton {
+    margin-top: 25px;
+}

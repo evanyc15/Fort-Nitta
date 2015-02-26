@@ -41,8 +41,13 @@ define([
                         withCredentials: true
                     },
                     success: function(data){
-                        self.dropzone.options.headers = { "postid": data.id };
-                        self.dropzone.processQueue();
+                        console.log(self.dropzone);
+                        if(self.dropzone.files.length !== 0){
+                            self.dropzone.options.headers = { "postid": data.id };
+                            self.dropzone.processQueue();
+                        } else {
+                            self.trigger("click:returnPosts:show", {model: self.options.model});
+                        }        
                     },
                     error: function(){
                         var htmlElement = self.$el.find("textarea[name='message']");

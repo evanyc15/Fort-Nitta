@@ -11,8 +11,9 @@ define([
 	'views/Home_ChangePasswordView',
 	'views/Home_VerifyEmailView',
 	'views/Home_AboutView',
-	'text!templates/home_layout.html'
-],  function (App, $, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, ChangePasswordView, VerifyEmailView, AboutView, template) {
+	'text!templates/home_layout.html',
+	"skrollr"
+],  function (App, $, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, ChangePasswordView, VerifyEmailView, AboutView, template, skrollr) {
 
 	"use strict";
 
@@ -74,6 +75,13 @@ define([
 			this.aboutRegion.show(new AboutView());
 			$("body").removeClass("f-topbar-fixed");
 			$(window).scrollTop(0);
+			$(window).scroll(function () {
+			    $("body").animate({"background-position":"50% " + ($(this).scrollTop() / 2) + "px"},{queue:false, duration:500});
+			});
+			this.skrollrObject = skrollr.init({
+				forceHeight: false,
+				smoothScrolling: false
+			});
 		},
 		onShow: function() {
 			$(document).foundation();
