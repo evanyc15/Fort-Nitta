@@ -92,8 +92,10 @@ class PostsImagesAPI(MethodView):
         post_id = request.headers.get('post_id')
         filepath = None
 
-        if not file or not post_id:
-            return jsonify(**{'success': False}), 401
+        if not file:
+            return jsonify(**{'success': False, 'file': False}), 401
+        if not post_id:
+            return jsonify(**{'success': False, 'post_id': False}), 401
 
         ext = (file.filename.rsplit('.', 1)[1]) if ('.' in file.filename) else None
 
