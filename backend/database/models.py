@@ -355,7 +355,7 @@ class ForumsPostsImages(db.Model):
     """
     id =            db.Column(db.Integer, primary_key=True)
     post_id =       db.Column(db.Integer, db.ForeignKey('forums_posts.id'))
-    image_path =    db.Column(db.String(512))
+    image_path =    db.Column(db.String(2048))
 
     def __init__(self, post_id, image_path):
         """

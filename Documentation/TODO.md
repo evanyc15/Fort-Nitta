@@ -50,3 +50,4 @@ Frontend
 --!D! (23) Unlike posts as well
 (24) Timer to logout after some time
 (25) Delete post if image upload fails
+(26) Implement image compression

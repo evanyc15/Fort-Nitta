@@ -99,7 +99,6 @@ define([
                             console.log("error", server);
                         });
                         this.on("queuecomplete", function (file) {
-                            console.log("All files have uploaded ");
                             setTimeout(function() {
                                 self.trigger("click:returnPosts:show", {model: self.options.model});
                             }, 1500);
