@@ -41,7 +41,7 @@ define([
                         withCredentials: true
                     },
                     success: function(data){
-                        self.dropzone.options.headers = { "post_id": data.id };
+                        self.dropzone.options.headers = { "postid": data.id };
                         self.dropzone.processQueue();
                     },
                     error: function(){

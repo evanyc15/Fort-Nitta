@@ -33,7 +33,7 @@ MAIL_USERNAME = 'ecs160server.winter2015@gmail.com'
 
 
 # CORS
-CORS_HEADERS = ['Content-Type','X-CSRF-Token','Authentication','Accept','X-Requested-With','Content-Length','Content-Disposition','post_id']
+CORS_HEADERS = ['Content-Type','X-CSRF-Token','Authentication','Accept','X-Requested-With','Content-Length','Content-Disposition']
 CORS_SUPPORTS_CREDENTIALS = ['True']
 CORS_RESOURCES = {r"/api/*": {"origins": "http://localhost"}}
 
