@@ -146,8 +146,9 @@ class Game(db.Model):
     time_played =   db.Column(db.DateTime)
     num_players = db.Column(db.Integer)
     winner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    
 
+
+    game_info = db.relationship('GameInfo', backref='game', lazy='dynamic')
     # Many-to-many relationship with many User models
     #users =         db.relationship('User', secondary=games, backref=db.backref('games', lazy='dynamic'))
     # One-to-one relationship with a GameStatistics model

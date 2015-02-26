@@ -4,16 +4,38 @@ define([
 	'marionette',
 	'handlebars',
 	'text!templates/main_profile.html',
+	'collections/GameInfoCollection',
 	'moment'
-], function (App, Marionette, Handlebars, template){
+], function (App, Marionette, Handlebars, template, GameInfoCollection){
 	"use strict";
 
 	return Marionette.ItemView.extend({
 		//Template HTML string
-        template: Handlebars.compile(template),
+    template: Handlebars.compile(template),
+    collection: new GameInfoCollection(),
 
 		initialize: function(options){
 			this.options = options;
+
+      // Reset collection because it is saved when using the "back" button which causes bugs
+      this.collection.reset();
+
+      // This is to create a helper for the template
+      Handlebars.registerHelper('ifevenodd', function (id, options) { 
+
+          if(id % 2){
+              return options.inverse(this);
+          } else {  
+              return options.fn(this);
+          }
+      });
+
+      Handlebars.registerHelper('ifwinner', function (id, winner_id, options) {
+      	if(id === winner_id) {
+      		return options.fn(this);
+      	}
+      	return options.inverse(this);
+      })
 		},
 		events: {
 			"mouseenter #profilePicture,#profilePictureChange": "changeProfilePictureShow",
@@ -22,34 +44,16 @@ define([
 			"change #profilePictureChangeInput": "saveFile"
 		},
 		onRender: function(){
-			$.ajax({
-				url: '/api/user_statistics/',
-				type: 'GET',
-				cache: false,
-				contentType: false,
-				processData: false,
-				crossDomain: true,
-				xhrFields: {
-					withCredentials: true
-				},
-				success: function(data){
-					console.log(data);
-                    if(!data.user_statistics.win_loss_ratio || data.user_statistics.win_loss_ratio == '')
-                        $("#win_loss_ratio").html("You haven't played any games yet!");
-                    else {
-                        $("#win_loss_ratio").html(data.user_statistics.win_loss_ratio);
-                        $("#win_loss_ratio_meter").css('width', (100*data.user_statistics.win_loss_ratio)+'%')
-                    }
-				},
-				error: function(data){
-					console.log('ERROR');
-					$("#win_loss_ratio").html("You haven't played any games yet!");
-				}				
-			})
+
+			this.getUserStatistics();
+			this.getGameInfo();
+
 			var html = this.template({
-				"username": App.session.user.get('username'),
-				"email": App.session.user.get('email'),
-				"date_joined": moment(App.session.user.get('date_joined')).format("ddd, YYYY MMM Do")
+				'user_info': {
+					"username": App.session.user.get('username'),
+					"email": App.session.user.get('email'),
+					"date_joined": moment(App.session.user.get('date_joined')).format("ddd, YYYY MMM Do")
+				}
 			});
 			this.$el.html(html);
 		},
@@ -95,7 +99,65 @@ define([
 					$('#loadingModal').modal('hide');
 				}
 	  		});
-		}
-	
+			},
+			getGameInfo: function() {
+				var self = this;
+		    $.ajax({
+		      url: '/api/game_info/?id='+App.session.attributes.user_id,
+		      type: 'GET',
+		      contentType: 'application/json',
+		      dataType: 'json',
+		      crossDomain: true,
+		      xhrFields: {
+		          withCredentials: true
+		      },
+		      success: function(data){
+		          self.collection.add(data, {merge: true});
+							var template_json = self.collection.toJSON();
+							template_json['user_info'] = {
+								"username": App.session.user.get('username'),
+								"email": App.session.user.get('email'),
+								"date_joined": moment(App.session.user.get('date_joined')).format("ddd, YYYY MMM Do")
+							};
+		          var html = self.template(template_json);
+		          self.$el.html(html);
+		      },
+		      error: function(data){
+		         
+		      },
+		      complete: function(){
+		        self.$el.find("#profileTable").DataTable({
+		          "sPaginationType": "full_numbers",
+		          "bSort": false,
+		          "iDisplayLength": 10,
+		          "bLengthChange": false //used to hide the property  
+		        });
+		      }
+		  	});  
+			},
+			getUserStatistics: function() {
+				$.ajax({
+					url: '/api/user_statistics/',
+					type: 'GET',
+					cache: false,
+					contentType: false,
+					processData: false,
+					crossDomain: true,
+					xhrFields: {
+						withCredentials: true
+					},
+					success: function(data){
+	          if(!data.user_statistics.win_loss_ratio || data.user_statistics.win_loss_ratio == '')
+	            $("#win_loss_ratio").html("You haven't played any games yet!");
+	          else {
+	            $("#win_loss_ratio").html(data.user_statistics.win_loss_ratio);
+	            $("#win_loss_ratio_meter").css('width', (100*data.user_statistics.win_loss_ratio)+'%')
+	          }
+					},
+					error: function(data){
+						$("#win_loss_ratio").html("You haven't played any games yet!");
+					}				
+				});
+			}
 	});
 });
