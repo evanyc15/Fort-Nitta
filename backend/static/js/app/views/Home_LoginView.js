@@ -72,6 +72,7 @@ define([
             // fire multiple times.
             Backbone.Validation.unbind(this, {model: this.model});
             this.model.unbind();
+            this.unbind();
         },
 		signUpShow: function(){
 			this.trigger("click:signup:show");

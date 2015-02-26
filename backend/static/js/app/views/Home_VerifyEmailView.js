@@ -74,6 +74,10 @@ define([
                 });            
             }
         },
+        onBeforeDestroy: function(){
+            // Need to unbind events to prevent memory leaks
+            this.unbind();
+        },
         backtoLogin: function() {
             this.trigger("click:login:show");
         },

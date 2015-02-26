@@ -71,6 +71,9 @@ define([
 		onShow: function(){
 			this.$el.find("#playerList").height($(window).height()-110);
 		},
+        onBeforeDestroy: function() {
+            this.unbind();
+        },
         hashCode: function(s){
             return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
         },

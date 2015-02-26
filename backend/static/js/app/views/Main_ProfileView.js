@@ -63,6 +63,9 @@ define([
 			}
 			$("#username").html(App.session.user.attributes.username);
 		},
+		onBeforeDestroy: function(){
+			this.unbind();
+		},
 		changeProfilePictureShow: function() {
 			$("#profilePictureChange").show();
 		},

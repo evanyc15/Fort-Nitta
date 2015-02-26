@@ -19,6 +19,9 @@ define([
             "click #settingschange": "settingschange",
             "click #settingsemailnot": "settingsemailnot"
         },
+        onBeforeDestroy: function() {
+            this.unbind();
+        },
         settingschange: function() {
             this.$(".custom_accordion li").removeClass("active");
             this.$el.find("#settingschange").addClass("active");

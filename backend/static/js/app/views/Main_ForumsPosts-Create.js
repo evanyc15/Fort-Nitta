@@ -105,8 +105,8 @@ define([
                     }
                 });
         },
-        onClose: function(){
-            this.remove();
+        onBeforeDestroy: function(){
+            // Need to unbind events to prevent memory leaks
             Backbone.Validation.unbind(this, {model: this.model});
             this.unbind();
             this.model.unbind();

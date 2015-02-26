@@ -20,6 +20,10 @@ define([
            "click #backLoginButton": "loginShow",
            "click #passwordRecButton": "passwordRecovery"
         },
+        onBeforeDestroy: function(){
+            // Need to unbind events to prevent memory leaks
+            this.unbind();
+        },
         loginShow: function() {
             this.trigger("click:login:show");
         },

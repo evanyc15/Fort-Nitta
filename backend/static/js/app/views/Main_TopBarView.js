@@ -54,7 +54,8 @@ define([
 				}
 	  		});
 		},
-		onShow: function() {
+		onBeforeDestroy: function() {
+			this.unbind();
 		},
 		messagesShow: function() {
 			this.$("#topbar_messageContainer").show();

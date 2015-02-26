@@ -19,11 +19,12 @@ define([
             "click #settingsCancelButton": "cancel",
             "click #settingsSubmitButton": "submitEmailNot"
         },
+        onBeforeDestroy: function() {
+            this.unbind();
+        },
         cancel: function(event){
-		    console.log("Cancel button invoked");
 			Backbone.history.navigate('main', {trigger: true}); 
 		},
-        
         submitEmailNot: function(event){
             var self = this;
             console.log("pressed submit ON EMAIL NOTIFICATION");

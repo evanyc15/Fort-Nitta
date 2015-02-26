@@ -19,6 +19,10 @@ define([
         events: {
          "click .forumsMainRow": "forumThreadShow",
         },
+        onBeforeDestroy: function(){
+            // Need to unbind events to prevent memory leaks
+            this.unbind();
+        },
         forumThreadShow: function(event){
             var id = $(event.target).closest(".forumsMainRow").attr("id");
 

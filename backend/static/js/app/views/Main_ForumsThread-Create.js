@@ -70,8 +70,7 @@ define([
                 self.model.clear();
             });  
         },
-        onClose: function(){
-            this.remove();
+        onBeforeDestroy: function() {
             Backbone.Validation.unbind(this, {model: this.model});
             this.unbind();
             this.model.unbind();

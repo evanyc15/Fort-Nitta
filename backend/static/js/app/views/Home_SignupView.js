@@ -60,6 +60,7 @@ define([
             // fire multiple times.
             Backbone.Validation.unbind(this, {model: this.model});
             this.model.unbind();
+            this.unbind();
         },
 		loginShow: function(){
 			this.trigger("click:login:show");

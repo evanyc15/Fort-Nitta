@@ -96,8 +96,7 @@ define([
                 }
             });    
         },
-        onClose: function(){
-            this.remove();
+        onBeforeDestroy: function() {
             this.unbind();
         },
         postShow: function(event){

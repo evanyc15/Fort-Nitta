@@ -90,8 +90,7 @@ define([
             });    
             
         },
-        onClose: function(){
-            this.remove();
+        onBeforeDestroy: function() {
             this.unbind();
         },
         newPost: function(event){
