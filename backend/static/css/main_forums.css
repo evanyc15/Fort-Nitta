@@ -147,7 +147,7 @@
     bottom: -10px;
 }
 .slick-imageContainer {
-    width: 300px;
+    width: 350px;
     margin-left: 100px;
 }
 .slick-images {
@@ -157,19 +157,17 @@
     box-shadow: inset 0px 0px 5px 4px rgba(230,227,230,1);
     background-color: #E8E8E8;
     margin: 0px 5px 0px 5px;
-    padding: 0px 2px 0px 2px;
 }
 .slick-images div {
-    position: relative;
-    height: 30px;
+    height: 50px;
 }
 .slick-images div img {
-    position: absolute !important;
-    max-height: 30px;
-    left: 0 !important;
-    right: 0 !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    max-height: 50px;
+}
+.slick-initialized .slick-slide {
+    display: inline-block !important;
+    width: auto !important;
+    margin: 0px 1px 0px 1px;
 }
 
 /* Forum Thread Create CSS */

@@ -49,7 +49,7 @@ define([
                     withCredentials: true
                 },
                 success: function(data){
-    
+
                     self.collection.add(data, {merge: true});
 
                     var html = self.template(self.collection.toJSON());
@@ -61,7 +61,6 @@ define([
                         centerMode: true,
                         arrows: true,
                         cssEase: 'ease',
-                        dots: true,
                         infinite: true,
                         slidesToShow: 3,
                         slidesToScroll: 3

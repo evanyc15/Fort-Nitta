@@ -5,6 +5,7 @@ from sqlalchemy import and_, or_
 from backend import db, app
 from backend.database.models import User, ForumsThreads, ForumsPosts, ForumsPostsLikes, ForumsPostsImages
 from sessionauth import session_auth_required, current_user_props
+from PIL import Image
 import json
 import hashlib
 import os
@@ -116,7 +117,15 @@ class PostsImagesAPI(MethodView):
             os.makedirs(filepath+'/'+filenameHash[5:7])
         filepath = filepath+'/'+filenameHash[5:7]
 
-        file.save(os.path.join(filepath, file.filename))
+        # PIL Image Compression
+        image = Image.open(file)
+        # Calculate the height using the same aspect ratio
+        widthPercent = (1024 / float(image.size[0]))
+        height = int((float(image.size[1]) * float(widthPercent)))
+        image = image.resize((1024, height), Image.ANTIALIAS)
+
+        image.save(os.path.join(filepath, file.filename), optimize=True, quality=70)
+        # fileOut.save(os.path.join(filepath, file.filename))
 
         new_forum_img = ForumsPostsImages(
                 post_id = post_id,
