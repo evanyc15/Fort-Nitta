@@ -84,6 +84,7 @@ define([
 			var self = this;
 			$(document).foundation();
 		    $('#pagepiling').pagepiling({
+		    	menu: null,
 		        direction: 'vertical',
 		        verticalCentered: true,
 		        scrollingSpeed: 700,
@@ -167,7 +168,6 @@ define([
 					    setTimeout(function() {
 					    	$("#parallax-pageLoad").fadeOut();
 					      	$("section").fadeIn();
-					      	$("#pp-nav").fadeIn();
 						}, 1000);	    
 					}
 			    },100);
