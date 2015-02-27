@@ -14,11 +14,12 @@ define([
 	'layout/Main_SettingsLayout',
 	'layout/Main_MessagesLayout',
 	'layout/Main_ForumsLayout',
+	'views/Main_LeaderboardsView',
 	'cookie',
 	'foundation',
 	'foundation-topbar',
 	'foundation-datatables'
-],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout, MessagesLayout, ForumsLayout) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout, MessagesLayout, ForumsLayout, LeaderboardsView) {
 
 	"use strict";
 
@@ -56,6 +57,10 @@ define([
 				self.contentRegion.show(new ForumsLayout());
 				Backbone.history.navigate('main/forums');
 			});
+			this.topbarView.on("click:leaderboards:show", function(){
+				self.contentRegion.show(new LeaderboardsView());
+				Backbone.history.navigate('main/leaderboards');
+			});
 			this.checkPageLoad();
 		},
 		regions: {
@@ -84,6 +89,8 @@ define([
 						action: self.options.action2
 					}));
 				}
+			} else if(this.options.action === "leaderboards"){
+				this.contentRegion.show(new LeaderboardsView());
 			} else{
 				//this.myProfileView = new MyProfileView();
 				//this.myProfileView.options = {model: new GameInfoModel()}
@@ -135,7 +142,7 @@ define([
 						    $("#parallax-pageLoadImg").css('opacity',1);
 						    $("#parallax-pageLoadMeter").css('width','100%');
 						    setTimeout(function() {
-						    	$("#main_pageLoad").fadeOut();
+						    	$("#parallax-pageLoad").fadeOut();
 						      	$("#topbarRegion").fadeIn();
 						      	$("#contentArea").fadeIn();
 						      	$("#playersRegion").fadeIn();

@@ -25,6 +25,7 @@ define([
 			"click #topbar_profileButton": "myprofileShow",
 			"click #topbar_message-seeall": "messageSeeall",
 			"click #topbar_forumsButton": "forumsShow",
+			"click #topbar_leaderboardsButton": "leaderboardsShow",
 		 	"mouseenter #topbar_messageButton,#topbar_messageContainer": "messagesShow",
   			"mouseleave #topbar_messageButton,#topbar_messageContainer": "messagesHide"
 		},
@@ -97,6 +98,9 @@ define([
 		},
 		forumsShow: function(){
 			this.trigger("click:forums:show");
+		},
+		leaderboardsShow: function(){
+			this.trigger("click:leaderboards:show");
 		},
 		logout: function(event) {
 			event.stopPropagation();

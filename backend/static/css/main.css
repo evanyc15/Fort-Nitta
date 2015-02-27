@@ -1,3 +1,4 @@
+/* General Main CSS */
 html,body{
     overflow: auto;
 }
@@ -9,6 +10,8 @@ input.error, textarea.error {
     border: 2px solid red;
     margin: 0 0 1rem;
 }
+
+/* Top Bar Area CSS */
 #topbarRegion{
     display: none;
 }
@@ -17,6 +20,8 @@ input.error, textarea.error {
     width: 110px;
     height: 45px;
 }
+
+/* Content Area CSS */
 #contentArea {
     display: none;
     width: 90%;
@@ -39,6 +44,8 @@ input.error, textarea.error {
     transition: all .5s ease;
     padding-right: 225px;
 }
+
+/* Player List CSS */
 #playersRegion {
     display: none;
     position: fixed;
@@ -58,4 +65,17 @@ input.error, textarea.error {
     -o-transition: all .4s ease-out;
     transition: all .4s ease-out;
     width: 0;
+}
+
+/* Two-way box used in templates like profile and leaderboards */
+.twoway-dividedBox {
+    background-color: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
+    box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
+    border: 1px solid #E8E8E8;
+    min-height: 700px;
 }
