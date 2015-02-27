@@ -12,7 +12,8 @@ define([
 	'views/Home_VerifyEmailView',
 	'views/Home_AboutView',
 	'text!templates/home_layout.html',
-	"pagepiling"
+	"pagepiling",
+	'imagesLoaded'
 ],  function (App, $, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, ChangePasswordView, VerifyEmailView, AboutView, template) {
 
 	"use strict";
@@ -94,25 +95,19 @@ define([
 		},
 		checkPageLoad: function(){
 			var self = this;
+			$("#parallax-pageLoadHeader").text("Loading Home Page");
+			
 			checkLoginSection();
 			function checkLoginSection(){
 				var interval = setInterval(function(){
-			   		if ($('#home_loginSection').length !== 0) {
-					    clearInterval(interval);
-					    checkLoginImage();
-					    $("#parallax-pageLoadMeter").css('width','15%');
-					}
+					$("#home_loginSection").imagesLoaded(function(){
+						if ($('#home_loginSection').length !== 0) {
+						    clearInterval(interval);
+						    checkAboutSection();
+						    $("#parallax-pageLoadMeter").css('width','35%');
+						}
+					});
 			    },100);
-			}
-			function checkLoginImage(){
-				var interval = setInterval(function(){
-					if($("#parallax-pageLoadImg").length != 0){
-						clearInterval(interval);
-					    checkAboutSection();
-					    $("#parallax-pageLoadImg").css('opacity',0.3);
-					    $("#parallax-pageLoadMeter").css('width','35%');
-					}
-				},100);
 			}
 			function checkAboutSection(){
 				var interval = setInterval(function(){
@@ -126,32 +121,14 @@ define([
 			}
 			function checkScreenshotSection(){
 				var interval = setInterval(function(){
-			    	if ($('#home_screenshotSection').length !== 0) {
-					    clearInterval(interval);
-					    checkprofileScreenShotSection();
-					    $("#parallax-pageLoadImg").css('opacity',0.5);
-					    $("#parallax-pageLoadMeter").css('width','65%');
-					}
-			    },100);
-			}
-			function checkprofileScreenShotSection() {
-				var interval = setInterval(function(){
-			    	if ($('#home_profileScreenshotImg').length !== 0) {
-					    clearInterval(interval);
-					    checkforumsScreenShotSection();
-					    $("#parallax-pageLoadImg").css('opacity',0.6);
-					    $("#parallax-pageLoadMeter").css('width','75%');
-					}
-			    },100);
-			}
-			function checkforumsScreenShotSection() {
-				var interval = setInterval(function(){
-			    	if ($('#home_forumsScreenshotImg').length !== 0) {
-					    clearInterval(interval);
-					    checkFooterSection();
-					    $("#parallax-pageLoadImg").css('opacity',0.7);
-					    $("#parallax-pageLoadMeter").css('width','85%');
-					}
+					$("#home_screenshotSection").imagesLoaded(function(){
+						if ($('#home_screenshotSection').length !== 0) {
+						    clearInterval(interval);
+						    checkFooterSection();
+						    $("#parallax-pageLoadImg").css('opacity',0.5);
+						    $("#parallax-pageLoadMeter").css('width','85%');
+						}
+					});
 			    },100);
 			}
 			function checkFooterSection(){

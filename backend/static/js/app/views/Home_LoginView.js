@@ -29,6 +29,7 @@ define([
                     success: function(mod, res){
                         console.log("SUCCESS");
                         self.model.clear();
+                        $("#parallax-pageLoad").css({'display':'block'});
                         Backbone.history.navigate('main', {trigger: true});
                     },
                     error: function(err){

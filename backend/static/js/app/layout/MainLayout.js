@@ -95,13 +95,15 @@ define([
 			$(document).foundation();
 		},
 		checkPageLoad: function(){
+			$("#parallax-pageLoadHeader").text("Loading Main Page")
+			
 			checkTopBar();
 			function checkTopBar(){
 				var interval = setInterval(function(){
 			   		if ($('nav.top-bar').length !== 0) {
 					    clearInterval(interval);
 					    checkTopBarMsg();
-					    $("#main_pageLoadMeter").css('width','25%');
+					    $("#parallax-pageLoadMeter").css('width','25%');
 					}
 			    },100);
 			}
@@ -110,8 +112,8 @@ define([
 					if($("#topbar_messageContainer").length != 0){
 						clearInterval(interval);
 					    checkPlayerList();
-					    $("#main_pageLoadImg").css('opacity',0.4);
-					    $("#main_pageLoadMeter").css('width','45%');
+					    $("#parallax-pageLoadImg").css('opacity',0.4);
+					    $("#parallax-pageLoadMeter").css('width','45%');
 					}
 				},100);
 			}
@@ -120,24 +122,26 @@ define([
 			    	if ($('#playerList').length !== 0) {
 					    clearInterval(interval);
 					    checkContentArea();
-					    $("#main_pageLoadImg").css('opacity',0.75);
-					    $("#main_pageLoadMeter").css('width','65%');			
+					    $("#parallax-pageLoadImg").css('opacity',0.75);
+					    $("#parallax-pageLoadMeter").css('width','65%');			
 					}
 			    },100);
 			}
 			function checkContentArea(){
 				var interval = setInterval(function(){
-			    	if ($('#contentArea').length !== 0) {
-					    clearInterval(interval);
-					    $("#main_pageLoadImg").css('opacity',1);
-					    $("#main_pageLoadMeter").css('width','100%');
-					    setTimeout(function() {
-					    	$("#main_pageLoad").fadeOut();
-					      	$("#topbarRegion").fadeIn();
-					      	$("#contentArea").fadeIn();
-					      	$("#playersRegion").fadeIn();
-						}, 1000);	
-					}
+					$("#contentArea").imagesLoaded(function(){
+							if ($('#contentArea').length !== 0) {
+						    clearInterval(interval);
+						    $("#parallax-pageLoadImg").css('opacity',1);
+						    $("#parallax-pageLoadMeter").css('width','100%');
+						    setTimeout(function() {
+						    	$("#main_pageLoad").fadeOut();
+						      	$("#topbarRegion").fadeIn();
+						      	$("#contentArea").fadeIn();
+						      	$("#playersRegion").fadeIn();
+							}, 1000);	
+						}
+					});
 			    },100);
 			}
 		},

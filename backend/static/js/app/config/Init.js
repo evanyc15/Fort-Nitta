@@ -30,7 +30,8 @@ require.config({
         "fancybox-media":"../libs/plugins/fancybox/helpers/jquery.fancybox-media",
         "fancybox-thumbs":"../libs/plugins/fancybox/helpers/jquery.fancybox-thumbs",
         "dropzone":"../libs/plugins/dropzone/dropzone",
-        "pagepiling":"../libs/plugins/jquery.pagepiling.min"
+        "pagepiling":"../libs/plugins/jquery.pagepiling.min",
+        "imagesLoaded":"../libs/plugins/imagesLoaded.pkgd.min"
     },
     // Sets the configuration for your third party scripts that are not AMD compatible
     shim:{

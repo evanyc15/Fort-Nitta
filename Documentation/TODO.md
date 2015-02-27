@@ -57,3 +57,4 @@ Frontend
 (30) Need loading pages/icon when loading forums and such cause it takes a while which may confuse user to think that there are no threads/posts
 (31) Home pageloader, need to also check images loaded because they are still rendering when home page shows (maybe use imageLoader.js?)
 (32) Extra scrollbar is showing on player list
+(33) Image resize and compression on profile pictures
