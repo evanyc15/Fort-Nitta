@@ -12,8 +12,8 @@ define([
 	'views/Home_VerifyEmailView',
 	'views/Home_AboutView',
 	'text!templates/home_layout.html',
-	"skrollr"
-],  function (App, $, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, ChangePasswordView, VerifyEmailView, AboutView, template, skrollr) {
+	"pagepiling"
+],  function (App, $, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, ChangePasswordView, VerifyEmailView, AboutView, template) {
 
 	"use strict";
 
@@ -23,6 +23,7 @@ define([
 
 		initialize: function(options){
 			this.options = options;	
+			this.checkPageLoad();
 		},
 		regions: {
 			loginRegion: "#loginRegion",
@@ -78,13 +79,99 @@ define([
 			$(window).scroll(function () {
 			    $("body").animate({"background-position":"50% " + ($(this).scrollTop() / 2) + "px"},{queue:false, duration:500});
 			});
-			this.skrollrObject = skrollr.init({
-				forceHeight: false,
-				smoothScrolling: false
-			});
 		},
 		onShow: function() {
+			var self = this;
 			$(document).foundation();
+		    $('#pagepiling').pagepiling({
+		        direction: 'vertical',
+		        verticalCentered: true,
+		        scrollingSpeed: 700,
+		        easing: 'swing',
+		        css3: true
+		    });		    
+		},
+		checkPageLoad: function(){
+			var self = this;
+			checkLoginSection();
+			function checkLoginSection(){
+				var interval = setInterval(function(){
+			   		if ($('#home_loginSection').length !== 0) {
+					    clearInterval(interval);
+					    checkLoginImage();
+					    $("#parallax-pageLoadMeter").css('width','15%');
+					}
+			    },100);
+			}
+			function checkLoginImage(){
+				var interval = setInterval(function(){
+					if($("#parallax-pageLoadImg").length != 0){
+						clearInterval(interval);
+					    checkAboutSection();
+					    $("#parallax-pageLoadImg").css('opacity',0.3);
+					    $("#parallax-pageLoadMeter").css('width','35%');
+					}
+				},100);
+			}
+			function checkAboutSection(){
+				var interval = setInterval(function(){
+			    	if ($('#home_aboutSection').length !== 0) {
+					    clearInterval(interval);
+					    checkScreenshotSection();
+					    $("#parallax-pageLoadImg").css('opacity',0.4);
+					    $("#parallax-pageLoadMeter").css('width','50%');			
+					}
+			    },100);
+			}
+			function checkScreenshotSection(){
+				var interval = setInterval(function(){
+			    	if ($('#home_screenshotSection').length !== 0) {
+					    clearInterval(interval);
+					    checkprofileScreenShotSection();
+					    $("#parallax-pageLoadImg").css('opacity',0.5);
+					    $("#parallax-pageLoadMeter").css('width','65%');
+					}
+			    },100);
+			}
+			function checkprofileScreenShotSection() {
+				var interval = setInterval(function(){
+			    	if ($('#home_profileScreenshotImg').length !== 0) {
+					    clearInterval(interval);
+					    checkforumsScreenShotSection();
+					    $("#parallax-pageLoadImg").css('opacity',0.6);
+					    $("#parallax-pageLoadMeter").css('width','75%');
+					}
+			    },100);
+			}
+			function checkforumsScreenShotSection() {
+				var interval = setInterval(function(){
+			    	if ($('#home_forumsScreenshotImg').length !== 0) {
+					    clearInterval(interval);
+					    checkFooterSection();
+					    $("#parallax-pageLoadImg").css('opacity',0.7);
+					    $("#parallax-pageLoadMeter").css('width','85%');
+					}
+			    },100);
+			}
+			function checkFooterSection(){
+				var interval = setInterval(function(){
+			    	if ($('#home_footerSection').length !== 0) {
+					    clearInterval(interval);
+					    $("#parallax-pageLoadMeter").css('width','100%');
+					    $("#parallax-pageLoadImg").css('opacity',1);
+					    // This removes the pp-tablecell element that pagepiling puts in which causes styling issues
+					    self.$el.find(".pp-tableCell").each(function(){
+					    	$(this).removeClass();
+					    	$(this).removeAttr('style');			
+						});
+					    setTimeout(function() {
+					    	$("#parallax-pageLoad").fadeOut();
+					      	$("section").fadeIn();
+					      	$("#pp-nav").fadeIn();
+						}, 1000);	    
+					}
+			    },100);
+			}	
 		},
 		logintoSignupViewTriggers: function(){
 	

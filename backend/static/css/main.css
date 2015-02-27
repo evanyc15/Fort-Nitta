@@ -1,1 +1,78 @@
-body{background-color:#f1f1f1}input.error,textarea.error{color:red;border:2px solid red;margin:0 0 1rem}#topBarLogo{margin-top:5px;width:110px;height:45px}#contentArea{width:90%;padding-left:30px;padding-right:30px;padding-bottom:30px;margin-left:0;margin-right:0;max-width:initial}#contentArea.contentShow{transition:all .5s ease;padding-right:0}#contentArea.contentHide{transition:all .5s ease;padding-right:225px}#contentRegion{padding-top:25px}#playersRegion{position:fixed;top:45px;right:0}#playersRegion.playersShow{-webkit-transition:all .4s ease-out;-moz-transition:all .4s ease-out;-o-transition:all .4s ease-out;transition:all .4s ease-out;width:225px}#playersRegion.playersHide{-webkit-transition:all .4s ease-out;-moz-transition:all .4s ease-out;-o-transition:all .4s ease-out;transition:all .4s ease-out;width:0}
+html,body{
+    overflow: auto;
+}
+body {
+    background-color: #f1f1f1;
+}
+input.error, textarea.error {
+    color: red;
+    border: 2px solid red;
+    margin: 0 0 1rem;
+}
+#main_pageLoad{
+    height: 100vh;
+    width: 100vw;
+    background-color: #F0F0F0;
+}
+#main_pageLoadContainer {
+    position: relative;
+    height: 250px;
+    width: 250px;
+    margin: auto !important;
+    right: 0 !important;
+    left: 0 !important;
+    top: 20%;
+}
+#main_pageLoadImg {
+    opacity: 0.2;
+}
+#topbarRegion{
+    display: none;
+}
+#topBarLogo {
+    margin-top: 5px;
+    width: 110px;
+    height: 45px;
+}
+#contentArea {
+    display: none;
+    width: 90%;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-top: 65px;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: initial;
+}
+#contentRegion {
+    overflow-y: auto;
+}
+#contentArea.contentShow {
+    transition: all .5s ease;
+    padding-right: 0;
+}
+#contentArea.contentHide {
+    transition: all .5s ease;
+    padding-right: 225px;
+}
+#playersRegion {
+    display: none;
+    position: fixed;
+    top: 45px;
+    right: 0;
+}
+#playersRegion.playersShow {
+    -webkit-transition: all .4s ease-out;
+    -moz-transition: all .4s ease-out;
+    -o-transition: all .4s ease-out;
+    transition: all .4s ease-out;
+    width: 225px;
+}
+#playersRegion.playersHide {
+    -webkit-transition: all .4s ease-out;
+    -moz-transition: all .4s ease-out;
+    -o-transition: all .4s ease-out;
+    transition: all .4s ease-out;
+    width: 0;
+}
