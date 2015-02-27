@@ -38,18 +38,22 @@ Frontend
 --!P! (11) Create forums
 (12) Create friends
 (13) Gamify
-(14) Switching between forum views seems to break (only sometimes) due to view not existing anymore
+--!D! (14) Switching between forum views seems to break (only sometimes) due to view not existing anymore
 (15) Need Flask-side validation for forums threads, posts, images, etc
 (16) Timer on players list
 (17) Scroll bar not showing on players list
 (18) Messaging not using "read" flag
 (19) Forum navigator to go forward and back between categories, threads, posts
 (20) Messaging avatar pictures
-(21) Forum post images and lightbox
+--!D! (21) Forum post images and lightbox
 --!D! (22) Forum posts reply is posting multiple times
 --!D! (23) Unlike posts as well
 (24) Timer to logout after some time
 (25) Delete post if image upload fails
 --!D! (26) Implement image compression
 --!D! (27) Migrate a lot of ajax calls and other definitions in view initializers into the onRender function to help with efficiency and performance.
-(28) In layouts, move around the function bindings so that views are only instantiated when moving between views. No need to do it all in initializer
+--!D! (28) In layouts, move around the function bindings so that views are only instantiated when moving between views. No need to do it all in initializer
+(29) Need to limit max width in slick post image (and/or make the container wider if needed)
+(30) Need loading pages/icon when loading forums and such cause it takes a while which may confuse user to think that there are no threads/posts
+(31) Home pageloader, need to also check images loaded because they are still rendering when home page shows (maybe use imageLoader.js?)
+(32) Extra scrollbar is showing on player list
