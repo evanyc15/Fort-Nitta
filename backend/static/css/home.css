@@ -48,6 +48,14 @@ small.success {
 #parallax-pageLoadImg {
 	opacity: 0.2;
 }
+.home_naviIcon{
+    position: absolute;
+    color: #E0E0E0;
+    opacity: 0.7;
+    height: 25px;
+    width: 100%;
+    text-align: center;
+}
 #home_loginSection {
 	background-image: url('../../../img/castle-wallpaper-hd.jpg');
 	background-repeat: no-repeat;

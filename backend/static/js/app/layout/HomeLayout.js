@@ -90,7 +90,17 @@ define([
 		        verticalCentered: true,
 		        scrollingSpeed: 700,
 		        easing: 'swing',
-		        css3: true
+		        css3: true,
+		        onLeave: function(index, nextIndex, direction){
+		            //after leaving section 2
+		            if(index == 1 && direction =='down'){
+		                console.log("leaving 1");
+		            }
+
+		            else if(index == 2 && direction == 'up'){
+		                console.log("leaving 2");
+		            }
+		        }
 		    });		    
 		},
 		checkPageLoad: function(){
@@ -141,6 +151,10 @@ define([
 					    self.$el.find(".pp-tableCell").each(function(){
 					    	$(this).removeClass();
 					    	$(this).removeAttr('style');			
+						});
+						self.$el.find(".home_naviIcon").each(function(){
+							self.$el.find("#home_loginSection").append($(this).clone(true));
+							$(this).remove();
 						});
 					    setTimeout(function() {
 					    	$("#parallax-pageLoad").fadeOut();
