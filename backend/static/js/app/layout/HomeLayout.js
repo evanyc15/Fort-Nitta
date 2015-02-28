@@ -111,13 +111,13 @@ define([
 			checkLoginSection();
 			function checkLoginSection(){
 				var interval = setInterval(function(){
-					$("#home_loginSection").imagesLoaded(function(){
-						if ($('#home_loginSection').length !== 0) {
+					if ($('#home_loginSection').length !== 0) {
+						$("#home_loginSection").imagesLoaded(function(){
 						    clearInterval(interval);
 						    checkAboutSection();
 						    $("#parallax-pageLoadMeter").css('width','35%');
-						}
-					});
+						});
+					}
 			    },100);
 			}
 			function checkAboutSection(){
@@ -132,14 +132,14 @@ define([
 			}
 			function checkScreenshotSection(){
 				var interval = setInterval(function(){
-					$("#home_screenshotSection").imagesLoaded(function(){
-						if ($('#home_screenshotSection').length !== 0) {
-						    clearInterval(interval);
-						    checkFooterSection();
-						    $("#parallax-pageLoadImg").css('opacity',0.5);
-						    $("#parallax-pageLoadMeter").css('width','85%');
-						}
-					});
+					if ($('#home_screenshotSection').length !== 0) {
+						$("#home_screenshotSection").imagesLoaded(function(){
+							    clearInterval(interval);
+							    checkFooterSection();
+							    $("#parallax-pageLoadImg").css('opacity',0.5);
+							    $("#parallax-pageLoadMeter").css('width','85%');
+						});
+					}
 			    },100);
 			}
 			function checkFooterSection(){

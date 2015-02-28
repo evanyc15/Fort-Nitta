@@ -137,8 +137,8 @@ define([
 			}
 			function checkContentArea(){
 				var interval = setInterval(function(){
-					$("#contentArea").imagesLoaded(function(){
-							if ($('#contentArea').length !== 0) {
+					if ($('#contentArea').length !== 0) {
+						$("#contentArea").imagesLoaded(function(){
 						    clearInterval(interval);
 						    $("#parallax-pageLoadImg").css('opacity',1);
 						    $("#parallax-pageLoadMeter").css('width','100%');
@@ -148,8 +148,8 @@ define([
 						      	$("#contentArea").fadeIn();
 						      	$("#playersRegion").fadeIn();
 							}, 1000);	
-						}
-					});
+						});
+					}
 			    },100);
 			}
 		},
