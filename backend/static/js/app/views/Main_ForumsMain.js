@@ -3,7 +3,8 @@ define([
     'marionette',
     'handlebars',
     'collections/ForumsCategoryCollection',
-    'text!templates/main_forumsMain.html'
+    'text!templates/main_forumsMain.html',
+    'imagesloaded'
 ], function (App, Marionette, Handlebars, ForumsCategoryCollection, template){
 
     "use strict";
@@ -25,7 +26,9 @@ define([
             this.unbind();
         },
         onShow: function(){
-            $("forumsLoadingOverlay").hide();
+            $("#forumsContentRegion").imagesLoaded(function(){
+                $("#forumsLoadingOverlay").hide();
+            });    
         },
         forumThreadShow: function(event){
             var id = $(event.target).closest(".forumsMainRow").attr("id");

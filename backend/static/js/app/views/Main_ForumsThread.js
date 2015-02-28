@@ -4,7 +4,8 @@ define([
     'handlebars',
     'collections/ForumsThreadCollection',
     'collections/ForumsCategoryCollection',
-    'text!templates/main_forumsthread.html'
+    'text!templates/main_forumsthread.html',
+    'imagesloaded'
 ], function (App, Marionette, Handlebars, ForumsThreadCollection, ForumsCategoryCollection, template){
 
     "use strict";
@@ -83,7 +84,9 @@ define([
                    
                 },
                 complete: function() {
-                    $("#forumsLoadingOverlay").hide();
+                    $("#forumsContentRegion").imagesLoaded(function(){
+                        $("#forumsLoadingOverlay").hide();
+                    });
                     self.$el.find("#threadTable").DataTable({
                         "sPaginationType": "full_numbers",
                         "bAutoWidth": false, // Disable the auto width calculation 

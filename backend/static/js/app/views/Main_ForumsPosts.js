@@ -8,7 +8,8 @@ define([
     'jquery-mousewheel',
     'fancybox-buttons',
     'fancybox-media',
-    'fancybox-thumbs'
+    'fancybox-thumbs',
+    'imagesloaded'
 ], function (App, Marionette, Handlebars, ForumsPostsCollection, template){
 
     "use strict";
@@ -81,7 +82,9 @@ define([
                    
                 },
                 complete: function(){
-                    $("#forumsLoadingOverlay").hide();
+                    $("#forumsContentRegion").imagesLoaded(function(){
+                        $("#forumsLoadingOverlay").hide();
+                    });
                     self.$el.find("#postsTable").DataTable({
                         "sPaginationType": "full_numbers",
                         "bSort": false,
