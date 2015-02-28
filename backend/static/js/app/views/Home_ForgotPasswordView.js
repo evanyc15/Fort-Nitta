@@ -18,6 +18,7 @@ define([
         },
         events: {
            "click #backLoginButton": "loginShow",
+           "keyup #emailInput": "emailKeyup",
            "click #passwordRecButton": "passwordRecovery"
         },
         onBeforeDestroy: function(){
@@ -26,6 +27,17 @@ define([
         },
         loginShow: function() {
             this.trigger("click:login:show");
+        },
+        emailKeyup: function(event){
+             var k = event.keyCode || event.which;
+
+            if (k == 13 && $("#emailInput").val() === ""){
+                event.preventDefault();   // prevent enter-press submit when input is empty
+            } else if(k == 13){
+                event.preventDefault();
+                this.passwordRecovery();
+                return false;
+            }
         },
         // This sends the email to the user for reset their password
         passwordRecovery: function(event) {

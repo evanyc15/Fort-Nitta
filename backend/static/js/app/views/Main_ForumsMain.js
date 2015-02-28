@@ -15,6 +15,7 @@ define([
 
         initialize: function(options){
             this.options = options;
+            $("#forumsLoadingOverlay").show();
         },
         events: {
          "click .forumsMainRow": "forumThreadShow",
@@ -22,6 +23,9 @@ define([
         onBeforeDestroy: function(){
             // Need to unbind events to prevent memory leaks
             this.unbind();
+        },
+        onShow: function(){
+            $("forumsLoadingOverlay").hide();
         },
         forumThreadShow: function(event){
             var id = $(event.target).closest(".forumsMainRow").attr("id");

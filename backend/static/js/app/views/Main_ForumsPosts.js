@@ -31,6 +31,7 @@ define([
                     return options.fn(this);
                 }
             });
+            $("#forumsLoadingOverlay").show();
         },
         events: {
            "click #forumsPosts-reply": "newPost",
@@ -80,6 +81,7 @@ define([
                    
                 },
                 complete: function(){
+                    $("#forumsLoadingOverlay").hide();
                     self.$el.find("#postsTable").DataTable({
                         "sPaginationType": "full_numbers",
                         "bSort": false,

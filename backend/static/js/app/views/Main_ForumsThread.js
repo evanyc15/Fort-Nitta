@@ -31,6 +31,7 @@ define([
                     return options.fn(this);
                 }
             });
+            $("#forumsLoadingOverlay").show();
         },
         events: {
             "click .forumsThreadTile": "postShow",
@@ -82,7 +83,7 @@ define([
                    
                 },
                 complete: function() {
-
+                    $("#forumsLoadingOverlay").hide();
                     self.$el.find("#threadTable").DataTable({
                         "sPaginationType": "full_numbers",
                         "bAutoWidth": false, // Disable the auto width calculation 

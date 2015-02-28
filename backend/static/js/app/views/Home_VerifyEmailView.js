@@ -23,6 +23,7 @@ define([
         },
         events: {
             "click #backLoginButton": "backtoLogin",
+            "keyup #emailInput": "emailKeyup",
             "click #sendEmailButton": "sendEmail"
         },
         onRender: function(){
@@ -80,6 +81,17 @@ define([
         },
         backtoLogin: function() {
             this.trigger("click:login:show");
+        },
+        emailKeyup: function(event){
+            var k = event.keyCode || event.which;
+
+            if (k == 13 && $("#emailInput").val() === ""){
+                event.preventDefault();    // prevent enter-press submit when input is empty
+            } else if(k == 13){
+                event.preventDefault();
+                this.sendEmail();
+                return false;
+            }
         },
         // This sends the email to verify user
         sendEmail: function(event) {

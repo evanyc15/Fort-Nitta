@@ -31,7 +31,7 @@ Frontend
 --!D! (4) Better error checking on signup and login page
 (5) Allow "enter" key on all inputs
 (6) Error checking in all of messaging
---!P! (7) Messaging Notification not up yet 
+--!D! (7) Messaging Notification not up yet 
 (8) UML diagrams in xMind
 --!D! (9) Need to transition to using Backbone Models more for Backbone.validation, POST/GET (AJAX calls), and storing user information. Validation using SignupModel, LoginModel
 --!D! (10) Move players list and messages list to Backbone collections (PLAYERS LIST IS ALMOST DONE, GETTING WEIRD ERROR WHEN REMOVING PLAYERS FROM LIST IN PLAYERSVIEW)
@@ -42,7 +42,7 @@ Frontend
 (15) Need Flask-side validation for forums threads, posts, images, etc
 (16) Timer on players list
 (17) Scroll bar not showing on players list
-(18) Messaging not using "read" flag
+--!D! (18) Messaging not using "read" flag
 (19) Forum navigator to go forward and back between categories, threads, posts
 (20) Messaging avatar pictures
 --!D! (21) Forum post images and lightbox
@@ -54,7 +54,7 @@ Frontend
 --!D! (27) Migrate a lot of ajax calls and other definitions in view initializers into the onRender function to help with efficiency and performance.
 --!D! (28) In layouts, move around the function bindings so that views are only instantiated when moving between views. No need to do it all in initializer
 (29) Need to limit max width in slick post image (and/or make the container wider if needed)
-(30) Need loading pages/icon when loading forums and such cause it takes a while which may confuse user to think that there are no threads/posts
+--!P! (30) Need loading pages/icon when loading forums and such cause it takes a while which may confuse user to think that there are no threads/posts
 (31) Home pageloader, need to also check images loaded because they are still rendering when home page shows (maybe use imageLoader.js?)
 (32) Extra scrollbar is showing on player list
 (33) Image resize and compression on profile pictures

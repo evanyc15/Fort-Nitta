@@ -91,6 +91,7 @@ define([
         },
         events: {
            "click #backLoginButton": "loginShow",
+           "keyup #repasswordInput": "onrePasswordKeyup",
            "click #passwordButton": "changePassword"
         },
         onBeforeDestroy: function(){
@@ -103,6 +104,17 @@ define([
         },
         loginShow: function() {
             this.trigger("click:login:show");
+        },
+        onrePasswordKeyup: function(event){
+             var k = event.keyCode || event.which;
+
+            if (k == 13 && $("#repasswordInput").val() === ""){
+                event.preventDefault();    // prevent enter-press submit when input is empty
+            } else if(k == 13){
+                event.preventDefault();
+                this.changePassword();
+                return false;
+            }
         },
         // This is for changing the password, this submits the new passwords for changing the user's password via ajax call
         changePassword: function(event) {
