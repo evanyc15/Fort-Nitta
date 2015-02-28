@@ -19,6 +19,7 @@ define([
 	'foundation',
 	'foundation-topbar',
 	'foundation-datatables'
+	'imagesloaded'
 ],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout, MessagesLayout, ForumsLayout, LeaderboardsView) {
 
 	"use strict";
@@ -61,7 +62,6 @@ define([
 				self.contentRegion.show(new LeaderboardsView());
 				Backbone.history.navigate('main/leaderboards');
 			});
-			this.checkPageLoad();
 		},
 		regions: {
 			topbarRegion: "#topbarRegion",
@@ -97,6 +97,7 @@ define([
 				//this.contentRegion.show(this.myProfileView);
 				this.contentRegion.show(new MyProfileView())
 			}
+			this.checkPageLoad();
 		},
 		onShow: function() {
 			$(document).foundation();

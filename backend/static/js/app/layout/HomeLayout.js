@@ -13,7 +13,7 @@ define([
 	'views/Home_AboutView',
 	'text!templates/home_layout.html',
 	"pagepiling",
-	'imagesLoaded'
+	'imagesloaded'
 ],  function (App, $, Backbone, Marionette, _, Handlebars, LoginView, SignupView, ForgotPasswordView, ChangePasswordView, VerifyEmailView, AboutView, template) {
 
 	"use strict";
@@ -24,7 +24,6 @@ define([
 
 		initialize: function(options){
 			this.options = options;	
-			this.checkPageLoad();
 		},
 		regions: {
 			loginRegion: "#loginRegion",
@@ -75,6 +74,7 @@ define([
 				this.loginRegion.show(this.loginView);
 			}
 			this.aboutRegion.show(new AboutView());
+			this.checkPageLoad();
 			$("body").removeClass("f-topbar-fixed");
 			$(window).scrollTop(0);
 			$(window).scroll(function () {
