@@ -120,11 +120,11 @@ class PostsImagesAPI(MethodView):
         # PIL Image Compression
         image = Image.open(file)
         # Calculate the height using the same aspect ratio
-        widthPercent = (1024 / float(image.size[0]))
+        widthPercent = (800 / float(image.size[0]))
         height = int((float(image.size[1]) * float(widthPercent)))
-        image = image.resize((1024, height), Image.ANTIALIAS)
+        image = image.resize((800, height), Image.ANTIALIAS)
 
-        image.save(os.path.join(filepath, file.filename), optimize=True, quality=70)
+        image.save(os.path.join(filepath, file.filename), optimize=True, quality=65)
         # fileOut.save(os.path.join(filepath, file.filename))
 
         new_forum_img = ForumsPostsImages(

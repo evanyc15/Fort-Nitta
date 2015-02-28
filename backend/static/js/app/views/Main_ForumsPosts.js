@@ -57,34 +57,33 @@ define([
                     var html = self.template(self.collection.toJSON());
                     self.$el.html(html);
 
-                    self.$el.find("#forumsPosts-header").text(self.options.model.get('title'));
-                    $('.slick-images').slick({
-                        accessibility: true,
-                        centerMode: true,
-                        arrows: true,
-                        cssEase: 'ease',
-                        infinite: true,
-                        slidesToShow: 3,
-                        slidesToScroll: 3
-                    });
-                    self.$(".fancybox-thumb").fancybox({
-                        prevEffect  : 'none',
-                        nextEffect  : 'none',
-                        helpers : {
-                            title   : {
-                                type: 'outside'
+                    self.$el.find("#forumsPosts-header").text(self.options.model.get('title')); 
+                    $("div.forumsPostsBox").imagesLoaded(function(){
+                        $("#forumsLoadingOverlay").hide();
+                        $('.slick-images').slick({
+                            accessibility: true,
+                            centerMode: true,
+                            arrows: true,
+                            cssEase: 'ease',
+                            infinite: true,
+                            slidesToShow: 3,
+                            slidesToScroll: 3
+                        });
+                        $(".fancybox-thumb").fancybox({
+                            prevEffect  : 'none',
+                            nextEffect  : 'none',
+                            helpers : {
+                                title   : {
+                                    type: 'outside'
+                                }
                             }
-                        }
-                    });
-
+                        });   
+                    });              
                 },
                 error: function(data){
                    
                 },
                 complete: function(){
-                    $("#forumsContentRegion").imagesLoaded(function(){
-                        $("#forumsLoadingOverlay").hide();
-                    });
                     self.$el.find("#postsTable").DataTable({
                         "sPaginationType": "full_numbers",
                         "bSort": false,
