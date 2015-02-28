@@ -103,7 +103,7 @@ class ChatMessageApi(MethodView):
         # This is mostly used to get the messages for the notification message dropdown in the website
         elif request.args.get('username'):
             user = User.query.filter_by(username = request.args.get('username')).first()
-            messages = ChatMessages.query.filter_by(to_user = user.id).order_by(ChatMessages.id.asc()).limit(10).all()
+            messages = ChatMessages.query.filter(and_(ChatMessages.to_user==user.id,ChatMessages.read==False)).order_by(ChatMessages.id.asc()).limit(25).all()
             for messageHolder in messages:
                 user = User.query.filter_by(id=messageHolder.from_user).first()
                 jsonData = {'id':messageHolder.id,'username':user.username,'firstname':user.first_name,'lastname':user.last_name,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
@@ -111,6 +111,24 @@ class ChatMessageApi(MethodView):
             return json.dumps(messageList)
         return jsonify(**{'success': False}), 401
 
+    # Updates the 'read' attribute for the messages of a user
+    def put(self):
+        # Gets to_username from REST parameters and gets from_username from REST parameters
+        request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            return jsonify(**{'success': False}), 401
+        to_user = User.query.filter_by(username=request_data['to_username']).first()
+        from_user = User.query.filter_by(username=request_data['from_username']).first()
+        if not to_user or not from_user:
+            return jsonify(**{'success': False}), 401
+        messages = ChatMessages.query.filter(or_(and_(ChatMessages.to_user==to_user.id,ChatMessages.from_user==from_user.id),and_(ChatMessages.to_user==from_user.id,ChatMessages.from_user==to_user.id))).all()
+        if not messages:
+            return jsonify(**{'success': False}), 401
+        for data in messages:
+            data.read = True
+            db.session.add(data)
+            db.session.commit()
+        return jsonify(**{'success': True})
 
 # Get all the users that a "this" user has chatted with
 class ChatUserApi(MethodView):
@@ -134,7 +152,7 @@ chat_user_view = ChatUserApi.as_view('chat_user_api')
 app.add_url_rule('/api/messages/users/', view_func=chat_user_view, methods=['GET'])
 
 chat_message_view = ChatMessageApi.as_view('chat_message_api')
-app.add_url_rule('/api/messages/chat/', view_func=chat_message_view, methods=['POST','GET'])
+app.add_url_rule('/api/messages/chat/', view_func=chat_message_view, methods=['POST','GET','PUT'])
 
 chat_userRetrieve_view = ChatUserRetrieveApi.as_view('chat_userretrieve_api')
 app.add_url_rule('/api/messages/retrieveUsers/', view_func=chat_userRetrieve_view, methods=['GET','POST'])

@@ -16,6 +16,21 @@ define([
 
         initialize: function(options){
             this.options = options;
+            console.log(this.options);
+            $.ajax({
+                    url: '/api/messages/chat/',
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify({'from_username': App.session.user.get('username'),'to_username':this.options.messagesUser.get('username')}),
+                    crossDomain: true,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function(data){
+                        console.log(data);
+                    },
+                });
         },
         events: {
          
