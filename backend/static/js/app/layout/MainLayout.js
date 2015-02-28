@@ -18,7 +18,7 @@ define([
 	'cookie',
 	'foundation',
 	'foundation-topbar',
-	'foundation-datatables'
+	'foundation-datatables',
 	'imagesloaded'
 ],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout, MessagesLayout, ForumsLayout, LeaderboardsView) {
 
