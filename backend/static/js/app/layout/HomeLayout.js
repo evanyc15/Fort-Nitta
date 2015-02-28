@@ -105,8 +105,9 @@ define([
 		},
 		checkPageLoad: function(){
 			var self = this;
-			$("#parallax-pageLoadImg").addClass("iconBlink");
-			
+			if(!$("#parallax-pageLoadImg").hasClass("iconBlink")){
+				$("#parallax-pageLoadImg").addClass("iconBlink");
+			}
 			$("#parallax-pageLoadMeter").css('width','0');
 			$("#parallax-pageLoadHeader").text("Loading Home Page");
 			$("#parallax-pageLoad").css('display','block');

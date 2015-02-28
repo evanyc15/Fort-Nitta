@@ -103,7 +103,9 @@ define([
 			$(document).foundation();
 		},
 		checkPageLoad: function(){
-			$("#parallax-pageLoadImg").addClass("iconBlink");
+			if(!$("#parallax-pageLoadImg").hasClass("iconBlink")){
+				$("#parallax-pageLoadImg").addClass("iconBlink");
+			}
 			$("#parallax-pageLoadMeter").css('width','0');
 			$("#parallax-pageLoadHeader").text("Loading Main Page")
 			$("#parallax-pageLoad").css('display','block');
