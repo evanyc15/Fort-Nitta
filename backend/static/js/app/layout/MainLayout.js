@@ -62,6 +62,7 @@ define([
 				self.contentRegion.show(new LeaderboardsView());
 				Backbone.history.navigate('main/leaderboards');
 			});
+			this.checkPageLoad();
 		},
 		regions: {
 			topbarRegion: "#topbarRegion",
@@ -97,13 +98,12 @@ define([
 				//this.contentRegion.show(this.myProfileView);
 				this.contentRegion.show(new MyProfileView())
 			}
-			this.checkPageLoad();
 		},
 		onShow: function() {
 			$(document).foundation();
 		},
 		checkPageLoad: function(){
-			$("#parallax-pageLoadHeader").css('display','block');
+			$("#parallax-pageLoad").css('display','block');
 			$("#parallax-pageLoadHeader").text("Loading Main Page")
 			
 			checkTopBar();

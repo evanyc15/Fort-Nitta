@@ -24,6 +24,7 @@ define([
 
 		initialize: function(options){
 			this.options = options;	
+			this.checkPageLoad();
 		},
 		regions: {
 			loginRegion: "#loginRegion",
@@ -74,7 +75,6 @@ define([
 				this.loginRegion.show(this.loginView);
 			}
 			this.aboutRegion.show(new AboutView());
-			this.checkPageLoad();
 			$("body").removeClass("f-topbar-fixed");
 			$(window).scrollTop(0);
 			$(window).scroll(function () {
@@ -105,7 +105,7 @@ define([
 		},
 		checkPageLoad: function(){
 			var self = this;
-			$("#parallax-pageLoadHeader").css('display','block');
+			$("#parallax-pageLoad").css('display','block');
 			$("#parallax-pageLoadHeader").text("Loading Home Page");
 			
 			checkLoginSection();
