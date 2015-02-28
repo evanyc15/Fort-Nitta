@@ -105,6 +105,7 @@ define([
 		},
 		checkPageLoad: function(){
 			var self = this;
+			$("#parallax-pageLoadHeader").css('display','block');
 			$("#parallax-pageLoadHeader").text("Loading Home Page");
 			
 			checkLoginSection();

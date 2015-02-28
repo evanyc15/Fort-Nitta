@@ -102,6 +102,7 @@ define([
 			$(document).foundation();
 		},
 		checkPageLoad: function(){
+			$("#parallax-pageLoadHeader").css('display','block');
 			$("#parallax-pageLoadHeader").text("Loading Main Page")
 			
 			checkTopBar();
