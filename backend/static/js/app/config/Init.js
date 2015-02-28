@@ -63,7 +63,8 @@ require.config({
         "fancybox-buttons":["jquery","fancybox"],
         "fancybox-media":["jquery","fancybox"],
         "fancybox-thumbs":["jquery","fancybox"],
-        "pagepiling":["jquery","jqueryui"]
+        "pagepiling":["jquery","jqueryui"],
+        "imagesloaded":["jquery"]
     }
 });
 

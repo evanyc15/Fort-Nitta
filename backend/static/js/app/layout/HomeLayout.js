@@ -111,8 +111,8 @@ define([
 			checkLoginSection();
 			function checkLoginSection(){
 				var interval = setInterval(function(){
-					if ($('#home_loginSection').length !== 0) {
-						$("#home_loginSection").imagesLoaded(function(){
+					if (self.$('#home_loginSection').length !== 0) {
+						self.$("#home_loginSection").imagesLoaded(function(){
 						    clearInterval(interval);
 						    checkAboutSection();
 						    $("#parallax-pageLoadMeter").css('width','35%');
@@ -122,7 +122,7 @@ define([
 			}
 			function checkAboutSection(){
 				var interval = setInterval(function(){
-			    	if ($('#home_aboutSection').length !== 0) {
+			    	if (self.$('#home_aboutSection').length !== 0) {
 					    clearInterval(interval);
 					    checkScreenshotSection();
 					    $("#parallax-pageLoadImg").css('opacity',0.4);
@@ -132,8 +132,8 @@ define([
 			}
 			function checkScreenshotSection(){
 				var interval = setInterval(function(){
-					if ($('#home_screenshotSection').length !== 0) {
-						$("#home_screenshotSection").imagesLoaded(function(){
+					if (self.$('#home_screenshotSection').length !== 0) {
+						self.$("#home_screenshotSection").imagesLoaded(function(){
 							    clearInterval(interval);
 							    checkFooterSection();
 							    $("#parallax-pageLoadImg").css('opacity',0.5);
@@ -144,7 +144,7 @@ define([
 			}
 			function checkFooterSection(){
 				var interval = setInterval(function(){
-			    	if ($('#home_footerSection').length !== 0) {
+			    	if (self.$('#home_footerSection').length !== 0) {
 					    clearInterval(interval);
 					    $("#parallax-pageLoadMeter").css('width','100%');
 					    $("#parallax-pageLoadImg").css('opacity',1);
