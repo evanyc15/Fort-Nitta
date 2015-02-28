@@ -29,7 +29,7 @@ Frontend
 --!P! (2) Presence players on backbone side: Check by username rather than result list and make sure its all working since the Flask side is yielding rather than returning
 --!D! (3) Remove change profile picture on profile page
 --!D! (4) Better error checking on signup and login page
-(5) Allow "enter" key on all inputs
+--!D! (5) Allow "enter" key on all inputs
 (6) Error checking in all of messaging
 --!D! (7) Messaging Notification not up yet 
 (8) UML diagrams in xMind
@@ -54,7 +54,7 @@ Frontend
 --!D! (27) Migrate a lot of ajax calls and other definitions in view initializers into the onRender function to help with efficiency and performance.
 --!D! (28) In layouts, move around the function bindings so that views are only instantiated when moving between views. No need to do it all in initializer
 (29) Need to limit max width in slick post image (and/or make the container wider if needed)
---!P! (30) Need loading pages/icon when loading forums and such cause it takes a while which may confuse user to think that there are no threads/posts
-(31) Home pageloader, need to also check images loaded because they are still rendering when home page shows (maybe use imageLoader.js?)
+--!D! (30) Need loading pages/icon when loading forums and such cause it takes a while which may confuse user to think that there are no threads/posts
+--!D! (31) Home pageloader, need to also check images loaded because they are still rendering when home page shows (maybe use imageLoader.js?)
 (32) Extra scrollbar is showing on player list
 (33) Image resize and compression on profile pictures
