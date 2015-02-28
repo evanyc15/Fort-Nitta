@@ -103,9 +103,10 @@ define([
 			$(document).foundation();
 		},
 		checkPageLoad: function(){
-			$("#parallax-pageLoad").css('display','block');
+			$("#parallax-pageLoadImg").addClass("iconBlink");
 			$("#parallax-pageLoadMeter").css('width','0');
 			$("#parallax-pageLoadHeader").text("Loading Main Page")
+			$("#parallax-pageLoad").css('display','block');
 			
 			checkTopBar();
 			function checkTopBar(){
@@ -145,6 +146,7 @@ define([
 						    $("#parallax-pageLoadImg").css('opacity',1);
 						    $("#parallax-pageLoadMeter").css('width','100%');
 						    setTimeout(function() {
+						    	$("#parallax-pageLoadImg").removeClass("iconBlink");
 						    	$("#parallax-pageLoad").fadeOut();
 						      	$("#topbarRegion").fadeIn();
 						      	$("#contentArea").fadeIn();

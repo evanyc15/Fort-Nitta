@@ -26,6 +26,25 @@ small.success {
     margin-right: auto;
     max-width: initial;
 }
+
+.iconBlink {
+      animation: blink 2s steps(5, start) infinite;
+      -webkit-animation: blink 2s steps(5, start) infinite;
+    }
+    @keyframes blink {
+        0% { opacity: 0.3; }
+        25% { opacity: 0.4;}
+        50% { opacity: 0.5; }
+        75% { opacity: 0.4;}
+        100% { opacity: 0.3; }
+    }
+    @-webkit-keyframes blink {
+        0% { opacity: 0.3; }
+        25% { opacity: 0.4;}
+        50% { opacity: 0.5; }
+        75% { opacity: 0.4;}
+        100% { opacity: 0.3; }
+    }
 /* Home Page CSS */
 
 #pp-nav {

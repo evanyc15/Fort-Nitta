@@ -105,9 +105,11 @@ define([
 		},
 		checkPageLoad: function(){
 			var self = this;
-			$("#parallax-pageLoad").css('display','block');
+			$("#parallax-pageLoadImg").addClass("iconBlink");
+			
 			$("#parallax-pageLoadMeter").css('width','0');
 			$("#parallax-pageLoadHeader").text("Loading Home Page");
+			$("#parallax-pageLoad").css('display','block');
 			
 			checkLoginSection();
 			function checkLoginSection(){
@@ -159,6 +161,7 @@ define([
 							$(this).remove();
 						});
 					    setTimeout(function() {
+					    	$("#parallax-pageLoadImg").removeClass("iconBlink");
 					    	$("#parallax-pageLoad").fadeOut();
 					      	$("section").fadeIn();
 						}, 1000);	    
