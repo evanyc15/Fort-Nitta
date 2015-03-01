@@ -41,7 +41,6 @@ define([
                         withCredentials: true
                     },
                     success: function(data){
-                        console.log(self.dropzone);
                         if(self.dropzone.files.length !== 0){
                             self.dropzone.options.headers = { "postid": data.id };
                             self.dropzone.processQueue();

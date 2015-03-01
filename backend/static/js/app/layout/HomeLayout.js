@@ -90,17 +90,7 @@ define([
 		        verticalCentered: true,
 		        scrollingSpeed: 700,
 		        easing: 'swing',
-		        css3: true,
-		        onLeave: function(index, nextIndex, direction){
-		            //after leaving section 2
-		            if(index == 1 && direction =='down'){
-		                console.log("leaving 1");
-		            }
-
-		            else if(index == 2 && direction == 'up'){
-		                console.log("leaving 2");
-		            }
-		        }
+		        css3: true
 		    });		    
 		},
 		checkPageLoad: function(){
