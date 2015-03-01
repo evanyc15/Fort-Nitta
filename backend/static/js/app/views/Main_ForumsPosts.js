@@ -32,7 +32,6 @@ define([
                     return options.fn(this);
                 }
             });
-            $("#forumsLoadingOverlay").show();
         },
         events: {
            "click #forumsPosts-reply": "newPost",
@@ -40,7 +39,8 @@ define([
         },
         onRender: function() {
             var self = this;
-            
+
+            $("#forumsLoadingOverlay").show();    
             $.ajax({
                 url: '/api/forums/posts?thread_id='+this.options.model.get('id')+'&user_id='+App.session.user.get('uid'),
                 type: 'GET',

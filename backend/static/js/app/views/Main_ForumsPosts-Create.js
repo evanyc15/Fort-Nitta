@@ -23,9 +23,9 @@ define([
             "click #forumsPostsCreate-buttonCancel": "cancelButton"
         },
         onRender: function() {
-
             var self = this;
 
+            $("#forumsLoadingOverlay").hide();
             Backbone.Validation.bind(this, {
                 model: this.model
             });

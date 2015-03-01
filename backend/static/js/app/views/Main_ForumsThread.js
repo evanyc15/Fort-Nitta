@@ -32,7 +32,6 @@ define([
                     return options.fn(this);
                 }
             });
-            $("#forumsLoadingOverlay").show();
         },
         events: {
             "click .forumsThreadTile": "postShow",
@@ -40,6 +39,7 @@ define([
         },
         onRender: function() {
             var self = this;
+            $("#forumsLoadingOverlay").show();
 
             var header;
             var jsonHeaders = {'ccintroductions': 'Introductions', 
