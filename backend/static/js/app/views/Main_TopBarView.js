@@ -26,6 +26,7 @@ define([
 			"click #topbar_message-seeall": "messageSeeall",
 			"click #topbar_forumsButton": "forumsShow",
 			"click #topbar_leaderboardsButton": "leaderboardsShow",
+			"click #topbar_announcementsButton": "announcementsShow",
 		 	"mouseenter #topbar_messageButton,#topbar_messageContainer": "messagesShow",
   			"mouseleave #topbar_messageButton,#topbar_messageContainer": "messagesHide"
 		},
@@ -101,6 +102,9 @@ define([
 		},
 		leaderboardsShow: function(){
 			this.trigger("click:leaderboards:show");
+		},
+		announcementsShow: function(){
+			this.trigger("click:announcements:show");
 		},
 		logout: function(event) {
 			event.stopPropagation();
