@@ -10,11 +10,21 @@
         <table cellpadding="0" cellspacing="0" border="0" id="leaderboardsTable">
             <thead>
                 <tr>
-                    <!-- TH headers for table here -->
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Win-Loss %</th>
+                    <th>Total Wins</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- TD data for table here, -->
+                    {{#each []}}
+                    <tr>
+                        <td>{{this.rank}}</td>
+                        <td>{{this.username}}</td>
+                        <td>{{this.win_percent}}</td>
+                        <td>{{this.num_wins}}</td>
+                    </tr>
+                {{/each}}
             </tbody>
         </table>
     </div>

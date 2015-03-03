@@ -12,7 +12,11 @@ define([
         },
 
         defaults: {
-            // Put default values for attributes here
+            rank:'',
+            username:'',
+            win_percent: '',
+            num_wins: ''
+            
         },
 
     });
