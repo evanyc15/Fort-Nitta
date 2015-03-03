@@ -43,10 +43,11 @@ define([
 			"change #profilePictureChangeInput": "saveFile"
 		},
 		onRender: function(){
-
-			this.getUserStatistics();
+			//Set up game statistics table.  In success callback of GET, template is rerendered
 			this.getGameInfo();
 
+			//This will process before the ajax request completes in getGameInfo, render template
+			//without table data for now
 			var html = this.template({
 				'user_info': {
 					"username": App.session.user.get('username'),
@@ -57,7 +58,8 @@ define([
 			this.$el.html(html);
 		},
 		onShow: function() {
-			//console.log(moment(App.session.user.date_joined).format("ddd, YYYY MMM Do")); 
+			//As in onRender, this will process before ajax request in getGameInfo completes.  Avatar will
+			//be rerendered in getGameInfo
 			if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
 				this.$el.find("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);
 			}
@@ -111,6 +113,8 @@ define([
 		          withCredentials: true
 		      },
 		      success: function(data){
+		      		//Merge results from request with collection and render template with this
+		      		//data and user info
 		          self.collection.add(data, {merge: true});
 							var template_json = self.collection.toJSON();
 							template_json['user_info'] = {
@@ -120,6 +124,16 @@ define([
 							};
 		          var html = self.template(template_json);
 		          self.$el.html(html);
+
+		          //This is called here because we don't want to render user stats before
+		          //template is rerendered
+		          self.getUserStatistics();
+
+		          //Add avatar image
+		          if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
+								self.$el.find("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);
+							}
+							$("#username").html(App.session.user.attributes.username);
 		      },
 		      error: function(data){
 		         
