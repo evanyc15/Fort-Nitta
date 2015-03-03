@@ -3,7 +3,7 @@
 }
 #top-header {
     background-color: #fcfcfc;
-    border: 1px solid #E8E8E8;
+    border-bottom: 1px solid #E8E8E8;
 }
 .announcement-inner {
     padding: 15px;
