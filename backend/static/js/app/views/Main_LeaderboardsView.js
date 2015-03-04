@@ -26,13 +26,46 @@ define([
           
         },
         onRender: function(){
+            this.getLeaderboardStatistics();
 
-        },
-        onShow: function() {
-            $("#leaderboardsTable").DataTable();
         },
         onBeforeDestroy: function(){
             this.unbind();
         },
+        getLeaderboardStatistics: function() {
+                var self = this;
+		    $.ajax({
+		      url: '/api/leaderboards/',
+		      type: 'GET',
+		      contentType: 'application/json',
+		      dataType: 'json',
+		      crossDomain: true,
+		      xhrFields: {
+		          withCredentials: true
+		      },
+		      success: function(data){
+                console.log("SUCCESS WITH LEADERBOARDS AJAX CALL");
+                console.log(data);
+                
+                self.collection.add(data, {merge: true});
+                    var template_json = self.collection.toJSON();
+                var html = self.template(template_json);
+                self.$el.html(html);
+                
+		      },
+		      error: function(data){
+		        console.log("ERROR ON GETUSERSTATISTICS"); 
+		      },
+		      complete: function(){
+		        self.$el.find("#leaderboardsTable").DataTable({
+		          "sPaginationType": "full_numbers",
+		          "bSort": false,
+		          "iDisplayLength": 10,
+		          "bLengthChange": false //used to hide the property  
+		        });
+		      }
+		  	});  
+			}
+
     });
 });

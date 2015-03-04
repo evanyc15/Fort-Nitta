@@ -15,12 +15,13 @@ define([
 	'layout/Main_MessagesLayout',
 	'layout/Main_ForumsLayout',
 	'views/Main_LeaderboardsView',
+	'views/Main_AnnouncementsView',
 	'cookie',
 	'foundation',
 	'foundation-topbar',
 	'foundation-datatables',
 	'imagesloaded'
-],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout, MessagesLayout, ForumsLayout, LeaderboardsView) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout, MessagesLayout, ForumsLayout, LeaderboardsView, AnnouncementsView) {
 
 	"use strict";
 
@@ -62,6 +63,10 @@ define([
 				self.contentRegion.show(new LeaderboardsView());
 				Backbone.history.navigate('main/leaderboards');
 			});
+			this.topbarView.on("click:announcements:show", function(){
+				self.contentRegion.show(new AnnouncementsView());
+				Backbone.history.navigate('main/announcements');
+			});
 			this.checkPageLoad();
 		},
 		regions: {
@@ -92,6 +97,8 @@ define([
 				}
 			} else if(this.options.action === "leaderboards"){
 				this.contentRegion.show(new LeaderboardsView());
+			} else if(this.options.action === "announcements"){
+				this.contentRegion.show(new AnnouncementsView());
 			} else{
 				//this.myProfileView = new MyProfileView();
 				//this.myProfileView.options = {model: new GameInfoModel()}
