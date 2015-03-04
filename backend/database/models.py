@@ -363,3 +363,40 @@ class ForumsPostsImages(db.Model):
         """
         self.post_id = post_id
         self.image_path = image_path
+
+class GlobalAnnouncements(db.Model):
+    """
+    Contains the global GlobalAnnouncements
+    """
+    id =            db.Column(db.Integer, primary_key=True)
+    subject =       db.Column(db.String(2048))
+    posted_by =     db.Column(db.String(1024))
+    date_created =  db.Column(db.DateTime)
+
+    #One-to-many relationship with a Global Announcemnts Posts model
+    global_announcements = db.relationship('GlobalAnnouncementsPosts', backref='global_announcements', lazy='dynamic')
+
+    def __init__(self, subject, posted_by):
+        self.subject = subject
+        self.posted_by = posted_by
+        self.date_created = datetime.datetime.now()
+
+class GlobalAnnouncementsPosts(db.Model):
+    """
+    Contains the bullet point messages for each global announcement subject/topic
+    """
+    id =            db.Column(db.Integer, primary_key=True)
+    message =       db.Column(db.String(4096))
+    gbAnn_id=       db.Column(db.Integer, db.ForeignKey('global_announcements.id'))
+
+class UserPrivileges(db.Model):
+    """
+    Contains the privileges for each user (like admin access)
+    """
+    id =            db.Column(db.Integer, primary_key=True)
+    user_id =       db.Column(db.Integer, db.ForeignKey('user.id'))
+    admin_access =  db.Column(db.Boolean)
+
+    def __init__(self, user_id):
+        self.user_id = user_id
+        self.admin_access = False
