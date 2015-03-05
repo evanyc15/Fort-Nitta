@@ -27,8 +27,41 @@ define([
         regions: {
             contentRegion: "#forumsContentRegion"
         },
-        events: {
-
+        childEvents: {
+            "click:thread:show": function(childView, data){
+                this.contentRegion.show(new ForumsThreadView({
+                    model: data.model
+                }));
+                Backbone.history.navigate('main/forums/'+data.model.get('category_name'));
+            },
+            "click:newthread:show": function(childView, data){
+                this.contentRegion.show(new ForumsThreadCreateView({
+                    model: data.model
+                }));
+            },
+            "click:returnThreads:show": function(childView, data){
+                this.contentRegion.show(new ForumsThreadView({
+                    model: data.model
+                }));
+            },
+            "click:posts:show": function(childView, data){
+                this.contentRegion.show(new ForumsPostView({
+                    model: data.model
+                }));
+                if(!data.redirect){
+                    Backbone.history.navigate(Backbone.history.fragment+"?id="+data.model.get('id')); 
+                }
+            },
+            "click:newpost:show": function(childView, data){
+                this.contentRegion.show(new ForumsPostsCreateView({
+                    model: data.model
+                }));
+            },
+            "click:returnPosts:show": function(childView, data){
+                this.contentRegion.show(new ForumsPostView({
+                    model: data.model
+                }));
+            }
         },
         onRender: function(){
 
@@ -39,23 +72,12 @@ define([
                                 "plaformiososx","platformlinux","platformwindows","supportuseraccounts"];
 
             if(action && action !== "null" && (actionArray.indexOf(action) > -1)){
-                this.forumsThreadView = new ForumsThreadView();
-                this.forumsThreadView.on("click:posts:show", this.threadstoPostsTriggers.bind(this));
-                this.forumsThreadView.on("click:newthread:show", this.threadstoCreateThreadTriggers.bind(this));
-                this.forumsThreadView.options = {model: new ForumsCategoryModel({'category_name': action}), id: this.options.id};
-                this.contentRegion.show(this.forumsThreadView);
+                this.contentRegion.show(new ForumsThreadView({
+                    model: new ForumsCategoryModel({'category_name': action}), 
+                    id: this.options.id
+                }));
             } else {
-                this.forumsMainView = new ForumsMainView();
-
-                this.forumsMainView.on("click:thread:show", function(data){
-                    self.forumsThreadView = new ForumsThreadView();
-                    self.forumsThreadView.on("click:posts:show", self.threadstoPostsTriggers.bind(self));
-                    self.forumsThreadView.on("click:newthread:show", self.threadstoCreateThreadTriggers.bind(self));
-                    self.forumsThreadView.options = {model: data.model};
-                    self.contentRegion.show(self.forumsThreadView);
-                    Backbone.history.navigate('main/forums/'+data.model.get('category_name'));
-                });
-                this.contentRegion.show(this.forumsMainView);
+                this.contentRegion.show(new ForumsMainView());
             } 
         },
         threadstoCreateThreadTriggers: function(data){

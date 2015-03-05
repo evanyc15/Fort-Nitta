@@ -55,13 +55,13 @@ define([
                             $("#verifySuccess").css("display","block");
                             setTimeout(function() {
                                 $("#verifySuccess").css("display","none");
-                                self.trigger("click:login:show");
+                                self.triggerMethod("click:login:show");
                             }, 3000);
                         } else{
                             $("#verifyError").css("display","block");
                             setTimeout(function() {
                                 $("#verifyError").css("display","none");
-                                self.trigger("click:login:show");
+                                self.triggerMethod("click:login:show");
                             }, 3000);
                         }
                     },
@@ -69,7 +69,7 @@ define([
                         $("#verifyError").css("display","block");
                         setTimeout(function() {
                             $("#verifyError").css("display","none");
-                            self.trigger("click:login:show");
+                            self.triggerMethod("click:login:show");
                         }, 3000);    
                     },
                 });            
@@ -80,7 +80,7 @@ define([
             this.unbind();
         },
         backtoLogin: function() {
-            this.trigger("click:login:show");
+            this.triggerMethod("click:login:show");
         },
         emailKeyup: function(event){
             var k = event.keyCode || event.which;

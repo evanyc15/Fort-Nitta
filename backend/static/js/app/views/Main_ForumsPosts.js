@@ -102,7 +102,7 @@ define([
                 event.stopPropagation();
                 event.preventDefault();
             }
-            this.trigger("click:newpost:show", {model: this.options.model});
+            this.triggerMethod("click:newpost:show", {model: this.options.model});
         },
         newLike: function(event){
             var htmlElement = $(event.target).closest('.large-10.columns').find('.forumsPostsTile-likeButton');

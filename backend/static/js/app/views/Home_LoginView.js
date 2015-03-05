@@ -76,7 +76,7 @@ define([
             this.unbind();
         },
 		signUpShow: function(){
-			this.trigger("click:signup:show");
+			this.triggerMethod("click:signup:show");
 		},
         // Takes care of the enter key in submitting input fields for login
         onPasswordKeyup: function(event){
@@ -101,7 +101,7 @@ define([
             }).validate();
 	    },
         forgotPassword: function() {
-            this.trigger("click:forgotPassword:show");
+            this.triggerMethod("click:forgotPassword:show");
         }
 	});
 });

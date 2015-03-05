@@ -9,6 +9,8 @@ require.config({
         "underscore":"../libs/lodash",
         "backbone":"../libs/backbone",
         "marionette":"../libs/backbone.marionette",
+        "backbone.wreqr":"../libs/backbone.wreqr",
+        "backbone.babysitter":"../libs/backbone.babysitter",
         "handlebars":"../libs/handlebars",
 
         // Plugins
@@ -48,7 +50,7 @@ require.config({
         "foundation-reveal":["foundation"],
         "foundation-datatables":["datatables"],
         "marionette":{
-            "deps":["underscore", "backbone", "jquery"],
+            "deps":["underscore", "backbone", "jquery","backbone.wreqr","backbone.babysitter"],
             // Exports the global window.Marionette object
             "exports":"Marionette"
         },

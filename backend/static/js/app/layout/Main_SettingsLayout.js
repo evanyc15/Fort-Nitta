@@ -26,18 +26,16 @@ define([
             sidebarRegion: "#sidebarRegion",
             contentRegion: "#settingsRegion"
         },
+        childEvents: {
+            "click:settingschange:show": function() {
+                this.contentRegion.show(new SettingsChangeView());
+            },
+            "click:email&not:show": function() {
+                this.contentRegion.show(new SettingsEmailNotView());
+            }
+        },
         onRender: function() {
-            var self = this;
-
-            this.settingssidebarView = new SettingsSideBarView();
-            
-            this.settingssidebarView.on("click:settingschange:show", function(){
-                self.contentRegion.show(new SettingsChangeView());
-            });
-            this.settingssidebarView.on("click:email&not:show", function() {
-                self.contentRegion.show(new SettingsEmailNotView());
-            });
-            this.sidebarRegion.show(this.settingssidebarView);
+            this.sidebarRegion.show(new SettingsSideBarView());
             this.contentRegion.show(new SettingsChangeView());
         }
     });

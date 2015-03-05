@@ -25,12 +25,12 @@ define([
         settingschange: function() {
             this.$(".custom_accordion li").removeClass("active");
             this.$el.find("#settingschange").addClass("active");
-            this.trigger("click:settingschange:show");
+            this.triggerMethod("click:settingschange:show");
         },
         settingsemailnot: function() {
             this.$(".custom_accordion li").removeClass("active");
             this.$el.find("#settingsemailnot").addClass("active");
-            this.trigger("click:email&not:show");
+            this.triggerMethod("click:email&not:show");
         }
 
     });

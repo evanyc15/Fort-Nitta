@@ -77,7 +77,7 @@ define([
 
                     // Redirect to a Thread's specific post if the user has inputted the right url into the browser.
                     if(self.options.id && self.options.id !== "null"){
-                        self.trigger("click:posts:show", {model: self.collection.get(self.options.id), 'redirect': true});
+                        self.triggerMethod("click:posts:show", {model: self.collection.get(self.options.id), 'redirect': true});
                     }
                 },
                 error: function(data){
@@ -107,14 +107,14 @@ define([
             var id = $(event.target).closest(".forumsThreadTile").data("id");
 
             // Redirect is to determine if user inputted an url to a specific post or if they are going to the post via clicking from categories->threads->post
-            this.trigger("click:posts:show", {model: this.collection.get(id), 'redirect': false});
+            this.triggerMethod("click:posts:show", {model: this.collection.get(id), 'redirect': false});
         },
         newThread: function(event){
             if(event){
                 event.stopPropagation();
                 event.preventDefault();
             }
-            this.trigger("click:newthread:show", {model: this.options.model});
+            this.triggerMethod("click:newthread:show", {model: this.options.model});
         }
         
     });

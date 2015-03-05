@@ -45,7 +45,7 @@ define([
                             self.dropzone.options.headers = { "postid": data.id };
                             self.dropzone.processQueue();
                         } else {
-                            self.trigger("click:returnPosts:show", {model: self.options.model});
+                            self.triggerMethod("click:returnPosts:show", {model: self.options.model});
                         }        
                     },
                     error: function(){
@@ -103,7 +103,7 @@ define([
                         });
                         this.on("queuecomplete", function (file) {
                             setTimeout(function() {
-                                self.trigger("click:returnPosts:show", {model: self.options.model});
+                                self.triggerMethod("click:returnPosts:show", {model: self.options.model});
                             }, 1500);
                         });
                     }
@@ -133,7 +133,7 @@ define([
                 event.stopPropagation();
                 event.preventDefault();
             }
-            this.trigger("click:returnPosts:show", {model: this.options.model});
+            this.triggerMethod("click:returnPosts:show", {model: this.options.model});
         }
         
     });

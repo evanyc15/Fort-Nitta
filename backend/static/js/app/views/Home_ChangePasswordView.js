@@ -47,7 +47,7 @@ define([
                             $("#passwordSuccess").css("display","block");
                             setTimeout(function() {
                                 $("#passwordSuccess").css("display","none");
-                                self.trigger("click:login:show");
+                                self.triggerMethod("click:login:show");
                             }, 3000);
                         } else{
                             Object.keys(errors).forEach(function(k) {
@@ -103,7 +103,7 @@ define([
             this.unbind();
         },
         loginShow: function() {
-            this.trigger("click:login:show");
+            this.triggerMethod("click:login:show");
         },
         onrePasswordKeyup: function(event){
              var k = event.keyCode || event.which;

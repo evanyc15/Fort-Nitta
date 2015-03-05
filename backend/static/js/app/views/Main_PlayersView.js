@@ -31,7 +31,7 @@ define([
                 if($(window).width() != width){
                     width = $(window).width();
                     self.$el.find("#playersDisplayButton").removeClass("playersDisplayShown").addClass("playersDisplayHidden");
-                    self.trigger("click:playersDisplay:hide");
+                    self.triggerMethod("click:playersDisplay:hide");
                 } else if($(window).height() != height){
                     height = $(window).height();
                     $("#playerList").height(height-110);
@@ -80,10 +80,10 @@ define([
 		playersDisplay: function(){
 			if(this.$el.find("#playersDisplayButton").hasClass("playersDisplayShown")){
 				this.$el.find("#playersDisplayButton").removeClass("playersDisplayShown").addClass("playersDisplayHidden");
-				this.trigger("click:playersDisplay:hide");
+				this.triggerMethod("click:playersDisplay:hide");
 			} else if(this.$el.find("#playersDisplayButton").hasClass("playersDisplayHidden")){
 				this.$el.find("#playersDisplayButton").removeClass("playersDisplayHidden").addClass("playersDisplayShown");
-				this.trigger("click:playersDisplay:show");
+				this.triggerMethod("click:playersDisplay:show");
 			}
 		}
 		

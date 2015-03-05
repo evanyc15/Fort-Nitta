@@ -33,7 +33,7 @@ define([
         forumThreadShow: function(event){
             var id = $(event.target).closest(".forumsMainRow").attr("id");
 
-            this.trigger("click:thread:show", {model: this.collection.findWhere({'category_name': id.toLowerCase()})});
+            this.triggerMethod("click:thread:show", {model: this.collection.findWhere({'category_name': id.toLowerCase()})});
         }
         
     });

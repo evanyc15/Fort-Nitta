@@ -31,42 +31,6 @@ define([
 
 		initialize: function(options){
 			this.options = options;
-			this.topbarView = new TopBarView();
-			this.playersView = new PlayersView();
-			var self = this;
-
-			this.playersView.on("click:playersDisplay:show", function(){
-				$("#contentArea").removeClass("contentShow").addClass("contentHide");
-				$("#playersRegion").removeClass("playersHide").addClass("playersShow");
-			});
-			this.playersView.on("click:playersDisplay:hide", function(){
-				$("#contentArea").removeClass("contentHide").addClass("contentShow");
-				$("#playersRegion").removeClass("playersShow").addClass("playersHide");
-			});
-			this.topbarView.on("click:settings:show", function(){
-				self.contentRegion.show(new SettingsLayout());
-				Backbone.history.navigate('main/settings');
-			});
-			this.topbarView.on("click:myprofile:show", function(){
-				self.contentRegion.show(new MyProfileView());
-				Backbone.history.navigate('main/myprofile');
-			});
-			this.topbarView.on("click:messages:show", function(){
-				self.contentRegion.show(new MessagesLayout());
-				Backbone.history.navigate('main/messages');
-			});
-			this.topbarView.on("click:forums:show", function(){
-				self.contentRegion.show(new ForumsLayout());
-				Backbone.history.navigate('main/forums');
-			});
-			this.topbarView.on("click:leaderboards:show", function(){
-				self.contentRegion.show(new LeaderboardsView());
-				Backbone.history.navigate('main/leaderboards');
-			});
-			this.topbarView.on("click:announcements:show", function(){
-				self.contentRegion.show(new AnnouncementsView());
-				Backbone.history.navigate('main/announcements');
-			});
 			this.checkPageLoad();
 		},
 		regions: {
@@ -74,10 +38,45 @@ define([
 			playersRegion: "#playersRegion",
 			contentRegion: "#contentRegion"
 		},
+		childEvents: {
+			"click:playersDisplay:show": function(){
+				$("#contentArea").removeClass("contentShow").addClass("contentHide");
+				$("#playersRegion").removeClass("playersHide").addClass("playersShow");
+			},
+			"click:playersDisplay:hide": function() {
+				$("#contentArea").removeClass("contentHide").addClass("contentShow");
+				$("#playersRegion").removeClass("playersShow").addClass("playersHide");
+			},
+			"click:settings:show": function() {
+				this.contentRegion.show(new SettingsLayout());
+				Backbone.history.navigate('main/settings');
+			},
+			"click:myprofile:show": function() {
+				this.contentRegion.show(new MyProfileView());
+				Backbone.history.navigate('main/myprofile');
+			},
+			"click:messages:show": function() {
+				this.contentRegion.show(new MessagesLayout());
+				Backbone.history.navigate('main/messages');
+			},
+			"click:forums:show": function() {
+				this.contentRegion.show(new ForumsLayout());
+				Backbone.history.navigate('main/forums');
+			},
+			"click:leaderboards:show": function() {
+				this.contentRegion.show(new LeaderboardsView());
+				Backbone.history.navigate('main/leaderboards');
+			},
+			"click:announcements:show": function() {
+				this.contentRegion.show(new AnnouncementsView());
+				Backbone.history.navigate('main/announcements');
+			}
+
+		},
 		onRender: function() {
 			var self = this;
-			this.topbarRegion.show(this.topbarView);
-			this.playersRegion.show(this.playersView);
+			this.topbarRegion.show(new TopBarView());
+			this.playersRegion.show(new PlayersView());
 			
 			if(this.options.action === "settings"){
 				this.contentRegion.show(new SettingsLayout());
@@ -100,9 +99,6 @@ define([
 			} else if(this.options.action === "announcements"){
 				this.contentRegion.show(new AnnouncementsView());
 			} else{
-				//this.myProfileView = new MyProfileView();
-				//this.myProfileView.options = {model: new GameInfoModel()}
-				//this.contentRegion.show(this.myProfileView);
 				this.contentRegion.show(new MyProfileView())
 			}
 		},

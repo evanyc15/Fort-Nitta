@@ -26,7 +26,7 @@ define([
             this.unbind();
         },
         loginShow: function() {
-            this.trigger("click:login:show");
+            this.triggerMethod("click:login:show");
         },
         emailKeyup: function(event){
              var k = event.keyCode || event.which;

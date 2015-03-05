@@ -66,7 +66,7 @@ define([
 			this.$("#topbar_messageContainer").hide();
 		},
 		messageSeeall: function(){
-			this.trigger("click:messages:show");
+			this.triggerMethod("click:messages:show");
 		},
 		detectUserAgent: function() {
 			var userAgent;
@@ -92,19 +92,19 @@ define([
 			this.$el.find("#myModal").foundation('reveal','open');
 		},
 		settingsShow: function(){
-			this.trigger("click:settings:show");
+			this.triggerMethod("click:settings:show");
 		},
 		myprofileShow: function(){
-			this.trigger("click:myprofile:show");
+			this.triggerMethod("click:myprofile:show");
 		},
 		forumsShow: function(){
-			this.trigger("click:forums:show");
+			this.triggerMethod("click:forums:show");
 		},
 		leaderboardsShow: function(){
-			this.trigger("click:leaderboards:show");
+			this.triggerMethod("click:leaderboards:show");
 		},
 		announcementsShow: function(){
-			this.trigger("click:announcements:show");
+			this.triggerMethod("click:announcements:show");
 		},
 		logout: function(event) {
 			event.stopPropagation();

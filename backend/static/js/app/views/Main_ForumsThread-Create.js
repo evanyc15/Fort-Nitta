@@ -41,7 +41,7 @@ define([
                         withCredentials: true
                     },
                     success: function(data){
-                        self.trigger("click:returnThreads:show", {model: self.options.model});
+                        self.triggerMethod("click:returnThreads:show", {model: self.options.model});
                     },
                     error: function(){
                         var htmlElement = self.$el.find("textarea[name='title']");
@@ -96,7 +96,7 @@ define([
                 event.stopPropagation();
                 event.preventDefault();
             }
-            this.trigger("click:returnThreads:show", {model: this.options.model});
+            this.triggerMethod("click:returnThreads:show", {model: this.options.model});
         }
         
     });
