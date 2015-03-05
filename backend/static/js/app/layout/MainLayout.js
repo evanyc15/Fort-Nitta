@@ -16,12 +16,13 @@ define([
 	'layout/Main_ForumsLayout',
 	'views/Main_LeaderboardsView',
 	'views/Main_AnnouncementsView',
+	'layout/Main_AdminLayout',
 	'cookie',
 	'foundation',
 	'foundation-topbar',
 	'foundation-datatables',
 	'imagesloaded'
-],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout, MessagesLayout, ForumsLayout, LeaderboardsView, AnnouncementsView) {
+],  function (App, $, Backbone, Marionette, _, Handlebars, SessionModel, template, TopBarView, PlayersView, MyProfileView, SettingsLayout, MessagesLayout, ForumsLayout, LeaderboardsView, AnnouncementsView, AdminLayout) {
 
 	"use strict";
 
@@ -70,6 +71,10 @@ define([
 			"click:announcements:show": function() {
 				this.contentRegion.show(new AnnouncementsView());
 				Backbone.history.navigate('main/announcements');
+			},
+			"click:admin:show": function() {
+				this.contentRegion.show(new AdminLayout());
+				Backbone.history.navigate('main/admin');
 			}
 
 		},
@@ -98,6 +103,8 @@ define([
 				this.contentRegion.show(new LeaderboardsView());
 			} else if(this.options.action === "announcements"){
 				this.contentRegion.show(new AnnouncementsView());
+			} else if(this.options.action === "admin"){
+				this.contentRegion.show(new AdminLayout());
 			} else{
 				this.contentRegion.show(new MyProfileView())
 			}

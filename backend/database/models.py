@@ -389,6 +389,22 @@ class GlobalAnnouncementsPosts(db.Model):
     message =       db.Column(db.String(4096))
     gbAnn_id=       db.Column(db.Integer, db.ForeignKey('global_announcements.id'))
 
+class Todo(db.Model):
+    """
+    Contains a list of to do items and bug fixes needed
+    """
+    id =                    db.Column(db.Integer, primary_key=True)
+    todo_message =          db.Column(db.String(4096))
+    todo_type =             db.Column(db.String(512))
+    todo_status =           db.Column(db.String(512))
+    date_created =          db.Column(db.DateTime)
+
+    def __init__(self, todo_message, todo_type, todo_status, date_created):
+        self.todo_message = todo_message
+        self.todo_type = todo_type
+        self.todo_status = todo_status
+        self.date_created = datetime.datetime.now()
+
 class UserPrivileges(db.Model):
     """
     Contains the privileges for each user (like admin access)

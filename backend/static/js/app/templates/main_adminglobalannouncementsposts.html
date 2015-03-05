@@ -1,0 +1,27 @@
+<!-- Main Page Content and Sidebar -->
+<div class="row content">
+    <div class="large-12 columns twoway-dividedBox" style="padding:30px;">
+        <h5 style="display:inline-block" >
+            Posts for <span id="announcementpost-header" style="font-style:italic;">hello</span> Announcement 
+        </h5>
+        <a id="createglobalannouncementpost" style="margin-left:150px;display:inline-block" class="button button-default small">Create new Post for Announcement</a>  
+        <hr>   
+        <table cellpadding="0" cellspacing="0" border="0" id="globalAnnouncementspostsTable">
+            <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each []}}
+                    <tr class="odd" data-id="{{this.id}}">
+                        <td>{{this.id}}</td>
+                        <td>{{this.message}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- End Main Content and Sidebar -->

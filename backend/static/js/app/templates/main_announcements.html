@@ -10,38 +10,23 @@
 <div class="row">
 
     <div class="large-9 columns" id="announcement">
-
+        {{#each []}}
         <article class="announcement-inner">
- 
-	        <h3 class="announcement-header">Newest Updates to Website</h3>
-	        <h6 class="announcement-sub">Written by <b>Fort Nitta Server Team</b> on March 2, 2015.</h6>
-
+	        <h3 class="announcement-header">{{this.subject}}</h3>
+	        <h6 class="announcement-sub">Written by <b>{{this.posted_by}}</b> on {{this.date_created}}.</h6>
 	        <div class="row announcement-content">
 	          <div class="large-12 columns">
 	            <p>
 	            	<ul>
-	            		<li>This announcements page!</li>
-	            		<li>Added leaderboards</li>
+                        {{#each posts}}
+    	            		<li>{{this.message}}</li>
+                        {{/each}}
 	            	</ul>
 	            </p>
 	          </div>
 	        </div>
- 
         </article>
- 
-        <article class="announcement-inner">
- 
-	        <h3 class="announcement-header">Welcome to Fort Nitta!</h3>
-	        <h6 class="announcement-sub">Written by <b>Fort Nitta Server Team</b> on March 2, 2015.</h6>
-
-	        <div class="row announcement-content">
-	          <div class="large-12 columns">
-	            <p>Future announcements for website and game updates will be posted here!</p>
-	          </div>
-	        </div>
- 
-        </article>
- 
+        {{/each}}
     </div>
 </div>
 

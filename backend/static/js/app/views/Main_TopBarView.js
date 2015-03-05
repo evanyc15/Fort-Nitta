@@ -27,6 +27,7 @@ define([
 			"click #topbar_forumsButton": "forumsShow",
 			"click #topbar_leaderboardsButton": "leaderboardsShow",
 			"click #topbar_announcementsButton": "announcementsShow",
+			"click #topbar_adminButton": "adminShow",
 		 	"mouseenter #topbar_messageButton,#topbar_messageContainer": "messagesShow",
   			"mouseleave #topbar_messageButton,#topbar_messageContainer": "messagesHide"
 		},
@@ -105,6 +106,9 @@ define([
 		},
 		announcementsShow: function(){
 			this.triggerMethod("click:announcements:show");
+		},
+		adminShow: function() {
+			this.triggerMethod("click:admin:show");
 		},
 		logout: function(event) {
 			event.stopPropagation();

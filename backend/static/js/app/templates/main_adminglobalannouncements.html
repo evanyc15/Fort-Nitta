@@ -1,0 +1,29 @@
+<!-- Main Page Content and Sidebar -->
+<div class="row content">
+    <div class="large-12 columns twoway-dividedBox">
+        <h1 style="display:inline-block" >Admin Global Announcements</h1>
+        <a id="createglobalannouncement" style="margin-left:150px;display:inline-block" class="button button-default">Create new Announcement</a>  
+        <hr>   
+        <table cellpadding="0" cellspacing="0" border="0" id="globalAnnouncementsTable">
+            <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Announcement Subject</th>
+                    <th>Posted_by</th>
+                    <th>Date Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each []}}
+                    <tr class="odd announcementButton" data-id="{{this.id}}">
+                        <td>{{this.id}}</td>
+                        <td>{{this.subject}}</td>
+                        <td>{{this.posted_by}}</td>
+                        <td>{{this.date_created}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- End Main Content and Sidebar -->
