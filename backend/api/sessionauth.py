@@ -18,6 +18,12 @@ def session_auth_required(func):
 
 def current_user_props():
     userprivileges = UserPrivileges.query.filter(UserPrivileges.user_id==current_user.id).first()
+    if not userprivileges or userprivileges is None:
+        new_userprivileges = UserPrivileges(
+            user_id = current_user.id
+            )
+        db.session.add(new_userprivileges)
+        db.session.commit()
     return {'username': current_user.username, 
         'uid': current_user.id, 
         'first_name': current_user.first_name, 
