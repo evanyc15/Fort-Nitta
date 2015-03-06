@@ -100,14 +100,53 @@ class GlobalAnnouncementsGETAPI(MethodView):
             return json.dumps(announcementsArray)
         return jsonify(**{'success': 'none'}), 401
 
-globalannouncements = GlobalAnnouncementsAPI.as_view('globalannouncements_api')
-app.add_url_rule('/api/admin/announcements/', view_func=globalannouncements, methods=['POST','GET'])
+class UserPrivilegesAPI(MethodView):
+    def get(self):
+        userprivilegesArray = []
+        userprivileges = UserPrivileges.query.join(UserPrivileges.user).all()
+        if userprivileges is None:
+            return jsonify(**{'success': 'none'})
+        for data in userprivileges:
+            jsonData = {'id': data.id,'admin_access':data.admin_access,'username':data.user.username,'first_name':data.user.first_name,'last_name':data.user.last_name,'email':data.user.email,'data_joined':data.user.date_joined.strftime("%Y-%m-%d")}
+            userprivilegesArray.append(jsonData);
+        return json.dumps(userprivilegesArray)
 
-globalannouncementsposts = GlobalAnnouncementsPostsAPI.as_view('globalannouncementsposts_api')
-app.add_url_rule('/api/admin/announcementposts/', view_func=globalannouncementsposts, methods=['POST','GET'])
+    def post(self):
+        request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            return jsonify(**{'success': 'none'}), 401
+        if 'id' in request_data:
+            userprivileges = UserPrivileges.query.filter(UserPrivileges.id==request_data['id']).first()
+            userprivileges.admin_access = True
+            db.session.add(userprivileges)
+            db.session.commit()
+            return jsonify(**{'success':True})
+        return jsonify(**{'success': False}), 401
 
-todo = ToDoAPI.as_view('todo_api')
-app.add_url_rule('/api/admin/todo/', view_func=todo, methods=['POST','GET'])
+    def delete(self):
+        request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            return jsonify(**{'success': 'none'}), 401
+        if 'id' in request_data:
+            userprivileges = UserPrivileges.query.filter(UserPrivileges.id==request_data['id']).first()
+            userprivileges.admin_access = False
+            db.session.add(userprivileges)
+            db.session.commit()
+            return jsonify(**{'success':True})
+        return jsonify(**{'success': False}), 401
 
-globalannouncementsget = GlobalAnnouncementsGETAPI.as_view('globalannouncementsget_api')
-app.add_url_rule('/api/announcements/', view_func=globalannouncementsget, methods=['GET'])
+globalannouncements_view = GlobalAnnouncementsAPI.as_view('globalannouncements_api')
+app.add_url_rule('/api/admin/announcements/', view_func=globalannouncements_view, methods=['POST','GET'])
+
+globalannouncementsposts_view = GlobalAnnouncementsPostsAPI.as_view('globalannouncementsposts_api')
+app.add_url_rule('/api/admin/announcementposts/', view_func=globalannouncementsposts_view, methods=['POST','GET'])
+
+todo_view = ToDoAPI.as_view('todo_api')
+app.add_url_rule('/api/admin/todo/', view_func=todo_view, methods=['POST','GET'])
+
+globalannouncementsget_view = GlobalAnnouncementsGETAPI.as_view('globalannouncementsget_api')
+app.add_url_rule('/api/announcements/', view_func=globalannouncementsget_view, methods=['GET'])
+
+userprivileges_view = UserPrivilegesAPI.as_view('userprivileges_api')
+app.add_url_rule('/api/admin/userprivileges/', view_func=userprivileges_view, methods=['GET','POST','DELETE'])
+

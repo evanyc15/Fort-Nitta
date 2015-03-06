@@ -7,7 +7,7 @@ import logger
 from backend.api.mail import sendEmail
 
 from backend import db, app
-from backend.database.models import User, Presence, UserStatistics, Settings, ChatMessages
+from backend.database.models import User, Presence, UserStatistics, Settings, ChatMessages, UserPrivileges
 from backend.api.sessionauth import current_user_props, hash_password, check_password
 import validation
 
@@ -144,9 +144,11 @@ class RegisterAPI(MethodView):
         new_user_statistics = UserStatistics(user_id = user.id)
         new_presence = Presence(user_id = user.id)
         new_setting = Settings(user_id = user.id)
+        new_userprivilege = UserPrivileges(user_id = user.id)
         db.session.add(new_setting)
         db.session.add(new_user_statistics)
         db.session.add(new_presence)
+        db.session.add(new_userprivilege)
         db.session.commit()
 
         login_user(user)

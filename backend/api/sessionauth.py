@@ -3,7 +3,7 @@ from flask.views import MethodView
 from flask.ext.login import current_user, login_user, logout_user
 
 from backend import db, app, bcrypt
-from backend.database.models import User, Presence
+from backend.database.models import User, Presence, UserPrivileges
 import datetime
 
 
@@ -17,6 +17,7 @@ def session_auth_required(func):
     return decorated
 
 def current_user_props():
+    userprivileges = UserPrivileges.query.filter(UserPrivileges.user_id==current_user.id).first()
     return {'username': current_user.username, 
         'uid': current_user.id, 
         'first_name': current_user.first_name, 
@@ -24,7 +25,8 @@ def current_user_props():
         'email': current_user.email,
         'date_joined': current_user.date_joined,
         'avatar_path': current_user.avatar_path,
-        'new_user': current_user.new_user
+        'new_user': current_user.new_user,
+        'admin': userprivileges.admin_access
     } if current_user.is_authenticated() else {}
 
 def hash_password(pw):

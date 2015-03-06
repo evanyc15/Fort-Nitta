@@ -12,16 +12,13 @@ define([
         },
 
         defaults: {
-            uid: 0,
+            id: -1,
+            username: '',
             first_name: '',
             last_name: '',
-            username: '',
             email: '',
             date_joined: '',
-            avatar_path: '',
-            new_user: 1,
-            admin: false
-        },
-
+            admin_access: false
+        }
     });
 });

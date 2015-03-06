@@ -34,6 +34,9 @@ class User(db.Model, UserMixin):
     #One-to-many relationship with a Forums Posts model
     user_forums_posts = db.relationship('ForumsPosts', backref='user', lazy='dynamic')
 
+    #One-to-One relationship with a User Privileges model
+    user_privileges = db.relationship('UserPrivileges', backref='user', lazy='dynamic')
+
     def __init__(self, username, password, email, first_name, last_name):
         """
         Create a new User. Represents an account registration.

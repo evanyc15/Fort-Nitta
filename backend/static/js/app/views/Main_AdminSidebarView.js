@@ -17,7 +17,8 @@ define([
         },
         events: {
             "click #adminglobalannouncements": "adminglobalannouncements",
-            "click #admintodo": "admintodo"
+            "click #admintodo": "admintodo",
+            "click #adminprivileges": "adminprivileges"
         },
         onBeforeDestroy: function() {
             this.unbind();
@@ -31,7 +32,11 @@ define([
             this.$(".custom_accordion li").removeClass("active");
             this.$el.find("#admintodo").addClass("active");
             this.triggerMethod("click:todo:show");
+        },
+        adminprivileges: function() {
+            this.$(".custom_accordion li").removeClass("active");
+            this.$el.find("#adminprivileges").addClass("active");
+            this.triggerMethod("click:privilges:show");
         }
-
     });
 });
