@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from backend import db, app
 from backend.database.models import User
 from sessionauth import session_auth_required, current_user_props
+from PIL import Image
 
 import os
 
@@ -20,10 +21,19 @@ class AvatarAPI(MethodView):
         if ext not in ['jpg', 'jpeg', 'png', 'gif']:
             return jsonify(**{'success': False}), 422
 
+         # PIL Image Compression
+        image = Image.open(file)
+        # Calculate the height using the same aspect ratio
+        widthPercent = (640 / float(image.size[0]))
+        height = int((float(image.size[1]) * float(widthPercent)))
+        image = image.resize((640, height), Image.ANTIALIAS)
+
         # In case for whatever reason a username is made of Unix relative directory markers
-        filename = secure_filename(current_user.username) + '.' + ext
+        filename = file.filename + secure_filename(current_user.username) + '.' + ext
         print os.path.join(app.config['AVATAR_UPLOADS'], filename)
-        file.save(os.path.join(app.config['AVATAR_UPLOADS'], filename))
+
+        image.save(os.path.join(app.config['AVATAR_UPLOADS'], filename), optimize=True, quality=65)
+
 
         current_user.set_avatar_local_path(filename)
         db.session.add(current_user)

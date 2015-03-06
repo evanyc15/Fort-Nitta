@@ -39,6 +39,9 @@ define([
                         success: function(data){
                             $("#profilePicture").attr('src','/api/avatar/'+ data.user.avatar_path)
                             App.session.user.set(_.pick(data.user, _.keys(App.session.user.defaults)));
+                            App.session.user.set({
+                                'avatar_path': data.user.avatar_path
+                            })
                         },
                         error: function(data){
                             //alert('no upload');

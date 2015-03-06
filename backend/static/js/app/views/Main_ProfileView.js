@@ -43,16 +43,23 @@ define([
 			"change #profilePictureChangeInput": "saveFile"
 		},
 		onRender: function(){
+			var avatar_path;
 			//Set up game statistics table.  In success callback of GET, template is rerendered
 			this.getGameInfo();
 
 			//This will process before the ajax request completes in getGameInfo, render template
 			//without table data for now
+			if(App.session.user.get('avatar_path') != ""){
+				avatar_path = '/api/avatar/'+App.session.user.get('avatar_path')
+			} else{
+				avatar_path = "../../../img/placeholder-user.png"
+			}
 			var html = this.template({
 				'user_info': {
 					"username": App.session.user.get('username'),
 					"email": App.session.user.get('email'),
-					"date_joined": moment(App.session.user.get('date_joined')).format("ddd, YYYY MMM Do")
+					"date_joined": moment(App.session.user.get('date_joined')).format("ddd, YYYY MMM Do"),
+					"avatar_path": avatar_path
 				}
 			});
 			this.$el.html(html);
@@ -60,10 +67,7 @@ define([
 		onShow: function() {
 			//As in onRender, this will process before ajax request in getGameInfo completes.  Avatar will
 			//be rerendered in getGameInfo
-			if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
-				this.$el.find("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);
-			}
-			$("#username").html(App.session.user.attributes.username);
+			$("#username").html(App.session.user.get('username'));
 		},
 		onBeforeDestroy: function(){
 			this.unbind();
