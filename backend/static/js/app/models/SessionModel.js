@@ -109,7 +109,7 @@ define([
                         if(callback && 'error' in callback) callback.error(res);
                     }
                 },
-                error: function(res){
+                error: function(res, data){
                     if(callback && 'error' in callback) callback.error(res);
                     self.set({ logged_in: false , user_id: '' });
                 }

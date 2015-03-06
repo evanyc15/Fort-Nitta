@@ -32,7 +32,37 @@ define([
                         Backbone.history.navigate('main', {trigger: true});
                     },
                     error: function(err){
-                        console.log("ERROR", err);
+                        var response = JSON.parse(err.responseText);
+                        if(response.errors.hasOwnProperty('email_taken')){
+                            var emailElement = self.$el.find("input[name='email']");
+                            var placeholder = emailElement.attr("placeholder");
+
+                            emailElement.val("");
+                            emailElement.addClass("error").attr("placeholder","Email is already taken");
+                            setTimeout(function() {
+                                emailElement.removeClass("error").attr("placeholder",placeholder);
+                            }, 3000);
+                        }
+                        if(response.errors.hasOwnProperty('invalid_username')){
+                            var usernameElement = self.$el.find("input[name='username']");
+                            var placeholder = usernameElement.attr("placeholder");
+
+                            usernameElement.val("");
+                            usernameElement.addClass("error").attr("placeholder",response.errors.invalid_username);
+                            setTimeout(function() {
+                                usernameElement.removeClass("error").attr("placeholder",placeholder);
+                            }, 3000);
+                        }
+                        if(response.errors.hasOwnProperty('weak_password')){
+                            var pwdElement = self.$el.find("input[name='password']");
+                            var placeholder = pwdElement.attr("placeholder");
+
+                            pwdElement.val("");
+                            pwdElement.addClass("error").attr("placeholder",response.errors.weak_password);
+                            setTimeout(function() {
+                                pwdElement.removeClass("error").attr("placeholder",placeholder);
+                            }, 3000);
+                        }
                     }
                 });
             });

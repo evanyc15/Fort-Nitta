@@ -58,3 +58,4 @@ Frontend
 * --!D! (31) Home pageloader, need to also check images loaded because they are still rendering when home page shows (maybe use imageLoader.js?)
 * (32) Extra scrollbar is showing on player list
 * (33) Image resize and compression on profile pictures
+* (34) Need better error messages. For example, signup doesn't print "email taken".
