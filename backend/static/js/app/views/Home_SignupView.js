@@ -33,12 +33,23 @@ define([
                     },
                     error: function(err){
                         var response = JSON.parse(err.responseText);
+
                         if(response.errors.hasOwnProperty('email_taken')){
                             var emailElement = self.$el.find("input[name='email']");
                             var placeholder = emailElement.attr("placeholder");
 
                             emailElement.val("");
                             emailElement.addClass("error").attr("placeholder","Email is already taken");
+                            setTimeout(function() {
+                                emailElement.removeClass("error").attr("placeholder",placeholder);
+                            }, 3000);
+                        }
+                        if(response.errors.hasOwnProperty('username_taken')){
+                            var emailElement = self.$el.find("input[name='username']");
+                            var placeholder = emailElement.attr("placeholder");
+
+                            emailElement.val("");
+                            emailElement.addClass("error").attr("placeholder","Username is already taken");
                             setTimeout(function() {
                                 emailElement.removeClass("error").attr("placeholder",placeholder);
                             }, 3000);
