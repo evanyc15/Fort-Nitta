@@ -47,7 +47,7 @@ define([
                 required: true,
                 msg: 'Please enter a password'
             }, {
-                pattern: /^(?=.*\d)(?=*[A-Z])(?!.*[^a-zA-Z0-9@#$^+=])(.{8,15})$/,
+                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
                 msg: 'Need an upper/lowercase and a number'
             },{
                 equalTo: 'repassword',
