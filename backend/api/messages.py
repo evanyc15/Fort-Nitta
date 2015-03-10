@@ -1,3 +1,6 @@
+## @package messages.py
+# Package used to run the instant messaging on the server
+
 from flask import request, jsonify, Response, session, redirect, make_response
 from flask.views import MethodView
 from sqlalchemy import and_, or_
@@ -7,6 +10,7 @@ from backend.database.models import User, ChatMessages
 
 import gevent, json
 
+## Handles the stream of new messages
 def event_stream():
     message_id = 0
     from_username = request.args.get('from_username')
@@ -40,7 +44,9 @@ def messageStream():
 
 # For POST, it is used to verify if a user exists in the database
 # For GET, it is used to get all usernames from the database
+## Used to access user records from the database
 class ChatUserRetrieveApi(MethodView):
+    ## Returns all users from the database
     def get(self):
         usersList = []
         users = User.query.with_entities(User.username).all()
@@ -50,7 +56,7 @@ class ChatUserRetrieveApi(MethodView):
             jsonData = {'username': holder.username}
             usersList.append(jsonData)
         return json.dumps(usersList)
-
+    ## Verifies that the username passed in exists
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data['username'] is not None:
@@ -62,7 +68,9 @@ class ChatUserRetrieveApi(MethodView):
 
 # For POST, this submits a new message to the database
 # For GET, this returns a conversation aka all messages between two users
+## Retrieves existing and adds new messages
 class ChatMessageApi(MethodView):
+    ## Submits a new message to the database
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data['to_user'] is not None and request_data['from_user'] is not None:
@@ -80,6 +88,7 @@ class ChatMessageApi(MethodView):
             return jsonify(**{'success': True})
         return jsonify(**{'success': False}), 401
 
+    ## Returns all messages between two users
     def get(self):
         messageList = []
 
@@ -111,7 +120,7 @@ class ChatMessageApi(MethodView):
             return json.dumps(messageList)
         return jsonify(**{'success': False}), 401
 
-    # Updates the 'read' attribute for the messages of a user
+    ## Updates the 'read' attribute for the messages of a user
     def put(self):
         # Gets to_username from REST parameters and gets from_username from REST parameters
         request_data = request.get_json(force=True, silent=True)
@@ -130,7 +139,7 @@ class ChatMessageApi(MethodView):
             db.session.commit()
         return jsonify(**{'success': True})
 
-# Get all the users that a "this" user has chatted with
+## Get all the users that a "this" user has chatted with
 class ChatUserApi(MethodView):
     def get(self):
         userList = []

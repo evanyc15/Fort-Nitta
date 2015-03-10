@@ -1,3 +1,6 @@
+## @package admin
+#   Package used to control admin functions, such as Global announcements, and user privileges
+
 from flask import request, jsonify, Response, session, redirect, make_response
 from flask.views import MethodView
 from sqlalchemy import and_, or_
@@ -8,7 +11,15 @@ from sessionauth import session_auth_required, current_user_props
 import json
 import os
 
+## GlobalAnnouncementsAPI
+# Used to create and request global announcements.
 class GlobalAnnouncementsAPI(MethodView):
+    ## post function
+    #  Used to create a new global announcement
+    #  Expects JSON object with
+    # @param subject The subject of the announcement
+    # @param posted_by The user who posted the announcement
+
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
@@ -22,7 +33,8 @@ class GlobalAnnouncementsAPI(MethodView):
             db.session.commit()
             return jsonify(**{'success': True, 'id': announcement.id})
         return jsonify(**{'success': False,}), 401
-
+    ## get function
+    # Used to retrieve all global announcements from the database
     def get(self):
         announcementsArray = []
 
@@ -34,7 +46,14 @@ class GlobalAnnouncementsAPI(MethodView):
             announcementsArray.append(jsonData)
         return json.dumps(announcementsArray)
 
+## GlobalAnnouncementsPostsAPI class
+# Used to change and retrieve specific announcements
 class GlobalAnnouncementsPostsAPI(MethodView):
+    ## post function
+    # Used to update an existing announcement
+    # Expects a json construct with:
+    # @param message The message to use
+    # @param announcement_id The id of the announcement to overwrite
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
@@ -63,7 +82,15 @@ class GlobalAnnouncementsPostsAPI(MethodView):
             return json.dumps(announcementpostArray)
         return jsonify(**{'success': 'none'}), 401
 
+## ToDoAPI class
+# Used to update the todo list
 class ToDoAPI(MethodView):
+    ## post function
+    # Used to create a new todo list item
+    # Expects
+    # @param message The message content
+    # @param type The type of the task
+    # @param status The current completion state of the task
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
@@ -79,10 +106,14 @@ class ToDoAPI(MethodView):
             return jsonify(**{'success': True, 'id': todo.id})
         return jsonify(**{'success': False,}), 401
 
+    ## get function
+    # Used to retrieve all tasks
     def get(self):
         todo = Todo.query.all()
         return jsonify(list = todo)
 
+## GlobalAnnouncementsGETAPI class
+# Used to retrieve all ids and messages of the global announcements
 class GlobalAnnouncementsGETAPI(MethodView):
     def get(self):
         announcementsArray = []
@@ -100,7 +131,11 @@ class GlobalAnnouncementsGETAPI(MethodView):
             return json.dumps(announcementsArray)
         return jsonify(**{'success': 'none'}), 401
 
+## ClassPrivilegesAPI class
+# Used to get, change and delete user privileges
 class UserPrivilegesAPI(MethodView):
+    ## get method
+    # Retrieves all user privileges
     def get(self):
         userprivilegesArray = []
         userprivileges = UserPrivileges.query.join(UserPrivileges.user).all()
@@ -111,6 +146,10 @@ class UserPrivilegesAPI(MethodView):
             userprivilegesArray.append(jsonData);
         return json.dumps(userprivilegesArray)
 
+    ## post method
+    # Used to grant admin privileges
+    # Expects in the JSON request data:
+    # @param id The id of the user
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
@@ -123,6 +162,9 @@ class UserPrivilegesAPI(MethodView):
             return jsonify(**{'success':True})
         return jsonify(**{'success': False}), 401
 
+    ## delete method
+    # Used to revoke admin privileges from user
+    # Expects id field in request data
     def delete(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
@@ -135,6 +177,7 @@ class UserPrivilegesAPI(MethodView):
             return jsonify(**{'success':True})
         return jsonify(**{'success': False}), 401
 
+# Routing information and view bindings
 globalannouncements_view = GlobalAnnouncementsAPI.as_view('globalannouncements_api')
 app.add_url_rule('/api/admin/announcements/', view_func=globalannouncements_view, methods=['POST','GET'])
 

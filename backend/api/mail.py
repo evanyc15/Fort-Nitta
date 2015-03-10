@@ -1,4 +1,5 @@
-print "enter mail"
+## @package mail.py
+# Used to mail users verification emails and notifications
 from flask import request, jsonify
 from flask.views import MethodView
 from flask_mail import Message
@@ -12,7 +13,9 @@ import threading
 import logger
 import datetime
 
+## Used for password recovery
 class PasswordRecApi(MethodView):
+    ## Used to send recovery email
     def post(self):
         # url = "optical.cs.ucdavis.edu/"
         url = "http://localhost:5000/"
@@ -46,7 +49,9 @@ class PasswordRecApi(MethodView):
                 return jsonify(**{'success': False}), 401
         return jsonify(**{'success': False}), 401
 
+## Verifies email in database
 class VerifyEmailApi(MethodView):
+    ## sets the email to a verified state in the DB
     def post(self):
         # url = "optical.cs.ucdavis.edu/" 
         url = "http://localhost:5000/"
@@ -82,23 +87,21 @@ class VerifyEmailApi(MethodView):
         return jsonify(**{'success': False}), 401
 
 running = False
+## Emailing scheduling starter
 def startEmailing(running):
     if not running:
         running = True
-        #logger.log("mail.py:startEmailing entered")
         threading.Timer(1, lambda: sendEmail(0,"immediate",2)).start()
         threading.Timer(1, lambda: sendEmail(0,"1-hour",3600)).start()
         threading.Timer(1, lambda: sendEmail(0,"2-hour",7200)).start()
         threading.Timer(1, lambda: sendEmail(0,"4-hour",14400)).start()
         threading.Timer(1, lambda: sendEmail(0,"12-hour",43200)).start()
         threading.Timer(1, lambda: sendEmail(0,"24-hour",86400)).start()
-        #STILL NEED TO TEST THIS
-        
+
+## Function which sends the emails
 def sendEmail(PK, intervalID, intervalInSecs):
    with app.app_context():
-    #logger.log(str(PK) + " " + str(intervalID) + " " + str(intervalInSecs))
     queryObject = User.query.join(Settings, User.id==Settings.user_id).join(ChatMessages, Settings.user_id==ChatMessages.to_user).filter(and_(Settings.n_hour==intervalID, ChatMessages.id > PK)).all()
-    #maxPK = ChatMessages.query(ChatMessages.id).group_by(ChatMessages.id).having(func.max(id)).first()
     maxPK = db.session.query(db.func.max(ChatMessages.id)).scalar()
     
     url = "http://localhost:5000/" #"optical.cs.ucdavis.edu"#"http://localhost:5000/" 
@@ -119,8 +122,10 @@ def sendEmail(PK, intervalID, intervalInSecs):
     
     threading.Timer(intervalInSecs, lambda: sendEmail(maxPK,intervalID,intervalInSecs)).start();
 
+# kick of email scheduling
 startEmailing(running) 
 
+# Routing and view binding
 password_rec_view = PasswordRecApi.as_view('password_rec_api')
 app.add_url_rule('/api/recpassmail/', view_func=password_rec_view, methods=['POST'])
 

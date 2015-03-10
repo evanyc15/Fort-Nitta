@@ -1,3 +1,6 @@
+## @package users.py
+# Used to manage users in the database
+
 from flask import request, jsonify
 from flask.views import MethodView
 from flask.ext.login import current_user, login_user
@@ -12,7 +15,7 @@ from backend.api.sessionauth import current_user_props, hash_password, check_pas
 import validation
 
 
-
+## Creates a new User record
 def create_new_user(username, password, email, first_name, last_name):
     new_user = User(username = username,
         #password =      hash_password(password),
@@ -26,7 +29,7 @@ def create_new_user(username, password, email, first_name, last_name):
     db.session.commit()
 
     return new_user
-# changes the user data in the database, changing only the named parameters
+## changes the user data in the database, changing only the named parameters
 def change_user_data(username, password=None, email=None, first_name=None, last_name=None):
     user = User.query.filter_by(username=username).first()
  
@@ -52,6 +55,7 @@ def change_user_data(username, password=None, email=None, first_name=None, last_
     db.session.commit()
     return jsonify(**{'success': True, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email})
 
+## Changes the email notification settings
 def change_emailSettings(username, n_hour=None):
     user = User.query.filter_by(username=username).first()
     
@@ -68,7 +72,7 @@ def change_emailSettings(username, n_hour=None):
 
     return jsonify(**{'success': True}), 200
 
-
+## Changes the details of a user
 class ChangeDetailsAPI(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)
@@ -104,6 +108,7 @@ class ChangeDetailsAPI(MethodView):
             return change_user_data(username, password, email, first_name, last_name);
         return jsonify(**{'success': False}), 401
 
+## Updates the settings of a specific user
 class SettingsAPI(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)
@@ -129,6 +134,7 @@ class SettingsAPI(MethodView):
             else:        return jsonify(**{'success': False, 'message': "Error: settings api, missing n_hour"}), 422
         else:            return jsonify(**{'success': False, 'message': "Error: settings api, missing username."}), 422
 
+## Used when creating a new user
 class RegisterAPI(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)
@@ -206,6 +212,7 @@ class RegisterAPI(MethodView):
 
         return errors, cleaned_data
 
+## Used to change the passwords
 class PasswordChangeApi(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)
@@ -225,6 +232,7 @@ class PasswordChangeApi(MethodView):
 
         return jsonify(**{'success': False}), 401
 
+## Updates the verify flag in the database
 class VerifyUserAPi(MethodView):
     def post(self):
         request_data = request.get_json(force=True, silent=True)
@@ -243,6 +251,7 @@ class VerifyUserAPi(MethodView):
 
         return jsonify(**{'success': False}), 401
 
+## Routing and View bindings
 settings_view = SettingsAPI.as_view('settings')
 app.add_url_rule('/api/users/settings/', view_func=settings_view, methods=['POST'])
 

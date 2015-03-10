@@ -1,3 +1,6 @@
+## @package sessionauth.py
+# Used for authenticating users
+
 from flask import request, jsonify
 from flask.views import MethodView
 from flask.ext.login import current_user, login_user, logout_user
@@ -7,7 +10,7 @@ from backend.database.models import User, Presence, UserPrivileges
 import datetime
 
 
-
+## Verifies that current user is authenticated, called from various parts of the code
 def session_auth_required(func):
     def decorated(*args, **kwargs):
         if not current_user.is_authenticated():
@@ -16,6 +19,8 @@ def session_auth_required(func):
 
     return decorated
 
+## Returns the current users properties, such as username, first name, last name, etc.
+# Adds user privileges to the user if they don't exist yet
 def current_user_props():
     userprivileges = UserPrivileges.query.filter(UserPrivileges.user_id==current_user.id).first()
     if not userprivileges or userprivileges is None:
@@ -35,15 +40,18 @@ def current_user_props():
         'admin': userprivileges.admin_access
     } if current_user.is_authenticated() else {}
 
+## password hashing using bcrypt
 def hash_password(pw):
     return bcrypt.generate_password_hash(pw)
 
+## password hashing check using the hashed and non hashed version of the pw
 def check_password(pw, hashed):
     return bcrypt.check_password_hash(hashed, pw)
 
 
-
+## Interface for web authentication
 class SessionAuthAPI(MethodView):
+    ## Sets user session and presence
     def post(self):
         errors = None
         request_data = request.get_json(force=True, silent=True)
@@ -67,11 +75,12 @@ class SessionAuthAPI(MethodView):
                 errors = 'Invalid username or password'
 
         return jsonify(**{'success': False, 'authenticated': current_user.is_authenticated(), 'errors': errors}), 401
-
+    ## returns whether a user is authenticated
     @session_auth_required
     def get(self):
         return jsonify(**{'authenticated': True, 'user': current_user_props()})
 
+    ## Deletes session, and makes db updates as necessary
     def delete(self):
         presence = Presence.query.filter(Presence.user_id==current_user.id).first()
         if presence is None:

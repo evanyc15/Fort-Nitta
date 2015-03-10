@@ -1,3 +1,6 @@
+## @package forums.py
+# Package used to manage the forum
+
 from flask import request, jsonify, Response, session, redirect, make_response
 from flask.views import MethodView
 from sqlalchemy import and_, or_
@@ -10,8 +13,15 @@ import json
 import hashlib
 import os
 
-
+## ThreadAPI class
+# Used to add and delete threads
 class ThreadsAPI(MethodView):
+    ## post method
+    # Used to create a new thread,
+    # Expects:
+    # @param category_id 
+    # @param user_id
+    # @param title
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
@@ -29,6 +39,10 @@ class ThreadsAPI(MethodView):
             return jsonify(**{'success': True, 'id': new_thread.id})
         return jsonify(**{'success': False,}), 401
 
+    ## get method
+    # Used to get all threads of a category
+    # Expects (in JSON data)
+    # @param id The id of the category
     def get(self):
         threadArray = []
 
@@ -43,7 +57,15 @@ class ThreadsAPI(MethodView):
             return json.dumps(threadArray)
         return jsonify(**{'success': False}), 401
 
+## PostsAPI class
+# used to manage posts within a thread
 class PostsAPI(MethodView):
+    ## post method
+    # Used to create a new post within a thread
+    # Expects (in JSON data)
+    # @param thread_id The ID of the thread
+    # @param user_id The ID of the poster
+    # @param message The content of the post
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
@@ -61,6 +83,11 @@ class PostsAPI(MethodView):
             return jsonify(**{'success': True, 'id': new_post.id})
         return jsonify(**{'success': False}), 401
 
+    ## get method
+    # Used to retrieve the posts in JSON format. The resulting JSON array will also indicate whether a user has already liked a post.
+    # Expects in JSON data
+    # @param thread_id The ID of the thread
+    # @param user_id The ID of the user
     def get(self):
         postsArray = []
 
@@ -68,6 +95,7 @@ class PostsAPI(MethodView):
         user_id = request.args.get('user_id')
         if thread_id is "" or thread_id is None or user_id is "" or user_id is None:
             return jsonify(**{'success': 'none'}), 401
+        # get all posts
         posts = ForumsPosts.query.join(ForumsPosts.user).filter(ForumsPosts.thread_id==thread_id).order_by(ForumsPosts.date_created.desc()).all()
         if posts is not None:
             for data in posts:
@@ -86,8 +114,11 @@ class PostsAPI(MethodView):
                 postsArray.append(jsonData)
             return json.dumps(postsArray)
         return jsonify(**{'success': False}), 401
-
+## PostsImagesAPI class
+# Class used to upload images for the forum posts.
 class PostsImagesAPI(MethodView):
+    ## get method
+    # Used to upload a new image file
     def post(self):
         file = request.files['images']
         post_id = request.headers.get('postid')
@@ -137,6 +168,8 @@ class PostsImagesAPI(MethodView):
         return jsonify(**{'success': True ,'id': new_forum_img.id})
 
         # return jsonify(**{'success': False, 'Default': True, 'Type': 'post'}), 401
+    ## get method
+    # Used to retrieve all image file ids, the ids of the posts they belong to, and the image_path
     def get(self):
 
         forumImagesArray = []
@@ -149,8 +182,11 @@ class PostsImagesAPI(MethodView):
             forumImagesArray.append(jsonImages)
         return json.dumps(forumImagesArray)
 
-
+## PostsLikesAPI
+# Used to manage likes of a post
 class PostsLikesAPI(MethodView):
+    ## post method
+    # Used to set the whether a specific used liked a post
     def post(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
@@ -167,6 +203,8 @@ class PostsLikesAPI(MethodView):
             return jsonify(**{'success': True, 'id': new_like.id})
         return jsonify(**{'success': False}), 401
 
+    ## delete method
+    # Used to unlike a post (from perspective of specific user)
     def delete(self):
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
@@ -180,6 +218,7 @@ class PostsLikesAPI(MethodView):
             return jsonify(**{'success': True})
         return jsonify(**{'success': False}), 401
 
+# Routing information
 threads_view = ThreadsAPI.as_view('threads_api')
 app.add_url_rule('/api/forums/threads/', view_func=threads_view, methods=['POST','GET'])
 

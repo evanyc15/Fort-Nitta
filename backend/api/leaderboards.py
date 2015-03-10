@@ -1,3 +1,6 @@
+## @package leaderboards.py
+# Used to manage the leaderboard
+
 from flask import request, jsonify
 from flask.views import MethodView
 from sqlalchemy import and_
@@ -8,16 +11,16 @@ from backend import db, app
 from backend.database.models import User, UserStatistics
 import json
 
+## Creates an object with all the info in the passed row
 def buildLeaderboardsJSON(row):
     return {
         'rank' : 1,   
         'username': row.user.username,
         'win_percent': row.win_loss_ratio * 100,
         'num_wins': row.wins 
-
     }
-    
 
+## Used to create an object with all the information in the row and counter
 def setRank(row, counter):
     return {
         'rank': counter,
@@ -25,18 +28,18 @@ def setRank(row, counter):
         'win_percent' : row['win_percent'],
         'num_wins' : row['num_wins']
     }
-    
+
+## Used to access leader board records
 class LeaderboardsAPI(MethodView):
+    ## Retrieves all entries for the leader board
     def get(self):
         leaderboards_array = []
         finalLeaderboardsArray= []
-        #leaderboards = UserStatistics.join(UserStatistics.user).query.filter(UserStatistics.id > 0).order_by(UserStatistics.win_loss_ratio.desc()).all()
         leaderboards = UserStatistics.query.join(UserStatistics.user).filter(UserStatistics.id > 0).order_by(UserStatistics.win_loss_ratio.desc()).all()
         if leaderboards is not None: 
             for row in leaderboards:
-                #print row
-                #print buildGameInfoJSON(row)
                 leaderboards_array.append(buildLeaderboardsJSON(row))
+            
             counter = 0
             prevRow = 200    
             for row in leaderboards_array:

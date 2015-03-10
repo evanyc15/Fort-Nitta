@@ -1,3 +1,5 @@
+## @package avatar.py
+# Controls access to avatar pictures
 from flask import request, jsonify, send_from_directory, abort
 from flask.views import MethodView
 from flask.ext.login import current_user
@@ -11,8 +13,11 @@ from PIL import Image
 import os
 
 
-
+## AvatarAPI class
+# Used to control avatar picture upload
 class AvatarAPI(MethodView):
+    ## post method
+    # Used to upload avatar picture
     @session_auth_required
     def post(self):
         file = request.files['file']

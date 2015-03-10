@@ -1,3 +1,6 @@
+## @package presence.py
+# Used to check whether a user is online
+
 from flask import request, jsonify, Response, session, redirect, make_response
 from flask.views import MethodView
 from sqlalchemy import and_, or_
@@ -9,6 +12,7 @@ import gevent, json
 
 presence_list = []
 
+## Checks regularly whether users have gone online or went offline
 def event_stream():
     while True:
         # Check database every n seconds (2 right now)
@@ -43,6 +47,7 @@ def event_stream():
 def stream():
     return Response(event_stream(), mimetype="text/event-stream")
 
+## Used to get all users which are present
 class PresenceOnlineApi(MethodView):
     def get(self):
         presence_list = []
@@ -56,7 +61,5 @@ class PresenceOnlineApi(MethodView):
             presence_list.append(json)
         return jsonify(results = presence_list)
         
-        # return jsonify(**{'1': user_presences[0].user.username, '2': user_presences[0].web_online})
-
 presence_online_view = PresenceOnlineApi.as_view('presence_online_api')
 app.add_url_rule('/api/presence/online/', view_func=presence_online_view, methods=['GET'])
