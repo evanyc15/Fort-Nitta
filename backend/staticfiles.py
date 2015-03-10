@@ -34,3 +34,6 @@ def avatar_proxy(path):
 @app.route('/api/forums/postsimages/<path:path>')
 def forums_images_proxy(path):
     return send_from_directory(app.config['FORUMS_IMG_UPLOADS'], path)
+
+@app.route('/api/gamedownloads/<path:path>')
+    return send_from_directory(app.config['GAME_DOWNLOADS'], path)

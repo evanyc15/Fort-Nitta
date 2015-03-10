@@ -45,7 +45,8 @@ AVATAR_UPLOADS = os.path.join(basedir, 'backend/assets/avatar')
 # Forums upload path
 FORUMS_IMG_UPLOADS = os.path.join(basedir, 'backend/assets/forums/img')
 
-
+# Game downloads
+GAME_DOWNLOADS = os.path.join(basedir, 'backend/assets/downloads')
 
 # Content upload maximum
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024
