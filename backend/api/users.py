@@ -188,7 +188,7 @@ class RegisterAPI(MethodView):
 
         # Check if valid password
         if ('password' in request_data) and (not validation.valid_password(request_data['password'])):
-            errors['weak_password'] = 'password did not meet minimum strength requirements'
+            errors['weak_password'] = 'Need an upper/lowercase and a number'
 
         # Check uniqueness
         if User.query.filter_by(username=request_data['username']).first():
