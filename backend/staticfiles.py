@@ -10,7 +10,6 @@ def serve_static_path(directory, path):
     return app.send_static_file(os.path.join(directory, path).replace('\\','/'))
 
 
-
 @app.route('/')
 def root():
     return app.send_static_file('index.html')
@@ -29,12 +28,12 @@ def static_img(path):
 
 @app.route('/api/avatar/<path:path>')
 def avatar_proxy(path):
-    return send_from_directory(app.config['AVATAR_UPLOADS'], path)
+    return send_from_directory((app.config['AVATAR_UPLOADS'].replace('\\','/')), path)
 
 @app.route('/api/forums/postsimages/<path:path>')
 def forums_images_proxy(path):
-    return send_from_directory(app.config['FORUMS_IMG_UPLOADS'], path)
+    return send_from_directory((app.config['FORUMS_IMG_UPLOADS'].replace('\\','/')), path)
 
 @app.route('/api/gamedownloads/<path:path>')
 def game_download_proxy(path):
-    return send_from_directory(app.config['GAME_DOWNLOADS'], path)
+    return send_from_directory((app.config['GAME_DOWNLOADS'].replace('\\','/')), path)
