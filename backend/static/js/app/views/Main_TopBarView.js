@@ -6,7 +6,8 @@ define([
 	'handlebars',
 	'collections/TopBarMessagesCollection',
 	'text!templates/main_topbar.html',
-	'foundation-reveal'
+	'foundation-reveal',
+	'foundation-topbar'
 ], function (App, $, Marionette, Handlebars, TopBarMessagesCollection, template){
 
 	"use strict";
@@ -30,7 +31,7 @@ define([
 			"click #topbar_adminButton": "adminShow",
 		 	"mouseenter #topbar_messageButton,#topbar_messageContainer": "messagesShow",
   			"mouseleave #topbar_messageButton,#topbar_messageContainer": "messagesHide",
-  			"click li": "getMessages"
+  			"click li.name": "getMessages"
 		},
 		onRender: function(){
 			this.getMessages();
@@ -38,7 +39,11 @@ define([
 		onBeforeDestroy: function() {
 			this.unbind();
 		},
-		getMessages: function(){
+		getMessages: function(event){
+			if(event){
+				event.stopPropagation();
+      			event.preventDefault();
+			}
 			var self = this;
 
 			$.ajax({
@@ -115,8 +120,10 @@ define([
 			this.triggerMethod("click:admin:show");
 		},
 		logout: function(event) {
-			event.stopPropagation();
-      		event.preventDefault();
+			if(event){
+				event.stopPropagation();
+      			event.preventDefault();
+			}
 
 			App.session.logout({
 			},{
