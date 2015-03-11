@@ -36,4 +36,5 @@ def forums_images_proxy(path):
     return send_from_directory(app.config['FORUMS_IMG_UPLOADS'], path)
 
 @app.route('/api/gamedownloads/<path:path>')
+def game_download_proxy(path):
     return send_from_directory(app.config['GAME_DOWNLOADS'], path)
