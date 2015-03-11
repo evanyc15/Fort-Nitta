@@ -25,6 +25,9 @@ define([
             "keyup #messages-chatInput": "chatKeyUp",
             "click #messages-chatSubmit": "submitMessage"
         },
+        onBeforeDestroy: function(){
+            this.remove();
+        },
         onRender: function(){
             var self = this
             if(this.options.messagesUser.get('messaging')){

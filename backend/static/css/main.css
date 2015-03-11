@@ -68,14 +68,28 @@ input.error, textarea.error {
 }
 
 /* Two-way box used in templates like profile and leaderboards */
-.twoway-dividedBox {
-    background-color: #fff;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    -webkit-box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
-    box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
-    border: 1px solid #E8E8E8;
-    min-height: 700px;
+@media (min-width: 0px){
+    .twoway-dividedBox {
+        background-color: #fff;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
+        -moz-box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
+        box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
+        border: 1px solid #E8E8E8; 
+    }
+}
+@media (min-width: 750px){
+    .twoway-dividedBox {
+        background-color: #fff;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
+        -moz-box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
+        box-shadow: 0 0 15px -9px rgba(0, 0, 0, 1);
+        border: 1px solid #E8E8E8;
+        min-height: 700px;
+    }
 }

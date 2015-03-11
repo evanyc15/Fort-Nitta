@@ -16,8 +16,6 @@
             <thead>
                 <tr>
                     <th>Title/Thread Starter</th>
-                    <th>Replies/Views</th>
-                    <th>Last Post By</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,13 +31,6 @@
                                 <div class="forumsThreadSubject-title">{{this.title}}</div>
                                 <div class="forumsThreadSubject-creator">Started by {{this.username}}, {{this.date_created}}</div>
                             </div>
-                        </td>
-                        <td>
-                            <div class="forumsThread-Replies">Replies: {{this.replies}}</div>
-                            <div class="forumsThread-Views">Views: {{this.views}}</div>
-                        </td>
-                        <td>
-                            <div class="forumsThread-LastPost"></div>
                         </td>
                     </tr>
                 {{/each}}

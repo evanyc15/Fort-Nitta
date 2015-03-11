@@ -49,7 +49,7 @@ define([
 
 			//This will process before the ajax request completes in getGameInfo, render template
 			//without table data for now
-			if(App.session.user.get('avatar_path') != ""){
+			if(App.session.user.get('avatar_path') != "" && App.session.user.get('avatar_path') !== null){
 				avatar_path = '/api/avatar/'+App.session.user.get('avatar_path')
 			} else{
 				avatar_path = "../../../img/placeholder-user.png"

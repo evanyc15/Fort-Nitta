@@ -1,1 +1,70 @@
-.custom_accordion{margin:0}.custom_accordion li{list-style-type:none;padding:5px;cursor:pointer!important}.custom_accordion li.active{background:-moz-linear-gradient(left,rgba(0,0,0,.05) 0,rgba(0,0,0,.03) 65%,rgba(0,0,0,0) 100%);background:-webkit-gradient(linear,left top,right top,color-stop(0,rgba(0,0,0,.05)),color-stop(65%,rgba(0,0,0,.03)),color-stop(100%,rgba(0,0,0,0)));background:-webkit-linear-gradient(left,rgba(0,0,0,.05) 0,rgba(0,0,0,.03) 65%,rgba(0,0,0,0) 100%);background:-o-linear-gradient(left,rgba(0,0,0,.05) 0,rgba(0,0,0,.03) 65%,rgba(0,0,0,0) 100%);background:-ms-linear-gradient(left,rgba(0,0,0,.05) 0,rgba(0,0,0,.03) 65%,rgba(0,0,0,0) 100%);background:linear-gradient(to right,rgba(0,0,0,.05) 0,rgba(0,0,0,.03) 65%,rgba(0,0,0,0) 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0d000000', endColorstr='#00000000', GradientType=1);border-left:3px solid gray}.custom_accordion li:hover{background:-moz-linear-gradient(left,rgba(0,0,0,.12) 0,rgba(0,0,0,.07) 65%,rgba(0,0,0,0) 100%);background:-webkit-gradient(linear,left top,right top,color-stop(0,rgba(0,0,0,.12)),color-stop(65%,rgba(0,0,0,.07)),color-stop(100%,rgba(0,0,0,0)));background:-webkit-linear-gradient(left,rgba(0,0,0,.12) 0,rgba(0,0,0,.07) 65%,rgba(0,0,0,0) 100%);background:-o-linear-gradient(left,rgba(0,0,0,.12) 0,rgba(0,0,0,.07) 65%,rgba(0,0,0,0) 100%);background:-ms-linear-gradient(left,rgba(0,0,0,.12) 0,rgba(0,0,0,.07) 65%,rgba(0,0,0,0) 100%);background:linear-gradient(to right,rgba(0,0,0,.12) 0,rgba(0,0,0,.07) 65%,rgba(0,0,0,0) 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1f000000', endColorstr='#00000000', GradientType=1)}.custom_accordion li i{font-size:22px}.custom_accordion li span{font-size:14px;margin-left:15px}.main_messages-searchbar{padding:5px!important;border-bottom:1px solid #E8E8E8}#main_messages-search-input{height:30px}#main_messages-new-message i{position:absolute;left:0;right:0;font-size:1.2em}#main_messages-new-message{position:absolute;right:0;height:30px;width:30px}.main_messages-img{height:50px;width:50px;display:inline-block}.main_messages-dataBox{display:inline-block;vertical-align:middle;margin-left:15px}.main_messages-username{font-size:14px;font-weight:700}.main_messages-name{font-size:12px}
+.custom_accordion {
+    margin: 0;
+}
+.custom_accordion li {
+    list-style-type: none;
+    padding: 5px;
+    cursor: pointer!important;
+}
+.custom_accordion li.active {
+    background: -moz-linear-gradient(left, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, .03) 65%, rgba(0, 0, 0, 0) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0, rgba(0, 0, 0, .05)), color-stop(65%, rgba(0, 0, 0, .03)), color-stop(100%, rgba(0, 0, 0, 0)));
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, .03) 65%, rgba(0, 0, 0, 0) 100%);
+    background: -o-linear-gradient(left, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, .03) 65%, rgba(0, 0, 0, 0) 100%);
+    background: -ms-linear-gradient(left, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, .03) 65%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(to right, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, .03) 65%, rgba(0, 0, 0, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0d000000',  endColorstr='#00000000',  GradientType=1);
+    border-left: 3px solid gray;
+}
+.custom_accordion li:hover {
+    background: -moz-linear-gradient(left, rgba(0, 0, 0, .12) 0, rgba(0, 0, 0, .07) 65%, rgba(0, 0, 0, 0) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0, rgba(0, 0, 0, .12)), color-stop(65%, rgba(0, 0, 0, .07)), color-stop(100%, rgba(0, 0, 0, 0)));
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .12) 0, rgba(0, 0, 0, .07) 65%, rgba(0, 0, 0, 0) 100%);
+    background: -o-linear-gradient(left, rgba(0, 0, 0, .12) 0, rgba(0, 0, 0, .07) 65%, rgba(0, 0, 0, 0) 100%);
+    background: -ms-linear-gradient(left, rgba(0, 0, 0, .12) 0, rgba(0, 0, 0, .07) 65%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(to right, rgba(0, 0, 0, .12) 0, rgba(0, 0, 0, .07) 65%, rgba(0, 0, 0, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1f000000',  endColorstr='#00000000',  GradientType=1);
+}
+.custom_accordion li i {
+    font-size: 22px;
+}
+.custom_accordion li span {
+    font-size: 14px;
+    margin-left: 15px;
+}
+.main_messages-searchbar {
+    padding: 5px!important;
+    border-bottom: 1px solid #E8E8E8;
+}
+#main_messages-search-input {
+    height: 30px;
+}
+#main_messages-new-message i {
+    position: absolute;
+    left: 0;
+    right: 0;
+    font-size: 1.2em;
+}
+#main_messages-new-message {
+    position: absolute;
+    right: 0;
+    height: 30px;
+    width: 30px;
+}
+.main_messages-img {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+}
+.main_messages-dataBox {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 15px;
+}
+.main_messages-username {
+    font-size: 14px;
+    font-weight: 700;
+}
+.main_messages-name {
+    font-size: 12px;
+}

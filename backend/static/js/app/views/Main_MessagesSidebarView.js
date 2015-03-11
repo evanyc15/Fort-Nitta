@@ -66,21 +66,28 @@ define([
                 success: function(data){
                     var i;
                     for(i = 0; i < data.length; i++){
-                        var username, firstname, lastname;
+                        var username, firstname, lastname, avatar_path;
                         if(data[i].from_username !== App.session.user.get('username')){
                             username = data[i].from_username;
                             firstname = data[i].from_firstname;
                             lastname = data[i].from_lastname;
+                            avatar_path = data[i].from_avatar_path;
                         } else {
                             username = data[i].to_username;
                             firstname = data[i].to_firstname;
                             lastname = data[i].to_lastname;
+                            avatar_path = data[i].to_avatar_path;
                         }
                         var id = '#' + self.hashCode(username);
                         if(self.$el.find(id).length === 0){  
+                            if(avatar_path == "" || typeof avatar_path == "undefined" || avatar_path === null){
+                                avatar_path = '../../../img/placeholder-user.png';
+                            } else{
+                                avatar_path = "/api/avatar/" + avatar_path;
+                            }
                             
                             var html = "<li class='main_messages-user' id='"+self.hashCode(username)+"'>"+
-                                            "<img class='main_messages-img' src='../../../img/placeholder-user.png'/>"+
+                                            "<img class='main_messages-img' src='"+avatar_path+"'/>"+
                                             "<div class='main_messages-dataBox'>"+
                                                 "<div class='main_messages-username'>"+username+"</div>"+
                                                 "<div class='main_messages-name'>"+firstname+" "+lastname+"</div>"+
@@ -125,8 +132,13 @@ define([
                         if(data.success){
                             var id = '#' + self.hashCode(data.username);
                             if(self.$el.find(id).length === 0){ 
+                                if(data.avatar_path == "" || typeof data.avatar_path == "undefined" || data.avatar_path === null){
+                                    data.avatar_path = '../../../img/placeholder-user.png';
+                                } else{
+                                    data.avatar_path = "/api/avatar/" + data.avatar_path;
+                                }
                                 var html = "<li class='main_messages-user' id='"+self.hashCode(data.username)+"'>"+
-                                            "<img class='main_messages-img' src='../../../img/placeholder-user.png'/>"+
+                                            "<img class='main_messages-img' src='"+data.avatar_path+"'/>"+
                                             "<div class='main_messages-dataBox'>"+
                                                 "<div class='main_messages-username'>"+data.username+"</div>"+
                                                 "<div class='main_messages-name'>"+data.firstname+" "+data.lastname+"</div>"+
@@ -150,7 +162,7 @@ define([
             var username = $(event.currentTarget).find('.main_messages-username').text();
             var name = $(event.currentTarget).find('.main_messages-name').text();
 
-            this.trigger("click:Messenger:switch", {'username': username});
+            this.triggerMethod("click:Messenger:switch", {'username': username});
         }
         
     });

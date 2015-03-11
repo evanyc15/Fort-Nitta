@@ -33,7 +33,7 @@ def event_stream():
                 message_id = messageHolder.id
             to_user = User.query.filter_by(id = messageHolder.to_user).first()
             from_user = User.query.filter_by(id = messageHolder.from_user).first()
-            jsonData = {'id':messageHolder.id,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name,'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
+            jsonData = {'id':messageHolder.id,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name,'from_avatar_path':from_user.avatar_path,'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'to_avatar_path':to_user.avatar_path,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
             messageList.append(jsonData)
         return "data: %s\n\n" % json.dumps(messageList)    
 
@@ -63,7 +63,9 @@ class ChatUserRetrieveApi(MethodView):
             user = User.query.filter_by(username = request_data['username']).first()
             if user is None:
                 return jsonify(**{'success': False}), 401
-            return jsonify(**{'success': True, 'username':user.username,'firstname':user.first_name,'lastname':user.last_name})
+            if not user.avatar_path:
+                return jsonify(**{'success': True, 'username':user.username,'firstname':user.first_name,'lastname':user.last_name,'avatar_path': ""})
+            return jsonify(**{'success': True, 'username':user.username,'firstname':user.first_name,'lastname':user.last_name,'avatar_path': user.avatar_path})
         return jsonify(**{'success':False}), 401
 
 # For POST, this submits a new message to the database
@@ -104,7 +106,7 @@ class ChatMessageApi(MethodView):
             for messageHolder in messages:
                 to_user = User.query.filter_by(id = messageHolder.to_user).first()
                 from_user = User.query.filter_by(id = messageHolder.from_user).first()
-                jsonData = {'id':messageHolder.id,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name,'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
+                jsonData = {'id':messageHolder.id,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name,'from_avatar_path':from_user.avatar_path,'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'to_avatar_path':to_user.avatar_path,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
                 messageList.append(jsonData)
             return json.dumps(messageList)
 
@@ -115,7 +117,7 @@ class ChatMessageApi(MethodView):
             messages = ChatMessages.query.filter(and_(ChatMessages.to_user==user.id,ChatMessages.read==False)).order_by(ChatMessages.id.asc()).limit(25).all()
             for messageHolder in messages:
                 user = User.query.filter_by(id=messageHolder.from_user).first()
-                jsonData = {'id':messageHolder.id,'username':user.username,'firstname':user.first_name,'lastname':user.last_name,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
+                jsonData = {'id':messageHolder.id,'username':user.username,'firstname':user.first_name,'lastname':user.last_name,'avatar_path':user.avatar_path,'message':messageHolder.message,'message_created':messageHolder.date_created.strftime("%Y-%m-%d %H:%M:%S")}
                 messageList.append(jsonData)
             return json.dumps(messageList)
         return jsonify(**{'success': False}), 401
@@ -152,7 +154,7 @@ class ChatUserApi(MethodView):
                 from_user = User.query.filter_by(id = userHolder.from_user).first()
                 if to_user is None or from_user is None:
                     return jsonify(**{'success': False}), 401
-                jsonData = {'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name}
+                jsonData = {'to_username':to_user.username,'to_firstname':to_user.first_name,'to_lastname':to_user.last_name,'to_avatar_path':to_user.avatar_path,'from_username':from_user.username,'from_firstname':from_user.first_name,'from_lastname':from_user.last_name,'from_avatar_path':from_user.avatar_path}
                 userList.append(jsonData)
             return json.dumps(userList)
         return jsonify(**{'success': False}), 401

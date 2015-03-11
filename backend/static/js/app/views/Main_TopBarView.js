@@ -29,9 +29,16 @@ define([
 			"click #topbar_announcementsButton": "announcementsShow",
 			"click #topbar_adminButton": "adminShow",
 		 	"mouseenter #topbar_messageButton,#topbar_messageContainer": "messagesShow",
-  			"mouseleave #topbar_messageButton,#topbar_messageContainer": "messagesHide"
+  			"mouseleave #topbar_messageButton,#topbar_messageContainer": "messagesHide",
+  			"click li": "getMessages"
 		},
 		onRender: function(){
+			this.getMessages();
+		},
+		onBeforeDestroy: function() {
+			this.unbind();
+		},
+		getMessages: function(){
 			var self = this;
 
 			$.ajax({
@@ -56,9 +63,6 @@ define([
 					console.log(data);
 				}
 	  		});
-		},
-		onBeforeDestroy: function() {
-			this.unbind();
 		},
 		messagesShow: function() {
 			this.$("#topbar_messageContainer").show();

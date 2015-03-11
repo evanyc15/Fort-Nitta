@@ -2,10 +2,10 @@
 <div id="messages-userContainer">
     {{#each []}}
         <div class="row userMessageBox">
-            <div class="large-1 columns">
-                <img class="userMessageBox-img" src="../../../img/placeholder-user.png"/>
+            <div class="large-1 small-2 columns">
+                <img class="userMessageBox-img" src="{{this.from_avatar_path}}"/>
             </div>
-            <div class="large-11 columns">
+            <div class="large-11 small-10 columns">
                 <div class="userMessageBox-username">{{this.from_username}}</div>
                 <div class="userMessageBox-name">{{this.from_firstname}}&nbsp;{{this.from_lastname}}</div>
                 <div class="userMessageBox-datetime">{{this.message_created}}</div>

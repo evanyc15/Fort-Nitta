@@ -122,17 +122,34 @@ small.success {
 }
 
 /* Login Box CSS */
-#loginContainer {
-    position: absolute;
-    z-index: 99;
-    width: 400px!important;
-    top: 75px;
-    left: 0;
-    right: 0;
-    margin-left: auto!important;
-    margin-right: auto!important;
-    padding-top: 10px;
-    background-color: rgba(0, 0, 0, .3);
+
+@media (min-width: 0px){
+    #loginContainer {
+        position: absolute;
+        z-index: 99;
+        width: 100%!important;
+        top: 25px;
+        left: 0;
+        right: 0;
+        margin-left: auto!important;
+        margin-right: auto!important;
+        padding-top: 10px;
+        background-color: rgba(0, 0, 0, .3);
+    }
+}
+@media (min-width: 600px){
+    #loginContainer {
+        position: absolute;
+        z-index: 99;
+        width: 400px!important;
+        top: 75px;
+        left: 0;
+        right: 0;
+        margin-left: auto!important;
+        margin-right: auto!important;
+        padding-top: 10px;
+        background-color: rgba(0, 0, 0, .3);
+    }
 }
 #loginInput {
     display: none;

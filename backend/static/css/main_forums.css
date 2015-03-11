@@ -107,6 +107,43 @@
 }
 
 /* Forum Posts CSS */
+@media (min-width: 0px){
+    .forumsPostsTile-img {
+        margin-top: 10px;
+        margin-left: 5px;
+        width: 80px;
+        height: 80px;
+    }
+    .slick-imageContainer {
+        width: 150px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .forumsPostsTile-likeButton {
+        padding: 3px 5px 3px 5px !important;
+        float: right;
+        right: 5px;
+        bottom: -10px;
+    }
+}
+@media (min-width: 600px){
+    .forumsPostsTile-img {
+        margin-top: 20px;
+        margin-left: 10px;
+        width: 160px;
+        height: 160px;
+    }
+    .slick-imageContainer {
+        width: 350px;
+        margin-left: 100px;
+    }
+    .forumsPostsTile-likeButton {
+        padding: 10px 12px 10px 12px !important;
+        float: right;
+        right: 10px;
+        bottom: -10px;
+    }
+}
 .forumsPostsBox {
     border: 1px solid #D8D8D8;
     -webkit-box-shadow: 0px 0px 15px -9px rgba(0,0,0,1);
@@ -151,12 +188,6 @@
     font-size: 1.2em;
     text-align: center;
 }
-.forumsPostsTile-img {
-    margin-top: 20px;
-    margin-left: 10px;
-    width: 160px;
-    height: 160px;
-}
 .forumsPostsTile-dateCreated {
     display: inline-block;
 }
@@ -164,16 +195,6 @@
     display: inline-block;
     position: absolute;
     right: 50px;
-}
-.forumsPostsTile-likeButton {
-    padding: 10px 12px 10px 12px !important;
-    float: right;
-    right: 10px;
-    bottom: -10px;
-}
-.slick-imageContainer {
-    width: 350px;
-    margin-left: 100px;
 }
 .slick-images {
     border: 1px solid #E0E0E0;
