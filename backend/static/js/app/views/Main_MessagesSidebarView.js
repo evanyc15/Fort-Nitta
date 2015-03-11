@@ -80,7 +80,7 @@ define([
                         }
                         var id = '#' + self.hashCode(username);
                         if(self.$el.find(id).length === 0){  
-                            if(avatar_path == "" || typeof avatar_path == "undefined" || avatar_path === null){
+                            if(avatar_path === "" || typeof avatar_path === "undefined" || avatar_path === null){
                                 avatar_path = '../../../img/placeholder-user.png';
                             } else{
                                 avatar_path = "/api/avatar/" + avatar_path;
@@ -106,7 +106,10 @@ define([
             this.unbind();
         },
         hashCode: function(s){
-            return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
+            return s.split("").reduce(function(a,b){
+                a=((a<<5)-a)+b.charCodeAt(0);
+                return a&a;
+            },0);              
         },
         // This is run after the new message (plus sign) is clicked. This is to establish a new chat with a user that "this" user has not chatted with.
         newMessage: function(event){
@@ -132,7 +135,7 @@ define([
                         if(data.success){
                             var id = '#' + self.hashCode(data.username);
                             if(self.$el.find(id).length === 0){ 
-                                if(data.avatar_path == "" || typeof data.avatar_path == "undefined" || data.avatar_path === null){
+                                if(data.avatar_path === "" || typeof data.avatar_path === "undefined" || data.avatar_path === null){
                                     data.avatar_path = '../../../img/placeholder-user.png';
                                 } else{
                                     data.avatar_path = "/api/avatar/" + data.avatar_path;

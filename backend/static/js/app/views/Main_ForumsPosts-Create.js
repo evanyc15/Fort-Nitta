@@ -16,7 +16,7 @@ define([
 
         initialize: function(options){
             this.options = options;
-            this.dropzone;
+            this.dropzone = null;
         },
         events: {
             "click #forumsPostsCreate-buttonSubmit": "submitPost",
@@ -120,7 +120,7 @@ define([
                 event.stopPropagation();
                 event.preventDefault();
             }
-            if(this.$("#forumsPostsCreate-textarea") != ""){
+            if(this.$("#forumsPostsCreate-textarea") !== ""){
                 this.model.set({
                     'message': this.$("#forumsPostsCreate-textarea").val(),
                     'user_id': App.session.user.get('uid'),

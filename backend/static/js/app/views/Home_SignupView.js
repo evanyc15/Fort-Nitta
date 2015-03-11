@@ -33,10 +33,12 @@ define([
                     },
                     error: function(err){
                         var response = JSON.parse(err.responseText);
+                        var emailElement;
+                        var placeholder;
 
                         if(response.errors.hasOwnProperty('email_taken')){
-                            var emailElement = self.$el.find("input[name='email']");
-                            var placeholder = emailElement.attr("placeholder");
+                            emailElement = self.$el.find("input[name='email']");
+                            placeholder = emailElement.attr("placeholder");
 
                             emailElement.val("");
                             emailElement.addClass("error").attr("placeholder","Email is already taken");
@@ -45,8 +47,8 @@ define([
                             }, 3000);
                         }
                         if(response.errors.hasOwnProperty('username_taken')){
-                            var emailElement = self.$el.find("input[name='username']");
-                            var placeholder = emailElement.attr("placeholder");
+                            emailElement = self.$el.find("input[name='username']");
+                            placeholder = emailElement.attr("placeholder");
 
                             emailElement.val("");
                             emailElement.addClass("error").attr("placeholder","Username is already taken");
@@ -55,8 +57,8 @@ define([
                             }, 3000);
                         }
                         if(response.errors.hasOwnProperty('invalid_username')){
-                            var usernameElement = self.$el.find("input[name='username']");
-                            var placeholder = usernameElement.attr("placeholder");
+                            usernameElement = self.$el.find("input[name='username']");
+                            placeholder = usernameElement.attr("placeholder");
 
                             usernameElement.val("");
                             usernameElement.addClass("error").attr("placeholder",response.errors.invalid_username);
@@ -65,8 +67,8 @@ define([
                             }, 3000);
                         }
                         if(response.errors.hasOwnProperty('weak_password')){
-                            var pwdElement = self.$el.find("input[name='password']");
-                            var placeholder = pwdElement.attr("placeholder");
+                            pwdElement = self.$el.find("input[name='password']");
+                            placeholder = pwdElement.attr("placeholder");
 
                             pwdElement.val("");
                             pwdElement.addClass("error").attr("placeholder",response.errors.weak_password);
@@ -79,8 +81,8 @@ define([
             });
             this.model.bind('validated:invalid', function(model, errors) {
                 Object.keys(errors).forEach(function(k) {
-                    var htmlElement = self.$el.find("input[name='"+k+"']");
-                    var placeholder = htmlElement.attr("placeholder");
+                    htmlElement = self.$el.find("input[name='"+k+"']");
+                    placeholder = htmlElement.attr("placeholder");
 
                     htmlElement.val("");
                     htmlElement.addClass("error").attr("placeholder",errors[k]);

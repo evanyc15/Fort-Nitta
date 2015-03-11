@@ -88,7 +88,7 @@ define([
 			} else if(this.options.action === "messages"){
 				this.contentRegion.show(new MessagesLayout());
 			} else if(this.options.action === "forums"){
-				if(this.options.id && this.options.id != ""){
+				if(this.options.id && this.options.id !== ""){
 					var id = parseInt(self.options.id.substring(3));
 					this.contentRegion.show(new ForumsLayout({
 						action: self.options.action2,
@@ -106,7 +106,7 @@ define([
 			} else if(this.options.action === "admin"){
 				this.contentRegion.show(new AdminLayout());
 			} else{
-				this.contentRegion.show(new MyProfileView())
+				this.contentRegion.show(new MyProfileView());
 			}
 		},
 		onShow: function() {
@@ -117,7 +117,7 @@ define([
 				$("#parallax-pageLoadImg").addClass("iconBlink");
 			}
 			$("#parallax-pageLoadMeter").css('width','0');
-			$("#parallax-pageLoadHeader").text("Loading Main Page")
+			$("#parallax-pageLoadHeader").text("Loading Main Page");
 			$("#parallax-pageLoad").css('display','block');
 			
 			checkTopBar();
@@ -132,7 +132,7 @@ define([
 			}
 			function checkTopBarMsg(){
 				var interval = setInterval(function(){
-					if($("#topbar_messageContainer").length != 0){
+					if($("#topbar_messageContainer").length !== 0){
 						clearInterval(interval);
 					    checkPlayerList();
 					    $("#parallax-pageLoadImg").css('opacity',0.4);

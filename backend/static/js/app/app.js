@@ -33,7 +33,7 @@ define([
             if (this.onClose){
                 this.onClose();
             }
-        }
+        };
 
         return App;
     });

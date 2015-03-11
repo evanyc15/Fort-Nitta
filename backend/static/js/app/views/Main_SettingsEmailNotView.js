@@ -30,7 +30,7 @@ define([
             console.log("pressed submit ON EMAIL NOTIFICATION");
             console.log( self.$("#notificationSelect").val());
             console.log(App.session.user.get("username"));
-            var jsonData = {"username": App.session.user.get("username"), "n_hour": self.$("#notificationSelect").val()}
+            var jsonData = {"username": App.session.user.get("username"), "n_hour": self.$("#notificationSelect").val()};
             App.session.settings({
                 data: jsonData
                 },

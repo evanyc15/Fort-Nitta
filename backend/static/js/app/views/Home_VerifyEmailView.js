@@ -27,7 +27,7 @@ define([
             "click #sendEmailButton": "sendEmail"
         },
         onRender: function(){
-            this.urlParams = {}
+            this.urlParams = {};
 
             // Checks the url (passed in from controller), if there are GET parameters, then it sends the ajax call to verify user
             if(this.options.id && this.options.id !== 'undefined' && this.options.id !== "" && this.options.id !== "null") {

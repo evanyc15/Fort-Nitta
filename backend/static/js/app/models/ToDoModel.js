@@ -16,7 +16,7 @@ define([
             todo_message: '',
             todo_status: '',
             todo_type: '',
-            date_created
+            date_created: ''
         }
     });
 });

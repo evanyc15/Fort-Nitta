@@ -82,7 +82,7 @@ define([
                 event.stopPropagation();
                 event.preventDefault();
             }
-            if(this.$("#forumsThreadCreate-textarea") != ""){
+            if(this.$("#forumsThreadCreate-textarea") !== ""){
                 console.log("textsubmit");
                 this.model.set({
                     'title': this.$("#forumsThreadCreate-textarea").val(),

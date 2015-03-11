@@ -49,7 +49,7 @@ define([
                 console.log(results);
 
                 for(i = 0; i < results.length; i++){
-                    if(results[i].from_avatar_path == "" || typeof results[i].from_avatar_path == "undefined" || results[i].from_avatar_path === null){
+                    if(results[i].from_avatar_path === "" || typeof results[i].from_avatar_path === "undefined" || results[i].from_avatar_path === null){
                         results[i].from_avatar_path = "../../../img/placeholder-user.png";
                     } else {
                         results[i].from_avatar_path = '/api/avatar/'+results[i].from_avatar_path;

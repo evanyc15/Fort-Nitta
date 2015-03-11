@@ -19,12 +19,12 @@ define([
             this.options = options;
             var self = this;
 
-            this.urlParams = {}
+            this.urlParams = {};
             Backbone.Validation.bind(this, {
                 model: this.model
             });
             this.model.bind('validated:valid', function(model) {
-                self.urlParams["password"] = self.model.get("password");
+                self.urlParams.password = self.model.get("password");
                 if(self.options.id !== "" && self.options.id){
                     var vars = String(self.options.id).replace('?','').split('&');
                     for (var i = 0; i < vars.length; i++) {

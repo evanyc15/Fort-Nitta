@@ -29,7 +29,7 @@ define([
             this.remove();
         },
         onRender: function(){
-            var self = this
+            var self = this;
             if(this.options.messagesUser.get('messaging')){
                 this.contentRegion.show(new MessagesUserView({
                     messagesUser: self.options.messagesUser

@@ -49,10 +49,10 @@ define([
 
 			//This will process before the ajax request completes in getGameInfo, render template
 			//without table data for now
-			if(App.session.user.get('avatar_path') != "" && App.session.user.get('avatar_path') !== null){
-				avatar_path = '/api/avatar/'+App.session.user.get('avatar_path')
+			if(App.session.user.get('avatar_path') !== "" && App.session.user.get('avatar_path') !== null){
+				avatar_path = '/api/avatar/'+App.session.user.get('avatar_path');
 			} else{
-				avatar_path = "../../../img/placeholder-user.png"
+				avatar_path = "../../../img/placeholder-user.png";
 			}
 			var html = this.template({
 				'user_info': {
@@ -97,7 +97,7 @@ define([
 					withCredentials: true
 				},
 				success: function(data){
-					$("#profilePicture").attr('src','/api/avatar/'+ data.user.avatar_path)
+					$("#profilePicture").attr('src','/api/avatar/'+ data.user.avatar_path);
 				},
 				error: function(data){
 					alert('no upload');
@@ -121,7 +121,7 @@ define([
 		      		//data and user info
 		          self.collection.add(data, {merge: true});
 							var template_json = self.collection.toJSON();
-							template_json['user_info'] = {
+							template_json.user_info = {
 								"username": App.session.user.get('username'),
 								"email": App.session.user.get('email'),
 								"date_joined": moment(App.session.user.get('date_joined')).format("ddd, YYYY MMM Do")
@@ -134,7 +134,7 @@ define([
 		          self.getUserStatistics();
 
 		          //Add avatar image
-		          if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path != ""){
+		          if(App.session.user.attributes.avatar_path && App.session.user.attributes.avatar_path !== ""){
 								self.$el.find("#profilePicture").attr('src','/api/avatar/'+App.session.user.attributes.avatar_path);
 							}
 							$("#username").html(App.session.user.attributes.username);
@@ -164,11 +164,11 @@ define([
 						withCredentials: true
 					},
 					success: function(data){
-	          if(!data.user_statistics.win_loss_ratio || data.user_statistics.win_loss_ratio == '')
+	          if(!data.user_statistics.win_loss_ratio || data.user_statistics.win_loss_ratio === '')
 	            $("#win_loss_ratio").html("You haven't played any games yet!");
 	          else {
 	            $("#win_loss_ratio").html(data.user_statistics.win_loss_ratio);
-	            $("#win_loss_ratio_meter").css('width', (100*data.user_statistics.win_loss_ratio)+'%')
+	            $("#win_loss_ratio_meter").css('width', (100*data.user_statistics.win_loss_ratio)+'%');
 	          }
 					},
 					error: function(data){

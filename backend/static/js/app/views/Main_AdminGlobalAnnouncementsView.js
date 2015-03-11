@@ -67,7 +67,7 @@ define([
             if(!selector.hasClass("announcementButton")){
                 selector = $(event.target).closest(".announcementButton");
             }
-            this.triggerMethod("click:globalannouncementposts:show", {model: this.collection.get(selector.data("id"))})
+            this.triggerMethod("click:globalannouncementposts:show", {model: this.collection.get(selector.data("id"))});
         }
     });
 });

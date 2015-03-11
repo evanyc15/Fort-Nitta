@@ -130,9 +130,10 @@ define([
         },
         newLike: function(event){
             var htmlElement = $(event.target).closest('.large-10.columns').find('.forumsPostsTile-likeButton');
+            var id = "";
 
             if(htmlElement.hasClass('notLiked')){
-                var id = htmlElement.closest('.forumsPostsTile').data('id');
+                id = htmlElement.closest('.forumsPostsTile').data('id');
 
                 $.ajax({
                     url: '/api/forums/likes/',
@@ -155,7 +156,7 @@ define([
                     }
                 });
             } else if(htmlElement.hasClass('isLiked')){
-                var id = htmlElement.closest('.forumsPostsTile').data('id');
+                id = htmlElement.closest('.forumsPostsTile').data('id');
                 $.ajax({
                     url: '/api/forums/likes/',
                     type: 'DELETE',
