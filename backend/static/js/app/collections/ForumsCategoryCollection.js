@@ -1,3 +1,5 @@
+/// @file ForumsCategoryCollection.js
+/// Collection definition for forums category model
 define([
     'jquery',
     'marionette',

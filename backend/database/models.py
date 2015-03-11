@@ -211,6 +211,7 @@ class UserStatistics(db.Model):
         self.user_id = user_id
         self.wins = 0
         self.games_played = 0
+        self.win_loss_ratio = 0
 		
     def __repr__(self):
         """

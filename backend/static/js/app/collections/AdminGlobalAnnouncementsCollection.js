@@ -1,3 +1,5 @@
+/// AdminGlobalAnnouncementsCollection
+///	Collection definition for global announcements model
 define([
     'jquery',
     'marionette',

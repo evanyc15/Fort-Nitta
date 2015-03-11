@@ -1,3 +1,5 @@
+/// @file MessagesCollection.js
+/// Collection definition for messages model
 define([
     'jquery',
     'marionette',

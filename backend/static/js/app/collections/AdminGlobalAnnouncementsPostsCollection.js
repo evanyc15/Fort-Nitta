@@ -1,3 +1,5 @@
+/// @file AdminGlobalAnnouncementsPostsCollection.js
+/// Collection definition for global announcements posts model
 define([
     'jquery',
     'marionette',

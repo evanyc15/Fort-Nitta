@@ -1,3 +1,5 @@
+/// @file GameInfoCollection.js
+/// Collection definition for game info model
 define([
     'jquery',
     'marionette',

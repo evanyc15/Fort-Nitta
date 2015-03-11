@@ -1,3 +1,4 @@
+//! Collection definition for forums posts model
 define([
     'jquery',
     'marionette',

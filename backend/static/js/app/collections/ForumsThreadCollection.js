@@ -1,3 +1,5 @@
+/// @file ForumsThreadCollection.js
+/// Collection definition for forum threads model
 define([
     'jquery',
     'marionette',

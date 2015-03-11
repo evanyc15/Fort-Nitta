@@ -1,3 +1,5 @@
+/// @file TopBarMessagesCollection.js
+/// Collection definition for top bar messages model
 define([
     'jquery',
     'marionette',

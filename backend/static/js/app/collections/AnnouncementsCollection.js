@@ -1,3 +1,5 @@
+/// @file AnnouncementsCollection.js
+/// Collection definition for announcements model
 define([
     'jquery',
     'marionette',

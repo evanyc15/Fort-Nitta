@@ -1,3 +1,5 @@
+/// @file ToDoCollection.js
+/// Collection definition for ToDo model
 define([
     'jquery',
     'marionette',

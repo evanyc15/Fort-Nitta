@@ -1,3 +1,5 @@
+/// @file Collection.js
+/// Collection definition for Backbone model
 define(["jquery","backbone","models/Model"],
   function($, Backbone, Model) {
     // Creates a new Backbone Collection class object

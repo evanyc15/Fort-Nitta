@@ -1,3 +1,5 @@
+/// @file PlayersCollection.js
+/// Collection definition for players model
 define([
     'jquery',
     'marionette',

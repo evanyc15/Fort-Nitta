@@ -1,0 +1,69 @@
+\hypertarget{classbackend_1_1api_1_1forums_1_1_posts_a_p_i}{}\section{backend.\+api.\+forums.\+Posts\+A\+P\+I Class Reference}
+\label{classbackend_1_1api_1_1forums_1_1_posts_a_p_i}\index{backend.\+api.\+forums.\+Posts\+A\+P\+I@{backend.\+api.\+forums.\+Posts\+A\+P\+I}}
+
+
+\hyperlink{classbackend_1_1api_1_1forums_1_1_posts_a_p_i}{Posts\+A\+P\+I} class used to manage posts within a thread.  
+
+
+Inheritance diagram for backend.\+api.\+forums.\+Posts\+A\+P\+I\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classbackend_1_1api_1_1forums_1_1_posts_a_p_i}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classbackend_1_1api_1_1forums_1_1_posts_a_p_i_a1016588def16670a3b312d577f735f78}{post} (self)
+\begin{DoxyCompactList}\small\item\em post method Used to create a new post within a thread Expects (in J\+S\+O\+N data) \end{DoxyCompactList}\item 
+def \hyperlink{classbackend_1_1api_1_1forums_1_1_posts_a_p_i_a3c9cf0e6e45ece752053e40d9ccda7b7}{get} (self)
+\begin{DoxyCompactList}\small\item\em get method Used to retrieve the posts in J\+S\+O\+N format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classbackend_1_1api_1_1forums_1_1_posts_a_p_i}{Posts\+A\+P\+I} class used to manage posts within a thread. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classbackend_1_1api_1_1forums_1_1_posts_a_p_i_a3c9cf0e6e45ece752053e40d9ccda7b7}{}\index{backend\+::api\+::forums\+::\+Posts\+A\+P\+I@{backend\+::api\+::forums\+::\+Posts\+A\+P\+I}!get@{get}}
+\index{get@{get}!backend\+::api\+::forums\+::\+Posts\+A\+P\+I@{backend\+::api\+::forums\+::\+Posts\+A\+P\+I}}
+\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}def backend.\+api.\+forums.\+Posts\+A\+P\+I.\+get (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}\label{classbackend_1_1api_1_1forums_1_1_posts_a_p_i_a3c9cf0e6e45ece752053e40d9ccda7b7}
+
+
+get method Used to retrieve the posts in J\+S\+O\+N format. 
+
+The resulting J\+S\+O\+N array will also indicate whether a user has already liked a post. Expects in J\+S\+O\+N data 
+\begin{DoxyParams}{Parameters}
+{\em thread\+\_\+id} & The I\+D of the thread \\
+\hline
+{\em user\+\_\+id} & The I\+D of the user \\
+\hline
+\end{DoxyParams}
+\hypertarget{classbackend_1_1api_1_1forums_1_1_posts_a_p_i_a1016588def16670a3b312d577f735f78}{}\index{backend\+::api\+::forums\+::\+Posts\+A\+P\+I@{backend\+::api\+::forums\+::\+Posts\+A\+P\+I}!post@{post}}
+\index{post@{post}!backend\+::api\+::forums\+::\+Posts\+A\+P\+I@{backend\+::api\+::forums\+::\+Posts\+A\+P\+I}}
+\subsubsection[{post}]{\setlength{\rightskip}{0pt plus 5cm}def backend.\+api.\+forums.\+Posts\+A\+P\+I.\+post (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}\label{classbackend_1_1api_1_1forums_1_1_posts_a_p_i_a1016588def16670a3b312d577f735f78}
+
+
+post method Used to create a new post within a thread Expects (in J\+S\+O\+N data) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em thread\+\_\+id} & The I\+D of the thread \\
+\hline
+{\em user\+\_\+id} & The I\+D of the poster \\
+\hline
+{\em message} & The content of the post \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+backend/api/forums.\+py\end{DoxyCompactItemize}

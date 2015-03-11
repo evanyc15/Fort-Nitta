@@ -1,3 +1,5 @@
+/// @file AdminUserPrivilegesCollection.js
+/// Collection definition for admin user privileges model
 define([
     'jquery',
     'marionette',

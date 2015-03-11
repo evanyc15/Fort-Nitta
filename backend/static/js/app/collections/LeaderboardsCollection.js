@@ -1,3 +1,5 @@
+/// @file LeaderboardsCollection.js
+/// Collection definition for leaderboards model
 define([
     'jquery',
     'marionette',
