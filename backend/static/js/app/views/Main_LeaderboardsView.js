@@ -48,7 +48,7 @@ define([
                 console.log(data);
                 
                 self.collection.add(data, {merge: true});
-                    var template_json = self.collection.toJSON();
+                var template_json = self.collection.toJSON();
                 var html = self.template(template_json);
                 self.$el.html(html);
                 
