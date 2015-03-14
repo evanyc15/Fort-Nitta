@@ -1,14 +1,1 @@
-table {
-    width: 100%;
-}
-.dataTables_filter label input {
-    height: 20px;
-    margin-left: 10px;
-}
-.announcementButton:hover {
-    cursor: pointer;
-}
-.adminRows td a {
-    padding: 10px !important;
-    margin: 0;
-}
+table{width:100%}.dataTables_filter label input{height:20px;margin-left:10px}.announcementButton:hover{cursor:pointer}.adminRows td a{padding:10px!important;margin:0}
