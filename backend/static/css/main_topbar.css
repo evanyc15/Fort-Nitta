@@ -1,8 +1,8 @@
 .fixed {
     z-index: 99999 !important;
 }
-.top-bar:not(.expanded) {
-    position: initial !important;
+.top-bar.expanded {
+    position: fixed !important;
 }
 #topbar_messageContainer {
     position: fixed;
