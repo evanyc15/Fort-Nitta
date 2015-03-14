@@ -56,6 +56,7 @@ define([
 					withCredentials: true
 				},
 				success: function(data){
+					self.collection.reset();
 					self.collection.add(data, {merge: true});
 					var html = self.template(self.collection.toJSON());
 					html += self.template({messageCount:self.collection.length});
