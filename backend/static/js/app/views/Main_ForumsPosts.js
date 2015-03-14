@@ -40,6 +40,10 @@ define([
         onRender: function() {
             var self = this;
 
+            $('.slick-images').on("init", function(){
+                console.log("hello");
+            });
+
             $("#forumsLoadingOverlay").show();    
             $.ajax({
                 url: '/api/forums/posts?thread_id='+this.options.model.get('id')+'&user_id='+App.session.user.get('uid'),
@@ -58,13 +62,16 @@ define([
                     self.$el.html(html);
 
                     self.$el.find("#forumsPosts-header").text(self.options.model.get('title')); 
-                    $("div.forumsPostsBox").imagesLoaded(function(){
-                        $("#forumsLoadingOverlay").hide();
+                    $("#forumsLoadingOverlay").hide();             
+                },
+                error: function(data){
+                   
+                },
+                complete: function(){
+                    $(document).ready(function(){
                         $('.slick-images').slick({
-                            accessibility: true,
                             centerMode: true,
                             arrows: true,
-                            cssEase: 'ease',
                             infinite: true,
                             responsive: [
                             {
@@ -88,26 +95,21 @@ define([
                                 slidesToScroll: 1
                               }
                             }
-    // You can unslick at a given breakpoint now by adding:
-    // settings: "unslick"
-    // instead of a settings object
-  ]
+                            // You can unslick at a given breakpoint now by adding:
+                            // settings: "unslick"
+                            // instead of a settings object
+                          ]
                         });
-                        $(".fancybox-thumb").fancybox({
-                            prevEffect  : 'none',
-                            nextEffect  : 'none',
-                            helpers : {
-                                title   : {
-                                    type: 'outside'
-                                }
+                    });    
+                    $(".fancybox-thumb").fancybox({
+                        prevEffect  : 'none',
+                        nextEffect  : 'none',
+                        helpers : {
+                            title   : {
+                                type: 'outside'
                             }
-                        });   
-                    });              
-                },
-                error: function(data){
-                   
-                },
-                complete: function(){
+                        }
+                    });   
                     self.$el.find("#postsTable").DataTable({
                         "sPaginationType": "full_numbers",
                         "bSort": false,

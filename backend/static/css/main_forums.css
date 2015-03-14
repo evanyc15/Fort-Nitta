@@ -208,11 +208,12 @@
     height: 50px;
 }
 .slick-images div img {
-    max-height: 50px;
+    max-height: 50px !important;
+    height: auto !important;
+    width: auto !important;
 }
 .slick-initialized .slick-slide {
     display: inline-block !important;
-    width: auto !important;
     margin: 0px 1px 0px 1px;
 }
 

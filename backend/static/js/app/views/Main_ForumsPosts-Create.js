@@ -17,6 +17,7 @@ define([
         initialize: function(options){
             this.options = options;
             this.dropzone = null;
+            this.post_id = null;
         },
         events: {
             "click #forumsPostsCreate-buttonSubmit": "submitPost",
@@ -42,6 +43,7 @@ define([
                     },
                     success: function(data){
                         if(self.dropzone.files.length !== 0){
+                            this.post_id = data.id;
                             self.dropzone.options.headers = { "postid": data.id };
                             self.dropzone.processQueue();
                         } else {
@@ -96,15 +98,30 @@ define([
                     dictDefaultMessage: "Drop files here or click here to upload images",
                     init: function(){
                         this.on("success", function(data, server){
-                            console.log("data", server);
-                        });
-                        this.on("error", function(data, server){
-                            console.log("error", server);
-                        });
-                        this.on("queuecomplete", function (file) {
-                            setTimeout(function() {
+                             setTimeout(function() {
                                 self.triggerMethod("click:returnPosts:show", {model: self.options.model});
                             }, 1500);
+                        });
+                        this.on("error", function(data, server){
+                             $.ajax({
+                                url: '/api/forums/posts/',
+                                type: 'DELETE',
+                                contentType: 'application/json',
+                                dataType: 'json',
+                                data: JSON.stringify({'post_id': this.post_id}),
+                                crossDomain: true,
+                                xhrFields: {
+                                    withCredentials: true
+                                },
+                                success: function(response){
+                                    setTimeout(function() {
+                                        self.triggerMethod("click:returnPosts:show", {model: self.options.model});
+                                    }, 1500);
+                                }
+                            });
+                        });
+                        this.on("queuecomplete", function (file) {
+                           
                         });
                     }
                 });

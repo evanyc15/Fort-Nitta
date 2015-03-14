@@ -114,6 +114,18 @@ class PostsAPI(MethodView):
                 postsArray.append(jsonData)
             return json.dumps(postsArray)
         return jsonify(**{'success': False}), 401
+
+    def delete(self):
+        request_data = request.get_json(force=True, silent=True)
+        if request_data is None:
+            return jsonify(**{'success': 'none'}), 401
+        if ('post_id' in request_data) :
+            post = ForumsPosts.query.filter(ForumsPosts.post_id==request_data['post_id']).first()
+            db.session.delete(post)
+            db.session.commit()
+            return jsonify(**{'success': True})
+        return jsonify(**{'success': False}), 401
+
 ## PostsImagesAPI class
 # Class used to upload images for the forum posts.
 class PostsImagesAPI(MethodView):
@@ -223,7 +235,7 @@ threads_view = ThreadsAPI.as_view('threads_api')
 app.add_url_rule('/api/forums/threads/', view_func=threads_view, methods=['POST','GET'])
 
 posts_view = PostsAPI.as_view('posts_api')
-app.add_url_rule('/api/forums/posts/', view_func=posts_view, methods=['POST','GET'])
+app.add_url_rule('/api/forums/posts/', view_func=posts_view, methods=['POST','GET','DELETE'])
 
 postsimage_view = PostsImagesAPI.as_view('postsimages_api')
 app.add_url_rule('/api/forums/postsimages/', view_func=postsimage_view, methods=['POST','GET'])

@@ -12,9 +12,6 @@ input.error, textarea.error {
 }
 
 /* Top Bar Area CSS */
-#topbarRegion{
-    display: none;
-}
 #topBarLogo {
     margin-top: 5px;
     width: 110px;
@@ -28,7 +25,7 @@ input.error, textarea.error {
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 30px;
-    padding-top: 65px;
+    margin-top: 65px;
     margin-left: 0;
     margin-right: 0;
     max-width: initial;
