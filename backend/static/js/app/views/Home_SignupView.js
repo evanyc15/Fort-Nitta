@@ -27,14 +27,12 @@ define([
                     data: model.toJSON()
                 }, {
                     success: function(mod, res){
-                        console.log("SUCCESS");
                         self.model.clear();
                         Backbone.history.navigate('main', {trigger: true});
                     },
                     error: function(err){
                         var response = JSON.parse(err.responseText);
-                        var emailElement;
-                        var placeholder;
+                        var emailElement, placeholder;
 
                         if(response.errors.hasOwnProperty('email_taken')){
                             emailElement = self.$el.find("input[name='email']");
@@ -80,7 +78,8 @@ define([
                 });
             });
             this.model.bind('validated:invalid', function(model, errors) {
-                var htmlElement;
+                var htmlElement, placeholder;
+
                 Object.keys(errors).forEach(function(k) {
                     htmlElement = self.$el.find("input[name='"+k+"']");
                     placeholder = htmlElement.attr("placeholder");
