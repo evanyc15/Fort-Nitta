@@ -80,6 +80,7 @@ define([
                 });
             });
             this.model.bind('validated:invalid', function(model, errors) {
+                var htmlElement;
                 Object.keys(errors).forEach(function(k) {
                     htmlElement = self.$el.find("input[name='"+k+"']");
                     placeholder = htmlElement.attr("placeholder");

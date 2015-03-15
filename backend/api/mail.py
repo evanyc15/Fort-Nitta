@@ -17,8 +17,8 @@ import datetime
 class PasswordRecApi(MethodView):
     ## Used to send recovery email
     def post(self):
-        # url = "optical.cs.ucdavis.edu/"
-        url = "http://localhost:5000/"
+        url = "http://optical.cs.ucdavis.edu/"
+        # url = "http://localhost:5000/"
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
             return jsonify(**{'success': False }), 401
@@ -53,8 +53,8 @@ class PasswordRecApi(MethodView):
 class VerifyEmailApi(MethodView):
     ## sets the email to a verified state in the DB
     def post(self):
-        # url = "optical.cs.ucdavis.edu/" 
-        url = "http://localhost:5000/"
+        url = "http://optical.cs.ucdavis.edu/" 
+        # url = "http://localhost:5000/"
 
         request_data = request.get_json(force=True, silent=True)
         if request_data is None:
@@ -104,7 +104,8 @@ def sendEmail(PK, intervalID, intervalInSecs):
     queryObject = User.query.join(Settings, User.id==Settings.user_id).join(ChatMessages, Settings.user_id==ChatMessages.to_user).filter(and_(Settings.n_hour==intervalID, ChatMessages.id > PK)).all()
     maxPK = db.session.query(db.func.max(ChatMessages.id)).scalar()
     
-    url = "http://localhost:5000/" #"optical.cs.ucdavis.edu"#"http://localhost:5000/" 
+    url = "http://optical.cs.ucdavis.edu"
+    # url = "http://localhost:5000/" 
     string = ""
     emailArray = []
     for i in queryObject:
