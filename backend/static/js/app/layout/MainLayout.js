@@ -1,3 +1,6 @@
+/// @file Main_AdminLayout
+/// Layout for frame elements (top bar, side bar etc.) around all child pages
+
 define([
 	'app',
 	'jquery',

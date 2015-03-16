@@ -1,3 +1,6 @@
+/// @file MessageUserModel.js
+/// Contains information about the users involved in a chat message
+
 define([
     'jquery',
     'marionette',

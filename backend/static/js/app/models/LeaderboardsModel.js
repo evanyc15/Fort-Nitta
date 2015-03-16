@@ -1,3 +1,6 @@
+/// @file LeaderboardsModel.js
+/// Specifies the information for each leaderboard entry
+
 define([
     'jquery',
     'marionette',

@@ -1,3 +1,6 @@
+/// @file GameInfoModel
+/// Specifies layout of information about a single game
+
 define([
     'jquery',
     'marionette',

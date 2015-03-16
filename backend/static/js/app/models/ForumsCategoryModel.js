@@ -1,3 +1,6 @@
+/// @file ForumsCategoryModel.js
+/// Specifies the information needed for each forum category
+
 define([
     'jquery',
     'marionette',

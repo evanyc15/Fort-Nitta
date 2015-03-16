@@ -1,3 +1,5 @@
+/// @file ToDoModel
+/// Model for todo objects
 define([
     'jquery',
     'marionette',

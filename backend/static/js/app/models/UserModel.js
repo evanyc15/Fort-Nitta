@@ -1,3 +1,6 @@
+/// @file UserModel.hs
+/// Specifies the model for storing all user information on client
+
 define([
     'jquery',
     'marionette',

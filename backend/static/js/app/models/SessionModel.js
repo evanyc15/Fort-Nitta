@@ -1,3 +1,6 @@
+/// @file SessionModel.js
+/// Manages the layout of sessions, as well as session related functionality
+
 define([
     'app',
     'jquery',

@@ -1,3 +1,6 @@
+/// @file ChangePasswordModel.js
+/// Specifies information for password change, as well as returned error messages
+
 define([
     'jquery',
     'marionette',

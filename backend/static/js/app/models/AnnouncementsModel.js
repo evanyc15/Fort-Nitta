@@ -1,3 +1,6 @@
+/// @file AnnouncementsModel.js
+/// Specifies layout of information for each announcement
+
 define([
     'jquery',
     'marionette',

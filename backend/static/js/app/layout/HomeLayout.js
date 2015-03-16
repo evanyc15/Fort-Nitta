@@ -1,3 +1,6 @@
+/// @file HomeLayout
+/// Defines the layout of the homepage
+
 define([
 	'app',
 	'jquery',

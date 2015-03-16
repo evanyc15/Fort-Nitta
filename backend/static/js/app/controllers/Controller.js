@@ -1,3 +1,6 @@
+///@file Controller script
+/// Checks authentication
+
 define([
     'app', 
     'backbone', 

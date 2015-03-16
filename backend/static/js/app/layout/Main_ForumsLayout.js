@@ -1,3 +1,6 @@
+/// @file Main_ForumsLayout
+/// Layout for the forum
+
 define([
     'app',
     'jquery',

@@ -1,3 +1,6 @@
+/// @file AdminUserPrivilegesModel.js
+/// Sets the layout for the information needed to specify whether user is admin
+
 define([
     'jquery',
     'marionette',

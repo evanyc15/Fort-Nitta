@@ -1,3 +1,6 @@
+/// @file Main_AdminLayout
+/// Manages initiation of chat between two users
+
 define([
     'app',
     'jquery',

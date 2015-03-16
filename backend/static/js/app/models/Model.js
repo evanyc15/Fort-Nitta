@@ -1,3 +1,6 @@
+/// @file Model.js
+/// Sets a default template for all models
+
 define(["jquery", "backbone"],
     function ($, Backbone) {
         // Creates a new Backbone Model class object

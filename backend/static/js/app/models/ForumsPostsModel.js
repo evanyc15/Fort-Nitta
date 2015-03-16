@@ -1,3 +1,6 @@
+/// @file ForumsPostsModel.js
+/// Specifies layout of information needed for each forum post
+
 define([
     'jquery',
     'marionette',

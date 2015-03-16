@@ -1,3 +1,6 @@
+/// @file app.js
+/// Organizes the app into regions, corresponding to the DOM, and sets AJAX calls
+
 define([
     'jquery', 
     'backbone', 

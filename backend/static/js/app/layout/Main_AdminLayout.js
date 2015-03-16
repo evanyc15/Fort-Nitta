@@ -1,3 +1,6 @@
+/// @file Main_AdminLayout
+/// Layout for the admin specific views
+
 define([
     'app',
     'jquery',

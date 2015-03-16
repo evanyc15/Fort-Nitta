@@ -1,3 +1,6 @@
+/// @file Main_SettingsLayout
+/// Layout for the settings page
+
 define([
     'app',
     'jquery',

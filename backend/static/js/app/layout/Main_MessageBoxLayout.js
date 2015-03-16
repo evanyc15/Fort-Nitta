@@ -1,3 +1,6 @@
+/// @file Main_MessageBoxLayout
+/// Layout of the message chat region
+
 define([
     'app',
     'jquery',

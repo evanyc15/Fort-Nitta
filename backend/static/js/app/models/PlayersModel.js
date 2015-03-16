@@ -1,3 +1,6 @@
+/// @file PlayersModel.js
+/// Defines what information is held for each player
+
 define([
     'jquery',
     'marionette',

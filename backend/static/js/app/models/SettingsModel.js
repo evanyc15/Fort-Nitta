@@ -1,3 +1,6 @@
+/// @file SettingsModel.js
+/// Sets the information model, and error messages for the Settings page
+
 define([
     'jquery',
     'marionette',

@@ -1,3 +1,6 @@
+/// @file AppRouter.js
+/// Sets the routing to the server
+
 define([
     'marionette', 
     'controllers/Controller'

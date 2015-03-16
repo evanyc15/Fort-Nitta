@@ -1,3 +1,6 @@
+/// @file AdminGlobalAnnouncementsModel.js
+/// Sets the layout for global announcements
+
 define([
     'jquery',
     'marionette',

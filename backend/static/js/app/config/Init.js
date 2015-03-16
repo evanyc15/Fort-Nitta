@@ -1,6 +1,6 @@
 require.config({
     baseUrl:"./js/app",
-    // 3rd party script alias names (Easier to type "jquery" than "libs/jquery, etc")
+    /// 3rd party script alias names (Easier to type "jquery" than "libs/jquery, etc")
     // probably a good idea to keep version numbers in the file names for updates checking
     paths:{
         // Core Libraries
@@ -35,7 +35,7 @@ require.config({
         "pagepiling":"../libs/plugins/jquery.pagepiling.min",
         "imagesloaded":"../libs/plugins/imagesloaded.pkgd.min"
     },
-    // Sets the configuration for your third party scripts that are not AMD compatible
+    /// Sets the configuration for your third party scripts that are not AMD compatible
     shim:{
         "jqueryui":["jquery"],
         "backbone":{

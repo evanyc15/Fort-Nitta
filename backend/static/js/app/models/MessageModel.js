@@ -1,3 +1,6 @@
+/// @file MessageModel.js
+/// Sets what information is necessary for a chat message
+
 define([
     'jquery',
     'marionette',

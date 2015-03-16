@@ -1,3 +1,6 @@
+/// @file SignupModel.js
+/// Specifies what information is required for signup
+
 define([
     'jquery',
     'marionette',

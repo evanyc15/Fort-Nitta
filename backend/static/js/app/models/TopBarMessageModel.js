@@ -1,3 +1,6 @@
+/// @file TopBarMessageModel.js
+/// Sets the model for a message
+
 define([
     'jquery',
     'marionette',

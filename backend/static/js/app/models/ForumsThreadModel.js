@@ -1,3 +1,6 @@
+/// @file ForumsThreadModel.js
+/// Specifies layout for each forum thread
+
 define([
     'jquery',
     'marionette',
